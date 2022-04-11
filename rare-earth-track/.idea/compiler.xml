@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="rare-earth-track-common" />
+        <module name="rare-earth-track-portal" />
+        <module name="rare-earth-track-security" />
+        <module name="rare-earth-search" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="mall-admin" target="17" />
+      <module name="rare-eatch-search" target="17" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="mall-admin" options="-parameters" />
+      <module name="rare-earth-search" options="-parameters" />
+      <module name="rare-earth-track-common" options="-parameters" />
+      <module name="rare-earth-track-portal" options="-parameters" />
+      <module name="rare-earth-track-security" options="-parameters" />
+    </option>
+  </component>
+</project>
