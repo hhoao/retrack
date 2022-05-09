@@ -1,7 +1,7 @@
 package com.demo.rare_earth_track.service.impl;
 
 import com.demo.rare_earth_track.service.RedisService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
 
 import java.util.List;
@@ -12,12 +12,12 @@ import java.util.concurrent.TimeUnit;
 /**
  * Redis操作实现类
  *
- * @author macro
- * @date 2020/3/3
+ * @author hhoa
  */
+@AllArgsConstructor
 public class RedisServiceImpl implements RedisService {
-    @Autowired
     private RedisTemplate<String, Object> redisTemplate;
+
 
     @Override
     public void set(String key, Object value, long time) {

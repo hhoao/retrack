@@ -13,9 +13,7 @@ import java.util.Map;
 
 /**
  * Swagger基础配置
- *
- * @author macro
- * @date 2020/7/16
+ * @author hhoa
  */
 public abstract class BaseSwaggerConfig {
 

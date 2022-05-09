@@ -7,8 +7,7 @@ import java.util.Set;
 /**
  * Redis操作Service
  *
- * @author macro
- * @date 2020/3/3
+ * @author hhoa
  */
 @SuppressWarnings("unused")
 public interface RedisService {

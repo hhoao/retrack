@@ -3,7 +3,6 @@ package com.demo.rare_earth_track.log;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.core.util.URLUtil;
 import cn.hutool.json.JSONUtil;
-import com.macro.mall.common.domain.WebLog;
 import io.swagger.v3.oas.annotations.Operation;
 import net.logstash.logback.marker.Markers;
 import org.aspectj.lang.JoinPoint;
