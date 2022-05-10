@@ -24,6 +24,9 @@
         <maven.compiler.target>17</maven.compiler.target>
         <hutool-all.version>5.7.22</hutool-all.version>
         <pagehelper.version>5.3.0</pagehelper.version>
+        <rare-earth-track-common.version>1.0-SNAPSHOT</rare-earth-track-common.version>
+        <rare-earth-track-portal.version>1.0-SNAPSHOT</rare-earth-track-portal.version>
+        <rare-earth-track-security.version>1.0-SNAPSHOT</rare-earth-track-security.version>
     </properties>
     <dependencies>
         <dependency>
@@ -49,5 +52,25 @@
             <artifactId>lombok</artifactId>
         </dependency>
     </dependencies>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.demo</groupId>
+                <artifactId>rare-earth-track-common</artifactId>
+                <version>${rare-earth-track-common.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.demo</groupId>
+                <artifactId>rare-earth-track-security</artifactId>
+                <version>${rare-earth-track-security.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.demo</groupId>
+                <artifactId>rare-earth-track-portal</artifactId>
+                <version>${rare-earth-track-portal.version}</version>
+            </dependency>
+        </dependencies>
+
+    </dependencyManagement>
 
 </project>
