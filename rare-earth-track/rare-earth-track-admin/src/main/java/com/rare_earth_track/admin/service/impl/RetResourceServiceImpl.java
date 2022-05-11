@@ -4,7 +4,7 @@ package com.rare_earth_track.admin.service.impl;
 import com.rare_earth_track.admin.service.RetResourceCacheService;
 import com.rare_earth_track.admin.service.RetResourceService;
 import com.rare_earth_track.mgb.dao.RetResourceDao;
-import com.rare_earth_track.mgb.model.RetResource;
+import com.rare_earth_track.mgb.backup.RetResource;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

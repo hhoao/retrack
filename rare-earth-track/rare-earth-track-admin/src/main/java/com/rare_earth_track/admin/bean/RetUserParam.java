@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
-import com.rare_earth_track.mgb.model.RetResource;
+import com.rare_earth_track.mgb.backup.RetResource;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,7 +22,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @ToString
-@Schema(description = "用户参数")
+@Schema(description = "用户参数", name="用户参数")
 public class RetUserParam {
     @Schema(description = "用户id")
     private int id;

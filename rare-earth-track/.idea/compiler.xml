@@ -6,6 +6,8 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="rare-earth-track-mgb" />
+        <module name="rare-earth-track-admin" />
         <module name="rare-earth-track-common" />
         <module name="rare-earth-track-portal" />
         <module name="rare-earth-track-security" />
@@ -21,7 +23,9 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="mall-admin" options="-parameters" />
       <module name="rare-earth-search" options="-parameters" />
+      <module name="rare-earth-track-admin" options="-parameters" />
       <module name="rare-earth-track-common" options="-parameters" />
+      <module name="rare-earth-track-mgb" options="-parameters" />
       <module name="rare-earth-track-portal" options="-parameters" />
       <module name="rare-earth-track-security" options="-parameters" />
     </option>

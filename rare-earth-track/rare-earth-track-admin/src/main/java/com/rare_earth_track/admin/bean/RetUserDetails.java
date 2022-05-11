@@ -1,8 +1,8 @@
 package com.rare_earth_track.admin.bean;
 
 
-import com.rare_earth_track.mgb.model.RetResource;
-import com.rare_earth_track.mgb.model.RetUser;
+import com.rare_earth_track.mgb.backup.RetResource;
+import com.rare_earth_track.mgb.backup.RetUser;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 

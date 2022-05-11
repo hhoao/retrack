@@ -1,7 +1,7 @@
 package com.rare_earth_track.admin.service;
 
 
-import com.rare_earth_track.mgb.model.RetUser;
+import com.rare_earth_track.mgb.backup.RetUser;
 
 /**
  * @author hhoa

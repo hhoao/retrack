@@ -2,7 +2,7 @@ package com.rare_earth_track.admin.service.impl;
 
 import com.rare_earth_track.admin.service.RetUserCacheService;
 import com.rare_earth_track.common.service.RedisService;
-import com.rare_earth_track.mgb.model.RetUser;
+import com.rare_earth_track.mgb.backup.RetUser;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 

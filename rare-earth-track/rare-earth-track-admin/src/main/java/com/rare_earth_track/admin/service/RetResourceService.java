@@ -1,7 +1,7 @@
 package com.rare_earth_track.admin.service;
 
 
-import com.rare_earth_track.mgb.model.RetResource;
+import com.rare_earth_track.mgb.backup.RetResource;
 
 import java.util.List;
 

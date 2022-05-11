@@ -127,8 +127,10 @@ VALUES ('14', 'user14', '2', '14', now(), 'shandong', '$2a$10$j9BlU4Er9EIPb8DoxR
 DROP TABLE IF EXISTS ret_user_role_relation;
 create table IF NOT EXISTS ret_user_role_relation
 (
+    `id` bigint(20) AUTO_INCREMENT,
     user_id bigint(20) null,
     role_id bigint(20) null,
+    PRIMARY KEY (`id`),
     constraint FK_AUTHORITY_AND_USER_AUTH_ID
         foreign key (role_id) references ret_role (id),
     constraint KF_USER_AND_AUTHORITY_UID
@@ -196,8 +198,10 @@ VALUES ('4', '金力永磁', '未知4', '未知@未知4', '广州', '没什么�
 DROP TABLE IF EXISTS ret_factory_member_relation;
 CREATE TABLE ret_factory_user_relation
 (
+    `id` bigint(20) AUTO_INCREMENT,
     `factory_id` bigint(20),
     `user_id`    bigint(20),
+    PRIMARY KEY (`id`),
     CONSTRAINT FK_FACTORY_AND_USER_USER_ID FOREIGN KEY (`user_id`) REFERENCES `ret_user` (`id`),
     CONSTRAINT FK_FACTORY_AND_USER_FACTORY_ID FOREIGN KEY (`factory_id`) REFERENCES `ret_factory` (`id`)
 ) ENGINE = InnoDB
@@ -260,8 +264,10 @@ VALUES (8, '未知1', '钟师傅');
 DROP TABLE IF EXISTS `ret_user_member_relation`;
 CREATE TABLE `ret_user_member_relation`
 (
+    `id` bigint(20) AUTO_INCREMENT,
     `user_id`   bigint(20),
     `member_id` bigint(20),
+    PRIMARY KEY (`id`),
     FOREIGN KEY (`user_id`) REFERENCES `ret_user` (`id`),
     FOREIGN KEY (`member_id`) REFERENCES `ret_member` (`id`)
 ) ENGINE = InnoDB
@@ -288,8 +294,10 @@ VALUES (14, 8);
 DROP TABLE IF EXISTS `ret_member_job_relation`;
 CREATE TABLE `ret_member_job_relation_relation`
 (
+    `id` bigint(20) AUTO_INCREMENT,
     `member_id`     bigint(20),
     `member_job_id` bigint(20),
+    PRIMARY KEY (`id`),
     CONSTRAINT FK_MEMBER_AND_JOB_MEMBER_ID FOREIGN KEY (`member_id`) REFERENCES `ret_member` (`id`),
     CONSTRAINT FK_MEMBER_AND_JOB_JOB_ID FOREIGN KEY (`member_job_id`) REFERENCES `ret_member_job` (`id`)
 ) ENGINE = InnoDB
@@ -316,8 +324,10 @@ VALUES (8, 2);
 DROP TABLE IF EXISTS ret_factory_member_relation;
 CREATE TABLE ret_factory_member_relation
 (
+    `id` bigint(20) AUTO_INCREMENT,
     `factory_id` bigint(20) NOT NULL,
     `member_id`  bigint(20) NOT NULL,
+    PRIMARY KEY (`id`),
     CONSTRAINT FK_FACTORY_AND_MEMBER_FACTORY_ID FOREIGN KEY (`factory_id`) REFERENCES `ret_factory` (`id`),
     CONSTRAINT FK_FACTORY_AND_MEMBER_MEMBER_ID FOREIGN KEY (`member_id`) REFERENCES `ret_member` (`id`)
 ) ENGINE = InnoDB
@@ -413,8 +423,10 @@ CREATE TABLE `ret_product_document`
 DROP TABLE IF EXISTS `ret_product_document_relation`;
 CREATE TABLE `ret_product_document_relation`
 (
+    `id` bigint(20) AUTO_INCREMENT,
     `product_id`          bigint(20),
     `product_document_id` bigint(20),
+    PRIMARY KEY (`id`),
     CONSTRAINT FK_PRODUCT_AND_DOCUMENT_PRODUCT_ID FOREIGN KEY (`product_id`) REFERENCES `ret_product` (`id`),
     CONSTRAINT FK_PRODUCT_AND_DOCUMENT_DOCUMENT_ID FOREIGN KEY (`product_document_id`) REFERENCES `ret_product_document` (`id`)
 ) ENGINE = InnoDB
@@ -424,8 +436,10 @@ CREATE TABLE `ret_product_document_relation`
 DROP TABLE IF EXISTS `ret_product_factory_relation`;
 CREATE TABLE `ret_product_factory_relation`
 (
+    `id` bigint(20) AUTO_INCREMENT,
     `product_id` bigint(20),
     `factory_id` bigint(20),
+    PRIMARY KEY (`id`),
     CONSTRAINT PK_PRODUCT_AND_FACTORY_PRODUCT_ID FOREIGN KEY (`product_id`) REFERENCES `ret_product` (`id`),
     CONSTRAINT PK_PRODUCT_AND_FACTORY_FACTORY_ID FOREIGN KEY (`factory_id`) REFERENCES `ret_factory` (`id`)
 ) ENGINE = InnoDB
@@ -595,8 +609,10 @@ VALUES ('6', '稀土氧化物', ' 稀土元素氧化物是指元素周期表中�
 DROP TABLE IF EXISTS `ret_material_category_double_category_relation`;
 CREATE TABLE `ret_material_category_double_category_relation`
 (
+    `id` bigint(20) AUTO_INCREMENT,
     `category_id`        bigint(20),
     `double_category_id` bigint(20),
+    PRIMARY KEY (`id`),
     CONSTRAINT PK_MATERIAL_CATEGORY_AND_DOUBLE_CATEGORY_FOR_CATEGORY FOREIGN KEY (`category_id`) REFERENCES `ret_material_category` (`id`),
     CONSTRAINT PK_MATERIAL_CATEGORY_AND_DOUBLE_CATEGORY_FOR_DOUBLE_CATEGORY FOREIGN KEY (`double_category_id`) REFERENCES `ret_material_double_category` (`id`)
 ) ENGINE = InnoDB
@@ -657,8 +673,10 @@ VALUES (6, '制备技术', '稀土永磁材料的制备:熔炼、浇铸机械合
 DROP TABLE IF EXISTS `ret_material_double_category_document_relation`;
 CREATE TABLE `ret_material_double_category_document_relation`
 (
+    `id` bigint(20) AUTO_INCREMENT,
     `double_category_id` bigint(20),
     `document_id`        bigint(20),
+    PRIMARY KEY (`id`),
     CONSTRAINT PK_MATERIAL_DOUBLE_CATEGORY_AND_DOCUMENT_FOR_DOUBLE_CATEGORY FOREIGN KEY (`double_category_id`) REFERENCES `ret_material_double_category` (`id`),
     CONSTRAINT PK_MATERIAL_DOUBLE_CATEGORY_AND_DOCUMENT_FOR_DOCUMENT FOREIGN KEY (`document_id`) REFERENCES `ret_material_double_category_document` (`id`)
 ) ENGINE = InnoDB
@@ -681,8 +699,10 @@ VALUES (3, 6);
 DROP TABLE IF EXISTS `ret_material_category_double_category_document_relation`;
 CREATE TABLE `ret_material_category_double_category_document_relation`
 (
+    `id` bigint(20) AUTO_INCREMENT,
     `category_id`        bigint(20),
     `double_category_id` bigint(20),
+    PRIMARY KEY (`id`),
     CONSTRAINT FOREIGN KEY (`category_id`) REFERENCES `ret_material_category` (`id`),
     CONSTRAINT FOREIGN KEY (`double_category_id`) REFERENCES `ret_material_double_category` (`id`)
 ) ENGINE = InnoDB
@@ -706,8 +726,10 @@ VALUES (3, 6);
 DROP TABLE IF EXISTS `ret_material_category_relation`;
 CREATE TABLE `ret_material_category_relation`
 (
+    `id` bigint(20) AUTO_INCREMENT,
     `material_id`        bigint(20),
     `double_category_id` bigint(20),
+    PRIMARY KEY (`id`),
     CONSTRAINT FK_MATERIAL_AND_CATEGORY_MATERIAL_ID FOREIGN KEY (`material_id`) REFERENCES `ret_material` (`id`),
     CONSTRAINT FK_MATERIAL_AND_DOUBLE_CATEGORY_CATEGORY_ID FOREIGN KEY (`double_category_id`) REFERENCES `ret_material_double_category` (`id`)
 ) ENGINE = InnoDB
@@ -824,8 +846,10 @@ VALUES ('11', '用途',
 DROP TABLE IF EXISTS `ret_material_document_relation`;
 CREATE TABLE `ret_material_document_relation`
 (
+    `id` bigint(20) AUTO_INCREMENT,
     `material_id` bigint(20),
     `document_id` bigint(20),
+    PRIMARY KEY (`id`),
     CONSTRAINT FK_MATERIAL_AND_DOCUMENT_MATERIAL_ID FOREIGN KEY (`material_id`) REFERENCES `ret_material` (`id`),
     CONSTRAINT FK_MATERIAL_AND_DOCUMENT_DOCUMENT_ID FOREIGN KEY (`document_id`) REFERENCES `ret_material_document` (`id`)
 ) ENGINE = InnoDB
@@ -858,8 +882,10 @@ VALUES (12, 11);
 DROP TABLE IF EXISTS `ret_material_product_relation`;
 CREATE TABLE `ret_material_product_relation`
 (
+    `id` bigint(20) AUTO_INCREMENT,
     `material_id` bigint(20),
     `product_id`  bigint(20),
+    PRIMARY KEY (`id`),
     CONSTRAINT FK_MATERIAL_AND_PRODUCT_MATERIAL_ID FOREIGN KEY (`material_id`) REFERENCES `ret_material` (`id`),
     CONSTRAINT FK_MATERIAL_AND_PRODUCT_PRODUCT_ID FOREIGN KEY (`product_id`) REFERENCES `ret_product` (`id`)
 ) ENGINE = InnoDB
@@ -912,8 +938,10 @@ CREATE TABLE `ret_subject_category`
 DROP TABLE IF EXISTS `ret_subject_category_subject_relation`;
 CREATE TABLE `ret_subject_category_subject_relation`
 (
+    `id` bigint(20) AUTO_INCREMENT,
     `subject_id`          bigint(20),
     `subject_category_id` bigint(20),
+    PRIMARY KEY (`id`),
     CONSTRAINT FK_SUBJECT_AND_CATEGORY_SUBJECT_ID FOREIGN KEY (`subject_id`) REFERENCES `ret_subject` (`id`),
     CONSTRAINT FK_SUBJECT_AND_CATEGORY_CATEGORY_ID FOREIGN KEY (`subject_category_id`) REFERENCES `ret_subject_category` (`id`)
 ) ENGINE = InnoDB
@@ -952,8 +980,10 @@ CREATE TABLE `ret_help_category`
 DROP TABLE IF EXISTS `ret_help_category_help_relation`;
 CREATE TABLE `ret_help_category_help_relation`
 (
+    `id` bigint(20) AUTO_INCREMENT,
     `help_id`          bigint(20),
     `help_category_id` bigint(20),
+    PRIMARY KEY (`id`),
     CONSTRAINT FK_HELP_AND_HELP_HELP_ID FOREIGN KEY (`help_id`) REFERENCES `ret_help` (`id`),
     CONSTRAINT FK_HELP_AND_HELP_CATEGORY_ID FOREIGN KEY (`help_category_id`) REFERENCES `ret_help_category` (`id`)
 ) ENGINE = InnoDB
@@ -990,8 +1020,10 @@ CREATE TABLE `ret_feet_back_category`
 DROP TABLE IF EXISTS `ret_feet_back_category_relation`;
 CREATE TABLE `ret_feet_back_category_relation`
 (
+    `id` bigint(20) AUTO_INCREMENT,
     `feet_back_id`          bigint(20),
     `feet_back_category_id` bigint(20),
+    PRIMARY KEY (`id`),
     CONSTRAINT FK_FEET_BACK_AND_CATEGORY_FEET_BACK_ID FOREIGN KEY (`feet_back_id`) REFERENCES `ret_feet_back` (`id`),
     CONSTRAINT FK_FEET_BACK_AND_CATEGORY_CATEGORY_ID FOREIGN KEY (`feet_back_category_id`) REFERENCES `ret_feet_back_category` (`id`)
 ) ENGINE = InnoDB

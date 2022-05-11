@@ -3,7 +3,7 @@ package com.rare_earth_track.admin.service.impl;
 import com.rare_earth_track.admin.service.RetUserCacheService;
 import com.rare_earth_track.admin.service.RetUserService;
 import com.rare_earth_track.mgb.dao.RetUserDao;
-import com.rare_earth_track.mgb.model.RetUser;
+import com.rare_earth_track.mgb.backup.RetUser;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
