@@ -1,0 +1,57 @@
+server:
+  port: 8080
+spring:
+  profiles:
+    active: dev #默认为开发环境
+  mvc:
+    hiddenmethod:
+      filter:
+        #设置restful风格
+        enabled: true
+    format:
+      #设置日期格式
+      date: iso
+      date-time: yyyy-MM-dd HH:mm:ss
+  redis:
+    database: 0
+    port: 6379
+    password:
+  datasource:
+    #配置数据源
+    url: jdbc:mysql://localhost:3306/rare_earth_track
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: m45937494.
+  cache:
+    redis:
+      time-to-live: 1d
+mybatis:
+  #配置mapper的路径
+  mapper-locations:
+    - classpath:mybatis/dao/*.xml
+redis:
+  database: jwt
+  key:
+    resources: 'resources'
+    admin: 'admin'
+  expire:
+    common: 86400 # 24小时
+jwt:
+  secret: ret-security
+  expiration: 604800
+  token-Header: Authorization
+  token-head: 'Bearer'
+  refresh-time: 30
+  ignored:
+    urls:
+      - /swagger-ui/**
+      - /swagger-ui.html
+      - /v3/api-docs
+      - /v3/api-docs/**
+      - /**/*.js
+      - /**/*.css
+      - /**/*.png
+      - /**/*.ico
+      - /login.html
+      - /login
+

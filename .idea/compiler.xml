@@ -7,16 +7,20 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="rare-earth-track-admin" />
+        <module name="rare-earth-track-mgb" />
         <module name="rare-earth-track-common" />
-        <module name="rare-earth-track-portal" />
         <module name="rare-earth-track-security" />
+        <module name="rare-earth-track-portal" />
         <module name="rare-earth-search" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="rare-earth-search" target="17" />
       <module name="rare-earth-track" target="17" />
+      <module name="rare-earth-track-admin" target="17" />
       <module name="rare-earth-track-common" target="17" />
+      <module name="rare-earth-track-mgb" target="17" />
       <module name="rare-earth-track-portal" target="17" />
       <module name="rare-earth-track-security" target="17" />
     </bytecodeTargetLevel>
@@ -24,7 +28,10 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="rare-earth-search" options="-parameters" />
+      <module name="rare-earth-track" options="-parameters" />
+      <module name="rare-earth-track-admin" options="-parameters" />
       <module name="rare-earth-track-common" options="-parameters" />
+      <module name="rare-earth-track-mgb" options="-parameters" />
       <module name="rare-earth-track-portal" options="-parameters" />
       <module name="rare-earth-track-security" options="-parameters" />
     </option>

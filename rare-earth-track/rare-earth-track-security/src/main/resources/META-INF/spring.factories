@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.demo.rare_earth_track.security.config.JwtSecurityConfig
+com.rare_earth_track.security.config.JwtSecurityConfig

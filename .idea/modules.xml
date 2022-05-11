@@ -5,7 +5,9 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/RETrack.iml" filepath="$PROJECT_DIR$/.idea/RETrack.iml" />
       <module fileurl="file://$PROJECT_DIR$/rare-earth-track/rare-earth-search/rare-earth-search.iml" filepath="$PROJECT_DIR$/rare-earth-track/rare-earth-search/rare-earth-search.iml" />
       <module fileurl="file://$PROJECT_DIR$/rare-earth-track/rare-earth-track.iml" filepath="$PROJECT_DIR$/rare-earth-track/rare-earth-track.iml" />
+      <module fileurl="file://$PROJECT_DIR$/rare-earth-track/rare-earth-track-admin/rare-earth-track-admin.iml" filepath="$PROJECT_DIR$/rare-earth-track/rare-earth-track-admin/rare-earth-track-admin.iml" />
       <module fileurl="file://$PROJECT_DIR$/rare-earth-track/rare-earth-track-common/rare-earth-track-common.iml" filepath="$PROJECT_DIR$/rare-earth-track/rare-earth-track-common/rare-earth-track-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/rare-earth-track/rare-earth-track-mgb/rare-earth-track-mgb.iml" filepath="$PROJECT_DIR$/rare-earth-track/rare-earth-track-mgb/rare-earth-track-mgb.iml" />
       <module fileurl="file://$PROJECT_DIR$/rare-earth-track/rare-earth-track-portal/rare-earth-track-portal.iml" filepath="$PROJECT_DIR$/rare-earth-track/rare-earth-track-portal/rare-earth-track-portal.iml" />
       <module fileurl="file://$PROJECT_DIR$/rare-earth-track/rare-earth-track-security/rare-earth-track-security.iml" filepath="$PROJECT_DIR$/rare-earth-track/rare-earth-track-security/rare-earth-track-security.iml" />
     </modules>

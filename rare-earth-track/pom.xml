@@ -17,6 +17,8 @@
         <module>rare-earth-track-portal</module>
         <module>rare-earth-search</module>
         <module>rare-earth-track-security</module>
+        <module>rare-earth-track-admin</module>
+        <module>rare-earth-track-mgb</module>
     </modules>
 
     <properties>
@@ -27,6 +29,12 @@
         <rare-earth-track-common.version>1.0-SNAPSHOT</rare-earth-track-common.version>
         <rare-earth-track-portal.version>1.0-SNAPSHOT</rare-earth-track-portal.version>
         <rare-earth-track-security.version>1.0-SNAPSHOT</rare-earth-track-security.version>
+        <rare-earth-track-admin.version>1.0-SNAPSHOT</rare-earth-track-admin.version>
+        <rare-earth-track-mgb.version>1.0-SNAPSHOT</rare-earth-track-mgb.version>
+        <mybatis-spring-boot-starter.version>2.2.2</mybatis-spring-boot-starter.version>
+        <jwtt.version>0.9.0</jwtt.version>
+        <hhutool-all.version>5.7.15</hhutool-all.version>
+        <jackson-datatype-jsr310.version>2.13.2</jackson-datatype-jsr310.version>
     </properties>
     <dependencies>
         <dependency>
@@ -69,8 +77,17 @@
                 <artifactId>rare-earth-track-portal</artifactId>
                 <version>${rare-earth-track-portal.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.demo</groupId>
+                <artifactId>rare-earth-track-admin</artifactId>
+                <version>${rare-earth-track-admin.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.demo</groupId>
+                <artifactId>rare-earth-track-mgb</artifactId>
+                <version>${rare-earth-track-mgb.version}</version>
+            </dependency>
         </dependencies>
 
     </dependencyManagement>
-
 </project>
