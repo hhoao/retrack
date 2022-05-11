@@ -1,6 +1,7 @@
 package com.rare_earth_track.admin.service;
 
-import com.rare_earth_track.mgb.backup.RetResource;
+
+import com.rare_earth_track.mgb.model.RetResource;
 
 import java.util.List;
 
@@ -16,13 +17,13 @@ public interface RetResourceCacheService {
      * @param id id
      * @return resources
      */
-    List<RetResource> getResourcesByUserId(Integer id);
+    List<RetResource> getResourcesByUserId(Long id);
 
     /**
      * 通过用户名设置资源
      * @param retResources resources
      * @param id id
      */
-    void setResourcesByUserId(List<RetResource> retResources, Integer id);
+    void setResourcesByUserId(List<RetResource> retResources, Long id);
 
 }

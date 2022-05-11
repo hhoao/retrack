@@ -33,10 +33,10 @@
         <javaModelGenerator targetPackage="com.rare_earth_track.mgb.model"
                             targetProject="rare-earth-track/rare-earth-track-mgb/src/main/java"/>
 
-        <sqlMapGenerator targetPackage="com.rare_earth_track.mgb.dao"
+        <sqlMapGenerator targetPackage="com.rare_earth_track.mgb.mapper"
                          targetProject="rare-earth-track/rare-earth-track-mgb/src/main/resources"/>
 
-        <javaClientGenerator type="XMLMAPPER" targetPackage="com.rare_earth_track.mgb.dao"
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.rare_earth_track.mgb.mapper"
                              targetProject="rare-earth-track/rare-earth-track-mgb/src/main/java"/>
         <!--生成全部表tableName设为%-->
         <table tableName="%">

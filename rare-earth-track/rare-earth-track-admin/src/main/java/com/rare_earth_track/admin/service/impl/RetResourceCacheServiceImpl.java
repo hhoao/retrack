@@ -3,7 +3,7 @@ package com.rare_earth_track.admin.service.impl;
 
 import com.rare_earth_track.admin.service.RetResourceCacheService;
 import com.rare_earth_track.common.service.RedisService;
-import com.rare_earth_track.mgb.backup.RetResource;
+import com.rare_earth_track.mgb.model.RetResource;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -28,13 +28,13 @@ public class RetResourceCacheServiceImpl implements RetResourceCacheService {
     private String redisKeyResources;
 
     @Override
-    public List<RetResource> getResourcesByUserId(Integer id) {
+    public List<RetResource> getResourcesByUserId(Long id) {
         String key = redisDatabase + ":" + redisKeyResources + ":" + id;
         return (List<RetResource>)redisService.get(key);
     }
 
     @Override
-    public void setResourcesByUserId(List<RetResource> retResources, Integer id){
+    public void setResourcesByUserId(List<RetResource> retResources, Long id){
         String key = redisDatabase + ":" + redisKeyResources + ":" + id;
         redisService.set(key, retResources, redisExpire);
     }

@@ -1,7 +1,7 @@
 package com.rare_earth_track.admin.service;
 
 
-import com.rare_earth_track.mgb.backup.RetUser;
+import com.rare_earth_track.mgb.model.RetUser;
 
 import java.util.List;
 
@@ -16,12 +16,6 @@ public interface RetUserService {
      * @return 所有用户
      */
     List<RetUser> getAllUsers();
-
-    /**
-     * 增加用户
-     * @param retUser 用户
-     */
-    void addUser(RetUser retUser);
 
     /**
      * 通过用户名获取用户

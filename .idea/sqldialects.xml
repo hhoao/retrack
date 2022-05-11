@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="SqlDialectMappings">
-    <file url="file://$PROJECT_DIR$/rare-earth-track/rare-earth-track-admin/src/main/resources/mybatis/dao/RetResourceDao.xml" dialect="GenericSQL" />
-    <file url="file://$PROJECT_DIR$/rare-earth-track/rare-earth-track-admin/src/main/resources/mybatis/dao/RetUserDao.xml" dialect="GenericSQL" />
+    <file url="file://$PROJECT_DIR$/rare-earth-track/rare-earth-track-mgb/src/main/resources/com/rare_earth_track/mgb/mapper/RetResourceMapper.xml" dialect="GenericSQL" />
+    <file url="PROJECT" dialect="MySQL" />
+  </component>
+  <component name="SqlResolveMappings">
+    <file url="file://$PROJECT_DIR$/rare-earth-track/rare-earth-track-admin/src/main/resources/mybatis/dao/RetRoleResourceRelationDao.xml" scope="{&quot;node&quot;:{  &quot;@negative&quot;:&quot;1&quot;,  &quot;group&quot;:{   &quot;@kind&quot;:&quot;root&quot;,   &quot;node&quot;:{    &quot;name&quot;:{     &quot;@qname&quot;:&quot;561b7ff7-8426-4b98-8bf6-2c13707bb49e&quot;    },    &quot;group&quot;:{     &quot;@kind&quot;:&quot;schema&quot;,     &quot;node&quot;:{      &quot;name&quot;:{       &quot;@qname&quot;:&quot;rare_earth_track&quot;      }     }    }   }  } }}" />
   </component>
 </project>

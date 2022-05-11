@@ -1,7 +1,7 @@
 package com.rare_earth_track.admin.service;
 
 
-import com.rare_earth_track.mgb.backup.RetResource;
+import com.rare_earth_track.mgb.model.RetResource;
 
 import java.util.List;
 
@@ -21,5 +21,5 @@ public interface RetResourceService {
      * @param id id
      * @return 用户资源
      */
-    List<RetResource> getResourcesByUserId(Integer id);
+    List<RetResource> getResourcesByUserId(Long id);
 }

@@ -2,8 +2,9 @@ package com.rare_earth_track.admin.service.impl;
 
 import com.rare_earth_track.admin.service.RetUserCacheService;
 import com.rare_earth_track.admin.service.RetUserService;
-import com.rare_earth_track.mgb.dao.RetUserDao;
-import com.rare_earth_track.mgb.backup.RetUser;
+import com.rare_earth_track.mgb.mapper.RetUserMapper;
+import com.rare_earth_track.mgb.model.RetUser;
+import com.rare_earth_track.mgb.model.RetUserExample;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -17,15 +18,23 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class RetUserServiceImpl implements RetUserService {
-    private RetUserDao retUserDao;
+    private RetUserMapper retUserMapper;
     private final RetUserCacheService retUserCacheService;
+
+    @Override
+    public List<RetUser> getAllUsers() {
+        return retUserMapper.selectByExample(new RetUserExample());
+    }
 
     @Override
     public RetUser getUserByName(String name){
         RetUser retUser = retUserCacheService.getUserByName(name);
         if (retUser == null) {
-            retUser = retUserDao.getUserByName(name);
-            if (retUser != null){
+            RetUserExample retUserExample = new RetUserExample();
+            retUserExample.createCriteria().andNameEqualTo(name);
+            List<RetUser> retUsers = retUserMapper.selectByExample(retUserExample);
+            if (retUsers != null && retUsers.size() > 0){
+                retUser = retUsers.get(0);
                 retUserCacheService.setUser(retUser);
             }
             else{
@@ -36,13 +45,4 @@ public class RetUserServiceImpl implements RetUserService {
         return retUser;
     }
 
-    @Override
-    public List<RetUser> getAllUsers() {
-        return retUserDao.getAllUsers();
-    }
-
-    @Override
-    public void addUser(RetUser retUser) {
-        retUserDao.addUser(retUser);
-    }
 }

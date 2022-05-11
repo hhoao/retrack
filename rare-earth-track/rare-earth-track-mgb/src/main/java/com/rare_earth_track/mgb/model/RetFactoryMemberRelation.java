@@ -1,5 +1,6 @@
 package com.rare_earth_track.mgb.model;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.Serializable;
 
 public class RetFactoryMemberRelation implements Serializable {

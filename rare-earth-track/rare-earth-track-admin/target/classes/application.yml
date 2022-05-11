@@ -29,6 +29,7 @@ mybatis:
   #配置mapper的路径
   mapper-locations:
     - classpath:mybatis/dao/*.xml
+    - classpath:com/rare_earth_track/mgb/mapper
 redis:
   database: jwt
   key:
