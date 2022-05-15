@@ -25,7 +25,7 @@ public interface RetResourceRoleRelationMapper {
      * @param id id
      * @return int
      */
-    int deleteByPrimaryKey(Integer id);
+    int deleteByPrimaryKey(Long id);
 
     /**
      * insert
@@ -53,7 +53,7 @@ public interface RetResourceRoleRelationMapper {
      * @param id id
      * @return com.rare_earth_track.mgb.model.RetResourceRoleRelation
      */
-    RetResourceRoleRelation selectByPrimaryKey(Integer id);
+    RetResourceRoleRelation selectByPrimaryKey(Long id);
 
     /**
      * updateByExampleSelective

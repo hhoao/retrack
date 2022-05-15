@@ -31,6 +31,9 @@ redis:
   key:
     resources: 'resources'
     admin: 'admin'
+  auth-code:
+    - mail: ret-mail
+    - phone: ret-phone
   expire:
     common: 86400 # 24小时
 jwt:

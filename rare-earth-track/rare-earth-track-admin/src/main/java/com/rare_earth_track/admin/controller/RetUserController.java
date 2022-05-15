@@ -3,8 +3,8 @@ package com.rare_earth_track.admin.controller;
 
 import com.rare_earth_track.admin.service.RetUserService;
 import com.rare_earth_track.mgb.model.RetUser;
-import com.rare_earth_track.security.config.JwtSecurityProperties;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.tags.Tags;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,11 +20,11 @@ import java.util.List;
 public class RetUserController {
     private final RetUserService retUserService;
 
-    public RetUserController(RetUserService retUserService, JwtSecurityProperties properties) {
+    public RetUserController(RetUserService retUserService) {
         this.retUserService = retUserService;
     }
 
-    @Operation(description = "获取索引用户", summary = "获取所有用户")
+    @Operation(description = "获取索引用户", summary = "获取所有用户", security = @SecurityRequirement(name = "Authorization"))
     @GetMapping("/users")
     public List<RetUser> getAllUsers(){
         return retUserService.getAllUsers();

@@ -14,16 +14,15 @@ import java.util.List;
 public interface RetResourceCacheService {
     /**
      * 通过用户名获取资源
-     * @param id id
+     * @param role role
      * @return resources
      */
-    List<RetResource> getResourcesByUserId(Long id);
+    List<RetResource> getResourcesByRoleName(String role);
 
     /**
      * 通过用户名设置资源
      * @param retResources resources
-     * @param id id
+     * @param role role
      */
-    void setResourcesByUserId(List<RetResource> retResources, Long id);
-
+    void setResourcesByRoleName(List<RetResource> retResources, String role);
 }

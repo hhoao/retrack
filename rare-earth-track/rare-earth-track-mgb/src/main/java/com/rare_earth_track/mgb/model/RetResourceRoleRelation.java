@@ -4,11 +4,11 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.Serializable;
 
 public class RetResourceRoleRelation implements Serializable {
-    private Integer id;
+    private Long id;
 
-    private Integer resourceId;
+    private Long resourceId;
 
-    private Integer roleId;
+    private Long roleId;
 
     private static final long serialVersionUID = 1L;
 
@@ -16,7 +16,7 @@ public class RetResourceRoleRelation implements Serializable {
      * 
      * @return id 
      */
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
@@ -24,7 +24,7 @@ public class RetResourceRoleRelation implements Serializable {
      * 
      * @param id 
      */
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -32,7 +32,7 @@ public class RetResourceRoleRelation implements Serializable {
      * 
      * @return resource_id 
      */
-    public Integer getResourceId() {
+    public Long getResourceId() {
         return resourceId;
     }
 
@@ -40,7 +40,7 @@ public class RetResourceRoleRelation implements Serializable {
      * 
      * @param resourceId 
      */
-    public void setResourceId(Integer resourceId) {
+    public void setResourceId(Long resourceId) {
         this.resourceId = resourceId;
     }
 
@@ -48,7 +48,7 @@ public class RetResourceRoleRelation implements Serializable {
      * 
      * @return role_id 
      */
-    public Integer getRoleId() {
+    public Long getRoleId() {
         return roleId;
     }
 
@@ -56,7 +56,7 @@ public class RetResourceRoleRelation implements Serializable {
      * 
      * @param roleId 
      */
-    public void setRoleId(Integer roleId) {
+    public void setRoleId(Long roleId) {
         this.roleId = roleId;
     }
 

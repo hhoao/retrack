@@ -2,9 +2,8 @@ package com.rare_earth_track.mgb.mapper;
 
 import com.rare_earth_track.mgb.model.RetResource;
 import com.rare_earth_track.mgb.model.RetResourceExample;
-import org.apache.ibatis.annotations.Param;
-
 import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
 public interface RetResourceMapper {
     /**

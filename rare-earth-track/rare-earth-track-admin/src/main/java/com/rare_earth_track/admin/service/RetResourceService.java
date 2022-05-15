@@ -12,10 +12,17 @@ import java.util.List;
 public interface RetResourceService {
     /**
      * 获取所有资源
+
      * @return 所有资源
      */
     List<RetResource> getAllResources();
 
+    /**
+     * 通过ResourceId获取Resource
+     * @param resourceId 资源id
+     * @return resource
+     */
+    RetResource getResourceByResourceId(Long resourceId);
     /**
      * 通过用户id获取资源
      * @param id id

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.rare_earth_track.admin.dao.RetRoleResourceRelationDao">
+<mapper namespace="com.rare_earth_track.admin.dao.RetUserResourceRelationDao">
     <resultMap id="retResource" type="com.rare_earth_track.mgb.model.RetResource">
         <result property="id" column="resourceId"/>
         <result property="createTime" column="resourceCreateTime"/>
@@ -26,7 +26,7 @@
                       (
                           SELECT t.id, t.name, t.sex, t.password, t.birthday, t.address
                           FROM ret_user_role_relation u_r,
-                               (SELECT id, name, sex, password, birthday, address FROM ret_user where id = 1) t
+                               (SELECT id, name, sex, password, birthday, address FROM ret_user where id = #{id}) t
                           WHERE t.id = u_r.user_id) t
                  WHERE t.id = a_r.role_id
              ) t

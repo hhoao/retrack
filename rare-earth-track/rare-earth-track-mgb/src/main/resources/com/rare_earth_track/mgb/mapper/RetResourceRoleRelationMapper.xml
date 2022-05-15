@@ -2,9 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.rare_earth_track.mgb.mapper.RetResourceRoleRelationMapper">
   <resultMap id="BaseResultMap" type="com.rare_earth_track.mgb.model.RetResourceRoleRelation">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="resource_id" jdbcType="INTEGER" property="resourceId" />
-    <result column="role_id" jdbcType="INTEGER" property="roleId" />
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="resource_id" jdbcType="BIGINT" property="resourceId" />
+    <result column="role_id" jdbcType="BIGINT" property="roleId" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -81,15 +81,15 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from ret_resource_role_relation
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from ret_resource_role_relation
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
   </delete>
   <delete id="deleteByExample" parameterType="com.rare_earth_track.mgb.model.RetResourceRoleRelationExample">
     delete from ret_resource_role_relation
@@ -98,14 +98,14 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.rare_earth_track.mgb.model.RetResourceRoleRelation">
-    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into ret_resource_role_relation (resource_id, role_id)
-    values (#{resourceId,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER})
+    values (#{resourceId,jdbcType=BIGINT}, #{roleId,jdbcType=BIGINT})
   </insert>
   <insert id="insertSelective" parameterType="com.rare_earth_track.mgb.model.RetResourceRoleRelation">
-    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into ret_resource_role_relation
@@ -119,10 +119,10 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="resourceId != null">
-        #{resourceId,jdbcType=INTEGER},
+        #{resourceId,jdbcType=BIGINT},
       </if>
       <if test="roleId != null">
-        #{roleId,jdbcType=INTEGER},
+        #{roleId,jdbcType=BIGINT},
       </if>
     </trim>
   </insert>
@@ -136,13 +136,13 @@
     update ret_resource_role_relation
     <set>
       <if test="record.id != null">
-        id = #{record.id,jdbcType=INTEGER},
+        id = #{record.id,jdbcType=BIGINT},
       </if>
       <if test="record.resourceId != null">
-        resource_id = #{record.resourceId,jdbcType=INTEGER},
+        resource_id = #{record.resourceId,jdbcType=BIGINT},
       </if>
       <if test="record.roleId != null">
-        role_id = #{record.roleId,jdbcType=INTEGER},
+        role_id = #{record.roleId,jdbcType=BIGINT},
       </if>
     </set>
     <if test="_parameter != null">
@@ -151,9 +151,9 @@
   </update>
   <update id="updateByExample" parameterType="map">
     update ret_resource_role_relation
-    set id = #{record.id,jdbcType=INTEGER},
-      resource_id = #{record.resourceId,jdbcType=INTEGER},
-      role_id = #{record.roleId,jdbcType=INTEGER}
+    set id = #{record.id,jdbcType=BIGINT},
+      resource_id = #{record.resourceId,jdbcType=BIGINT},
+      role_id = #{record.roleId,jdbcType=BIGINT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -162,18 +162,18 @@
     update ret_resource_role_relation
     <set>
       <if test="resourceId != null">
-        resource_id = #{resourceId,jdbcType=INTEGER},
+        resource_id = #{resourceId,jdbcType=BIGINT},
       </if>
       <if test="roleId != null">
-        role_id = #{roleId,jdbcType=INTEGER},
+        role_id = #{roleId,jdbcType=BIGINT},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.rare_earth_track.mgb.model.RetResourceRoleRelation">
     update ret_resource_role_relation
-    set resource_id = #{resourceId,jdbcType=INTEGER},
-      role_id = #{roleId,jdbcType=INTEGER}
-    where id = #{id,jdbcType=INTEGER}
+    set resource_id = #{resourceId,jdbcType=BIGINT},
+      role_id = #{roleId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

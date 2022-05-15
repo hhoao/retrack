@@ -1,7 +1,8 @@
 package com.rare_earth_track.security.component;
 
 import com.rare_earth_track.security.config.JwtSecurityProperties;
-import com.rare_earth_track.security.util.JwtTokenUtil;
+import com.rare_earth_track.security.util.JwtTokenService;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -18,18 +19,15 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
+ * 用于认证用户
  * @author hhoa
  */
-public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
-    private static final Logger LOGGER = LoggerFactory.getLogger(JwtAuthenticationTokenFilter.class);
+@RequiredArgsConstructor
+public class AuthenticationTokenFilter extends OncePerRequestFilter {
+    private static final Logger LOGGER = LoggerFactory.getLogger(AuthenticationTokenFilter.class);
     private final UserDetailsService userDetailsService;
     private final JwtSecurityProperties jwtSecurityProperties;
-
-    public JwtAuthenticationTokenFilter(UserDetailsService userDetailsService, JwtSecurityProperties jwtSecurityProperties) {
-        this.userDetailsService = userDetailsService;
-        this.jwtSecurityProperties = jwtSecurityProperties;
-    }
-
+    private final JwtTokenService jwtTokenService;
     @Override
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
@@ -37,12 +35,11 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
         String authHeader = request.getHeader(jwtSecurityProperties.getTokenHeader());
         if (authHeader != null && authHeader.startsWith(jwtSecurityProperties.getTokenHead())) {
             String authToken = authHeader.substring(jwtSecurityProperties.getTokenHead().length());
-            JwtTokenUtil jwtTokenUtil = new JwtTokenUtil();
-            String username = jwtTokenUtil.getUserNameFromToken(authToken, jwtSecurityProperties.getSecret());
+            String username = jwtTokenService.getSubjectFromToken(authToken);
             LOGGER.info("checking username:{}", username);
             if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-                UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
-                if (jwtTokenUtil.validateToken(authToken, userDetails, jwtSecurityProperties.getSecret())) {
+                if (jwtTokenService.validateToken(authToken)) {
+                    UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
                     UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                     authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                     LOGGER.info("authenticated user:{}", username);

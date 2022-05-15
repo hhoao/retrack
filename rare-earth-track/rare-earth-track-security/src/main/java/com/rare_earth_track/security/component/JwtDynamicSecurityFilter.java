@@ -19,12 +19,12 @@ import java.util.List;
  * @author macro
  * @date 2020/2/7
  */
-public class DynamicSecurityFilter extends AbstractSecurityInterceptor implements Filter {
+public class JwtDynamicSecurityFilter extends AbstractSecurityInterceptor implements Filter {
     private final DynamicSecurityMetadataSource dynamicSecurityMetadataSource;
     private final List<String> ignoredUrls;
-    public DynamicSecurityFilter(DynamicAccessDecisionManager dynamicAcc,
-                                 DynamicSecurityMetadataSource dynamicSecurityMetadataSource,
-                                 List<String> ignoredUrls){
+    public JwtDynamicSecurityFilter(DynamicAccessDecisionManager dynamicAcc,
+                                    DynamicSecurityMetadataSource dynamicSecurityMetadataSource,
+                                    List<String> ignoredUrls){
         setAccessDecisionManager(dynamicAcc);
         this.dynamicSecurityMetadataSource = dynamicSecurityMetadataSource;
         this.ignoredUrls = ignoredUrls;

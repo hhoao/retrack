@@ -23,21 +23,34 @@ spring:
   cache:
     redis:
       time-to-live: 1d
+
 mybatis:
   #配置mapper的路径
   mapper-locations: classpath:mybatis/dao/*.xml
-redis:
-  database: jwt
-  key:
-    resources: 'resources'
-    admin: 'admin'
-  expire:
-    common: 86400 # 24小时
+ret:
+  mail:
+    from: haunghao@foxmail.com
+  redis:
+    database: ret
+    key:
+      resources: resources
+      admin: admin
+      token: token
+      role: role
+      mail: mail
+    auth-code:
+      mail: ret-mail
+      phone: ret-phone
+    expire:
+      common: 86400 # 24小时
+      token: 86400
+      mail: 60
+      role: 86400
 jwt:
   secret: ret-security
   expiration: 604800
   token-Header: Authorization
-  token-head: 'Bearer'
+  token-head: Bearer
   refresh-time: 30
   ignored:
     urls:
@@ -49,5 +62,4 @@ jwt:
       - /**/*.css
       - /**/*.png
       - /**/*.ico
-      - /login.html
-      - /login
+      - /user/auth/token

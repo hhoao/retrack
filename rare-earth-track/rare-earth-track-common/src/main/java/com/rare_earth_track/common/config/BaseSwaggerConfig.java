@@ -28,7 +28,7 @@ public abstract class BaseSwaggerConfig {
             api.components(new Components().securitySchemes(getSecuritySchemes()));
             SecurityRequirement securityRequirement = new SecurityRequirement();
             //name与securitySchemes中的name相对应
-            securityRequirement.addList("Authorization");
+            securityRequirement.addList("Authorization", "/**");
             api.security(List.of(securityRequirement));
 
         }

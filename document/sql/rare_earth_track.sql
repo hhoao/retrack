@@ -45,9 +45,9 @@ VALUES (4, 'ROLE_CUSTOM');
 -- 资源角色关系表
 CREATE TABLE IF NOT EXISTS ret_resource_role_relation
 (
-    id          int AUTO_INCREMENT PRIMARY KEY,
-    resource_id int REFERENCES ret_resource (`id`),
-    role_id     int REFERENCES ret_role (`id`)
+    id          bigint(20) AUTO_INCREMENT PRIMARY KEY,
+    resource_id bigint(20) REFERENCES ret_resource (`id`),
+    role_id     bigint(20) REFERENCES ret_role (`id`)
 ) COMMENT '资源角色关系表';
 INSERT INTO ret_resource_role_relation(resource_id, role_id)
 VALUES ('1', '1');
@@ -62,7 +62,7 @@ create table IF NOT EXISTS ret_user
     `nickname`               varchar(64) COMMENT '昵称',
     `age`                    int COMMENT '年龄',
     `sex`                    int(1) COMMENT '性别' DEFAULT '0' COMMENT '性别: 0->未知, 1->男, 2->女',
-    `phone`                  varchar(64)         DEFAULT NULL COMMENT '手机号码',
+    `phone`                  varchar(64)         DEFAULT NULL COMMENT '手机号码' UNIQUE ,
     `birthday`               date          COMMENT '生日',
     `address`                varchar(100) DEFAULT NULL COMMENT '地址',
     `password`               varchar(200) NOT NULL COMMENT '密码',
@@ -72,7 +72,7 @@ create table IF NOT EXISTS ret_user
     `icon`                   varchar(500)        DEFAULT null COMMENT '头像',
     `job`                    varchar(100)        DEFAULT NULL COMMENT '职业',
     `personalized_signature` varchar(200)        DEFAULT NULL COMMENT '个性签名',
-    `email`                  varchar(100)        DEFAULT NULL COMMENT '邮箱',
+    `email`                  varchar(100)        DEFAULT NULL COMMENT '邮箱' UNIQUE ,
     PRIMARY KEY (`id`),
     CHECK (`status` in ('0', '1')),
     CHECK (`sex` in ('0', '1', '2'))
@@ -80,8 +80,8 @@ create table IF NOT EXISTS ret_user
   AUTO_INCREMENT = 10 COMMENT '用户表';
 # 密码经BCrypt加密
 # 123456
-INSERT INTO ret_user(`id`, `name`, sex, age, birthday, address, password, status)
-VALUES ('1', 'user1', '1', '11', now(), 'beijing', '$2a$10$qWk7KeDqgddC8eIbRf/XeOIBarzcghgLkwOVhkvaprWJjGxkQchn.', 1);
+INSERT INTO ret_user(`id`, `name`, sex, age, birthday, address, password, status, phone, email)
+VALUES ('1', 'user1', '1', '11', now(), 'beijing', '$2a$10$qWk7KeDqgddC8eIbRf/XeOIBarzcghgLkwOVhkvaprWJjGxkQchn.', 1, 17679358123, 'huanghaohhoa@163.com');
 # 789012
 INSERT INTO ret_user(`id`, `name`, sex, age, birthday, address, password, status)
 VALUES ('2', 'user2', '1', '16', now(), 'beijing', '$2a$10$Rg9IkxecBtvfZkchm5OqxOaJggxk1u/LJ/mYh/CC/BHF/HBM9TshK', 1);
@@ -139,7 +139,7 @@ create table IF NOT EXISTS ret_user_role_relation
 
 -- 工厂
 INSERT INTO ret_user_role_relation(user_id, role_id)
-values ('1', '2');
+values ('1', '1');
 INSERT INTO ret_user_role_relation(user_id, role_id)
 values ('2', '2');
 INSERT INTO ret_user_role_relation(user_id, role_id)

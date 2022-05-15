@@ -25,7 +25,6 @@ public class CommonResult<T>{
         this.code = code;
         this.data = data;
     }
-
     /**
      * 成功返回结果
      * @param data 要封装的数据

@@ -8,7 +8,7 @@ import java.util.List;
  * @author hhoa
  * @date 2022/5/11
  **/
-public interface RetRoleResourceRelationDao {
+public interface RetUserResourceRelationDao {
     /**
      * 通过用户id获取用户资源
      * @param id id

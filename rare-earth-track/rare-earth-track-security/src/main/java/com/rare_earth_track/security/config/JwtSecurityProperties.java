@@ -14,10 +14,10 @@ import java.util.List;
 @ConfigurationProperties("jwt")
 public class JwtSecurityProperties {
     private String secret;
-    private Long expiration;
-    private String tokenHeader;
-    private String tokenHead;
-    private Integer refreshTime;
+    private Long expiration = 604800L;
+    private String tokenHeader = "Authorization";
+    private String tokenHead = "Bearer";
+    private Integer refreshTime = 30;
     private IgnoreUrlsConfig ignored =new IgnoreUrlsConfig();
     @Data
     public static class IgnoreUrlsConfig {

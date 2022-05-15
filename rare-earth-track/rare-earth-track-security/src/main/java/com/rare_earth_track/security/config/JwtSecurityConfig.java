@@ -2,8 +2,13 @@ package com.rare_earth_track.security.config;
 
 
 import com.rare_earth_track.security.component.*;
+import com.rare_earth_track.security.util.DefaultJwtTokenServiceImpl;
+import com.rare_earth_track.security.util.JwtTokenService;
+import io.jsonwebtoken.lang.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -31,13 +36,34 @@ public class JwtSecurityConfig extends WebSecurityConfigurerAdapter {
     private final JwtSecurityProperties jwtSecurityProperties;
     private UserDetailsService userDetailsService;
     private DynamicSecurityService dynamicSecurityService;
-    private JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
+    private AuthenticationTokenFilter authenticationTokenFilter;
     private PasswordEncoder passwordEncoder;
+    private JwtTokenService jwtTokenService;
 
     public JwtSecurityConfig(JwtSecurityProperties jwtSecurityProperties) {
         this.jwtSecurityProperties = jwtSecurityProperties;
     }
 
+    @Bean
+    @ConditionalOnMissingBean(JwtTokenService.class)
+    public JwtTokenService jwtTokenService(){
+        this.jwtTokenService = new DefaultJwtTokenServiceImpl();
+        configureJwtTokenService();
+        return this.jwtTokenService;
+    }
+
+    public void configureJwtTokenService(){
+        this.jwtTokenService.setTokenHead(jwtSecurityProperties.getTokenHead());
+        this.jwtTokenService.setExpiration(jwtSecurityProperties.getExpiration());
+        Assert.hasText(jwtSecurityProperties.getSecret());
+        this.jwtTokenService.setSecret(jwtSecurityProperties.getSecret());
+        this.jwtTokenService.setRefreshTime(jwtSecurityProperties.getRefreshTime());
+    }
+    @Autowired(required = false)
+    public JwtTokenService jwtTokenService(JwtTokenService jwtTokenService){
+        this.jwtTokenService = jwtTokenService;
+        return this.jwtTokenService;
+    }
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry registry = httpSecurity
@@ -69,7 +95,7 @@ public class JwtSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticationEntryPoint(getAuthenticationEntryPoint())
                 // 自定义权限拦截器JWT过滤器
                 .and()
-                .addFilterBefore(getJwtAuthenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(jwtAuthenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 
         //有动态权限配置时添加动态权限校验过滤器
         if (dynamicSecurityService != null){
@@ -77,20 +103,21 @@ public class JwtSecurityConfig extends WebSecurityConfigurerAdapter {
         }
     }
 
-    public JwtAuthenticationTokenFilter getJwtAuthenticationTokenFilter(){
-        if (this.jwtAuthenticationTokenFilter == null) {
-            UserDetailsService userDetailsService = userDetailsService();
-            this.jwtAuthenticationTokenFilter = new JwtAuthenticationTokenFilter(userDetailsService, jwtSecurityProperties);
+    public AuthenticationTokenFilter jwtAuthenticationTokenFilter(){
+        if (this.authenticationTokenFilter == null) {
+            this.authenticationTokenFilter = new AuthenticationTokenFilter(userDetailsService(),
+                    this.jwtSecurityProperties,
+                    this.jwtTokenService);
         }
-        return jwtAuthenticationTokenFilter;
+        return this.authenticationTokenFilter;
     }
     @Autowired(required = false)
     public void dynamicSecurityService(DynamicSecurityService dynamicSecurityService){
         this.dynamicSecurityService = dynamicSecurityService;
     }
 
-    public DynamicSecurityFilter getDynamicSecurityFilter(){
-        return new DynamicSecurityFilter(new DynamicAccessDecisionManager(),
+    public JwtDynamicSecurityFilter getDynamicSecurityFilter(){
+        return new JwtDynamicSecurityFilter(new DynamicAccessDecisionManager(),
                 new DynamicSecurityMetadataSource(dynamicSecurityService),
                 jwtSecurityProperties.getIgnored().getUrls());
     }

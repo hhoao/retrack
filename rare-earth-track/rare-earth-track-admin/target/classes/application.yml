@@ -1,6 +1,20 @@
 server:
   port: 8080
 spring:
+  mail:
+    host: smtp.qq.com
+    port: 587
+    username: haunghao@foxmail.com
+    password: dkebgphvnbbpfjfd
+    properties:
+      mail:
+        smtp:
+          socketFactory:
+            class=javax:
+              net:
+                ssl:
+                  SSLSocketFactory:
+
   profiles:
     active: dev #默认为开发环境
   mvc:
@@ -53,6 +67,5 @@ jwt:
       - /**/*.css
       - /**/*.png
       - /**/*.ico
-      - /login.html
-      - /login
+      - /user/auth/token
 
