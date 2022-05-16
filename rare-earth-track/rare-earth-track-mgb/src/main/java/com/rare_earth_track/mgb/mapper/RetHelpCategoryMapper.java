@@ -29,17 +29,17 @@ public interface RetHelpCategoryMapper {
 
     /**
      * insert
-     * @param record record
+     * @param row row
      * @return int
      */
-    int insert(RetHelpCategory record);
+    int insert(RetHelpCategory row);
 
     /**
      * insertSelective
-     * @param record record
+     * @param row row
      * @return int
      */
-    int insertSelective(RetHelpCategory record);
+    int insertSelective(RetHelpCategory row);
 
     /**
      * selectByExample
@@ -57,31 +57,31 @@ public interface RetHelpCategoryMapper {
 
     /**
      * updateByExampleSelective
-     * @param record record
+     * @param row row
      * @param example example
      * @return int
      */
-    int updateByExampleSelective(@Param("record") RetHelpCategory record, @Param("example") RetHelpCategoryExample example);
+    int updateByExampleSelective(@Param("row") RetHelpCategory row, @Param("example") RetHelpCategoryExample example);
 
     /**
      * updateByExample
-     * @param record record
+     * @param row row
      * @param example example
      * @return int
      */
-    int updateByExample(@Param("record") RetHelpCategory record, @Param("example") RetHelpCategoryExample example);
+    int updateByExample(@Param("row") RetHelpCategory row, @Param("example") RetHelpCategoryExample example);
 
     /**
      * updateByPrimaryKeySelective
-     * @param record record
+     * @param row row
      * @return int
      */
-    int updateByPrimaryKeySelective(RetHelpCategory record);
+    int updateByPrimaryKeySelective(RetHelpCategory row);
 
     /**
      * updateByPrimaryKey
-     * @param record record
+     * @param row row
      * @return int
      */
-    int updateByPrimaryKey(RetHelpCategory record);
+    int updateByPrimaryKey(RetHelpCategory row);
 }

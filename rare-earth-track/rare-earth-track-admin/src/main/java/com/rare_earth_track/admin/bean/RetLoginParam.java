@@ -4,11 +4,12 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
+ * 登录参数
  * @author hhoa
  * @date 2022/5/11
  **/
 @Data
-@Schema(description = "用户登录参数", name = "用户登录参数")
+@Schema(description = "RetLoginParam", name = "用户登录参数")
 public class RetLoginParam {
     @Schema(description = "用户名")
     private String name;

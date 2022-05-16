@@ -29,17 +29,17 @@ public interface RetHelpMapper {
 
     /**
      * insert
-     * @param record record
+     * @param row row
      * @return int
      */
-    int insert(RetHelp record);
+    int insert(RetHelp row);
 
     /**
      * insertSelective
-     * @param record record
+     * @param row row
      * @return int
      */
-    int insertSelective(RetHelp record);
+    int insertSelective(RetHelp row);
 
     /**
      * selectByExampleWithBLOBs
@@ -64,46 +64,46 @@ public interface RetHelpMapper {
 
     /**
      * updateByExampleSelective
-     * @param record record
+     * @param row row
      * @param example example
      * @return int
      */
-    int updateByExampleSelective(@Param("record") RetHelp record, @Param("example") RetHelpExample example);
+    int updateByExampleSelective(@Param("row") RetHelp row, @Param("example") RetHelpExample example);
 
     /**
      * updateByExampleWithBLOBs
-     * @param record record
+     * @param row row
      * @param example example
      * @return int
      */
-    int updateByExampleWithBLOBs(@Param("record") RetHelp record, @Param("example") RetHelpExample example);
+    int updateByExampleWithBLOBs(@Param("row") RetHelp row, @Param("example") RetHelpExample example);
 
     /**
      * updateByExample
-     * @param record record
+     * @param row row
      * @param example example
      * @return int
      */
-    int updateByExample(@Param("record") RetHelp record, @Param("example") RetHelpExample example);
+    int updateByExample(@Param("row") RetHelp row, @Param("example") RetHelpExample example);
 
     /**
      * updateByPrimaryKeySelective
-     * @param record record
+     * @param row row
      * @return int
      */
-    int updateByPrimaryKeySelective(RetHelp record);
+    int updateByPrimaryKeySelective(RetHelp row);
 
     /**
      * updateByPrimaryKeyWithBLOBs
-     * @param record record
+     * @param row row
      * @return int
      */
-    int updateByPrimaryKeyWithBLOBs(RetHelp record);
+    int updateByPrimaryKeyWithBLOBs(RetHelp row);
 
     /**
      * updateByPrimaryKey
-     * @param record record
+     * @param row row
      * @return int
      */
-    int updateByPrimaryKey(RetHelp record);
+    int updateByPrimaryKey(RetHelp row);
 }

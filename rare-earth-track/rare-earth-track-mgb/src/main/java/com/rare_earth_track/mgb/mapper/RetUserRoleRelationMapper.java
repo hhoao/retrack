@@ -29,17 +29,17 @@ public interface RetUserRoleRelationMapper {
 
     /**
      * insert
-     * @param record record
+     * @param row row
      * @return int
      */
-    int insert(RetUserRoleRelation record);
+    int insert(RetUserRoleRelation row);
 
     /**
      * insertSelective
-     * @param record record
+     * @param row row
      * @return int
      */
-    int insertSelective(RetUserRoleRelation record);
+    int insertSelective(RetUserRoleRelation row);
 
     /**
      * selectByExample
@@ -57,31 +57,31 @@ public interface RetUserRoleRelationMapper {
 
     /**
      * updateByExampleSelective
-     * @param record record
+     * @param row row
      * @param example example
      * @return int
      */
-    int updateByExampleSelective(@Param("record") RetUserRoleRelation record, @Param("example") RetUserRoleRelationExample example);
+    int updateByExampleSelective(@Param("row") RetUserRoleRelation row, @Param("example") RetUserRoleRelationExample example);
 
     /**
      * updateByExample
-     * @param record record
+     * @param row row
      * @param example example
      * @return int
      */
-    int updateByExample(@Param("record") RetUserRoleRelation record, @Param("example") RetUserRoleRelationExample example);
+    int updateByExample(@Param("row") RetUserRoleRelation row, @Param("example") RetUserRoleRelationExample example);
 
     /**
      * updateByPrimaryKeySelective
-     * @param record record
+     * @param row row
      * @return int
      */
-    int updateByPrimaryKeySelective(RetUserRoleRelation record);
+    int updateByPrimaryKeySelective(RetUserRoleRelation row);
 
     /**
      * updateByPrimaryKey
-     * @param record record
+     * @param row row
      * @return int
      */
-    int updateByPrimaryKey(RetUserRoleRelation record);
+    int updateByPrimaryKey(RetUserRoleRelation row);
 }

@@ -4,6 +4,12 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * 反馈
+ * @author hhoa 
+ * @date 2022-05-16
+ */
+@Schema(name = "反馈")
 public class RetFeetBack implements Serializable {
     private Long id;
 

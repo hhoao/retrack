@@ -261,99 +261,99 @@
   <update id="updateByExampleSelective" parameterType="map">
     update ret_product
     <set>
-      <if test="record.id != null">
-        id = #{record.id,jdbcType=BIGINT},
+      <if test="row.id != null">
+        id = #{row.id,jdbcType=BIGINT},
       </if>
-      <if test="record.name != null">
-        name = #{record.name,jdbcType=VARCHAR},
+      <if test="row.name != null">
+        name = #{row.name,jdbcType=VARCHAR},
       </if>
-      <if test="record.batchId != null">
-        batch_id = #{record.batchId,jdbcType=VARCHAR},
+      <if test="row.batchId != null">
+        batch_id = #{row.batchId,jdbcType=VARCHAR},
       </if>
-      <if test="record.dispatchTime != null">
-        dispatch_time = #{record.dispatchTime,jdbcType=TIMESTAMP},
+      <if test="row.dispatchTime != null">
+        dispatch_time = #{row.dispatchTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.moistureProofLogo != null">
-        moisture_proof_logo = #{record.moistureProofLogo,jdbcType=VARCHAR},
+      <if test="row.moistureProofLogo != null">
+        moisture_proof_logo = #{row.moistureProofLogo,jdbcType=VARCHAR},
       </if>
-      <if test="record.specification != null">
-        specification = #{record.specification,jdbcType=VARCHAR},
+      <if test="row.specification != null">
+        specification = #{row.specification,jdbcType=VARCHAR},
       </if>
-      <if test="record.packingType != null">
-        packing_type = #{record.packingType,jdbcType=VARCHAR},
+      <if test="row.packingType != null">
+        packing_type = #{row.packingType,jdbcType=VARCHAR},
       </if>
-      <if test="record.netWeight != null">
-        net_weight = #{record.netWeight,jdbcType=VARCHAR},
+      <if test="row.netWeight != null">
+        net_weight = #{row.netWeight,jdbcType=VARCHAR},
       </if>
-      <if test="record.transportLog != null">
-        transport_log = #{record.transportLog,jdbcType=VARCHAR},
+      <if test="row.transportLog != null">
+        transport_log = #{row.transportLog,jdbcType=VARCHAR},
       </if>
-      <if test="record.pic != null">
-        pic = #{record.pic,jdbcType=VARCHAR},
+      <if test="row.pic != null">
+        pic = #{row.pic,jdbcType=VARCHAR},
       </if>
-      <if test="record.purity != null">
-        purity = #{record.purity,jdbcType=VARCHAR},
+      <if test="row.purity != null">
+        purity = #{row.purity,jdbcType=VARCHAR},
       </if>
-      <if test="record.productionEquipment != null">
-        production_equipment = #{record.productionEquipment,jdbcType=VARCHAR},
+      <if test="row.productionEquipment != null">
+        production_equipment = #{row.productionEquipment,jdbcType=VARCHAR},
       </if>
-      <if test="record.materialRatio != null">
-        material_ratio = #{record.materialRatio,jdbcType=VARCHAR},
+      <if test="row.materialRatio != null">
+        material_ratio = #{row.materialRatio,jdbcType=VARCHAR},
       </if>
-      <if test="record.extractionUnit != null">
-        extraction_unit = #{record.extractionUnit,jdbcType=VARCHAR},
+      <if test="row.extractionUnit != null">
+        extraction_unit = #{row.extractionUnit,jdbcType=VARCHAR},
       </if>
-      <if test="record.albumPics != null">
-        album_pics = #{record.albumPics,jdbcType=VARCHAR},
+      <if test="row.albumPics != null">
+        album_pics = #{row.albumPics,jdbcType=VARCHAR},
       </if>
-      <if test="record.description != null">
-        description = #{record.description,jdbcType=LONGVARCHAR},
+      <if test="row.description != null">
+        description = #{row.description,jdbcType=LONGVARCHAR},
       </if>
     </set>
-    <if test="_parameter != null">
+    <if test="example != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByExampleWithBLOBs" parameterType="map">
     update ret_product
-    set id = #{record.id,jdbcType=BIGINT},
-      name = #{record.name,jdbcType=VARCHAR},
-      batch_id = #{record.batchId,jdbcType=VARCHAR},
-      dispatch_time = #{record.dispatchTime,jdbcType=TIMESTAMP},
-      moisture_proof_logo = #{record.moistureProofLogo,jdbcType=VARCHAR},
-      specification = #{record.specification,jdbcType=VARCHAR},
-      packing_type = #{record.packingType,jdbcType=VARCHAR},
-      net_weight = #{record.netWeight,jdbcType=VARCHAR},
-      transport_log = #{record.transportLog,jdbcType=VARCHAR},
-      pic = #{record.pic,jdbcType=VARCHAR},
-      purity = #{record.purity,jdbcType=VARCHAR},
-      production_equipment = #{record.productionEquipment,jdbcType=VARCHAR},
-      material_ratio = #{record.materialRatio,jdbcType=VARCHAR},
-      extraction_unit = #{record.extractionUnit,jdbcType=VARCHAR},
-      album_pics = #{record.albumPics,jdbcType=VARCHAR},
-      description = #{record.description,jdbcType=LONGVARCHAR}
-    <if test="_parameter != null">
+    set id = #{row.id,jdbcType=BIGINT},
+      name = #{row.name,jdbcType=VARCHAR},
+      batch_id = #{row.batchId,jdbcType=VARCHAR},
+      dispatch_time = #{row.dispatchTime,jdbcType=TIMESTAMP},
+      moisture_proof_logo = #{row.moistureProofLogo,jdbcType=VARCHAR},
+      specification = #{row.specification,jdbcType=VARCHAR},
+      packing_type = #{row.packingType,jdbcType=VARCHAR},
+      net_weight = #{row.netWeight,jdbcType=VARCHAR},
+      transport_log = #{row.transportLog,jdbcType=VARCHAR},
+      pic = #{row.pic,jdbcType=VARCHAR},
+      purity = #{row.purity,jdbcType=VARCHAR},
+      production_equipment = #{row.productionEquipment,jdbcType=VARCHAR},
+      material_ratio = #{row.materialRatio,jdbcType=VARCHAR},
+      extraction_unit = #{row.extractionUnit,jdbcType=VARCHAR},
+      album_pics = #{row.albumPics,jdbcType=VARCHAR},
+      description = #{row.description,jdbcType=LONGVARCHAR}
+    <if test="example != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
     update ret_product
-    set id = #{record.id,jdbcType=BIGINT},
-      name = #{record.name,jdbcType=VARCHAR},
-      batch_id = #{record.batchId,jdbcType=VARCHAR},
-      dispatch_time = #{record.dispatchTime,jdbcType=TIMESTAMP},
-      moisture_proof_logo = #{record.moistureProofLogo,jdbcType=VARCHAR},
-      specification = #{record.specification,jdbcType=VARCHAR},
-      packing_type = #{record.packingType,jdbcType=VARCHAR},
-      net_weight = #{record.netWeight,jdbcType=VARCHAR},
-      transport_log = #{record.transportLog,jdbcType=VARCHAR},
-      pic = #{record.pic,jdbcType=VARCHAR},
-      purity = #{record.purity,jdbcType=VARCHAR},
-      production_equipment = #{record.productionEquipment,jdbcType=VARCHAR},
-      material_ratio = #{record.materialRatio,jdbcType=VARCHAR},
-      extraction_unit = #{record.extractionUnit,jdbcType=VARCHAR},
-      album_pics = #{record.albumPics,jdbcType=VARCHAR}
-    <if test="_parameter != null">
+    set id = #{row.id,jdbcType=BIGINT},
+      name = #{row.name,jdbcType=VARCHAR},
+      batch_id = #{row.batchId,jdbcType=VARCHAR},
+      dispatch_time = #{row.dispatchTime,jdbcType=TIMESTAMP},
+      moisture_proof_logo = #{row.moistureProofLogo,jdbcType=VARCHAR},
+      specification = #{row.specification,jdbcType=VARCHAR},
+      packing_type = #{row.packingType,jdbcType=VARCHAR},
+      net_weight = #{row.netWeight,jdbcType=VARCHAR},
+      transport_log = #{row.transportLog,jdbcType=VARCHAR},
+      pic = #{row.pic,jdbcType=VARCHAR},
+      purity = #{row.purity,jdbcType=VARCHAR},
+      production_equipment = #{row.productionEquipment,jdbcType=VARCHAR},
+      material_ratio = #{row.materialRatio,jdbcType=VARCHAR},
+      extraction_unit = #{row.extractionUnit,jdbcType=VARCHAR},
+      album_pics = #{row.albumPics,jdbcType=VARCHAR}
+    <if test="example != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>

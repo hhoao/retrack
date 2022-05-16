@@ -1,6 +1,7 @@
 package com.rare_earth_track.admin.service;
 
 
+import com.rare_earth_track.admin.bean.RetUserParam;
 import com.rare_earth_track.admin.bean.RetUserRegisterParam;
 import com.rare_earth_track.admin.bean.RetUserUpdatePasswordParam;
 import com.rare_earth_track.common.exception.ApiException;
@@ -97,4 +98,12 @@ public interface RetUserService {
      * @return 用户
      */
     RetUser getUserCacheByUserName(String username);
+
+    /**
+     * 更新用户
+     * @param userParam 用户参数
+     * @return 用户
+     */
+    @Transactional(rollbackFor = Exception.class, noRollbackFor = ApiException.class)
+    RetUser updateUser(RetUserParam userParam);
 }

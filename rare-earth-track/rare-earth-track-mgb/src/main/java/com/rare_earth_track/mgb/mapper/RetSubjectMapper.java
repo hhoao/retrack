@@ -29,17 +29,17 @@ public interface RetSubjectMapper {
 
     /**
      * insert
-     * @param record record
+     * @param row row
      * @return int
      */
-    int insert(RetSubject record);
+    int insert(RetSubject row);
 
     /**
      * insertSelective
-     * @param record record
+     * @param row row
      * @return int
      */
-    int insertSelective(RetSubject record);
+    int insertSelective(RetSubject row);
 
     /**
      * selectByExampleWithBLOBs
@@ -64,46 +64,46 @@ public interface RetSubjectMapper {
 
     /**
      * updateByExampleSelective
-     * @param record record
+     * @param row row
      * @param example example
      * @return int
      */
-    int updateByExampleSelective(@Param("record") RetSubject record, @Param("example") RetSubjectExample example);
+    int updateByExampleSelective(@Param("row") RetSubject row, @Param("example") RetSubjectExample example);
 
     /**
      * updateByExampleWithBLOBs
-     * @param record record
+     * @param row row
      * @param example example
      * @return int
      */
-    int updateByExampleWithBLOBs(@Param("record") RetSubject record, @Param("example") RetSubjectExample example);
+    int updateByExampleWithBLOBs(@Param("row") RetSubject row, @Param("example") RetSubjectExample example);
 
     /**
      * updateByExample
-     * @param record record
+     * @param row row
      * @param example example
      * @return int
      */
-    int updateByExample(@Param("record") RetSubject record, @Param("example") RetSubjectExample example);
+    int updateByExample(@Param("row") RetSubject row, @Param("example") RetSubjectExample example);
 
     /**
      * updateByPrimaryKeySelective
-     * @param record record
+     * @param row row
      * @return int
      */
-    int updateByPrimaryKeySelective(RetSubject record);
+    int updateByPrimaryKeySelective(RetSubject row);
 
     /**
      * updateByPrimaryKeyWithBLOBs
-     * @param record record
+     * @param row row
      * @return int
      */
-    int updateByPrimaryKeyWithBLOBs(RetSubject record);
+    int updateByPrimaryKeyWithBLOBs(RetSubject row);
 
     /**
      * updateByPrimaryKey
-     * @param record record
+     * @param row row
      * @return int
      */
-    int updateByPrimaryKey(RetSubject record);
+    int updateByPrimaryKey(RetSubject row);
 }

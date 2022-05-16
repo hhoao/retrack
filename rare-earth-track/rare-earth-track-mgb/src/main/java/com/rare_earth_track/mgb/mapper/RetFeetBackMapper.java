@@ -29,17 +29,17 @@ public interface RetFeetBackMapper {
 
     /**
      * insert
-     * @param record record
+     * @param row row
      * @return int
      */
-    int insert(RetFeetBack record);
+    int insert(RetFeetBack row);
 
     /**
      * insertSelective
-     * @param record record
+     * @param row row
      * @return int
      */
-    int insertSelective(RetFeetBack record);
+    int insertSelective(RetFeetBack row);
 
     /**
      * selectByExampleWithBLOBs
@@ -64,46 +64,46 @@ public interface RetFeetBackMapper {
 
     /**
      * updateByExampleSelective
-     * @param record record
+     * @param row row
      * @param example example
      * @return int
      */
-    int updateByExampleSelective(@Param("record") RetFeetBack record, @Param("example") RetFeetBackExample example);
+    int updateByExampleSelective(@Param("row") RetFeetBack row, @Param("example") RetFeetBackExample example);
 
     /**
      * updateByExampleWithBLOBs
-     * @param record record
+     * @param row row
      * @param example example
      * @return int
      */
-    int updateByExampleWithBLOBs(@Param("record") RetFeetBack record, @Param("example") RetFeetBackExample example);
+    int updateByExampleWithBLOBs(@Param("row") RetFeetBack row, @Param("example") RetFeetBackExample example);
 
     /**
      * updateByExample
-     * @param record record
+     * @param row row
      * @param example example
      * @return int
      */
-    int updateByExample(@Param("record") RetFeetBack record, @Param("example") RetFeetBackExample example);
+    int updateByExample(@Param("row") RetFeetBack row, @Param("example") RetFeetBackExample example);
 
     /**
      * updateByPrimaryKeySelective
-     * @param record record
+     * @param row row
      * @return int
      */
-    int updateByPrimaryKeySelective(RetFeetBack record);
+    int updateByPrimaryKeySelective(RetFeetBack row);
 
     /**
      * updateByPrimaryKeyWithBLOBs
-     * @param record record
+     * @param row row
      * @return int
      */
-    int updateByPrimaryKeyWithBLOBs(RetFeetBack record);
+    int updateByPrimaryKeyWithBLOBs(RetFeetBack row);
 
     /**
      * updateByPrimaryKey
-     * @param record record
+     * @param row row
      * @return int
      */
-    int updateByPrimaryKey(RetFeetBack record);
+    int updateByPrimaryKey(RetFeetBack row);
 }

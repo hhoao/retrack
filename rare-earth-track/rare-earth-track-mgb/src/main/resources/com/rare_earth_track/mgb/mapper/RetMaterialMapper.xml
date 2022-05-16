@@ -174,44 +174,44 @@
   <update id="updateByExampleSelective" parameterType="map">
     update ret_material
     <set>
-      <if test="record.id != null">
-        id = #{record.id,jdbcType=BIGINT},
+      <if test="row.id != null">
+        id = #{row.id,jdbcType=BIGINT},
       </if>
-      <if test="record.name != null">
-        name = #{record.name,jdbcType=VARCHAR},
+      <if test="row.name != null">
+        name = #{row.name,jdbcType=VARCHAR},
       </if>
-      <if test="record.origin != null">
-        origin = #{record.origin,jdbcType=VARCHAR},
+      <if test="row.origin != null">
+        origin = #{row.origin,jdbcType=VARCHAR},
       </if>
-      <if test="record.createCompanyName != null">
-        create_company_name = #{record.createCompanyName,jdbcType=VARCHAR},
+      <if test="row.createCompanyName != null">
+        create_company_name = #{row.createCompanyName,jdbcType=VARCHAR},
       </if>
-      <if test="record.description != null">
-        description = #{record.description,jdbcType=LONGVARCHAR},
+      <if test="row.description != null">
+        description = #{row.description,jdbcType=LONGVARCHAR},
       </if>
     </set>
-    <if test="_parameter != null">
+    <if test="example != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByExampleWithBLOBs" parameterType="map">
     update ret_material
-    set id = #{record.id,jdbcType=BIGINT},
-      name = #{record.name,jdbcType=VARCHAR},
-      origin = #{record.origin,jdbcType=VARCHAR},
-      create_company_name = #{record.createCompanyName,jdbcType=VARCHAR},
-      description = #{record.description,jdbcType=LONGVARCHAR}
-    <if test="_parameter != null">
+    set id = #{row.id,jdbcType=BIGINT},
+      name = #{row.name,jdbcType=VARCHAR},
+      origin = #{row.origin,jdbcType=VARCHAR},
+      create_company_name = #{row.createCompanyName,jdbcType=VARCHAR},
+      description = #{row.description,jdbcType=LONGVARCHAR}
+    <if test="example != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
     update ret_material
-    set id = #{record.id,jdbcType=BIGINT},
-      name = #{record.name,jdbcType=VARCHAR},
-      origin = #{record.origin,jdbcType=VARCHAR},
-      create_company_name = #{record.createCompanyName,jdbcType=VARCHAR}
-    <if test="_parameter != null">
+    set id = #{row.id,jdbcType=BIGINT},
+      name = #{row.name,jdbcType=VARCHAR},
+      origin = #{row.origin,jdbcType=VARCHAR},
+      create_company_name = #{row.createCompanyName,jdbcType=VARCHAR}
+    <if test="example != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>

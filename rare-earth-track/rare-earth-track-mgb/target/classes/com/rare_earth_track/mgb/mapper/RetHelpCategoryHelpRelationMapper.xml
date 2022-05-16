@@ -135,26 +135,26 @@
   <update id="updateByExampleSelective" parameterType="map">
     update ret_help_category_help_relation
     <set>
-      <if test="record.id != null">
-        id = #{record.id,jdbcType=BIGINT},
+      <if test="row.id != null">
+        id = #{row.id,jdbcType=BIGINT},
       </if>
-      <if test="record.helpId != null">
-        help_id = #{record.helpId,jdbcType=BIGINT},
+      <if test="row.helpId != null">
+        help_id = #{row.helpId,jdbcType=BIGINT},
       </if>
-      <if test="record.helpCategoryId != null">
-        help_category_id = #{record.helpCategoryId,jdbcType=BIGINT},
+      <if test="row.helpCategoryId != null">
+        help_category_id = #{row.helpCategoryId,jdbcType=BIGINT},
       </if>
     </set>
-    <if test="_parameter != null">
+    <if test="example != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
     update ret_help_category_help_relation
-    set id = #{record.id,jdbcType=BIGINT},
-      help_id = #{record.helpId,jdbcType=BIGINT},
-      help_category_id = #{record.helpCategoryId,jdbcType=BIGINT}
-    <if test="_parameter != null">
+    set id = #{row.id,jdbcType=BIGINT},
+      help_id = #{row.helpId,jdbcType=BIGINT},
+      help_category_id = #{row.helpCategoryId,jdbcType=BIGINT}
+    <if test="example != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>

@@ -29,17 +29,17 @@ public interface RetResourceMapper {
 
     /**
      * insert
-     * @param record record
+     * @param row row
      * @return int
      */
-    int insert(RetResource record);
+    int insert(RetResource row);
 
     /**
      * insertSelective
-     * @param record record
+     * @param row row
      * @return int
      */
-    int insertSelective(RetResource record);
+    int insertSelective(RetResource row);
 
     /**
      * selectByExample
@@ -57,31 +57,31 @@ public interface RetResourceMapper {
 
     /**
      * updateByExampleSelective
-     * @param record record
+     * @param row row
      * @param example example
      * @return int
      */
-    int updateByExampleSelective(@Param("record") RetResource record, @Param("example") RetResourceExample example);
+    int updateByExampleSelective(@Param("row") RetResource row, @Param("example") RetResourceExample example);
 
     /**
      * updateByExample
-     * @param record record
+     * @param row row
      * @param example example
      * @return int
      */
-    int updateByExample(@Param("record") RetResource record, @Param("example") RetResourceExample example);
+    int updateByExample(@Param("row") RetResource row, @Param("example") RetResourceExample example);
 
     /**
      * updateByPrimaryKeySelective
-     * @param record record
+     * @param row row
      * @return int
      */
-    int updateByPrimaryKeySelective(RetResource record);
+    int updateByPrimaryKeySelective(RetResource row);
 
     /**
      * updateByPrimaryKey
-     * @param record record
+     * @param row row
      * @return int
      */
-    int updateByPrimaryKey(RetResource record);
+    int updateByPrimaryKey(RetResource row);
 }

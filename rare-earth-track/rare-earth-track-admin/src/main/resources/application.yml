@@ -5,6 +5,7 @@ spring:
     host: smtp.qq.com
     port: 587
     username: haunghao@foxmail.com
+    # 授权码
     password: dkebgphvnbbpfjfd
     properties:
       mail:

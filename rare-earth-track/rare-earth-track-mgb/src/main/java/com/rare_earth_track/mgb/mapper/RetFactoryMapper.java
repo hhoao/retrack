@@ -29,17 +29,17 @@ public interface RetFactoryMapper {
 
     /**
      * insert
-     * @param record record
+     * @param row row
      * @return int
      */
-    int insert(RetFactory record);
+    int insert(RetFactory row);
 
     /**
      * insertSelective
-     * @param record record
+     * @param row row
      * @return int
      */
-    int insertSelective(RetFactory record);
+    int insertSelective(RetFactory row);
 
     /**
      * selectByExample
@@ -57,31 +57,31 @@ public interface RetFactoryMapper {
 
     /**
      * updateByExampleSelective
-     * @param record record
+     * @param row row
      * @param example example
      * @return int
      */
-    int updateByExampleSelective(@Param("record") RetFactory record, @Param("example") RetFactoryExample example);
+    int updateByExampleSelective(@Param("row") RetFactory row, @Param("example") RetFactoryExample example);
 
     /**
      * updateByExample
-     * @param record record
+     * @param row row
      * @param example example
      * @return int
      */
-    int updateByExample(@Param("record") RetFactory record, @Param("example") RetFactoryExample example);
+    int updateByExample(@Param("row") RetFactory row, @Param("example") RetFactoryExample example);
 
     /**
      * updateByPrimaryKeySelective
-     * @param record record
+     * @param row row
      * @return int
      */
-    int updateByPrimaryKeySelective(RetFactory record);
+    int updateByPrimaryKeySelective(RetFactory row);
 
     /**
      * updateByPrimaryKey
-     * @param record record
+     * @param row row
      * @return int
      */
-    int updateByPrimaryKey(RetFactory record);
+    int updateByPrimaryKey(RetFactory row);
 }

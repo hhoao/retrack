@@ -1,6 +1,8 @@
 package com.rare_earth_track.admin.service.impl;
 
 
+import cn.hutool.core.bean.BeanUtil;
+import com.rare_earth_track.admin.bean.RetResourceParam;
 import com.rare_earth_track.admin.service.*;
 import com.rare_earth_track.mgb.mapper.RetResourceMapper;
 import com.rare_earth_track.mgb.model.RetResource;
@@ -19,8 +21,8 @@ import java.util.List;
 @AllArgsConstructor
 public class RetResourceServiceImpl implements RetResourceService {
     private RetResourceMapper resourceMapper;
-    private RetResourceRoleRelationService retResourceRoleRelationService;
-    private RetUserRoleRelationService retUserRoleRelationService;
+    private RetResourceRoleRelationService resourceRoleRelationService;
+    private RetUserRoleRelationService userRoleRelationService;
 
     @Override
     public List<RetResource> getAllResources() {
@@ -34,10 +36,17 @@ public class RetResourceServiceImpl implements RetResourceService {
 
     @Override
     public List<RetResource> getResourcesByUserId(Long id) {
-        RetRole role = retUserRoleRelationService.getRoleByUserId(id);
+        RetRole role = userRoleRelationService.getRoleByUserId(id);
         if (role != null){
-            return retResourceRoleRelationService.getResourcesByRoleId(role.getId());
+            return resourceRoleRelationService.getResourcesByRoleId(role.getId());
         }
         return null;
+    }
+
+    @Override
+    public int addResource(RetResourceParam resourceParam) {
+        RetResource resource = new RetResource();
+        BeanUtil.copyProperties(resource, resourceParam);
+        return resourceMapper.insert(resource);
     }
 }

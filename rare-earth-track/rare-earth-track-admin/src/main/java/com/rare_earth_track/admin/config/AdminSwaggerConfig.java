@@ -5,6 +5,7 @@ import com.rare_earth_track.common.domain.SwaggerProperties;
 import org.springframework.context.annotation.Configuration;
 
 /**
+ * Swagger配置
  * @author hhoa
  * @date 2022/5/11
  **/

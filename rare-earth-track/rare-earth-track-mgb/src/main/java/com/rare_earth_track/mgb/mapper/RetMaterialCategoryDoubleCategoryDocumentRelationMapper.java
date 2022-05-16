@@ -29,17 +29,17 @@ public interface RetMaterialCategoryDoubleCategoryDocumentRelationMapper {
 
     /**
      * insert
-     * @param record record
+     * @param row row
      * @return int
      */
-    int insert(RetMaterialCategoryDoubleCategoryDocumentRelation record);
+    int insert(RetMaterialCategoryDoubleCategoryDocumentRelation row);
 
     /**
      * insertSelective
-     * @param record record
+     * @param row row
      * @return int
      */
-    int insertSelective(RetMaterialCategoryDoubleCategoryDocumentRelation record);
+    int insertSelective(RetMaterialCategoryDoubleCategoryDocumentRelation row);
 
     /**
      * selectByExample
@@ -57,31 +57,31 @@ public interface RetMaterialCategoryDoubleCategoryDocumentRelationMapper {
 
     /**
      * updateByExampleSelective
-     * @param record record
+     * @param row row
      * @param example example
      * @return int
      */
-    int updateByExampleSelective(@Param("record") RetMaterialCategoryDoubleCategoryDocumentRelation record, @Param("example") RetMaterialCategoryDoubleCategoryDocumentRelationExample example);
+    int updateByExampleSelective(@Param("row") RetMaterialCategoryDoubleCategoryDocumentRelation row, @Param("example") RetMaterialCategoryDoubleCategoryDocumentRelationExample example);
 
     /**
      * updateByExample
-     * @param record record
+     * @param row row
      * @param example example
      * @return int
      */
-    int updateByExample(@Param("record") RetMaterialCategoryDoubleCategoryDocumentRelation record, @Param("example") RetMaterialCategoryDoubleCategoryDocumentRelationExample example);
+    int updateByExample(@Param("row") RetMaterialCategoryDoubleCategoryDocumentRelation row, @Param("example") RetMaterialCategoryDoubleCategoryDocumentRelationExample example);
 
     /**
      * updateByPrimaryKeySelective
-     * @param record record
+     * @param row row
      * @return int
      */
-    int updateByPrimaryKeySelective(RetMaterialCategoryDoubleCategoryDocumentRelation record);
+    int updateByPrimaryKeySelective(RetMaterialCategoryDoubleCategoryDocumentRelation row);
 
     /**
      * updateByPrimaryKey
-     * @param record record
+     * @param row row
      * @return int
      */
-    int updateByPrimaryKey(RetMaterialCategoryDoubleCategoryDocumentRelation record);
+    int updateByPrimaryKey(RetMaterialCategoryDoubleCategoryDocumentRelation row);
 }

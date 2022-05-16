@@ -3,6 +3,12 @@ package com.rare_earth_track.mgb.model;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.Serializable;
 
+/**
+ * 工厂
+ * @author hhoa 
+ * @date 2022-05-16
+ */
+@Schema(name = "工厂")
 public class RetFactory implements Serializable {
     private Long id;
 

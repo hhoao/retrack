@@ -29,17 +29,17 @@ public interface RetMaterialDocumentRelationMapper {
 
     /**
      * insert
-     * @param record record
+     * @param row row
      * @return int
      */
-    int insert(RetMaterialDocumentRelation record);
+    int insert(RetMaterialDocumentRelation row);
 
     /**
      * insertSelective
-     * @param record record
+     * @param row row
      * @return int
      */
-    int insertSelective(RetMaterialDocumentRelation record);
+    int insertSelective(RetMaterialDocumentRelation row);
 
     /**
      * selectByExample
@@ -57,31 +57,31 @@ public interface RetMaterialDocumentRelationMapper {
 
     /**
      * updateByExampleSelective
-     * @param record record
+     * @param row row
      * @param example example
      * @return int
      */
-    int updateByExampleSelective(@Param("record") RetMaterialDocumentRelation record, @Param("example") RetMaterialDocumentRelationExample example);
+    int updateByExampleSelective(@Param("row") RetMaterialDocumentRelation row, @Param("example") RetMaterialDocumentRelationExample example);
 
     /**
      * updateByExample
-     * @param record record
+     * @param row row
      * @param example example
      * @return int
      */
-    int updateByExample(@Param("record") RetMaterialDocumentRelation record, @Param("example") RetMaterialDocumentRelationExample example);
+    int updateByExample(@Param("row") RetMaterialDocumentRelation row, @Param("example") RetMaterialDocumentRelationExample example);
 
     /**
      * updateByPrimaryKeySelective
-     * @param record record
+     * @param row row
      * @return int
      */
-    int updateByPrimaryKeySelective(RetMaterialDocumentRelation record);
+    int updateByPrimaryKeySelective(RetMaterialDocumentRelation row);
 
     /**
      * updateByPrimaryKey
-     * @param record record
+     * @param row row
      * @return int
      */
-    int updateByPrimaryKey(RetMaterialDocumentRelation record);
+    int updateByPrimaryKey(RetMaterialDocumentRelation row);
 }

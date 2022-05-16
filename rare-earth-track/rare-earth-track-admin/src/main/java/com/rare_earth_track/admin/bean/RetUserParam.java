@@ -15,6 +15,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 /**
+ * 用户参数
  * @author hhoa
  * @date 2022/5/7
  **/
@@ -22,7 +23,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @ToString
-@Schema(description = "用户参数", name="用户参数")
+@Schema(description = "RetUserParam", name="用户参数")
 public class RetUserParam {
     @Schema(description = "用户id")
     private int id;

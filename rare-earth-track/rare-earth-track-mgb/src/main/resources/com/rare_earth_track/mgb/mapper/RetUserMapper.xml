@@ -237,78 +237,78 @@
   <update id="updateByExampleSelective" parameterType="map">
     update ret_user
     <set>
-      <if test="record.id != null">
-        id = #{record.id,jdbcType=BIGINT},
+      <if test="row.id != null">
+        id = #{row.id,jdbcType=BIGINT},
       </if>
-      <if test="record.name != null">
-        name = #{record.name,jdbcType=VARCHAR},
+      <if test="row.name != null">
+        name = #{row.name,jdbcType=VARCHAR},
       </if>
-      <if test="record.nickname != null">
-        nickname = #{record.nickname,jdbcType=VARCHAR},
+      <if test="row.nickname != null">
+        nickname = #{row.nickname,jdbcType=VARCHAR},
       </if>
-      <if test="record.age != null">
-        age = #{record.age,jdbcType=INTEGER},
+      <if test="row.age != null">
+        age = #{row.age,jdbcType=INTEGER},
       </if>
-      <if test="record.sex != null">
-        sex = #{record.sex,jdbcType=INTEGER},
+      <if test="row.sex != null">
+        sex = #{row.sex,jdbcType=INTEGER},
       </if>
-      <if test="record.phone != null">
-        phone = #{record.phone,jdbcType=VARCHAR},
+      <if test="row.phone != null">
+        phone = #{row.phone,jdbcType=VARCHAR},
       </if>
-      <if test="record.birthday != null">
-        birthday = #{record.birthday,jdbcType=DATE},
+      <if test="row.birthday != null">
+        birthday = #{row.birthday,jdbcType=DATE},
       </if>
-      <if test="record.address != null">
-        address = #{record.address,jdbcType=VARCHAR},
+      <if test="row.address != null">
+        address = #{row.address,jdbcType=VARCHAR},
       </if>
-      <if test="record.password != null">
-        password = #{record.password,jdbcType=VARCHAR},
+      <if test="row.password != null">
+        password = #{row.password,jdbcType=VARCHAR},
       </if>
-      <if test="record.status != null">
-        status = #{record.status,jdbcType=INTEGER},
+      <if test="row.status != null">
+        status = #{row.status,jdbcType=INTEGER},
       </if>
-      <if test="record.createTime != null">
-        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      <if test="row.createTime != null">
+        create_time = #{row.createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.latestTime != null">
-        latest_time = #{record.latestTime,jdbcType=TIMESTAMP},
+      <if test="row.latestTime != null">
+        latest_time = #{row.latestTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.icon != null">
-        icon = #{record.icon,jdbcType=VARCHAR},
+      <if test="row.icon != null">
+        icon = #{row.icon,jdbcType=VARCHAR},
       </if>
-      <if test="record.job != null">
-        job = #{record.job,jdbcType=VARCHAR},
+      <if test="row.job != null">
+        job = #{row.job,jdbcType=VARCHAR},
       </if>
-      <if test="record.personalizedSignature != null">
-        personalized_signature = #{record.personalizedSignature,jdbcType=VARCHAR},
+      <if test="row.personalizedSignature != null">
+        personalized_signature = #{row.personalizedSignature,jdbcType=VARCHAR},
       </if>
-      <if test="record.email != null">
-        email = #{record.email,jdbcType=VARCHAR},
+      <if test="row.email != null">
+        email = #{row.email,jdbcType=VARCHAR},
       </if>
     </set>
-    <if test="_parameter != null">
+    <if test="example != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
     update ret_user
-    set id = #{record.id,jdbcType=BIGINT},
-      name = #{record.name,jdbcType=VARCHAR},
-      nickname = #{record.nickname,jdbcType=VARCHAR},
-      age = #{record.age,jdbcType=INTEGER},
-      sex = #{record.sex,jdbcType=INTEGER},
-      phone = #{record.phone,jdbcType=VARCHAR},
-      birthday = #{record.birthday,jdbcType=DATE},
-      address = #{record.address,jdbcType=VARCHAR},
-      password = #{record.password,jdbcType=VARCHAR},
-      status = #{record.status,jdbcType=INTEGER},
-      create_time = #{record.createTime,jdbcType=TIMESTAMP},
-      latest_time = #{record.latestTime,jdbcType=TIMESTAMP},
-      icon = #{record.icon,jdbcType=VARCHAR},
-      job = #{record.job,jdbcType=VARCHAR},
-      personalized_signature = #{record.personalizedSignature,jdbcType=VARCHAR},
-      email = #{record.email,jdbcType=VARCHAR}
-    <if test="_parameter != null">
+    set id = #{row.id,jdbcType=BIGINT},
+      name = #{row.name,jdbcType=VARCHAR},
+      nickname = #{row.nickname,jdbcType=VARCHAR},
+      age = #{row.age,jdbcType=INTEGER},
+      sex = #{row.sex,jdbcType=INTEGER},
+      phone = #{row.phone,jdbcType=VARCHAR},
+      birthday = #{row.birthday,jdbcType=DATE},
+      address = #{row.address,jdbcType=VARCHAR},
+      password = #{row.password,jdbcType=VARCHAR},
+      status = #{row.status,jdbcType=INTEGER},
+      create_time = #{row.createTime,jdbcType=TIMESTAMP},
+      latest_time = #{row.latestTime,jdbcType=TIMESTAMP},
+      icon = #{row.icon,jdbcType=VARCHAR},
+      job = #{row.job,jdbcType=VARCHAR},
+      personalized_signature = #{row.personalizedSignature,jdbcType=VARCHAR},
+      email = #{row.email,jdbcType=VARCHAR}
+    <if test="example != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>

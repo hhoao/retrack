@@ -29,17 +29,17 @@ public interface RetMaterialCategoryMapper {
 
     /**
      * insert
-     * @param record record
+     * @param row row
      * @return int
      */
-    int insert(RetMaterialCategory record);
+    int insert(RetMaterialCategory row);
 
     /**
      * insertSelective
-     * @param record record
+     * @param row row
      * @return int
      */
-    int insertSelective(RetMaterialCategory record);
+    int insertSelective(RetMaterialCategory row);
 
     /**
      * selectByExampleWithBLOBs
@@ -64,46 +64,46 @@ public interface RetMaterialCategoryMapper {
 
     /**
      * updateByExampleSelective
-     * @param record record
+     * @param row row
      * @param example example
      * @return int
      */
-    int updateByExampleSelective(@Param("record") RetMaterialCategory record, @Param("example") RetMaterialCategoryExample example);
+    int updateByExampleSelective(@Param("row") RetMaterialCategory row, @Param("example") RetMaterialCategoryExample example);
 
     /**
      * updateByExampleWithBLOBs
-     * @param record record
+     * @param row row
      * @param example example
      * @return int
      */
-    int updateByExampleWithBLOBs(@Param("record") RetMaterialCategory record, @Param("example") RetMaterialCategoryExample example);
+    int updateByExampleWithBLOBs(@Param("row") RetMaterialCategory row, @Param("example") RetMaterialCategoryExample example);
 
     /**
      * updateByExample
-     * @param record record
+     * @param row row
      * @param example example
      * @return int
      */
-    int updateByExample(@Param("record") RetMaterialCategory record, @Param("example") RetMaterialCategoryExample example);
+    int updateByExample(@Param("row") RetMaterialCategory row, @Param("example") RetMaterialCategoryExample example);
 
     /**
      * updateByPrimaryKeySelective
-     * @param record record
+     * @param row row
      * @return int
      */
-    int updateByPrimaryKeySelective(RetMaterialCategory record);
+    int updateByPrimaryKeySelective(RetMaterialCategory row);
 
     /**
      * updateByPrimaryKeyWithBLOBs
-     * @param record record
+     * @param row row
      * @return int
      */
-    int updateByPrimaryKeyWithBLOBs(RetMaterialCategory record);
+    int updateByPrimaryKeyWithBLOBs(RetMaterialCategory row);
 
     /**
      * updateByPrimaryKey
-     * @param record record
+     * @param row row
      * @return int
      */
-    int updateByPrimaryKey(RetMaterialCategory record);
+    int updateByPrimaryKey(RetMaterialCategory row);
 }

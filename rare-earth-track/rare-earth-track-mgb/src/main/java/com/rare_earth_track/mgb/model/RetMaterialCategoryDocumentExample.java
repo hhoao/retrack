@@ -111,7 +111,8 @@ public class RetMaterialCategoryDocumentExample {
     }
 
     /**
-     * ret_material_category_document null
+     * ret_material_category_document
+     * @author hhoa 2022-05-16
      */
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
@@ -287,6 +288,7 @@ public class RetMaterialCategoryDocumentExample {
 
     /**
      * ret_material_category_document
+     * @author hhoa 2022-05-16
      */
     public static class Criteria extends GeneratedCriteria {
         protected Criteria() {
@@ -295,7 +297,8 @@ public class RetMaterialCategoryDocumentExample {
     }
 
     /**
-     * ret_material_category_document null
+     * ret_material_category_document
+     * @author hhoa 2022-05-16
      */
     public static class Criterion {
         private String condition;

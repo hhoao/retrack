@@ -1,22 +1,27 @@
 package com.rare_earth_track.common.api;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 /**
  * 通用返回对象
  * @author hhoa
  */
-
+@Schema(name = "通用返回对象")
 public class CommonResult<T>{
     /**
      * 状态码
      */
+    @Schema(description = "状态码")
     private long code;
     /**
      * 提示信息
      */
+    @Schema(description = "提示信息")
     private String message;
     /**
      * 数据封装
      */
+    @Schema(description = "数据")
     private T data;
     protected CommonResult(){
     }

@@ -1,5 +1,6 @@
 package com.rare_earth_track.admin.service.impl;
 
+import com.rare_earth_track.admin.bean.RetResourceRoleRelationParam;
 import com.rare_earth_track.admin.service.RetResourceRoleRelationService;
 import com.rare_earth_track.mgb.mapper.RetResourceMapper;
 import com.rare_earth_track.mgb.mapper.RetResourceRoleRelationMapper;
@@ -7,6 +8,7 @@ import com.rare_earth_track.mgb.model.RetResource;
 import com.rare_earth_track.mgb.model.RetResourceRoleRelation;
 import com.rare_earth_track.mgb.model.RetResourceRoleRelationExample;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -35,5 +37,13 @@ public class RetResourceRoleRelationServiceImpl implements RetResourceRoleRelati
             }
         }
         return resources;
+    }
+
+    @Override
+    public int addResourceRoleRelation(RetResourceRoleRelationParam roleResourceRelationParam) {
+        RetResourceRoleRelation resourceRoleRelation = new RetResourceRoleRelation();
+        BeanUtils.copyProperties(roleResourceRelationParam, resourceRoleRelation);
+        int insert = resourceRoleRelationMapper.insert(resourceRoleRelation);
+        return insert;
     }
 }

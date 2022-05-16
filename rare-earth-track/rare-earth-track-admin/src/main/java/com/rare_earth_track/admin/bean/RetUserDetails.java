@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
+ * 认证需要的UserDetails
  * @author hhoa
  **/
 public class RetUserDetails implements UserDetails {

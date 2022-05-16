@@ -23,6 +23,7 @@ public class Generator {
         InputStream is = Generator.class.getResourceAsStream("/generatorConfig.xml");
         ConfigurationParser cp = new ConfigurationParser(warnings);
         Configuration config = cp.parseConfiguration(is);
+        assert is != null;
         is.close();
 
         DefaultShellCallback callback = new DefaultShellCallback(overwrite);

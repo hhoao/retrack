@@ -19,6 +19,30 @@ CREATE TABLE IF NOT EXISTS ret_resource
 INSERT INTO ret_resource(id, create_time, name, url, method, description)
 VALUES (1, NOW(), '获取所有用户', '/users', 'GET', '获取所有用户');
 
+
+# -- 资源菜单表
+# DROP TABLE IF EXISTS ret_resource_menu;
+# CREATE TABLE IF NOT EXISTS ret_resource_menu
+# (
+#     `id`          bigint(20) NOT NULL,
+#     `name`        varchar(50) COMMENT '菜单名称',
+#     `description` varchar(50) COMMENT '菜单描述',
+#     CONSTRAINT PRIMARY KEY (`id`)
+# ) ENGINE = Innodb
+#   DEFAULT CHARSET = utf8 COMMENT '资源菜单表';
+
+# -- 资源和资源菜单关系表
+# CREATE TABLE IF NOT EXISTS ret_resource_menu_relation
+# (
+#     `id`          bigint(20) AUTO_INCREMENT PRIMARY KEY,
+#     `resource_id` bigint(20) REFERENCES ret_resource (`id`),
+#     `menu_id`     bigint(20) REFERENCES ret_role (`id`),
+#     CONSTRAINT PRIMARY KEY  (`id`),
+#     CONSTRAINT FOREIGN KEY (`resource_id`) REFERENCES `ret_resource`(`id`),
+#     CONSTRAINT FOREIGN KEY (`menu_id`) REFERENCES  `ret_resource_menu`(`id`)
+# ) COMMENT '资源和资源菜单关系表';
+
+
 -- 角色表
 DROP TABLE IF EXISTS `ret_role`;
 CREATE TABLE `ret_role`
@@ -231,6 +255,16 @@ INSERT INTO `ret_member_job`(id, name, description)
 VALUES (2, '运营人员', '专题板块管理');
 INSERT INTO `ret_member_job`(id, name, description)
 VALUES (3, '销售人员', '卖货的');
+
+CREATE TABLE `ret_member_job_resource_relation`
+(
+    `id` bigint(20) NOT NULL AUTO_INCREMENT,
+    `member_job_id` bigint(20) NOT NULL,
+    `resource_id` bigint(20) NOT NULL,
+    CONSTRAINT PRIMARY KEY (`id`),
+    CONSTRAINT FOREIGN KEY (`member_job_id`) REFERENCES `ret_member_job`(`id`),
+    CONSTRAINT FOREIGN KEY (`resource_id`) REFERENCES `ret_resource`(`id`)
+) COMMENT = '职位资源关系表';
 
 -- 工厂成员表
 DROP TABLE IF EXISTS ret_member;

@@ -112,7 +112,8 @@ public class RetFeetBackExample {
     }
 
     /**
-     * ret_feet_back null
+     * ret_feet_back
+     * @author hhoa 2022-05-16
      */
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
@@ -548,6 +549,7 @@ public class RetFeetBackExample {
 
     /**
      * ret_feet_back
+     * @author hhoa 2022-05-16
      */
     public static class Criteria extends GeneratedCriteria {
         protected Criteria() {
@@ -556,7 +558,8 @@ public class RetFeetBackExample {
     }
 
     /**
-     * ret_feet_back null
+     * ret_feet_back
+     * @author hhoa 2022-05-16
      */
     public static class Criterion {
         private String condition;

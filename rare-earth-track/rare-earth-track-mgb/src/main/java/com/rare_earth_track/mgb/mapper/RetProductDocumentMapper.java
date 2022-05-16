@@ -29,17 +29,17 @@ public interface RetProductDocumentMapper {
 
     /**
      * insert
-     * @param record record
+     * @param row row
      * @return int
      */
-    int insert(RetProductDocument record);
+    int insert(RetProductDocument row);
 
     /**
      * insertSelective
-     * @param record record
+     * @param row row
      * @return int
      */
-    int insertSelective(RetProductDocument record);
+    int insertSelective(RetProductDocument row);
 
     /**
      * selectByExampleWithBLOBs
@@ -64,46 +64,46 @@ public interface RetProductDocumentMapper {
 
     /**
      * updateByExampleSelective
-     * @param record record
+     * @param row row
      * @param example example
      * @return int
      */
-    int updateByExampleSelective(@Param("record") RetProductDocument record, @Param("example") RetProductDocumentExample example);
+    int updateByExampleSelective(@Param("row") RetProductDocument row, @Param("example") RetProductDocumentExample example);
 
     /**
      * updateByExampleWithBLOBs
-     * @param record record
+     * @param row row
      * @param example example
      * @return int
      */
-    int updateByExampleWithBLOBs(@Param("record") RetProductDocument record, @Param("example") RetProductDocumentExample example);
+    int updateByExampleWithBLOBs(@Param("row") RetProductDocument row, @Param("example") RetProductDocumentExample example);
 
     /**
      * updateByExample
-     * @param record record
+     * @param row row
      * @param example example
      * @return int
      */
-    int updateByExample(@Param("record") RetProductDocument record, @Param("example") RetProductDocumentExample example);
+    int updateByExample(@Param("row") RetProductDocument row, @Param("example") RetProductDocumentExample example);
 
     /**
      * updateByPrimaryKeySelective
-     * @param record record
+     * @param row row
      * @return int
      */
-    int updateByPrimaryKeySelective(RetProductDocument record);
+    int updateByPrimaryKeySelective(RetProductDocument row);
 
     /**
      * updateByPrimaryKeyWithBLOBs
-     * @param record record
+     * @param row row
      * @return int
      */
-    int updateByPrimaryKeyWithBLOBs(RetProductDocument record);
+    int updateByPrimaryKeyWithBLOBs(RetProductDocument row);
 
     /**
      * updateByPrimaryKey
-     * @param record record
+     * @param row row
      * @return int
      */
-    int updateByPrimaryKey(RetProductDocument record);
+    int updateByPrimaryKey(RetProductDocument row);
 }

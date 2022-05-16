@@ -29,17 +29,17 @@ public interface RetMemberJobRelationRelationMapper {
 
     /**
      * insert
-     * @param record record
+     * @param row row
      * @return int
      */
-    int insert(RetMemberJobRelationRelation record);
+    int insert(RetMemberJobRelationRelation row);
 
     /**
      * insertSelective
-     * @param record record
+     * @param row row
      * @return int
      */
-    int insertSelective(RetMemberJobRelationRelation record);
+    int insertSelective(RetMemberJobRelationRelation row);
 
     /**
      * selectByExample
@@ -57,31 +57,31 @@ public interface RetMemberJobRelationRelationMapper {
 
     /**
      * updateByExampleSelective
-     * @param record record
+     * @param row row
      * @param example example
      * @return int
      */
-    int updateByExampleSelective(@Param("record") RetMemberJobRelationRelation record, @Param("example") RetMemberJobRelationRelationExample example);
+    int updateByExampleSelective(@Param("row") RetMemberJobRelationRelation row, @Param("example") RetMemberJobRelationRelationExample example);
 
     /**
      * updateByExample
-     * @param record record
+     * @param row row
      * @param example example
      * @return int
      */
-    int updateByExample(@Param("record") RetMemberJobRelationRelation record, @Param("example") RetMemberJobRelationRelationExample example);
+    int updateByExample(@Param("row") RetMemberJobRelationRelation row, @Param("example") RetMemberJobRelationRelationExample example);
 
     /**
      * updateByPrimaryKeySelective
-     * @param record record
+     * @param row row
      * @return int
      */
-    int updateByPrimaryKeySelective(RetMemberJobRelationRelation record);
+    int updateByPrimaryKeySelective(RetMemberJobRelationRelation row);
 
     /**
      * updateByPrimaryKey
-     * @param record record
+     * @param row row
      * @return int
      */
-    int updateByPrimaryKey(RetMemberJobRelationRelation record);
+    int updateByPrimaryKey(RetMemberJobRelationRelation row);
 }

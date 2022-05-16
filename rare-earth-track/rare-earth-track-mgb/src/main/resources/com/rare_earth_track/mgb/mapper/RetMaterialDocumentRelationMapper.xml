@@ -135,26 +135,26 @@
   <update id="updateByExampleSelective" parameterType="map">
     update ret_material_document_relation
     <set>
-      <if test="record.id != null">
-        id = #{record.id,jdbcType=BIGINT},
+      <if test="row.id != null">
+        id = #{row.id,jdbcType=BIGINT},
       </if>
-      <if test="record.materialId != null">
-        material_id = #{record.materialId,jdbcType=BIGINT},
+      <if test="row.materialId != null">
+        material_id = #{row.materialId,jdbcType=BIGINT},
       </if>
-      <if test="record.documentId != null">
-        document_id = #{record.documentId,jdbcType=BIGINT},
+      <if test="row.documentId != null">
+        document_id = #{row.documentId,jdbcType=BIGINT},
       </if>
     </set>
-    <if test="_parameter != null">
+    <if test="example != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
     update ret_material_document_relation
-    set id = #{record.id,jdbcType=BIGINT},
-      material_id = #{record.materialId,jdbcType=BIGINT},
-      document_id = #{record.documentId,jdbcType=BIGINT}
-    <if test="_parameter != null">
+    set id = #{row.id,jdbcType=BIGINT},
+      material_id = #{row.materialId,jdbcType=BIGINT},
+      document_id = #{row.documentId,jdbcType=BIGINT}
+    <if test="example != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>

@@ -2,6 +2,7 @@ package com.rare_earth_track.admin.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.rare_earth_track.admin.bean.RetUserDetails;
+import com.rare_earth_track.admin.bean.RetUserParam;
 import com.rare_earth_track.admin.bean.RetUserRegisterParam;
 import com.rare_earth_track.admin.bean.RetUserUpdatePasswordParam;
 import com.rare_earth_track.admin.service.*;
@@ -193,6 +194,17 @@ public class RetUserServiceImpl implements RetUserService {
     @Override
     public RetUser getUserCacheByUserName(String username) {
         return userCacheService.getUserByName(username);
+    }
+
+    @Override
+    public RetUser updateUser(RetUserParam userParam) {
+        RetUser user = new RetUser();
+        BeanUtil.copyProperties(userParam, user);
+        int i = userMapper.updateByPrimaryKeySelective(user);
+        if (i == 0){
+            Asserts.fail("用户更新失败");
+        }
+        return user;
     }
 
     @Override

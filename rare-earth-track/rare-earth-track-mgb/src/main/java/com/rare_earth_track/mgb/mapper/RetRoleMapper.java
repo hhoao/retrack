@@ -29,17 +29,17 @@ public interface RetRoleMapper {
 
     /**
      * insert
-     * @param record record
+     * @param row row
      * @return int
      */
-    int insert(RetRole record);
+    int insert(RetRole row);
 
     /**
      * insertSelective
-     * @param record record
+     * @param row row
      * @return int
      */
-    int insertSelective(RetRole record);
+    int insertSelective(RetRole row);
 
     /**
      * selectByExample
@@ -57,31 +57,31 @@ public interface RetRoleMapper {
 
     /**
      * updateByExampleSelective
-     * @param record record
+     * @param row row
      * @param example example
      * @return int
      */
-    int updateByExampleSelective(@Param("record") RetRole record, @Param("example") RetRoleExample example);
+    int updateByExampleSelective(@Param("row") RetRole row, @Param("example") RetRoleExample example);
 
     /**
      * updateByExample
-     * @param record record
+     * @param row row
      * @param example example
      * @return int
      */
-    int updateByExample(@Param("record") RetRole record, @Param("example") RetRoleExample example);
+    int updateByExample(@Param("row") RetRole row, @Param("example") RetRoleExample example);
 
     /**
      * updateByPrimaryKeySelective
-     * @param record record
+     * @param row row
      * @return int
      */
-    int updateByPrimaryKeySelective(RetRole record);
+    int updateByPrimaryKeySelective(RetRole row);
 
     /**
      * updateByPrimaryKey
-     * @param record record
+     * @param row row
      * @return int
      */
-    int updateByPrimaryKey(RetRole record);
+    int updateByPrimaryKey(RetRole row);
 }

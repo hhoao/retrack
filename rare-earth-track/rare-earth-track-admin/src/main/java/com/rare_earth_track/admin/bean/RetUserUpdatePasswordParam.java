@@ -4,10 +4,11 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
+ * 用户密码更新需要的参数
  * @author hhoa
  * @date 2022/5/13
  **/
-@Schema(description = "用户密码参数")
+@Schema(name = "用户密码参数", description = "RetUserUpdatePasswordParam")
 @Data
 public class RetUserUpdatePasswordParam {
     @Schema(description = "手机号或者密码", required = true)

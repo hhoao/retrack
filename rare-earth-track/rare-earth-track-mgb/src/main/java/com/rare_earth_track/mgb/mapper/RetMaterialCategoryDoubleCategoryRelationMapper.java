@@ -29,17 +29,17 @@ public interface RetMaterialCategoryDoubleCategoryRelationMapper {
 
     /**
      * insert
-     * @param record record
+     * @param row row
      * @return int
      */
-    int insert(RetMaterialCategoryDoubleCategoryRelation record);
+    int insert(RetMaterialCategoryDoubleCategoryRelation row);
 
     /**
      * insertSelective
-     * @param record record
+     * @param row row
      * @return int
      */
-    int insertSelective(RetMaterialCategoryDoubleCategoryRelation record);
+    int insertSelective(RetMaterialCategoryDoubleCategoryRelation row);
 
     /**
      * selectByExample
@@ -57,31 +57,31 @@ public interface RetMaterialCategoryDoubleCategoryRelationMapper {
 
     /**
      * updateByExampleSelective
-     * @param record record
+     * @param row row
      * @param example example
      * @return int
      */
-    int updateByExampleSelective(@Param("record") RetMaterialCategoryDoubleCategoryRelation record, @Param("example") RetMaterialCategoryDoubleCategoryRelationExample example);
+    int updateByExampleSelective(@Param("row") RetMaterialCategoryDoubleCategoryRelation row, @Param("example") RetMaterialCategoryDoubleCategoryRelationExample example);
 
     /**
      * updateByExample
-     * @param record record
+     * @param row row
      * @param example example
      * @return int
      */
-    int updateByExample(@Param("record") RetMaterialCategoryDoubleCategoryRelation record, @Param("example") RetMaterialCategoryDoubleCategoryRelationExample example);
+    int updateByExample(@Param("row") RetMaterialCategoryDoubleCategoryRelation row, @Param("example") RetMaterialCategoryDoubleCategoryRelationExample example);
 
     /**
      * updateByPrimaryKeySelective
-     * @param record record
+     * @param row row
      * @return int
      */
-    int updateByPrimaryKeySelective(RetMaterialCategoryDoubleCategoryRelation record);
+    int updateByPrimaryKeySelective(RetMaterialCategoryDoubleCategoryRelation row);
 
     /**
      * updateByPrimaryKey
-     * @param record record
+     * @param row row
      * @return int
      */
-    int updateByPrimaryKey(RetMaterialCategoryDoubleCategoryRelation record);
+    int updateByPrimaryKey(RetMaterialCategoryDoubleCategoryRelation row);
 }

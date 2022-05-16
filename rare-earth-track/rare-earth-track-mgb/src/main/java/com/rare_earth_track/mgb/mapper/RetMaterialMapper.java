@@ -29,17 +29,17 @@ public interface RetMaterialMapper {
 
     /**
      * insert
-     * @param record record
+     * @param row row
      * @return int
      */
-    int insert(RetMaterial record);
+    int insert(RetMaterial row);
 
     /**
      * insertSelective
-     * @param record record
+     * @param row row
      * @return int
      */
-    int insertSelective(RetMaterial record);
+    int insertSelective(RetMaterial row);
 
     /**
      * selectByExampleWithBLOBs
@@ -64,46 +64,46 @@ public interface RetMaterialMapper {
 
     /**
      * updateByExampleSelective
-     * @param record record
+     * @param row row
      * @param example example
      * @return int
      */
-    int updateByExampleSelective(@Param("record") RetMaterial record, @Param("example") RetMaterialExample example);
+    int updateByExampleSelective(@Param("row") RetMaterial row, @Param("example") RetMaterialExample example);
 
     /**
      * updateByExampleWithBLOBs
-     * @param record record
+     * @param row row
      * @param example example
      * @return int
      */
-    int updateByExampleWithBLOBs(@Param("record") RetMaterial record, @Param("example") RetMaterialExample example);
+    int updateByExampleWithBLOBs(@Param("row") RetMaterial row, @Param("example") RetMaterialExample example);
 
     /**
      * updateByExample
-     * @param record record
+     * @param row row
      * @param example example
      * @return int
      */
-    int updateByExample(@Param("record") RetMaterial record, @Param("example") RetMaterialExample example);
+    int updateByExample(@Param("row") RetMaterial row, @Param("example") RetMaterialExample example);
 
     /**
      * updateByPrimaryKeySelective
-     * @param record record
+     * @param row row
      * @return int
      */
-    int updateByPrimaryKeySelective(RetMaterial record);
+    int updateByPrimaryKeySelective(RetMaterial row);
 
     /**
      * updateByPrimaryKeyWithBLOBs
-     * @param record record
+     * @param row row
      * @return int
      */
-    int updateByPrimaryKeyWithBLOBs(RetMaterial record);
+    int updateByPrimaryKeyWithBLOBs(RetMaterial row);
 
     /**
      * updateByPrimaryKey
-     * @param record record
+     * @param row row
      * @return int
      */
-    int updateByPrimaryKey(RetMaterial record);
+    int updateByPrimaryKey(RetMaterial row);
 }

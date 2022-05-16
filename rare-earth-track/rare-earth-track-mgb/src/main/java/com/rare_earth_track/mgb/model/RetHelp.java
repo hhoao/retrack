@@ -4,6 +4,12 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * 帮助
+ * @author hhoa 
+ * @date 2022-05-16
+ */
+@Schema(name = "帮助")
 public class RetHelp implements Serializable {
     private Long id;
 

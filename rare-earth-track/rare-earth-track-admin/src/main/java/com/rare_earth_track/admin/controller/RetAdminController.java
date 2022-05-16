@@ -26,9 +26,9 @@ import java.util.Map;
  * @date 2022/5/8
  **/
 @AllArgsConstructor
-@Tags({@Tag(name = "RetUserDetailsController", description = "用户登录注销管理")})
+@Tags({@Tag(name = "用户登录注销管理", description = "RetUserDetailsController")})
 @RestController
-public class RetUserAdminController {
+public class RetAdminController {
     private RetUserService userService;
     private JwtSecurityProperties properties;
     private RetMailService mailService;
@@ -62,7 +62,7 @@ public class RetUserAdminController {
     @Operation(description = "更新密码", summary = "更新密码")
     @PatchMapping("/user/password")
     @ResponseBody
-    public CommonResult updatePassword(@Schema(description = "验证类型", required = true, allowableValues = {"phone", "email"})
+    public CommonResult<String> updatePassword(@Schema(description = "验证类型", required = true, allowableValues = {"phone", "email"})
                                            @RequestParam("type") String type,
                                        @RequestBody RetUserUpdatePasswordParam passwordParam) {
         if ("phone".equals(type)){
@@ -70,7 +70,7 @@ public class RetUserAdminController {
         }else {
             userService.updatePasswordWithMail(passwordParam);
         }
-        return CommonResult.success(null,"密码修改成功");
+        return CommonResult.success(null);
     }
 
     @Operation(description = "刷新token", summary = "刷新token")
@@ -90,7 +90,7 @@ public class RetUserAdminController {
 
     @GetMapping(value="/user/auth/code")
     @Operation(description = "获取验证码", summary = "获取验证码", parameters = @Parameter())
-    public CommonResult generateAuthCode(@Schema(description = "验证类型", required = true, allowableValues = {"phone", "email"})
+    public CommonResult<String> generateAuthCode(@Schema(description = "验证类型", required = true, allowableValues = {"phone", "email"})
                                                  @RequestParam("type") String type,
                                                  @Schema(description = "手机号码或者email", required = true)
                                                  @RequestParam("body") String phoneOrMail){

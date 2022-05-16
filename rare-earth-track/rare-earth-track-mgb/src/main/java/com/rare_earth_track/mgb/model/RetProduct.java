@@ -4,6 +4,12 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * 产品信
+ * @author hhoa 
+ * @date 2022-05-16
+ */
+@Schema(name = "产品信")
 public class RetProduct implements Serializable {
     private Long id;
 

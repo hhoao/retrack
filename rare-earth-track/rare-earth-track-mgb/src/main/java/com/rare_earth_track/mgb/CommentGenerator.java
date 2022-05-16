@@ -63,21 +63,71 @@ public class CommentGenerator extends DefaultCommentGenerator {
 
     }
 
+    /**
+     * 给model类添加注释
+     */
+    @Override
+    public void addModelClassComment(TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
+        if (suppressAllComments) {
+            return;
+        }
+        String remarks = introspectedTable.getRemarks().substring(0, introspectedTable.getRemarks().length() - 1);
+        StringBuilder sb = new StringBuilder();
+        topLevelClass.addJavaDocLine("/**");
+        sb.append(" * ");
+        topLevelClass.addJavaDocLine(" * "+ remarks);
+        sb.append("@author ");
+        sb.append(systemPro.getProperty("user.name"));
+        sb.append(" ");
+
+        topLevelClass.addJavaDocLine(sb.toString());
+        topLevelClass.addJavaDocLine(" * @date " + currentDateStr);
+        topLevelClass.addJavaDocLine(" */");
+        if (addRemarkComments && StringUtility.stringHasValue(remarks)) {
+            //数据库中特殊字符需要转义
+            if (remarks.contains("\"")) {
+                remarks = remarks.replace("\"", "'");
+            }
+            //给model的字段添加swagger注解
+            topLevelClass.addJavaDocLine("@Schema(name = \"" + remarks + "\")");
+        }
+    }
+
+    /**
+     * 给类添加注释
+     */
     @Override
     public void addClassComment(InnerClass innerClass, IntrospectedTable introspectedTable) {
         if (suppressAllComments) {
             return;
         }
         StringBuilder sb = new StringBuilder();
+
         innerClass.addJavaDocLine("/**");
         sb.append(" * ");
         sb.append(introspectedTable.getFullyQualifiedTable());
+        innerClass.addJavaDocLine(sb.toString());
+
+        sb.setLength(0);
+        sb.append(" * @author ");
+        sb.append(systemPro.getProperty("user.name"));
         sb.append(" ");
-        sb.append(getDateString());
+        sb.append(currentDateStr);
         innerClass.addJavaDocLine(sb.toString());
         innerClass.addJavaDocLine(" */");
+//        StringBuilder sb = new StringBuilder();
+//        innerClass.addJavaDocLine("/**");
+//        sb.append(" * ");
+//        sb.append(introspectedTable.getFullyQualifiedTable());
+//        sb.append(" ");
+//        sb.append(getDateString());
+//        innerClass.addJavaDocLine(sb.toString());
+//        innerClass.addJavaDocLine(" */");
     }
 
+    /**
+     * 给方法添加注释
+     */
 
     @Override
     public void addGeneralMethodComment(Method method, IntrospectedTable introspectedTable) {
@@ -103,6 +153,10 @@ public class CommentGenerator extends DefaultCommentGenerator {
         method.addJavaDocLine(sb.toString());
         method.addJavaDocLine(" */");
     }
+
+    /**
+     * 给枚举添加注释
+     */
     @Override
     public void addEnumComment(InnerEnum innerEnum, IntrospectedTable introspectedTable) {
         if (suppressAllComments) {
@@ -119,6 +173,9 @@ public class CommentGenerator extends DefaultCommentGenerator {
         innerEnum.addJavaDocLine(" */");
     }
 
+    /**
+     * 给Getter方法添加注释
+     */
     @Override
     public void addGetterComment(Method method, IntrospectedTable introspectedTable,
                                  IntrospectedColumn introspectedColumn) {
@@ -141,6 +198,10 @@ public class CommentGenerator extends DefaultCommentGenerator {
 
         method.addJavaDocLine(" */");
     }
+
+    /**
+     * 给Setter添加注释
+     */
     @Override
     public void addSetterComment(Method method, IntrospectedTable introspectedTable,
                                  IntrospectedColumn introspectedColumn) {
@@ -163,26 +224,7 @@ public class CommentGenerator extends DefaultCommentGenerator {
 
         method.addJavaDocLine(" */");
     }
-    @Override
-    public void addClassComment(InnerClass innerClass, IntrospectedTable introspectedTable, boolean markAsDoNotDelete) {
-        if (suppressAllComments) {
-            return;
-        }
 
-        StringBuilder sb = new StringBuilder();
-
-        innerClass.addJavaDocLine("/**");
-        sb.append(" * ");
-        sb.append(introspectedTable.getFullyQualifiedTable());
-        innerClass.addJavaDocLine(sb.toString());
-
-        sb.setLength(0);
-        sb.append(" * @author ");
-        sb.append(systemPro.getProperty("user.name"));
-        sb.append(" ");
-        sb.append(currentDateStr);
-        innerClass.addJavaDocLine(" */");
-    }
     @Override
     protected void addJavadocTag(JavaElement javaElement, boolean markAsDoNotDelete) {
         javaElement.addJavaDocLine(" *");

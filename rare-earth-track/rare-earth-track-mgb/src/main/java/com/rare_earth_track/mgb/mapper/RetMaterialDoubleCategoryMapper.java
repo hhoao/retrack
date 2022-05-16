@@ -29,17 +29,17 @@ public interface RetMaterialDoubleCategoryMapper {
 
     /**
      * insert
-     * @param record record
+     * @param row row
      * @return int
      */
-    int insert(RetMaterialDoubleCategory record);
+    int insert(RetMaterialDoubleCategory row);
 
     /**
      * insertSelective
-     * @param record record
+     * @param row row
      * @return int
      */
-    int insertSelective(RetMaterialDoubleCategory record);
+    int insertSelective(RetMaterialDoubleCategory row);
 
     /**
      * selectByExampleWithBLOBs
@@ -64,46 +64,46 @@ public interface RetMaterialDoubleCategoryMapper {
 
     /**
      * updateByExampleSelective
-     * @param record record
+     * @param row row
      * @param example example
      * @return int
      */
-    int updateByExampleSelective(@Param("record") RetMaterialDoubleCategory record, @Param("example") RetMaterialDoubleCategoryExample example);
+    int updateByExampleSelective(@Param("row") RetMaterialDoubleCategory row, @Param("example") RetMaterialDoubleCategoryExample example);
 
     /**
      * updateByExampleWithBLOBs
-     * @param record record
+     * @param row row
      * @param example example
      * @return int
      */
-    int updateByExampleWithBLOBs(@Param("record") RetMaterialDoubleCategory record, @Param("example") RetMaterialDoubleCategoryExample example);
+    int updateByExampleWithBLOBs(@Param("row") RetMaterialDoubleCategory row, @Param("example") RetMaterialDoubleCategoryExample example);
 
     /**
      * updateByExample
-     * @param record record
+     * @param row row
      * @param example example
      * @return int
      */
-    int updateByExample(@Param("record") RetMaterialDoubleCategory record, @Param("example") RetMaterialDoubleCategoryExample example);
+    int updateByExample(@Param("row") RetMaterialDoubleCategory row, @Param("example") RetMaterialDoubleCategoryExample example);
 
     /**
      * updateByPrimaryKeySelective
-     * @param record record
+     * @param row row
      * @return int
      */
-    int updateByPrimaryKeySelective(RetMaterialDoubleCategory record);
+    int updateByPrimaryKeySelective(RetMaterialDoubleCategory row);
 
     /**
      * updateByPrimaryKeyWithBLOBs
-     * @param record record
+     * @param row row
      * @return int
      */
-    int updateByPrimaryKeyWithBLOBs(RetMaterialDoubleCategory record);
+    int updateByPrimaryKeyWithBLOBs(RetMaterialDoubleCategory row);
 
     /**
      * updateByPrimaryKey
-     * @param record record
+     * @param row row
      * @return int
      */
-    int updateByPrimaryKey(RetMaterialDoubleCategory record);
+    int updateByPrimaryKey(RetMaterialDoubleCategory row);
 }

@@ -29,17 +29,17 @@ public interface RetFeetBackCategoryMapper {
 
     /**
      * insert
-     * @param record record
+     * @param row row
      * @return int
      */
-    int insert(RetFeetBackCategory record);
+    int insert(RetFeetBackCategory row);
 
     /**
      * insertSelective
-     * @param record record
+     * @param row row
      * @return int
      */
-    int insertSelective(RetFeetBackCategory record);
+    int insertSelective(RetFeetBackCategory row);
 
     /**
      * selectByExample
@@ -57,31 +57,31 @@ public interface RetFeetBackCategoryMapper {
 
     /**
      * updateByExampleSelective
-     * @param record record
+     * @param row row
      * @param example example
      * @return int
      */
-    int updateByExampleSelective(@Param("record") RetFeetBackCategory record, @Param("example") RetFeetBackCategoryExample example);
+    int updateByExampleSelective(@Param("row") RetFeetBackCategory row, @Param("example") RetFeetBackCategoryExample example);
 
     /**
      * updateByExample
-     * @param record record
+     * @param row row
      * @param example example
      * @return int
      */
-    int updateByExample(@Param("record") RetFeetBackCategory record, @Param("example") RetFeetBackCategoryExample example);
+    int updateByExample(@Param("row") RetFeetBackCategory row, @Param("example") RetFeetBackCategoryExample example);
 
     /**
      * updateByPrimaryKeySelective
-     * @param record record
+     * @param row row
      * @return int
      */
-    int updateByPrimaryKeySelective(RetFeetBackCategory record);
+    int updateByPrimaryKeySelective(RetFeetBackCategory row);
 
     /**
      * updateByPrimaryKey
-     * @param record record
+     * @param row row
      * @return int
      */
-    int updateByPrimaryKey(RetFeetBackCategory record);
+    int updateByPrimaryKey(RetFeetBackCategory row);
 }

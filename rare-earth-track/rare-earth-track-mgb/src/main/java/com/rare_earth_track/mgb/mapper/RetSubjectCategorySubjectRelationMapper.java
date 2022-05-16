@@ -29,17 +29,17 @@ public interface RetSubjectCategorySubjectRelationMapper {
 
     /**
      * insert
-     * @param record record
+     * @param row row
      * @return int
      */
-    int insert(RetSubjectCategorySubjectRelation record);
+    int insert(RetSubjectCategorySubjectRelation row);
 
     /**
      * insertSelective
-     * @param record record
+     * @param row row
      * @return int
      */
-    int insertSelective(RetSubjectCategorySubjectRelation record);
+    int insertSelective(RetSubjectCategorySubjectRelation row);
 
     /**
      * selectByExample
@@ -57,31 +57,31 @@ public interface RetSubjectCategorySubjectRelationMapper {
 
     /**
      * updateByExampleSelective
-     * @param record record
+     * @param row row
      * @param example example
      * @return int
      */
-    int updateByExampleSelective(@Param("record") RetSubjectCategorySubjectRelation record, @Param("example") RetSubjectCategorySubjectRelationExample example);
+    int updateByExampleSelective(@Param("row") RetSubjectCategorySubjectRelation row, @Param("example") RetSubjectCategorySubjectRelationExample example);
 
     /**
      * updateByExample
-     * @param record record
+     * @param row row
      * @param example example
      * @return int
      */
-    int updateByExample(@Param("record") RetSubjectCategorySubjectRelation record, @Param("example") RetSubjectCategorySubjectRelationExample example);
+    int updateByExample(@Param("row") RetSubjectCategorySubjectRelation row, @Param("example") RetSubjectCategorySubjectRelationExample example);
 
     /**
      * updateByPrimaryKeySelective
-     * @param record record
+     * @param row row
      * @return int
      */
-    int updateByPrimaryKeySelective(RetSubjectCategorySubjectRelation record);
+    int updateByPrimaryKeySelective(RetSubjectCategorySubjectRelation row);
 
     /**
      * updateByPrimaryKey
-     * @param record record
+     * @param row row
      * @return int
      */
-    int updateByPrimaryKey(RetSubjectCategorySubjectRelation record);
+    int updateByPrimaryKey(RetSubjectCategorySubjectRelation row);
 }

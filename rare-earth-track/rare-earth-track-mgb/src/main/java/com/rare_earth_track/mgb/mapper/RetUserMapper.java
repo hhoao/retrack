@@ -29,17 +29,17 @@ public interface RetUserMapper {
 
     /**
      * insert
-     * @param record record
+     * @param row row
      * @return int
      */
-    int insert(RetUser record);
+    int insert(RetUser row);
 
     /**
      * insertSelective
-     * @param record record
+     * @param row row
      * @return int
      */
-    int insertSelective(RetUser record);
+    int insertSelective(RetUser row);
 
     /**
      * selectByExample
@@ -57,31 +57,31 @@ public interface RetUserMapper {
 
     /**
      * updateByExampleSelective
-     * @param record record
+     * @param row row
      * @param example example
      * @return int
      */
-    int updateByExampleSelective(@Param("record") RetUser record, @Param("example") RetUserExample example);
+    int updateByExampleSelective(@Param("row") RetUser row, @Param("example") RetUserExample example);
 
     /**
      * updateByExample
-     * @param record record
+     * @param row row
      * @param example example
      * @return int
      */
-    int updateByExample(@Param("record") RetUser record, @Param("example") RetUserExample example);
+    int updateByExample(@Param("row") RetUser row, @Param("example") RetUserExample example);
 
     /**
      * updateByPrimaryKeySelective
-     * @param record record
+     * @param row row
      * @return int
      */
-    int updateByPrimaryKeySelective(RetUser record);
+    int updateByPrimaryKeySelective(RetUser row);
 
     /**
      * updateByPrimaryKey
-     * @param record record
+     * @param row row
      * @return int
      */
-    int updateByPrimaryKey(RetUser record);
+    int updateByPrimaryKey(RetUser row);
 }

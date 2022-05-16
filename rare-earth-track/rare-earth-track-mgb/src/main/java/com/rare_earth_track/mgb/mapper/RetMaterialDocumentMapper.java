@@ -29,17 +29,17 @@ public interface RetMaterialDocumentMapper {
 
     /**
      * insert
-     * @param record record
+     * @param row row
      * @return int
      */
-    int insert(RetMaterialDocument record);
+    int insert(RetMaterialDocument row);
 
     /**
      * insertSelective
-     * @param record record
+     * @param row row
      * @return int
      */
-    int insertSelective(RetMaterialDocument record);
+    int insertSelective(RetMaterialDocument row);
 
     /**
      * selectByExampleWithBLOBs
@@ -64,46 +64,46 @@ public interface RetMaterialDocumentMapper {
 
     /**
      * updateByExampleSelective
-     * @param record record
+     * @param row row
      * @param example example
      * @return int
      */
-    int updateByExampleSelective(@Param("record") RetMaterialDocument record, @Param("example") RetMaterialDocumentExample example);
+    int updateByExampleSelective(@Param("row") RetMaterialDocument row, @Param("example") RetMaterialDocumentExample example);
 
     /**
      * updateByExampleWithBLOBs
-     * @param record record
+     * @param row row
      * @param example example
      * @return int
      */
-    int updateByExampleWithBLOBs(@Param("record") RetMaterialDocument record, @Param("example") RetMaterialDocumentExample example);
+    int updateByExampleWithBLOBs(@Param("row") RetMaterialDocument row, @Param("example") RetMaterialDocumentExample example);
 
     /**
      * updateByExample
-     * @param record record
+     * @param row row
      * @param example example
      * @return int
      */
-    int updateByExample(@Param("record") RetMaterialDocument record, @Param("example") RetMaterialDocumentExample example);
+    int updateByExample(@Param("row") RetMaterialDocument row, @Param("example") RetMaterialDocumentExample example);
 
     /**
      * updateByPrimaryKeySelective
-     * @param record record
+     * @param row row
      * @return int
      */
-    int updateByPrimaryKeySelective(RetMaterialDocument record);
+    int updateByPrimaryKeySelective(RetMaterialDocument row);
 
     /**
      * updateByPrimaryKeyWithBLOBs
-     * @param record record
+     * @param row row
      * @return int
      */
-    int updateByPrimaryKeyWithBLOBs(RetMaterialDocument record);
+    int updateByPrimaryKeyWithBLOBs(RetMaterialDocument row);
 
     /**
      * updateByPrimaryKey
-     * @param record record
+     * @param row row
      * @return int
      */
-    int updateByPrimaryKey(RetMaterialDocument record);
+    int updateByPrimaryKey(RetMaterialDocument row);
 }

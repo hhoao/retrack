@@ -112,7 +112,8 @@ public class RetResourceExample {
     }
 
     /**
-     * ret_resource null
+     * ret_resource
+     * @author hhoa 2022-05-16
      */
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
@@ -558,6 +559,7 @@ public class RetResourceExample {
 
     /**
      * ret_resource
+     * @author hhoa 2022-05-16
      */
     public static class Criteria extends GeneratedCriteria {
         protected Criteria() {
@@ -566,7 +568,8 @@ public class RetResourceExample {
     }
 
     /**
-     * ret_resource null
+     * ret_resource
+     * @author hhoa 2022-05-16
      */
     public static class Criterion {
         private String condition;

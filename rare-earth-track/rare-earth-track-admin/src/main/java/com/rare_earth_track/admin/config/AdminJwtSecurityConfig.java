@@ -29,6 +29,7 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
+ * 安全配置
  * @author hhoa
  * @date 2022/5/5
  **/

@@ -111,7 +111,8 @@ public class RetUserRoleRelationExample {
     }
 
     /**
-     * ret_user_role_relation null
+     * ret_user_role_relation
+     * @author hhoa 2022-05-16
      */
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
@@ -337,6 +338,7 @@ public class RetUserRoleRelationExample {
 
     /**
      * ret_user_role_relation
+     * @author hhoa 2022-05-16
      */
     public static class Criteria extends GeneratedCriteria {
         protected Criteria() {
@@ -345,7 +347,8 @@ public class RetUserRoleRelationExample {
     }
 
     /**
-     * ret_user_role_relation null
+     * ret_user_role_relation
+     * @author hhoa 2022-05-16
      */
     public static class Criterion {
         private String condition;
