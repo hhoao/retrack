@@ -23,4 +23,13 @@ public interface RetResourceRoleRelationService {
      * @return 插入成功数量
      */
     int addResourceRoleRelation(RetResourceRoleRelationParam roleResourceRelationParam);
+
+    /**
+     * 分页获取角色资源列表
+     * @param size 页面大小
+     * @param name 角色名
+     * @param from 页面起始位置
+     * @return 角色资源列表页
+     */
+    List<RetResource> listRoleResources(String name, Integer from, Integer size);
 }

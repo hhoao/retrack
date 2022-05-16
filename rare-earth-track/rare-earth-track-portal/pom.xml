@@ -31,11 +31,6 @@
             <artifactId>rare-earth-track-security</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.mybatis.spring.boot</groupId>
-            <artifactId>mybatis-spring-boot-starter</artifactId>
-            <version>${mybatis-spring-boot-starter.version}</version>
-        </dependency>
-        <dependency>
             <groupId>org.demo</groupId>
             <artifactId>rare-earth-track-mgb</artifactId>
         </dependency>

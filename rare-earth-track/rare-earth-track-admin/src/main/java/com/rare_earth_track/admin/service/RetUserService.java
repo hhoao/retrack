@@ -85,6 +85,14 @@ public interface RetUserService {
      */
     List<RetUser> getAllUsers();
 
+
+    /**
+     * 获取部分用户
+     * @param from 单表起始位置
+     * @param size 单页大小
+     * @return 部分用户
+     */
+    List<RetUser> list(Integer from, Integer size);
     /**
      * 通过用户名获取用户
      * @param  name name

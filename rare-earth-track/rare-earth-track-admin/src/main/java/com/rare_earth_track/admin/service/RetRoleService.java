@@ -29,4 +29,13 @@ public interface RetRoleService {
      * @return role
      */
     List<RetRole> getAllRoles();
+
+    /**
+     * 分页获取资源列表
+     *
+     * @param from the from
+     * @param size the size
+     * @return 分页资源 list
+     */
+    List<RetRole> list(Integer from, Integer size);
 }

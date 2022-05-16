@@ -1,6 +1,7 @@
 package com.rare_earth_track.admin.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
+import com.github.pagehelper.PageHelper;
 import com.rare_earth_track.admin.bean.RetUserDetails;
 import com.rare_earth_track.admin.bean.RetUserParam;
 import com.rare_earth_track.admin.bean.RetUserRegisterParam;
@@ -210,6 +211,12 @@ public class RetUserServiceImpl implements RetUserService {
     @Override
     public List<RetUser> getAllUsers() {
         return userMapper.selectByExample(new RetUserExample());
+    }
+
+    @Override
+    public List<RetUser> list(Integer from, Integer size) {
+        PageHelper.startPage(from, size);
+        return getAllUsers();
     }
 
     @Override

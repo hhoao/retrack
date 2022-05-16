@@ -19,6 +19,14 @@ public interface RetResourceService {
     List<RetResource> getAllResources();
 
     /**
+     * 分页获取资源列表
+     * @param from the from
+     * @param size the size
+     * @return 分页资源 list
+     */
+    List<RetResource> list(Integer from, Integer size);
+
+    /**
      * 通过ResourceId获取Resource
      * @param resourceId 资源id
      * @return resource

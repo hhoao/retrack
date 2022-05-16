@@ -3,6 +3,7 @@ package com.rare_earth_track.common.api;
 
 
 import com.github.pagehelper.PageInfo;
+import io.swagger.v3.oas.annotations.media.Schema;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
@@ -11,26 +12,32 @@ import java.util.List;
  * 分页数据封装类
  * @author hhoa
  */
+@Schema(name = "分页数据")
 public class CommonPage<T> {
     /**
      * 当前页码
      */
+    @Schema(description = "页数")
     private Integer pageNum;
     /**
      * 每页数量
      */
+    @Schema(description = "单页大小")
     private Integer pageSize;
     /**
      * 总页数
      */
+    @Schema(description = "总页数")
     private Integer totalPage;
     /**
      * 总条数
      */
+    @Schema(description = "总条数")
     private Long total;
     /**
      * 分页数据
      */
+    @Schema(description = "分页数据")
     private List<T> list;
 
     /**

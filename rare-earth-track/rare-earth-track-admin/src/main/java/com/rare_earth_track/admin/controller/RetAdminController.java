@@ -9,7 +9,6 @@ import com.rare_earth_track.common.api.CommonResult;
 import com.rare_earth_track.mgb.model.RetUser;
 import com.rare_earth_track.security.config.JwtSecurityProperties;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.tags.Tags;
@@ -26,14 +25,14 @@ import java.util.Map;
  * @date 2022/5/8
  **/
 @AllArgsConstructor
-@Tags({@Tag(name = "用户登录注销管理", description = "RetUserDetailsController")})
+@Tags({@Tag(name = "用户登录注销管理", description = "RetUserAdminController")})
 @RestController
 public class RetAdminController {
     private RetUserService userService;
     private JwtSecurityProperties properties;
     private RetMailService mailService;
 
-    @Operation(description = "登录", summary = "用户登录")
+    @Operation(summary = "用户登录")
     @PostMapping("/user/auth/token")
     public CommonResult<Map<String, String>> login(@RequestBody RetLoginParam loginParam){
         String token = userService.login(loginParam.getName(), loginParam.getPassword());
@@ -46,7 +45,7 @@ public class RetAdminController {
         return CommonResult.success(tokenMap);
     }
 
-    @Operation(description = "用户注册", summary = "注册用户")
+    @Operation(summary = "注册用户")
     @PostMapping("/user")
     public CommonResult<RetUser> register(@RequestBody RetUserRegisterParam userRegisterParam){
         RetUser register = userService.register(userRegisterParam);
@@ -59,7 +58,7 @@ public class RetAdminController {
         return CommonResult.success(null);
     }
 
-    @Operation(description = "更新密码", summary = "更新密码")
+    @Operation(summary = "更新密码")
     @PatchMapping("/user/password")
     @ResponseBody
     public CommonResult<String> updatePassword(@Schema(description = "验证类型", required = true, allowableValues = {"phone", "email"})
@@ -73,7 +72,7 @@ public class RetAdminController {
         return CommonResult.success(null);
     }
 
-    @Operation(description = "刷新token", summary = "刷新token")
+    @Operation(summary = "刷新token")
     @PatchMapping(value = "/user/auth/token")
     @ResponseBody
     public CommonResult<Map<String, String>> refreshToken(HttpServletRequest request) {
@@ -89,7 +88,7 @@ public class RetAdminController {
     }
 
     @GetMapping(value="/user/auth/code")
-    @Operation(description = "获取验证码", summary = "获取验证码", parameters = @Parameter())
+    @Operation(summary = "获取验证码")
     public CommonResult<String> generateAuthCode(@Schema(description = "验证类型", required = true, allowableValues = {"phone", "email"})
                                                  @RequestParam("type") String type,
                                                  @Schema(description = "手机号码或者email", required = true)

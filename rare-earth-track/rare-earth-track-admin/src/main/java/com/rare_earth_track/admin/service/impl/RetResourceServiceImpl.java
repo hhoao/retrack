@@ -2,6 +2,7 @@ package com.rare_earth_track.admin.service.impl;
 
 
 import cn.hutool.core.bean.BeanUtil;
+import com.github.pagehelper.PageHelper;
 import com.rare_earth_track.admin.bean.RetResourceParam;
 import com.rare_earth_track.admin.service.*;
 import com.rare_earth_track.mgb.mapper.RetResourceMapper;
@@ -27,6 +28,12 @@ public class RetResourceServiceImpl implements RetResourceService {
     @Override
     public List<RetResource> getAllResources() {
         return resourceMapper.selectByExample(new RetResourceExample());
+    }
+
+    @Override
+    public List<RetResource> list(Integer from, Integer size) {
+        PageHelper.startPage(from, size);
+        return getAllResources();
     }
 
     @Override

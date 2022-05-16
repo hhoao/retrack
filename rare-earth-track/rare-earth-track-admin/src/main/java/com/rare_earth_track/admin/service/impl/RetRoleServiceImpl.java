@@ -1,6 +1,7 @@
 package com.rare_earth_track.admin.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
+import com.github.pagehelper.PageHelper;
 import com.rare_earth_track.admin.bean.RetRoleParam;
 import com.rare_earth_track.admin.service.RetRoleService;
 import com.rare_earth_track.mgb.mapper.RetRoleMapper;
@@ -35,5 +36,11 @@ public class RetRoleServiceImpl implements RetRoleService {
     @Override
     public List<RetRole> getAllRoles() {
         return roleMapper.selectByExample(new RetRoleExample());
+    }
+
+    @Override
+    public List<RetRole> list(Integer from, Integer size) {
+        PageHelper.startPage(from, size);
+        return getAllRoles();
     }
 }
