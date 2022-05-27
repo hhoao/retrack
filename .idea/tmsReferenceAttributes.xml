@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="TmsReferenceAttributesSettings">
+    <option name="attributeNames">
+      <map>
+        <entry key="JVM">
+          <value>
+            <set>
+              <ReferenceAttribute>
+                <option name="fqn" value="io.qameta.allure.TmsLink" />
+              </ReferenceAttribute>
+              <ReferenceAttribute>
+                <option name="fqn" value="io.qameta.allure.Issue" />
+              </ReferenceAttribute>
+              <ReferenceAttribute>
+                <option name="fqn" value="org.junit.jupiter.api.Test" />
+              </ReferenceAttribute>
+              <ReferenceAttribute>
+                <option name="fqn" value="lombok.experimental.Accessors" />
+              </ReferenceAttribute>
+            </set>
+          </value>
+        </entry>
+        <entry key="Python">
+          <value>
+            <set>
+              <ReferenceAttribute>
+                <option name="enabled" value="false" />
+                <option name="fqn" value="allure_commons._allure.testcase" />
+              </ReferenceAttribute>
+            </set>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

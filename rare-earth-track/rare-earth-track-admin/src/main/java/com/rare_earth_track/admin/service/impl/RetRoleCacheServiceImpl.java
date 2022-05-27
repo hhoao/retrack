@@ -17,15 +17,20 @@ public class RetRoleCacheServiceImpl implements RetRoleCacheService {
     private final RedisService redisService;
     @Value("${ret.redis.database}")
     private String redisDatabase;
-    @Value("${ret.redis.expire.role}")
+    @Value("${ret.redis.expire.common}")
     private Long redisExpire;
     @Value("${ret.redis.key.role}")
-    private String redisKeyAdmin;
-
+    private String redisKeyRole;
 
     public String generateKeyByUserName(String userName){
-        return redisDatabase + ":" + redisKeyAdmin + ":" + userName;
+        return redisDatabase + ":" + redisKeyRole + ":" + userName;
     }
+
+    @Override
+    public void delKey(String userName) {
+        redisService.del(generateKeyByUserName(userName));
+    }
+
     @Override
     public void setKeyByUserName(String userName, RetRole role) {
         redisService.set(generateKeyByUserName(userName), role, redisExpire);

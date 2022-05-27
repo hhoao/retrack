@@ -8,7 +8,17 @@ import com.rare_earth_track.mgb.model.RetUser;
  * @date 2022/5/8
  **/
 public interface RetUserCacheService {
-
+    /**
+     * 设置过期时间
+     * @param username 用户名
+     * @param expiration 时间
+     */
+    void expire(String username, Long expiration);
+    /**
+     * 设置过期时间
+     * @param username 用户名
+     */
+    void expire(String username);
     /**
      * 获取用户
      * @return 用户

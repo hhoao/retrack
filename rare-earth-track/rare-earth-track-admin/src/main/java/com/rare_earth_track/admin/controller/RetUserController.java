@@ -8,6 +8,8 @@ import com.rare_earth_track.common.api.CommonResult;
 import com.rare_earth_track.common.exception.Asserts;
 import com.rare_earth_track.mgb.model.RetUser;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.DiscriminatorMapping;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.tags.Tags;
 import org.springframework.web.bind.annotation.*;
@@ -27,9 +29,9 @@ public class RetUserController {
 
     @Operation(summary = "分页获取用户列表")
     @GetMapping("/users")
-    public CommonResult<CommonPage<RetUser>> list(@RequestParam(value = "from", defaultValue = "1") Integer from,
-                                                  @RequestParam(value = "size", defaultValue = "5") Integer size){
-        return CommonResult.success(CommonPage.restPage(retUserService.list(from, size)));
+    public CommonResult<CommonPage<RetUser>> list(@Parameter(description = "页码") @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
+                                                  @Parameter(description = "页面大小") @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize){
+        return CommonResult.success(CommonPage.restPage(retUserService.list(pageNum, pageSize)));
     }
 
     @Operation(summary = "通过用户名获取用户")

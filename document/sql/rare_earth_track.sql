@@ -6,18 +6,32 @@ USE rare_earth_track;
 DROP TABLE IF EXISTS ret_resource;
 CREATE TABLE IF NOT EXISTS ret_resource
 (
-    `id`          bigint(20) NOT NULL,
-    `create_time` datetime COMMENT '创建时间',
-    `name`        varchar(50) COMMENT '资源名称',
+    `id`          bigint(20) AUTO_INCREMENT NOT NULL,
+    `create_time` datetime DEFAULT NOW() COMMENT '创建时间',
+    `name`        varchar(50) UNIQUE COMMENT  '资源名称',
     `method`      varchar(10) COMMENT '请求方法',
     `url`         varchar(50) COMMENT '请求路径',
     `description` varchar(50) COMMENT '描述',
+    UNIQUE (`method`, `url`),
     CONSTRAINT PK_RESOURCE PRIMARY KEY (`id`)
 ) ENGINE = Innodb
-  AUTO_INCREMENT = 17
   DEFAULT CHARSET = utf8 COMMENT '资源表';
+SELECT * FROM ret_resource;
 INSERT INTO ret_resource(id, create_time, name, url, method, description)
-VALUES (1, NOW(), '获取所有用户', '/users', 'GET', '获取所有用户');
+VALUES (1, NOW(), '所有GET资源', '/**', 'GET', '所有GET资源');
+INSERT INTO ret_resource(id, create_time, name, url, method, description)
+VALUES (2, NOW(), '所有POST资源', '/**', 'POST', '所有POST资源');
+INSERT INTO ret_resource(id, create_time, name, url, method, description)
+VALUES (3, NOW(), '所有DELETE资源', '/**', 'DELETE', '所有DELETE资源');
+INSERT INTO ret_resource(id, create_time, name, url, method, description)
+VALUES (4, NOW(), '所有PUT资源', '/**', 'PUT', '所有PUT资源');
+INSERT INTO ret_resource(id, create_time, name, url, method, description)
+VALUES (5, NOW(), '所有PATCH资源', '/**', 'PATCH', '所有PATCH资源');
+INSERT INTO ret_resource(id, create_time, name, url, method, description)
+VALUES (6, NOW(), '获取所有用户', '/users', 'GET', '获取所有用户');
+INSERT INTO ret_resource(id, create_time, name, url, method, description)
+VALUES (7, NOW(), '插入资源', '/resource', 'POST', '插入资源');
+SELECT * FROM ret_resource;
 
 
 # -- 资源菜单表
@@ -67,14 +81,27 @@ VALUES (4, 'ROLE_CUSTOM');
 
 
 -- 资源角色关系表
-CREATE TABLE IF NOT EXISTS ret_resource_role_relation
+DROP TABLE IF EXISTS ret_role_resource_relation;
+CREATE TABLE IF NOT EXISTS ret_role_resource_relation
 (
     id          bigint(20) AUTO_INCREMENT PRIMARY KEY,
-    resource_id bigint(20) REFERENCES ret_resource (`id`),
-    role_id     bigint(20) REFERENCES ret_role (`id`)
+    role_id bigint(20),
+    resource_id     bigint(20),
+    UNIQUE (resource_id, role_id),
+    FOREIGN KEY (resource_id) REFERENCES ret_resource (`id`),
+    FOREIGN KEY (`role_id`) REFERENCES ret_role (`id`)
 ) COMMENT '资源角色关系表';
-INSERT INTO ret_resource_role_relation(resource_id, role_id)
+INSERT INTO ret_role_resource_relation(role_id, resource_id)
 VALUES ('1', '1');
+INSERT INTO ret_role_resource_relation(role_id, resource_id)
+VALUES ('1', '2');
+INSERT INTO ret_role_resource_relation(role_id, resource_id)
+VALUES ('1', '3');
+INSERT INTO ret_role_resource_relation(role_id, resource_id)
+VALUES ('1', '4');
+INSERT INTO ret_role_resource_relation(role_id, resource_id)
+VALUES ('1', '5');
+SELECT * FROM ret_role_resource_relation;
 
 -- 用户表
 -- auto-generated definition
@@ -105,7 +132,7 @@ create table IF NOT EXISTS ret_user
 # 密码经BCrypt加密
 # 123456
 INSERT INTO ret_user(`id`, `name`, sex, age, birthday, address, password, status, phone, email)
-VALUES ('1', 'user1', '1', '11', now(), 'beijing', '$2a$10$qWk7KeDqgddC8eIbRf/XeOIBarzcghgLkwOVhkvaprWJjGxkQchn.', 1, 17679358123, 'huanghaohhoa@163.com');
+VALUES ('1', 'test', '1', '11', now(), 'beijing', '$2a$10$qWk7KeDqgddC8eIbRf/XeOIBarzcghgLkwOVhkvaprWJjGxkQchn.', 1, 17679358123, 'huanghaohhoa@163.com');
 # 789012
 INSERT INTO ret_user(`id`, `name`, sex, age, birthday, address, password, status)
 VALUES ('2', 'user2', '1', '16', now(), 'beijing', '$2a$10$Rg9IkxecBtvfZkchm5OqxOaJggxk1u/LJ/mYh/CC/BHF/HBM9TshK', 1);
@@ -155,6 +182,7 @@ create table IF NOT EXISTS ret_user_role_relation
     user_id bigint(20) null,
     role_id bigint(20) null,
     PRIMARY KEY (`id`),
+    UNIQUE (`user_id`, `role_id`),
     constraint FK_AUTHORITY_AND_USER_AUTH_ID
         foreign key (role_id) references ret_role (id),
     constraint KF_USER_AND_AUTHORITY_UID
@@ -162,8 +190,7 @@ create table IF NOT EXISTS ret_user_role_relation
 ) comment '用户角色表' engine = InnoDB;
 
 -- 工厂
-INSERT INTO ret_user_role_relation(user_id, role_id)
-values ('1', '1');
+
 INSERT INTO ret_user_role_relation(user_id, role_id)
 values ('2', '2');
 INSERT INTO ret_user_role_relation(user_id, role_id)
@@ -171,6 +198,8 @@ values ('3', '2');
 INSERT INTO ret_user_role_relation(user_id, role_id)
 values ('4', '2');
 -- 管理员
+INSERT INTO ret_user_role_relation(user_id, role_id)
+values ('1', '1');
 INSERT INTO ret_user_role_relation(user_id, role_id)
 values ('5', '1');
 INSERT INTO ret_user_role_relation(user_id, role_id)
@@ -217,55 +246,6 @@ VALUES ('3', '北方稀土', '未知3', '未知@未知3', '天津', '没什么�
 INSERT INTO `ret_factory`(id, name, phone, email, address, description)
 VALUES ('4', '金力永磁', '未知4', '未知@未知4', '广州', '没什么描述4');
 
-
--- 工厂和用户关系表
-DROP TABLE IF EXISTS ret_factory_member_relation;
-CREATE TABLE ret_factory_user_relation
-(
-    `id` bigint(20) AUTO_INCREMENT,
-    `factory_id` bigint(20),
-    `user_id`    bigint(20),
-    PRIMARY KEY (`id`),
-    CONSTRAINT FK_FACTORY_AND_USER_USER_ID FOREIGN KEY (`user_id`) REFERENCES `ret_user` (`id`),
-    CONSTRAINT FK_FACTORY_AND_USER_FACTORY_ID FOREIGN KEY (`factory_id`) REFERENCES `ret_factory` (`id`)
-) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8 COMMENT ='工厂和用户关系表';;
-INSERT INTO ret_factory_user_relation(factory_id, user_id)
-VALUES ('1', '1');
-INSERT INTO ret_factory_user_relation(factory_id, user_id)
-VALUES ('2', '2');
-INSERT INTO ret_factory_user_relation(factory_id, user_id)
-VALUES ('3', '3');
-INSERT INTO ret_factory_user_relation(factory_id, user_id)
-VALUES ('4', '4');
-
--- 反馈分类表
-DROP TABLE IF EXISTS `ret_member_job`;
-CREATE TABLE `ret_member_job`
-(
-    `id`          bigint(20)  NOT NULL AUTO_INCREMENT,
-    `name`        varchar(20) NOT NULL COMMENT '名称',
-    `description` varchar(100) DEFAULT NULL COMMENT '描述',
-    CONSTRAINT PK_MEMBER_CATEGORY PRIMARY KEY (`id`)
-) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8 COMMENT ='成员职位表';
-INSERT INTO `ret_member_job`(id, name, description)
-VALUES (1, '运输人员', '送货到家');
-INSERT INTO `ret_member_job`(id, name, description)
-VALUES (2, '运营人员', '专题板块管理');
-INSERT INTO `ret_member_job`(id, name, description)
-VALUES (3, '销售人员', '卖货的');
-
-CREATE TABLE `ret_member_job_resource_relation`
-(
-    `id` bigint(20) NOT NULL AUTO_INCREMENT,
-    `member_job_id` bigint(20) NOT NULL,
-    `resource_id` bigint(20) NOT NULL,
-    CONSTRAINT PRIMARY KEY (`id`),
-    CONSTRAINT FOREIGN KEY (`member_job_id`) REFERENCES `ret_member_job`(`id`),
-    CONSTRAINT FOREIGN KEY (`resource_id`) REFERENCES `ret_resource`(`id`)
-) COMMENT = '职位资源关系表';
-
 -- 工厂成员表
 DROP TABLE IF EXISTS ret_member;
 CREATE TABLE ret_member
@@ -301,6 +281,7 @@ CREATE TABLE `ret_user_member_relation`
     `id` bigint(20) AUTO_INCREMENT,
     `user_id`   bigint(20),
     `member_id` bigint(20),
+    UNIQUE (`user_id`, `member_id`),
     PRIMARY KEY (`id`),
     FOREIGN KEY (`user_id`) REFERENCES `ret_user` (`id`),
     FOREIGN KEY (`member_id`) REFERENCES `ret_member` (`id`)
@@ -324,35 +305,79 @@ VALUES (13, 7);
 INSERT `ret_user_member_relation`(user_id, member_id)
 VALUES (14, 8);
 
+-- 成员职位表
+DROP TABLE IF EXISTS `ret_member_job`;
+CREATE TABLE `ret_member_job`
+(
+    `id`          bigint(20)  NOT NULL AUTO_INCREMENT,
+    `name`        varchar(20) NOT NULL COMMENT '名称',
+    `description` varchar(100) DEFAULT NULL COMMENT '描述',
+    CONSTRAINT PK_MEMBER_CATEGORY PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8 COMMENT ='成员职位表';
+INSERT INTO `ret_member_job`(id, name, description)
+VALUES (1, '运输人员', '送货到家');
+INSERT INTO `ret_member_job`(id, name, description)
+VALUES (2, '运营人员', '专题板块管理');
+INSERT INTO `ret_member_job`(id, name, description)
+VALUES (3, '销售人员', '卖货的');
+
 -- 成员和职位关系表
 DROP TABLE IF EXISTS `ret_member_job_relation`;
-CREATE TABLE `ret_member_job_relation_relation`
+CREATE TABLE `ret_member_job_relation`
 (
     `id` bigint(20) AUTO_INCREMENT,
     `member_id`     bigint(20),
-    `member_job_id` bigint(20),
+    `member_job_id` bigint(20) DEFAULT 2,
+    UNIQUE (`member_id`, `member_job_id`),
     PRIMARY KEY (`id`),
     CONSTRAINT FK_MEMBER_AND_JOB_MEMBER_ID FOREIGN KEY (`member_id`) REFERENCES `ret_member` (`id`),
     CONSTRAINT FK_MEMBER_AND_JOB_JOB_ID FOREIGN KEY (`member_job_id`) REFERENCES `ret_member_job` (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8 COMMENT ='成员和职位关系表';
-INSERT `ret_member_job_relation_relation`(member_id, member_job_id)
+INSERT `ret_member_job_relation`(member_id, member_job_id)
 VALUES (1, 1);
-INSERT `ret_member_job_relation_relation`(member_id, member_job_id)
+INSERT `ret_member_job_relation`(member_id, member_job_id)
 VALUES (2, 2);
-INSERT `ret_member_job_relation_relation`(member_id, member_job_id)
+INSERT `ret_member_job_relation`(member_id, member_job_id)
 VALUES (3, 3);
-INSERT `ret_member_job_relation_relation`(member_id, member_job_id)
+INSERT `ret_member_job_relation`(member_id, member_job_id)
 VALUES (4, 1);
-INSERT `ret_member_job_relation_relation`(member_id, member_job_id)
+INSERT `ret_member_job_relation`(member_id, member_job_id)
 VALUES (5, 2);
-INSERT `ret_member_job_relation_relation`(member_id, member_job_id)
+INSERT `ret_member_job_relation`(member_id, member_job_id)
 VALUES (6, 3);
-INSERT `ret_member_job_relation_relation`(member_id, member_job_id)
+INSERT `ret_member_job_relation`(member_id, member_job_id)
 VALUES (7, 1);
-INSERT `ret_member_job_relation_relation`(member_id, member_job_id)
+INSERT `ret_member_job_relation`(member_id, member_job_id)
 VALUES (8, 2);
 
+-- 职位权限表
+DROP TABLE IF EXISTS `ret_permission`;
+CREATE TABLE `ret_permission`
+(
+    `id`          bigint(20) AUTO_INCREMENT NOT NULL,
+    `create_time` datetime DEFAULT NOW() COMMENT '创建时间',
+    `name`        varchar(50) UNIQUE COMMENT  '权限名称',
+    `method`      varchar(10) COMMENT '请求方法',
+    `url`         varchar(50) COMMENT '请求路径',
+    `description` varchar(50) COMMENT '描述',
+    UNIQUE (`method`, `url`),
+    PRIMARY KEY (`id`)
+) COMMENT = '职位权限表';
+
+-- 权限职位关系表
+DROP TABLE IF EXISTS `ret_member_job_permission_relation`;
+CREATE TABLE `ret_member_job_permission_relation`
+(
+    `id` bigint(20) NOT NULL AUTO_INCREMENT,
+    `member_job_id` bigint(20) NOT NULL,
+    `permission_id` bigint(20) NOT NULL,
+    CONSTRAINT PRIMARY KEY (`id`),
+    UNIQUE (`member_job_id`, `permission_id`),
+    CONSTRAINT FOREIGN KEY (`member_job_id`) REFERENCES `ret_member_job`(`id`),
+    CONSTRAINT FOREIGN KEY (`permission_id`) REFERENCES `ret_permission`(`id`)
+) COMMENT = '职位权限关系表';
 
 -- 工厂和成员关系表
 DROP TABLE IF EXISTS ret_factory_member_relation;
@@ -361,6 +386,7 @@ CREATE TABLE ret_factory_member_relation
     `id` bigint(20) AUTO_INCREMENT,
     `factory_id` bigint(20) NOT NULL,
     `member_id`  bigint(20) NOT NULL,
+    UNIQUE (`factory_id`, `member_id`),
     PRIMARY KEY (`id`),
     CONSTRAINT FK_FACTORY_AND_MEMBER_FACTORY_ID FOREIGN KEY (`factory_id`) REFERENCES `ret_factory` (`id`),
     CONSTRAINT FK_FACTORY_AND_MEMBER_MEMBER_ID FOREIGN KEY (`member_id`) REFERENCES `ret_member` (`id`)
@@ -460,6 +486,7 @@ CREATE TABLE `ret_product_document_relation`
     `id` bigint(20) AUTO_INCREMENT,
     `product_id`          bigint(20),
     `product_document_id` bigint(20),
+    UNIQUE (`product_document_id`, `product_id`),
     PRIMARY KEY (`id`),
     CONSTRAINT FK_PRODUCT_AND_DOCUMENT_PRODUCT_ID FOREIGN KEY (`product_id`) REFERENCES `ret_product` (`id`),
     CONSTRAINT FK_PRODUCT_AND_DOCUMENT_DOCUMENT_ID FOREIGN KEY (`product_document_id`) REFERENCES `ret_product_document` (`id`)
@@ -473,6 +500,7 @@ CREATE TABLE `ret_product_factory_relation`
     `id` bigint(20) AUTO_INCREMENT,
     `product_id` bigint(20),
     `factory_id` bigint(20),
+    UNIQUE (`product_id`, `factory_id`),
     PRIMARY KEY (`id`),
     CONSTRAINT PK_PRODUCT_AND_FACTORY_PRODUCT_ID FOREIGN KEY (`product_id`) REFERENCES `ret_product` (`id`),
     CONSTRAINT PK_PRODUCT_AND_FACTORY_FACTORY_ID FOREIGN KEY (`factory_id`) REFERENCES `ret_factory` (`id`)
@@ -488,8 +516,7 @@ INSERT ret_product_factory_relation(product_id, factory_id)
 VALUES (4, 1);
 INSERT ret_product_factory_relation(product_id, factory_id)
 VALUES (5, 1);
-INSERT ret_product_factory_relation(product_id, factory_id)
-VALUES (1, 1);
+
 
 
 -- 材料表
@@ -646,6 +673,7 @@ CREATE TABLE `ret_material_category_double_category_relation`
     `id` bigint(20) AUTO_INCREMENT,
     `category_id`        bigint(20),
     `double_category_id` bigint(20),
+    UNIQUE (`category_id`, `double_category_id`),
     PRIMARY KEY (`id`),
     CONSTRAINT PK_MATERIAL_CATEGORY_AND_DOUBLE_CATEGORY_FOR_CATEGORY FOREIGN KEY (`category_id`) REFERENCES `ret_material_category` (`id`),
     CONSTRAINT PK_MATERIAL_CATEGORY_AND_DOUBLE_CATEGORY_FOR_DOUBLE_CATEGORY FOREIGN KEY (`double_category_id`) REFERENCES `ret_material_double_category` (`id`)
@@ -710,6 +738,7 @@ CREATE TABLE `ret_material_double_category_document_relation`
     `id` bigint(20) AUTO_INCREMENT,
     `double_category_id` bigint(20),
     `document_id`        bigint(20),
+    UNIQUE (`double_category_id`, `document_id`),
     PRIMARY KEY (`id`),
     CONSTRAINT PK_MATERIAL_DOUBLE_CATEGORY_AND_DOCUMENT_FOR_DOUBLE_CATEGORY FOREIGN KEY (`double_category_id`) REFERENCES `ret_material_double_category` (`id`),
     CONSTRAINT PK_MATERIAL_DOUBLE_CATEGORY_AND_DOCUMENT_FOR_DOCUMENT FOREIGN KEY (`document_id`) REFERENCES `ret_material_double_category_document` (`id`)
@@ -736,6 +765,7 @@ CREATE TABLE `ret_material_category_double_category_document_relation`
     `id` bigint(20) AUTO_INCREMENT,
     `category_id`        bigint(20),
     `double_category_id` bigint(20),
+    UNIQUE (`category_id`, `double_category_id`),
     PRIMARY KEY (`id`),
     CONSTRAINT FOREIGN KEY (`category_id`) REFERENCES `ret_material_category` (`id`),
     CONSTRAINT FOREIGN KEY (`double_category_id`) REFERENCES `ret_material_double_category` (`id`)
@@ -763,6 +793,7 @@ CREATE TABLE `ret_material_category_relation`
     `id` bigint(20) AUTO_INCREMENT,
     `material_id`        bigint(20),
     `double_category_id` bigint(20),
+    UNIQUE (`material_id`, `double_category_id`),
     PRIMARY KEY (`id`),
     CONSTRAINT FK_MATERIAL_AND_CATEGORY_MATERIAL_ID FOREIGN KEY (`material_id`) REFERENCES `ret_material` (`id`),
     CONSTRAINT FK_MATERIAL_AND_DOUBLE_CATEGORY_CATEGORY_ID FOREIGN KEY (`double_category_id`) REFERENCES `ret_material_double_category` (`id`)
@@ -883,6 +914,7 @@ CREATE TABLE `ret_material_document_relation`
     `id` bigint(20) AUTO_INCREMENT,
     `material_id` bigint(20),
     `document_id` bigint(20),
+    UNIQUE (`material_id`, `document_id`),
     PRIMARY KEY (`id`),
     CONSTRAINT FK_MATERIAL_AND_DOCUMENT_MATERIAL_ID FOREIGN KEY (`material_id`) REFERENCES `ret_material` (`id`),
     CONSTRAINT FK_MATERIAL_AND_DOCUMENT_DOCUMENT_ID FOREIGN KEY (`document_id`) REFERENCES `ret_material_document` (`id`)
@@ -919,6 +951,7 @@ CREATE TABLE `ret_material_product_relation`
     `id` bigint(20) AUTO_INCREMENT,
     `material_id` bigint(20),
     `product_id`  bigint(20),
+    UNIQUE (`material_id`, `product_id`),
     PRIMARY KEY (`id`),
     CONSTRAINT FK_MATERIAL_AND_PRODUCT_MATERIAL_ID FOREIGN KEY (`material_id`) REFERENCES `ret_material` (`id`),
     CONSTRAINT FK_MATERIAL_AND_PRODUCT_PRODUCT_ID FOREIGN KEY (`product_id`) REFERENCES `ret_product` (`id`)
@@ -1017,6 +1050,7 @@ CREATE TABLE `ret_help_category_help_relation`
     `id` bigint(20) AUTO_INCREMENT,
     `help_id`          bigint(20),
     `help_category_id` bigint(20),
+    UNIQUE (`help_category_id`, `help_id`),
     PRIMARY KEY (`id`),
     CONSTRAINT FK_HELP_AND_HELP_HELP_ID FOREIGN KEY (`help_id`) REFERENCES `ret_help` (`id`),
     CONSTRAINT FK_HELP_AND_HELP_CATEGORY_ID FOREIGN KEY (`help_category_id`) REFERENCES `ret_help_category` (`id`)

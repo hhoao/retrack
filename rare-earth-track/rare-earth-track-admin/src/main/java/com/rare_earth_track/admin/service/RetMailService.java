@@ -1,42 +1,48 @@
 package com.rare_earth_track.admin.service;
 
+import com.rare_earth_track.admin.bean.MailType;
+
 /**
+ * The interface Ret mail service.
+ *
  * @author hhoa
- * @date 2022/5/15
- **/
+ * @date 2022 /5/15
+ */
 public interface RetMailService {
-    /**
-     * 发送验证码
-     * @param authCode 验证码
-     * @param to 接受方
-     */
-    void sendAuthCode(String authCode, String to);
 
     /**
-     * 生成并且发送验证码
-     * @param to 接收方
+     * 生成并且发送消息
+     *
+     * @param to   接收方
+     * @param type the type
      */
-    void generateAndSendAuthCode(String to);
+    void generateAndSendMessage(String to, MailType type);
 
     /**
-     * 获取验证码
-     * @param to 接收方
-     * @return 验证码
+     * 获取消息
+     *
+     * @param to   接收方
+     * @param type the type
+     * @return 消息 auth code
      */
-    String getAuthCode(String to);
+    String getMessage(String to, MailType type);
 
     /**
-     * 是否存在验证码
-     * @param to 接收方
+     * 是否存在消息
+     *
+     * @param to   接收方
+     * @param type the type
      * @return boolean
      */
-    boolean existAuthCode(String to);
+    boolean existMessage(String to, MailType type);
 
     /**
-     * 验证验证码
-     * @param to 接收方
-     * @param code 验证码
+     * 验证消息
+     *
+     * @param to   接收方
+     * @param code 消息
+     * @param type the type
      * @return boolean
      */
-    boolean validateAuthCode(String to, String code);
+    boolean validateMessage(String to, String code, MailType type);
 }

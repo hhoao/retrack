@@ -10,6 +10,7 @@ import lombok.Data;
 @Data
 @Schema(description = "RetRoleParam", name = "角色参数")
 public class RetRoleParam {
+    private Long id;
     @Schema(description = "名称")
     private String name;
 

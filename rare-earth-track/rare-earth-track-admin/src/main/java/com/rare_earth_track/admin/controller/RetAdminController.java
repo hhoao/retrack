@@ -3,7 +3,6 @@ package com.rare_earth_track.admin.controller;
 import com.rare_earth_track.admin.bean.RetLoginParam;
 import com.rare_earth_track.admin.bean.RetUserRegisterParam;
 import com.rare_earth_track.admin.bean.RetUserUpdatePasswordParam;
-import com.rare_earth_track.admin.service.RetMailService;
 import com.rare_earth_track.admin.service.RetUserService;
 import com.rare_earth_track.common.api.CommonResult;
 import com.rare_earth_track.mgb.model.RetUser;
@@ -13,6 +12,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.tags.Tags;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,10 +27,11 @@ import java.util.Map;
 @AllArgsConstructor
 @Tags({@Tag(name = "用户登录注销管理", description = "RetUserAdminController")})
 @RestController
+@Data
 public class RetAdminController {
     private RetUserService userService;
     private JwtSecurityProperties properties;
-    private RetMailService mailService;
+
 
     @Operation(summary = "用户登录")
     @PostMapping("/user/auth/token")
@@ -54,7 +55,10 @@ public class RetAdminController {
 
     @Operation(description = "用户退出, 需要前端删除token", summary = "用户退出")
     @DeleteMapping("/user/auth/token")
-    public CommonResult<String> logout(){
+    public CommonResult<String> logout(@RequestHeader Map<String, String> headers){
+        String bearer = headers.get(properties.getTokenHeader().toLowerCase());
+        String authToken = bearer.substring(properties.getTokenHead().length());
+        userService.logout(authToken);
         return CommonResult.success(null);
     }
 
@@ -98,7 +102,7 @@ public class RetAdminController {
         }else{
             Boolean aBoolean = userService.existsMail(phoneOrMail);
             if (aBoolean) {
-                mailService.generateAndSendAuthCode(phoneOrMail);
+                userService.sendMailAuthCode(phoneOrMail);
             }else{
                 CommonResult.failed("没有该邮箱");
             }

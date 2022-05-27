@@ -6,7 +6,7 @@ import java.io.Serializable;
 /**
  * 成员和职位关系
  * @author hhoa 
- * @date 2022-05-16
+ * @date 2022-05-27
  */
 @Schema(name = "成员和职位关系")
 public class RetUserMemberRelation implements Serializable {

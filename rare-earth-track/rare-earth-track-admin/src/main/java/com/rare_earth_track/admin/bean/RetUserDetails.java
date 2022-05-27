@@ -3,30 +3,35 @@ package com.rare_earth_track.admin.bean;
 
 import com.rare_earth_track.mgb.model.RetResource;
 import com.rare_earth_track.mgb.model.RetUser;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * 认证需要的UserDetails
  * @author hhoa
  **/
+@RequiredArgsConstructor
 public class RetUserDetails implements UserDetails {
     private final RetUser retUser;
     private final List<RetResource> retResources;
-    public RetUserDetails(RetUser retUser, List<RetResource> retResources) {
-        this.retUser = retUser;
-        this.retResources = retResources;
-    }
+    private final List<RetFactoryJob> factoryJobs;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return  retResources.stream()
-                .map(role ->new SimpleGrantedAuthority(role.getId()+":"+role.getName()))
-                .collect(Collectors.toList());
+        List<SimpleGrantedAuthority> grantedAuthorities = new ArrayList<>();
+        grantedAuthorities.addAll(retResources.stream()
+                .map(role -> new SimpleGrantedAuthority(role.getId() + ":" + role.getName()))
+                .toList());
+        grantedAuthorities.addAll(factoryJobs.stream()
+                .map(factoryJob -> new SimpleGrantedAuthority(factoryJob.getFactoryId() + ":" + factoryJob.getJobId()))
+                .toList());
+
+        return grantedAuthorities;
     }
 
     @Override

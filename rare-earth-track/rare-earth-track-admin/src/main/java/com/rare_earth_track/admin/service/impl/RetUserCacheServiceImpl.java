@@ -20,22 +20,32 @@ public class RetUserCacheServiceImpl implements RetUserCacheService {
     private String redisDatabase;
     @Value("${ret.redis.expire.common}")
     private Long redisExpire;
-    @Value("${ret.redis.key.admin}")
-    private String redisKeyAdmin;
+    @Value("${ret.redis.key.user}")
+    private String redisKeyUser;
     @Value("${ret.redis.auth-code.phone}")
     private String redisKeyPhoneAuthCode;
 
+    private String getUsernameKey(String user){
+        return redisDatabase + ":" + redisKeyUser + ":" + user;
+    }
+    @Override
+    public void expire(String username, Long expiration) {
+        redisService.expire(getUsernameKey(username), expiration);
+    }
+
+    @Override
+    public void expire(String username) {
+        redisService.expire(getUsernameKey(username), redisExpire);
+    }
 
     @Override
     public RetUser getUserByName(String username) {
-        String key = redisDatabase + ":" + redisKeyAdmin + ":" + username;
-        return (RetUser)redisService.get(key);
+        return (RetUser)redisService.get(getUsernameKey(username));
     }
 
     @Override
     public void setUser(RetUser retUser){
-        String key = redisDatabase + ":" + redisKeyAdmin + ":" + retUser.getName();
-        redisService.set(key, retUser, redisExpire);
+        redisService.set(getUsernameKey(retUser.getName()), retUser, redisExpire);
     }
 
 
@@ -53,7 +63,6 @@ public class RetUserCacheServiceImpl implements RetUserCacheService {
 
     @Override
     public void deleteUserByName(String username) {
-        String key = redisDatabase + ":" + redisKeyAdmin + ":" + username;
-        redisService.del(key);
+        redisService.del(getUsernameKey(username));
     }
 }

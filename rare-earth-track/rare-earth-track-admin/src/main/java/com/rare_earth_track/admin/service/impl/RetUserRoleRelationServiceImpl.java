@@ -1,8 +1,10 @@
 package com.rare_earth_track.admin.service.impl;
 
+import com.rare_earth_track.admin.service.RetRoleResourceRelationService;
 import com.rare_earth_track.admin.service.RetUserRoleRelationService;
 import com.rare_earth_track.mgb.mapper.RetRoleMapper;
 import com.rare_earth_track.mgb.mapper.RetUserRoleRelationMapper;
+import com.rare_earth_track.mgb.model.RetResource;
 import com.rare_earth_track.mgb.model.RetRole;
 import com.rare_earth_track.mgb.model.RetUserRoleRelation;
 import com.rare_earth_track.mgb.model.RetUserRoleRelationExample;
@@ -20,6 +22,7 @@ import java.util.List;
 public class RetUserRoleRelationServiceImpl implements RetUserRoleRelationService {
     private final RetUserRoleRelationMapper userRoleRelationMapper;
     private final RetRoleMapper roleMapper;
+    private final RetRoleResourceRelationService resourceRoleRelationService;
     @Override
     public RetRole getRoleByUserId(Long userId) {
         RetUserRoleRelationExample relationExample = new RetUserRoleRelationExample();
@@ -29,6 +32,15 @@ public class RetUserRoleRelationServiceImpl implements RetUserRoleRelationServic
             RetUserRoleRelation relation = retUserRoleRelations.get(0);
             Long roleId = relation.getRoleId();
             return roleMapper.selectByPrimaryKey(roleId);
+        }
+        return null;
+    }
+
+    @Override
+    public List<RetResource> getResourcesByUserId(Long id) {
+        RetRole role = getRoleByUserId(id);
+        if (role != null){
+            return resourceRoleRelationService.getResourcesByRoleId(role.getId());
         }
         return null;
     }

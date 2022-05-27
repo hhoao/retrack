@@ -1,6 +1,7 @@
 package com.rare_earth_track.security.component;
 
 import org.springframework.http.HttpMethod;
+import org.springframework.security.access.AccessDecisionManager;
 import org.springframework.security.access.SecurityMetadataSource;
 import org.springframework.security.access.intercept.AbstractSecurityInterceptor;
 import org.springframework.security.access.intercept.InterceptorStatusToken;
@@ -22,7 +23,7 @@ import java.util.List;
 public class JwtDynamicSecurityFilter extends AbstractSecurityInterceptor implements Filter {
     private final DynamicSecurityMetadataSource dynamicSecurityMetadataSource;
     private final List<String> ignoredUrls;
-    public JwtDynamicSecurityFilter(DynamicAccessDecisionManager dynamicAcc,
+    public JwtDynamicSecurityFilter(AccessDecisionManager dynamicAcc,
                                     DynamicSecurityMetadataSource dynamicSecurityMetadataSource,
                                     List<String> ignoredUrls){
         setAccessDecisionManager(dynamicAcc);

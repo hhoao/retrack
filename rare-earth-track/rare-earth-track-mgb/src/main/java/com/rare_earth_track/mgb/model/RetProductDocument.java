@@ -6,7 +6,7 @@ import java.io.Serializable;
 /**
  * 产品文档
  * @author hhoa 
- * @date 2022-05-16
+ * @date 2022-05-27
  */
 @Schema(name = "产品文档")
 public class RetProductDocument implements Serializable {

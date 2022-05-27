@@ -4,12 +4,14 @@ package com.rare_earth_track.admin.service.impl;
 import cn.hutool.core.bean.BeanUtil;
 import com.github.pagehelper.PageHelper;
 import com.rare_earth_track.admin.bean.RetResourceParam;
-import com.rare_earth_track.admin.service.*;
+import com.rare_earth_track.admin.service.RetResourceService;
+import com.rare_earth_track.admin.service.RetRoleResourceRelationService;
+import com.rare_earth_track.common.exception.Asserts;
 import com.rare_earth_track.mgb.mapper.RetResourceMapper;
 import com.rare_earth_track.mgb.model.RetResource;
 import com.rare_earth_track.mgb.model.RetResourceExample;
-import com.rare_earth_track.mgb.model.RetRole;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,8 +24,18 @@ import java.util.List;
 @AllArgsConstructor
 public class RetResourceServiceImpl implements RetResourceService {
     private RetResourceMapper resourceMapper;
-    private RetResourceRoleRelationService resourceRoleRelationService;
-    private RetUserRoleRelationService userRoleRelationService;
+    private RetRoleResourceRelationService roleResourceRelationService;
+
+    @Override
+    public RetResource getResourceByName(String name) {
+        RetResourceExample resourceExample = new RetResourceExample();
+        resourceExample.createCriteria().andNameEqualTo(name);
+        List<RetResource> resources = resourceMapper.selectByExample(resourceExample);
+        if (resources != null && resources.size() > 0){
+            return resources.get(0);
+        }
+        return null;
+    }
 
     @Override
     public List<RetResource> getAllResources() {
@@ -31,8 +43,8 @@ public class RetResourceServiceImpl implements RetResourceService {
     }
 
     @Override
-    public List<RetResource> list(Integer from, Integer size) {
-        PageHelper.startPage(from, size);
+    public List<RetResource> list(Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
         return getAllResources();
     }
 
@@ -41,19 +53,43 @@ public class RetResourceServiceImpl implements RetResourceService {
         return resourceMapper.selectByPrimaryKey(resourceId);
     }
 
-    @Override
-    public List<RetResource> getResourcesByUserId(Long id) {
-        RetRole role = userRoleRelationService.getRoleByUserId(id);
-        if (role != null){
-            return resourceRoleRelationService.getResourcesByRoleId(role.getId());
-        }
-        return null;
-    }
+
 
     @Override
     public int addResource(RetResourceParam resourceParam) {
         RetResource resource = new RetResource();
-        BeanUtil.copyProperties(resource, resourceParam);
-        return resourceMapper.insert(resource);
+        BeanUtil.copyProperties(resourceParam, resource);
+        int insert = resourceMapper.insert(resource);
+        if (insert == 0){
+            Asserts.fail("插入资源失败");
+        }
+        RetResource resourceByName = getResourceByName(resourceParam.getName());
+        roleResourceRelationService.refreshCacheByResourceId(resourceByName.getId());
+        return insert;
+    }
+
+    @Override
+    public int updateResource(RetResourceParam resourceParam) {
+        RetResource resourceByName = getResourceByName(resourceParam.getName());
+        if (resourceByName == null){
+            Asserts.fail("没有该资源");
+        }
+        BeanUtils.copyProperties(resourceParam, resourceByName);
+        int successCount = resourceMapper.updateByPrimaryKey(resourceByName);
+        if (successCount == 0){
+            Asserts.fail("更新失败");
+        }
+        //刷新缓存
+        roleResourceRelationService.refreshCacheByResourceId(resourceByName.getId());
+        return  successCount;
+    }
+    @Override
+    public int delResource(Long id) {
+        RetResource resource = resourceMapper.selectByPrimaryKey(id);
+        if (resource == null){
+            Asserts.fail("没有该资源");
+        }
+        roleResourceRelationService.deleteResourceRoleRelation(id);
+        return resourceMapper.deleteByPrimaryKey(id);
     }
 }

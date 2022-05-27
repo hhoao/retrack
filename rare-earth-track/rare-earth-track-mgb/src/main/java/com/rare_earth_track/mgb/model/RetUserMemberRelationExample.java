@@ -112,7 +112,7 @@ public class RetUserMemberRelationExample {
 
     /**
      * ret_user_member_relation
-     * @author hhoa 2022-05-16
+     * @author hhoa 2022-05-27
      */
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
@@ -336,10 +336,6 @@ public class RetUserMemberRelationExample {
         }
     }
 
-    /**
-     * ret_user_member_relation
-     * @author hhoa 2022-05-16
-     */
     public static class Criteria extends GeneratedCriteria {
         protected Criteria() {
             super();
@@ -348,7 +344,7 @@ public class RetUserMemberRelationExample {
 
     /**
      * ret_user_member_relation
-     * @author hhoa 2022-05-16
+     * @author hhoa 2022-05-27
      */
     public static class Criterion {
         private String condition;

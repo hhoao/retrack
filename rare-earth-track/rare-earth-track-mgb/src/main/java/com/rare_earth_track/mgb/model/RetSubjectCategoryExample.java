@@ -112,7 +112,7 @@ public class RetSubjectCategoryExample {
 
     /**
      * ret_subject_category
-     * @author hhoa 2022-05-16
+     * @author hhoa 2022-05-27
      */
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
@@ -486,10 +486,6 @@ public class RetSubjectCategoryExample {
         }
     }
 
-    /**
-     * ret_subject_category
-     * @author hhoa 2022-05-16
-     */
     public static class Criteria extends GeneratedCriteria {
         protected Criteria() {
             super();
@@ -498,7 +494,7 @@ public class RetSubjectCategoryExample {
 
     /**
      * ret_subject_category
-     * @author hhoa 2022-05-16
+     * @author hhoa 2022-05-27
      */
     public static class Criterion {
         private String condition;

@@ -3,10 +3,16 @@ package com.rare_earth_track.admin.service;
 import com.rare_earth_track.mgb.model.RetRole;
 
 /**
+ * 角色缓存服务
  * @author hhoa
  * @date 2022/5/14
  **/
 public interface RetRoleCacheService {
+    /**
+     * 删除key
+     * @param userName 用户名
+     */
+    void delKey(String userName);
     /**
      * 通过用户名名设置角色
      * @param role 角色

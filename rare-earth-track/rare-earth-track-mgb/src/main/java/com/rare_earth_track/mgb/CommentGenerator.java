@@ -21,11 +21,11 @@ public class CommentGenerator extends DefaultCommentGenerator {
     private static final String MAPPER_SUFFIX = "Mapper";
     private static final String API_MODEL_PROPERTY_FULL_CLASS_NAME = "io.swagger.v3.oas.annotations.media.Schema";
 
-    private Properties properties;
-    private Properties systemPro;
-    private boolean suppressDate;
-    private boolean suppressAllComments;
-    private String currentDateStr;
+    private final Properties properties;
+    private final Properties systemPro;
+    private final boolean suppressDate;
+    private final boolean suppressAllComments;
+    private final String currentDateStr;
     public CommentGenerator() {
         super();
         properties = new Properties();

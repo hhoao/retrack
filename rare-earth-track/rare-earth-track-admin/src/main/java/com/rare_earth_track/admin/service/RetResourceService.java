@@ -12,6 +12,11 @@ import java.util.List;
  **/
 public interface RetResourceService {
     /**
+     * 通过资源名获取资源
+     * @return 资源
+     */
+    RetResource getResourceByName(String name);
+    /**
      * 获取所有资源
 
      * @return 所有资源
@@ -20,11 +25,11 @@ public interface RetResourceService {
 
     /**
      * 分页获取资源列表
-     * @param from the from
-     * @param size the size
+     * @param pageNum the pageNum
+     * @param pageSize the size
      * @return 分页资源 list
      */
-    List<RetResource> list(Integer from, Integer size);
+    List<RetResource> list(Integer pageNum, Integer pageSize);
 
     /**
      * 通过ResourceId获取Resource
@@ -32,12 +37,6 @@ public interface RetResourceService {
      * @return resource
      */
     RetResource getResourceByResourceId(Long resourceId);
-    /**
-     * 通过用户id获取资源
-     * @param id id
-     * @return 用户资源
-     */
-    List<RetResource> getResourcesByUserId(Long id);
 
     /**
      * 添加资源
@@ -45,4 +44,16 @@ public interface RetResourceService {
      * @return 插入资源数量
      */
     int addResource(RetResourceParam resourceParam);
+    /**
+     * 修改资源
+     * @param resourceParam 资源参数
+     * @return 修改成功个数
+     */
+    int updateResource(RetResourceParam resourceParam);
+    /**
+     * 删除资源
+     * @param id 资源id
+     * @return 删除资源id数量
+     */
+    int delResource(Long id);
 }

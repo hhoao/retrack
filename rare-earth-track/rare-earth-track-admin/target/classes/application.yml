@@ -1,23 +1,8 @@
-server:
-  port: 8080
 spring:
-  mail:
-    host: smtp.qq.com
-    port: 587
-    username: haunghao@foxmail.com
-    # 授权码
-    password: dkebgphvnbbpfjfd
-    properties:
-      mail:
-        smtp:
-          socketFactory:
-            class=javax:
-              net:
-                ssl:
-                  SSLSocketFactory:
-
   profiles:
     active: dev #默认为开发环境
+  jackson:
+    default-property-inclusion: non_null
   mvc:
     hiddenmethod:
       filter:
@@ -27,31 +12,30 @@ spring:
       #设置日期格式
       date: iso
       date-time: yyyy-MM-dd HH:mm:ss
-  redis:
-    database: 0
-    port: 6379
-    password:
-  datasource:
-    #配置数据源
-    url: jdbc:mysql://localhost:3306/rare_earth_track
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    username: root
-    password: m45937494.
-  cache:
-    redis:
-      time-to-live: 1d
+# 配置mybatis
 mybatis:
-  #配置mapper的路径
   mapper-locations:
     - classpath:mybatis/dao/*.xml
-    - classpath:com/rare_earth_track/mgb/mapper
-redis:
-  database: jwt
-  key:
-    resources: 'resources'
-    admin: 'admin'
-  expire:
-    common: 86400 # 24小时
+    - classpath:com/rare_earth_track/mgb/mapper/*.xml
+# 项目配置
+ret:
+  redis:
+    database: ret
+    key:
+      user: user
+      token: token
+      role: role
+      resource-role: resource-role
+      user-role: user-role
+      factory-invitation: factory-invitation
+    auth-code:
+      mail: ret-mail
+      phone: ret-phone
+    expire:
+      common: 86400 # 24小时
+      token: 86400
+      mail: 60
+# 配置security
 jwt:
   secret: ret-security
   expiration: 604800
@@ -69,4 +53,3 @@ jwt:
       - /**/*.png
       - /**/*.ico
       - /user/auth/token
-

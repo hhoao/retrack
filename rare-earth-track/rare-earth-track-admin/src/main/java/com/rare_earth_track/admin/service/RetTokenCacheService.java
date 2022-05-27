@@ -1,9 +1,5 @@
 package com.rare_earth_track.admin.service;
 
-import com.rare_earth_track.mgb.model.RetResource;
-
-import java.util.List;
-
 /**
  * @author hhoa
  * @date 2022/5/13
@@ -25,27 +21,27 @@ public interface RetTokenCacheService {
      * 通过角色名和资源设置token
      * @param username 用户名
      * @param roleName 角色名
-     * @param resources 资源
      */
-    void setKey(String username, String roleName, List<RetResource> resources);
+    void setKey(String username, String roleName);
 
     /**
      * 判断是否有该key
      * @param username username
      * @return 是否存在
      */
-   boolean hasKey(String username);
+    boolean hasKey(String username);
 
     /**
      * 获取
      * @param username 用户名
-     * @return 资源
+     * @return 角色
      */
-    List<RetResource> getKey(String username);
+    String getKey(String username);
 
     /**
      * 删除key
      * @param username 用户名
      */
-   void delKey(String username);
+    void delKey(String username);
+
 }

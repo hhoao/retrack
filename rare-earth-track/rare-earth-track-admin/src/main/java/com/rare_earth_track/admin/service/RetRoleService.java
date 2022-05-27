@@ -11,6 +11,13 @@ import java.util.List;
  **/
 public interface RetRoleService {
     /**
+     * 更新角色
+     * @param roleParam 角色参数
+     * @return 更新角色数量
+     */
+    int updateRole(RetRoleParam roleParam);
+
+    /**
      * 通过roleId获取角色
      * @param roleId roleId
      * @return 角色
@@ -31,11 +38,18 @@ public interface RetRoleService {
     List<RetRole> getAllRoles();
 
     /**
-     * 分页获取资源列表
+     * 分页获取角色列表
      *
-     * @param from the from
-     * @param size the size
-     * @return 分页资源 list
+     * @param pageNum the pageNum
+     * @param pageSize the pageSize
+     * @return 分页角色 list
      */
-    List<RetRole> list(Integer from, Integer size);
+    List<RetRole> list(Integer pageNum, Integer pageSize);
+
+    /**
+     * 删除角色
+     * @param id 角色id
+     * @return 删除成功数量
+     */
+    int deleteRole(Long id);
 }

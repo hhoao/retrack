@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/RETrack.iml" filepath="$PROJECT_DIR$/.idea/RETrack.iml" />
       <module fileurl="file://$PROJECT_DIR$/rare-earth-track/rare-earth-search/rare-earth-search.iml" filepath="$PROJECT_DIR$/rare-earth-track/rare-earth-search/rare-earth-search.iml" />
       <module fileurl="file://$PROJECT_DIR$/rare-earth-track/rare-earth-track.iml" filepath="$PROJECT_DIR$/rare-earth-track/rare-earth-track.iml" />
       <module fileurl="file://$PROJECT_DIR$/rare-earth-track/rare-earth-track-admin/rare-earth-track-admin.iml" filepath="$PROJECT_DIR$/rare-earth-track/rare-earth-track-admin/rare-earth-track-admin.iml" />

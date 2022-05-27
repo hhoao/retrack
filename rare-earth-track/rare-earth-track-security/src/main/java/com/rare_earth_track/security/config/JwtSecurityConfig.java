@@ -11,6 +11,8 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.access.AccessDecisionVoter;
+import org.springframework.security.access.vote.AffirmativeBased;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -24,6 +26,7 @@ import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -39,6 +42,7 @@ public class JwtSecurityConfig extends WebSecurityConfigurerAdapter {
     private AuthenticationTokenFilter authenticationTokenFilter;
     private PasswordEncoder passwordEncoder;
     private JwtTokenService jwtTokenService;
+    private List<AccessDecisionVoter<?>> voters;
 
     public JwtSecurityConfig(JwtSecurityProperties jwtSecurityProperties) {
         this.jwtSecurityProperties = jwtSecurityProperties;
@@ -93,7 +97,6 @@ public class JwtSecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling()
                 .accessDeniedHandler(getAccessDeniedHandler())
                 .authenticationEntryPoint(getAuthenticationEntryPoint())
-                // 自定义权限拦截器JWT过滤器
                 .and()
                 .addFilterBefore(jwtAuthenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 
@@ -115,12 +118,18 @@ public class JwtSecurityConfig extends WebSecurityConfigurerAdapter {
     public void dynamicSecurityService(DynamicSecurityService dynamicSecurityService){
         this.dynamicSecurityService = dynamicSecurityService;
     }
+    @Autowired(required = false)
+    public void DecisionVoters(List<AccessDecisionVoter<?>> accessDecisionVoterList){
+        this.voters = accessDecisionVoterList;
+    }
 
     public JwtDynamicSecurityFilter getDynamicSecurityFilter(){
-        return new JwtDynamicSecurityFilter(new DynamicAccessDecisionManager(),
+        return new JwtDynamicSecurityFilter(//new DynamicAccessDecisionManager(voters),
+                new AffirmativeBased(voters),
                 new DynamicSecurityMetadataSource(dynamicSecurityService),
                 jwtSecurityProperties.getIgnored().getUrls());
     }
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService())

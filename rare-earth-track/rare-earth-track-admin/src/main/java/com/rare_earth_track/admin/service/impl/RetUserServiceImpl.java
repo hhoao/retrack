@@ -2,10 +2,7 @@ package com.rare_earth_track.admin.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.github.pagehelper.PageHelper;
-import com.rare_earth_track.admin.bean.RetUserDetails;
-import com.rare_earth_track.admin.bean.RetUserParam;
-import com.rare_earth_track.admin.bean.RetUserRegisterParam;
-import com.rare_earth_track.admin.bean.RetUserUpdatePasswordParam;
+import com.rare_earth_track.admin.bean.*;
 import com.rare_earth_track.admin.service.*;
 import com.rare_earth_track.common.exception.Asserts;
 import com.rare_earth_track.mgb.mapper.RetUserMapper;
@@ -15,6 +12,7 @@ import com.rare_earth_track.mgb.model.RetUser;
 import com.rare_earth_track.mgb.model.RetUserExample;
 import com.rare_earth_track.security.util.JwtTokenService;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
@@ -38,15 +36,17 @@ import java.util.Random;
 @Slf4j
 @Service
 @AllArgsConstructor
+@Data
 public class RetUserServiceImpl implements RetUserService {
     private final RetUserMapper userMapper;
     private final RetUserCacheService userCacheService;
     private final PasswordEncoder passwordEncoder;
     private final RetTokenCacheService tokenCacheService;
     private final JwtTokenService jwtTokenService;
-    private final RetResourceService resourceService;
     private final RetMailService mailService;
     private final RetUserRoleRelationService userRoleRelationService;
+
+    private final RetUserMemberRelationService userMemberRelationService;
 
     @Override
     public String login(String username, String password) {
@@ -57,19 +57,17 @@ public class RetUserServiceImpl implements RetUserService {
             if (retUser == null){
                 throw  new UsernameNotFoundException("没有该用户");
             }
-
             if(!passwordEncoder.matches(password, retUser.getPassword())){
                 throw new BadCredentialsException("密码错误");
             }
             if(!retUser.getStatus().equals(1)){
                 throw new DisabledException("用户已被禁用");
             }
-            List<RetResource> retResources = resourceService.getResourcesByUserId(retUser.getId());
-            UserDetails userDetails = new RetUserDetails(retUser, retResources);
+            UserDetails userDetails = getUserDetailsByUser(retUser);
             UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authentication);
             RetRole role = userRoleRelationService.getRoleByUserId(retUser.getId());
-            tokenCacheService.setKey(username, role.getName(), retResources);
+            tokenCacheService.setKey(username, role.getName());
             token = jwtTokenService.generateToken(username);
             log.info(userDetails.getUsername() + "登录成功");
         }catch (AuthenticationException e){
@@ -79,9 +77,15 @@ public class RetUserServiceImpl implements RetUserService {
         return token;
     }
     @Override
+    public void logout(String token){
+        String username = jwtTokenService.getSubjectFromToken(token);
+        tokenCacheService.delKey(username);
+    }
+    @Override
     public UserDetails getUserDetailsByUser(RetUser retUser){
-        List<RetResource> retResources = resourceService.getResourcesByUserId(retUser.getId());
-        return new RetUserDetails(retUser, retResources);
+        List<RetResource> retResources = userRoleRelationService.getResourcesByUserId(retUser.getId());
+        List<RetFactoryJob> factoryJobs = userMemberRelationService.getFactoryJobsByUserId(retUser.getId());
+        return new RetUserDetails(retUser, retResources, factoryJobs);
     }
 
 
@@ -157,7 +161,7 @@ public class RetUserServiceImpl implements RetUserService {
             Asserts.fail("该账号不存在");
         }
         //验证验证码
-        if(!mailService.validateAuthCode(email, passwordParam.getAuthCode())){
+        if(!mailService.validateMessage(email, passwordParam.getAuthCode(), MailType.USER_REGISTER)){
             Asserts.fail("验证码错误");
         }
         RetUser retUser = retUsers.get(0);
@@ -166,6 +170,8 @@ public class RetUserServiceImpl implements RetUserService {
         userCacheService.deleteUserByName(retUser.getName());
         tokenCacheService.delKey(retUser.getName());
     }
+
+
 
     /**
      * 生成通用验证码
@@ -209,13 +215,24 @@ public class RetUserServiceImpl implements RetUserService {
     }
 
     @Override
+    public void sendMailAuthCode(String mail) {
+        mailService.generateAndSendMessage(mail, MailType.USER_REGISTER);
+    }
+
+    @Override
+    public List<RetFactoryJob> getFactoryJobsByUserName(String username) {
+        RetUser userByName = getUserByName(username);
+        return userMemberRelationService.getFactoryJobsByUserId(userByName.getId());
+    }
+
+    @Override
     public List<RetUser> getAllUsers() {
         return userMapper.selectByExample(new RetUserExample());
     }
 
     @Override
-    public List<RetUser> list(Integer from, Integer size) {
-        PageHelper.startPage(from, size);
+    public List<RetUser> list(Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
         return getAllUsers();
     }
 

@@ -6,7 +6,7 @@ import java.io.Serializable;
 /**
  * 帮助和帮助分类关系
  * @author hhoa 
- * @date 2022-05-16
+ * @date 2022-05-27
  */
 @Schema(name = "帮助和帮助分类关系")
 public class RetHelpCategoryHelpRelation implements Serializable {

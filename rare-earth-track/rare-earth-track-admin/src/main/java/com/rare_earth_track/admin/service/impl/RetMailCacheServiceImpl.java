@@ -18,26 +18,24 @@ public class RetMailCacheServiceImpl implements RetMailCacheService {
     private String redisDatabase;
     @Value("${ret.redis.expire.mail}")
     private Long redisExpire;
-    @Value("${ret.redis.key.mail}")
-    private String redisKeyAdmin;
     @Value("${ret.redis.auth-code.mail}")
     private String redisKeyMailAuthCode;
 
-    public String generateAuthCodeKey(String from, String to){
-        return redisDatabase + ":" + redisKeyMailAuthCode + ":" + from + ":" + to;
+    public String generateAuthCodeKey(String from, String to, String type){
+        return redisDatabase + ":" + redisKeyMailAuthCode + ":" + type + ":" + from + ":" + to;
     }
     @Override
-    public String getMailAuthCode(String from, String to) {
-        return (String) redisService.get(generateAuthCodeKey(from, to));
-    }
-
-    @Override
-    public boolean existAuthCode(String from, String to) {
-        return redisService.hasKey(generateAuthCodeKey(from, to));
+    public String getMailMessage(String from, String to, String type) {
+        return (String) redisService.get(generateAuthCodeKey(from, to, type));
     }
 
     @Override
-    public void setMailAuthCode(String from, String to, String authCode) {
-        redisService.set(generateAuthCodeKey(from, to), authCode, redisExpire);
+    public boolean existMessage(String from, String to, String type) {
+        return redisService.hasKey(generateAuthCodeKey(from, to, type));
+    }
+
+    @Override
+    public void setMailMessage(String from, String to, String authCode, String type) {
+        redisService.set(generateAuthCodeKey(from, to, type), authCode, redisExpire);
     }
 }

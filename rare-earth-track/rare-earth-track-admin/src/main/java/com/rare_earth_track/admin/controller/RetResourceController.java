@@ -22,13 +22,13 @@ import java.util.List;
 @AllArgsConstructor
 @Tag(description = "RetResourceController", name = "资源管理")
 public class RetResourceController {
-    public final RetResourceService resourceService;
+    private final RetResourceService resourceService;
 
     @Operation(description = "分页获取资源列表", summary = "分页获取资源列表")
     @GetMapping("/resources")
-    public CommonResult<CommonPage<RetResource>> list(@Parameter(description = "页面起始") @RequestParam(value = "from", defaultValue = "1") Integer from,
-                                                @Parameter(description = "页面大小") @RequestParam(value = "size", defaultValue = "5") Integer size){
-        List<RetResource> allResources = resourceService.list(from, size);
+    public CommonResult<CommonPage<RetResource>> list(@Parameter(description = "页码") @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
+                                                @Parameter(description = "页面大小") @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize){
+        List<RetResource> allResources = resourceService.list(pageNum, pageSize);
         return CommonResult.success(CommonPage.restPage(allResources));
     }
     @Operation(description = "添加资源", summary = "添加资源")
@@ -37,6 +37,24 @@ public class RetResourceController {
         int count = resourceService.addResource(resourceParam);
         if (count == 0){
             return CommonResult.failed("插入失败");
+        }
+        return CommonResult.success(null);
+    }
+    @Operation(summary = "修改资源")
+    @PatchMapping("/resource")
+    public CommonResult<String> updateResource(@RequestBody RetResourceParam resourceParam){
+        int count = resourceService.updateResource(resourceParam);
+        if (count == 0){
+            return CommonResult.failed("插入失败");
+        }
+        return CommonResult.success(null);
+    }
+    @Operation(summary = "删除资源")
+    @DeleteMapping("/resources/{id}")
+    public CommonResult<String> delResource(@PathVariable Long id){
+        int i = resourceService.delResource(id);
+        if (i == 0){
+            return CommonResult.failed("删除失败");
         }
         return CommonResult.success(null);
     }

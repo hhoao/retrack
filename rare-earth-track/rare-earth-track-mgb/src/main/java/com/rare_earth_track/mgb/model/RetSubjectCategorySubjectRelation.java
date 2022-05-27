@@ -6,7 +6,7 @@ import java.io.Serializable;
 /**
  * 专题专题分类关系
  * @author hhoa 
- * @date 2022-05-16
+ * @date 2022-05-27
  */
 @Schema(name = "专题专题分类关系")
 public class RetSubjectCategorySubjectRelation implements Serializable {

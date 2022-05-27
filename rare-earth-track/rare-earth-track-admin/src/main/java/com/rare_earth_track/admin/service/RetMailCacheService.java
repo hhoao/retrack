@@ -10,22 +10,25 @@ public interface RetMailCacheService {
      * @param to 接收方
      * @param from 发送方
      * @param authCode 验证码
+     * @param type 类型
      */
-    void setMailAuthCode(String from, String to, String authCode);
+    void setMailMessage(String from, String to, String authCode, String type);
 
     /**
      * 获取邮箱验证码
      * @param from 发送方
      * @param to 接收方
+     * @param type 类型
      * @return 验证码
      */
-    String getMailAuthCode(String from, String to);
+    String getMailMessage(String from, String to, String type);
 
     /**
      * 判断是否存在验证码
      * @param from 接收方
      * @param to 发送方
+     * @param type 类型
      * @return 是否存在
      */
-    boolean existAuthCode(String from, String to);
+    boolean existMessage(String from, String to, String type);
 }
