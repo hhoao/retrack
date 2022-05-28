@@ -1,7 +1,10 @@
 target/
 !.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
+rare-earth-track/**/target
+rare-earth-track/**/.idea
+rare-earth-track/**/**.iml
+
+
 
 ### IntelliJ IDEA ###
 **/.idea
