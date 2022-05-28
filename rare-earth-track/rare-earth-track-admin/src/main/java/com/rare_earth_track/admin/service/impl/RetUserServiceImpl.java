@@ -204,10 +204,11 @@ public class RetUserServiceImpl implements RetUserService {
     }
 
     @Override
-    public RetUser updateUser(RetUserParam userParam) {
+    public RetUser updateUser(Long userId, RetUserParam userParam) {
         RetUser user = new RetUser();
+        user.setId(userId);
         BeanUtil.copyProperties(userParam, user);
-        int i = userMapper.updateByPrimaryKeySelective(user);
+        int i = userMapper.updateByPrimaryKey(user);
         if (i == 0){
             Asserts.fail("用户更新失败");
         }
@@ -226,6 +227,19 @@ public class RetUserServiceImpl implements RetUserService {
     }
 
     @Override
+    public void deleteUserByUserId(Long userId) {
+        int i = userMapper.deleteByPrimaryKey(userId);
+        if (i == 0){
+            Asserts.fail("删除失败");
+        }
+    }
+
+    @Override
+    public void alterUserRole(Long userId, Long roleId) {
+        userRoleRelationService.alterUserRole(userId, roleId);
+    }
+
+    @Override
     public List<RetUser> getAllUsers() {
         return userMapper.selectByExample(new RetUserExample());
     }
@@ -238,20 +252,17 @@ public class RetUserServiceImpl implements RetUserService {
 
     @Override
     public RetUser getUserByName(String name){
-        RetUser retUser = userCacheService.getUserByName(name);
-        if (retUser == null) {
-            RetUserExample retUserExample = new RetUserExample();
-            retUserExample.createCriteria().andNameEqualTo(name);
-            List<RetUser> retUsers = userMapper.selectByExample(retUserExample);
-            if (retUsers != null && retUsers.size() > 0){
-                retUser = retUsers.get(0);
-                userCacheService.setUser(retUser);
-            }
-            else{
-                throw new UsernameNotFoundException("用户名或者密码错误");
-            }
+        RetUser user;
+        RetUserExample retUserExample = new RetUserExample();
+        retUserExample.createCriteria().andNameEqualTo(name);
+        List<RetUser> retUsers = userMapper.selectByExample(retUserExample);
+        if (retUsers != null && retUsers.size() > 0){
+            user = retUsers.get(0);
         }
-        return retUser;
+        else{
+            throw new UsernameNotFoundException("没有找到该用户");
+        }
+        return user;
     }
 
 }

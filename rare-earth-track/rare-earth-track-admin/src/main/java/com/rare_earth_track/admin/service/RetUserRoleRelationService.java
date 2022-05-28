@@ -28,4 +28,12 @@ public interface RetUserRoleRelationService {
      * @return 用户资源 resources by user id
      */
     List<RetResource> getResourcesByUserId(Long id);
+
+    /**
+     * Alter user role.
+     *
+     * @param userId the user id
+     * @param roleId the role id
+     */
+    void alterUserRole(Long userId, Long roleId);
 }

@@ -11,7 +11,7 @@ import lombok.Data;
 @Schema(name = "用户密码参数", description = "RetUserUpdatePasswordParam")
 @Data
 public class RetUserUpdatePasswordParam {
-    @Schema(description = "手机号或者密码", required = true)
+    @Schema(description = "手机号或者密码", required = true , allowableValues = {"phone", "email"})
     private String phoneOrEmail;
     @Schema(description = "验证码", required = true)
     private String authCode;

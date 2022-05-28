@@ -110,7 +110,7 @@ public interface RetUserService {
     /**
      * 获取部分用户
      *
-     * @param pageNum 页面数量
+     * @param pageNum  页面数量
      * @param pageSize 单页大小
      * @return 部分用户 list
      */
@@ -135,11 +135,12 @@ public interface RetUserService {
     /**
      * 更新用户
      *
+     * @param userId    the user id
      * @param userParam 用户参数
      * @return 用户 ret user
      */
     @Transactional(rollbackFor = Exception.class, noRollbackFor = ApiException.class)
-    RetUser updateUser(RetUserParam userParam);
+    RetUser updateUser(Long userId, RetUserParam userParam);
 
     /**
      * 发送邮箱验证码
@@ -155,4 +156,19 @@ public interface RetUserService {
      * @return the factory jobs by user name
      */
     List<RetFactoryJob> getFactoryJobsByUserName(String username);
+
+    /**
+     * Delete user by user id.
+     *
+     * @param userId the user id
+     */
+    void deleteUserByUserId(Long userId);
+
+    /**
+     * Update user role.
+     *
+     * @param userId the user id
+     * @param roleId the role id
+     */
+    void alterUserRole(Long userId, Long roleId);
 }
