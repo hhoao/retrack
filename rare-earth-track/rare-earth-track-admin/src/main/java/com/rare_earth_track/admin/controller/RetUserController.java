@@ -1,17 +1,17 @@
 package com.rare_earth_track.admin.controller;
 
 
-import com.rare_earth_track.admin.bean.RetUserParam;
 import com.rare_earth_track.admin.service.RetUserService;
 import com.rare_earth_track.common.api.CommonPage;
 import com.rare_earth_track.common.api.CommonResult;
-import com.rare_earth_track.common.exception.Asserts;
 import com.rare_earth_track.mgb.model.RetUser;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.tags.Tags;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * 用户controller
@@ -37,25 +37,26 @@ public class RetUserController {
     @GetMapping("/users/{username}")
     public CommonResult<RetUser> getUser(@PathVariable("username") String username){
         RetUser userByName = userService.getUserByName(username);
-        if (userByName == null){
-            Asserts.fail("没有该用户");
-        }
         return CommonResult.success(userByName);
     }
-
-    @Operation(summary = "更新用户")
-    @PatchMapping("/users/{userId}")
-    public CommonResult<String> updateUser(@PathVariable("userId") Long userId,
-                                           @RequestBody RetUserParam userParam){
-        userService.updateUser(userId, userParam);
-        return CommonResult.success(null);
+    @Operation(summary = "通过用户参数获取用户信息")
+    @GetMapping
+    public CommonResult<List<RetUser>> getUserByUserParam(RetUser user){
+        List<RetUser> users = userService.getUser(user);
+        return CommonResult.success(users);
     }
 
+    @Operation(summary = "更新用户资料")
+    @PatchMapping("/user")
+    public CommonResult<String> updateUser(@RequestBody RetUser newUser){
+        userService.updateUser(newUser);
+        return CommonResult.success(null);
+    }
     @Operation(summary = "更改用户角色")
     @PatchMapping("/users/{userId}/role")
-    public CommonResult<RetUser> alterUserRole(@PathVariable("userId") Long userId,
-                                               @RequestParam("roleId") Long roleId){
-        userService.alterUserRole(userId, roleId);
+    public CommonResult<RetUser> updateUserRole(@PathVariable("userId") Long userId,
+                                                @RequestParam("roleId") Long roleId){
+        userService.updateUserRole(userId, roleId);
         return CommonResult.success(null);
     }
 

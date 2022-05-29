@@ -3,6 +3,7 @@
 <mapper namespace="com.rare_earth_track.mgb.mapper.RetMaterialDoubleCategoryMapper">
   <resultMap id="BaseResultMap" type="com.rare_earth_track.mgb.model.RetMaterialDoubleCategory">
     <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="material_category_id" jdbcType="BIGINT" property="materialCategoryId" />
     <result column="name" jdbcType="VARCHAR" property="name" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.rare_earth_track.mgb.model.RetMaterialDoubleCategory">
@@ -67,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, name
+    id, material_category_id, name
   </sql>
   <sql id="Blob_Column_List">
     description
@@ -124,8 +125,10 @@
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into ret_material_double_category (name, description)
-    values (#{name,jdbcType=VARCHAR}, #{description,jdbcType=LONGVARCHAR})
+    insert into ret_material_double_category (material_category_id, name, description
+      )
+    values (#{materialCategoryId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{description,jdbcType=LONGVARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.rare_earth_track.mgb.model.RetMaterialDoubleCategory">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
@@ -133,6 +136,9 @@
     </selectKey>
     insert into ret_material_double_category
     <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="materialCategoryId != null">
+        material_category_id,
+      </if>
       <if test="name != null">
         name,
       </if>
@@ -141,6 +147,9 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="materialCategoryId != null">
+        #{materialCategoryId,jdbcType=BIGINT},
+      </if>
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
       </if>
@@ -161,6 +170,9 @@
       <if test="row.id != null">
         id = #{row.id,jdbcType=BIGINT},
       </if>
+      <if test="row.materialCategoryId != null">
+        material_category_id = #{row.materialCategoryId,jdbcType=BIGINT},
+      </if>
       <if test="row.name != null">
         name = #{row.name,jdbcType=VARCHAR},
       </if>
@@ -175,6 +187,7 @@
   <update id="updateByExampleWithBLOBs" parameterType="map">
     update ret_material_double_category
     set id = #{row.id,jdbcType=BIGINT},
+      material_category_id = #{row.materialCategoryId,jdbcType=BIGINT},
       name = #{row.name,jdbcType=VARCHAR},
       description = #{row.description,jdbcType=LONGVARCHAR}
     <if test="example != null">
@@ -184,6 +197,7 @@
   <update id="updateByExample" parameterType="map">
     update ret_material_double_category
     set id = #{row.id,jdbcType=BIGINT},
+      material_category_id = #{row.materialCategoryId,jdbcType=BIGINT},
       name = #{row.name,jdbcType=VARCHAR}
     <if test="example != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -192,6 +206,9 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.rare_earth_track.mgb.model.RetMaterialDoubleCategory">
     update ret_material_double_category
     <set>
+      <if test="materialCategoryId != null">
+        material_category_id = #{materialCategoryId,jdbcType=BIGINT},
+      </if>
       <if test="name != null">
         name = #{name,jdbcType=VARCHAR},
       </if>
@@ -203,13 +220,15 @@
   </update>
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.rare_earth_track.mgb.model.RetMaterialDoubleCategory">
     update ret_material_double_category
-    set name = #{name,jdbcType=VARCHAR},
+    set material_category_id = #{materialCategoryId,jdbcType=BIGINT},
+      name = #{name,jdbcType=VARCHAR},
       description = #{description,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.rare_earth_track.mgb.model.RetMaterialDoubleCategory">
     update ret_material_double_category
-    set name = #{name,jdbcType=VARCHAR}
+    set material_category_id = #{materialCategoryId,jdbcType=BIGINT},
+      name = #{name,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

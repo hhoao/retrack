@@ -112,7 +112,7 @@ public class RetMemberExample {
 
     /**
      * ret_member
-     * @author hhoa 2022-05-27
+     * @author hhoa 2022-05-29
      */
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
@@ -354,6 +354,186 @@ public class RetMemberExample {
             addCriterion("nickname not between", value1, value2, "nickname");
             return (Criteria) this;
         }
+
+        public Criteria andUserIdIsNull() {
+            addCriterion("user_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserIdIsNotNull() {
+            addCriterion("user_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserIdEqualTo(Long value) {
+            addCriterion("user_id =", value, "userId");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserIdNotEqualTo(Long value) {
+            addCriterion("user_id <>", value, "userId");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserIdGreaterThan(Long value) {
+            addCriterion("user_id >", value, "userId");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("user_id >=", value, "userId");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserIdLessThan(Long value) {
+            addCriterion("user_id <", value, "userId");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserIdLessThanOrEqualTo(Long value) {
+            addCriterion("user_id <=", value, "userId");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserIdIn(List<Long> values) {
+            addCriterion("user_id in", values, "userId");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserIdNotIn(List<Long> values) {
+            addCriterion("user_id not in", values, "userId");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserIdBetween(Long value1, Long value2) {
+            addCriterion("user_id between", value1, value2, "userId");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserIdNotBetween(Long value1, Long value2) {
+            addCriterion("user_id not between", value1, value2, "userId");
+            return (Criteria) this;
+        }
+
+        public Criteria andJobIdIsNull() {
+            addCriterion("job_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andJobIdIsNotNull() {
+            addCriterion("job_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andJobIdEqualTo(Long value) {
+            addCriterion("job_id =", value, "jobId");
+            return (Criteria) this;
+        }
+
+        public Criteria andJobIdNotEqualTo(Long value) {
+            addCriterion("job_id <>", value, "jobId");
+            return (Criteria) this;
+        }
+
+        public Criteria andJobIdGreaterThan(Long value) {
+            addCriterion("job_id >", value, "jobId");
+            return (Criteria) this;
+        }
+
+        public Criteria andJobIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("job_id >=", value, "jobId");
+            return (Criteria) this;
+        }
+
+        public Criteria andJobIdLessThan(Long value) {
+            addCriterion("job_id <", value, "jobId");
+            return (Criteria) this;
+        }
+
+        public Criteria andJobIdLessThanOrEqualTo(Long value) {
+            addCriterion("job_id <=", value, "jobId");
+            return (Criteria) this;
+        }
+
+        public Criteria andJobIdIn(List<Long> values) {
+            addCriterion("job_id in", values, "jobId");
+            return (Criteria) this;
+        }
+
+        public Criteria andJobIdNotIn(List<Long> values) {
+            addCriterion("job_id not in", values, "jobId");
+            return (Criteria) this;
+        }
+
+        public Criteria andJobIdBetween(Long value1, Long value2) {
+            addCriterion("job_id between", value1, value2, "jobId");
+            return (Criteria) this;
+        }
+
+        public Criteria andJobIdNotBetween(Long value1, Long value2) {
+            addCriterion("job_id not between", value1, value2, "jobId");
+            return (Criteria) this;
+        }
+
+        public Criteria andFactoryIdIsNull() {
+            addCriterion("factory_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFactoryIdIsNotNull() {
+            addCriterion("factory_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFactoryIdEqualTo(Long value) {
+            addCriterion("factory_id =", value, "factoryId");
+            return (Criteria) this;
+        }
+
+        public Criteria andFactoryIdNotEqualTo(Long value) {
+            addCriterion("factory_id <>", value, "factoryId");
+            return (Criteria) this;
+        }
+
+        public Criteria andFactoryIdGreaterThan(Long value) {
+            addCriterion("factory_id >", value, "factoryId");
+            return (Criteria) this;
+        }
+
+        public Criteria andFactoryIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("factory_id >=", value, "factoryId");
+            return (Criteria) this;
+        }
+
+        public Criteria andFactoryIdLessThan(Long value) {
+            addCriterion("factory_id <", value, "factoryId");
+            return (Criteria) this;
+        }
+
+        public Criteria andFactoryIdLessThanOrEqualTo(Long value) {
+            addCriterion("factory_id <=", value, "factoryId");
+            return (Criteria) this;
+        }
+
+        public Criteria andFactoryIdIn(List<Long> values) {
+            addCriterion("factory_id in", values, "factoryId");
+            return (Criteria) this;
+        }
+
+        public Criteria andFactoryIdNotIn(List<Long> values) {
+            addCriterion("factory_id not in", values, "factoryId");
+            return (Criteria) this;
+        }
+
+        public Criteria andFactoryIdBetween(Long value1, Long value2) {
+            addCriterion("factory_id between", value1, value2, "factoryId");
+            return (Criteria) this;
+        }
+
+        public Criteria andFactoryIdNotBetween(Long value1, Long value2) {
+            addCriterion("factory_id not between", value1, value2, "factoryId");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {
@@ -364,7 +544,7 @@ public class RetMemberExample {
 
     /**
      * ret_member
-     * @author hhoa 2022-05-27
+     * @author hhoa 2022-05-29
      */
     public static class Criterion {
         private String condition;

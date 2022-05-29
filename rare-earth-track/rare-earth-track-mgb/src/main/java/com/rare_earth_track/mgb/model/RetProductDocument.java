@@ -6,11 +6,13 @@ import java.io.Serializable;
 /**
  * 产品文档
  * @author hhoa 
- * @date 2022-05-27
+ * @date 2022-05-29
  */
 @Schema(name = "产品文档")
 public class RetProductDocument implements Serializable {
     private Long id;
+
+    private Long productId;
 
     @Schema(description = "标题")
     private String title;
@@ -34,6 +36,22 @@ public class RetProductDocument implements Serializable {
      */
     public void setId(Long id) {
         this.id = id;
+    }
+
+    /**
+     * 
+     * @return product_id 
+     */
+    public Long getProductId() {
+        return productId;
+    }
+
+    /**
+     * 
+     * @param productId 
+     */
+    public void setProductId(Long productId) {
+        this.productId = productId;
     }
 
     /**
@@ -79,6 +97,7 @@ public class RetProductDocument implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
+        sb.append(", productId=").append(productId);
         sb.append(", title=").append(title);
         sb.append(", content=").append(content);
         sb.append(", serialVersionUID=").append(serialVersionUID);

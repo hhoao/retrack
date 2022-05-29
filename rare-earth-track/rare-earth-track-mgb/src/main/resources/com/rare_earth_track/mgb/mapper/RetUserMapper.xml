@@ -3,21 +3,18 @@
 <mapper namespace="com.rare_earth_track.mgb.mapper.RetUserMapper">
   <resultMap id="BaseResultMap" type="com.rare_earth_track.mgb.model.RetUser">
     <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="nickname" jdbcType="VARCHAR" property="nickname" />
     <result column="age" jdbcType="INTEGER" property="age" />
     <result column="sex" jdbcType="INTEGER" property="sex" />
-    <result column="phone" jdbcType="VARCHAR" property="phone" />
     <result column="birthday" jdbcType="DATE" property="birthday" />
     <result column="address" jdbcType="VARCHAR" property="address" />
-    <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="status" jdbcType="INTEGER" property="status" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="latest_time" jdbcType="TIMESTAMP" property="latestTime" />
     <result column="icon" jdbcType="VARCHAR" property="icon" />
     <result column="job" jdbcType="VARCHAR" property="job" />
     <result column="personalized_signature" jdbcType="VARCHAR" property="personalizedSignature" />
-    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="role_id" jdbcType="BIGINT" property="roleId" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -78,8 +75,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, name, nickname, age, sex, phone, birthday, address, password, status, create_time, 
-    latest_time, icon, job, personalized_signature, email
+    id, nickname, age, sex, birthday, address, status, create_time, latest_time, icon, 
+    job, personalized_signature, role_id
   </sql>
   <select id="selectByExample" parameterType="com.rare_earth_track.mgb.model.RetUserExample" resultMap="BaseResultMap">
     select
@@ -115,17 +112,15 @@
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into ret_user (name, nickname, age, 
-      sex, phone, birthday, 
-      address, password, status, 
+    insert into ret_user (nickname, age, sex, 
+      birthday, address, status, 
       create_time, latest_time, icon, 
-      job, personalized_signature, email
+      job, personalized_signature, role_id
       )
-    values (#{name,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER}, 
-      #{sex,jdbcType=INTEGER}, #{phone,jdbcType=VARCHAR}, #{birthday,jdbcType=DATE}, 
-      #{address,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+    values (#{nickname,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER}, #{sex,jdbcType=INTEGER}, 
+      #{birthday,jdbcType=DATE}, #{address,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
       #{createTime,jdbcType=TIMESTAMP}, #{latestTime,jdbcType=TIMESTAMP}, #{icon,jdbcType=VARCHAR}, 
-      #{job,jdbcType=VARCHAR}, #{personalizedSignature,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}
+      #{job,jdbcType=VARCHAR}, #{personalizedSignature,jdbcType=VARCHAR}, #{roleId,jdbcType=BIGINT}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.rare_earth_track.mgb.model.RetUser">
@@ -134,9 +129,6 @@
     </selectKey>
     insert into ret_user
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="name != null">
-        name,
-      </if>
       <if test="nickname != null">
         nickname,
       </if>
@@ -146,17 +138,11 @@
       <if test="sex != null">
         sex,
       </if>
-      <if test="phone != null">
-        phone,
-      </if>
       <if test="birthday != null">
         birthday,
       </if>
       <if test="address != null">
         address,
-      </if>
-      <if test="password != null">
-        password,
       </if>
       <if test="status != null">
         status,
@@ -176,14 +162,11 @@
       <if test="personalizedSignature != null">
         personalized_signature,
       </if>
-      <if test="email != null">
-        email,
+      <if test="roleId != null">
+        role_id,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
-      </if>
       <if test="nickname != null">
         #{nickname,jdbcType=VARCHAR},
       </if>
@@ -193,17 +176,11 @@
       <if test="sex != null">
         #{sex,jdbcType=INTEGER},
       </if>
-      <if test="phone != null">
-        #{phone,jdbcType=VARCHAR},
-      </if>
       <if test="birthday != null">
         #{birthday,jdbcType=DATE},
       </if>
       <if test="address != null">
         #{address,jdbcType=VARCHAR},
-      </if>
-      <if test="password != null">
-        #{password,jdbcType=VARCHAR},
       </if>
       <if test="status != null">
         #{status,jdbcType=INTEGER},
@@ -223,8 +200,8 @@
       <if test="personalizedSignature != null">
         #{personalizedSignature,jdbcType=VARCHAR},
       </if>
-      <if test="email != null">
-        #{email,jdbcType=VARCHAR},
+      <if test="roleId != null">
+        #{roleId,jdbcType=BIGINT},
       </if>
     </trim>
   </insert>
@@ -240,9 +217,6 @@
       <if test="row.id != null">
         id = #{row.id,jdbcType=BIGINT},
       </if>
-      <if test="row.name != null">
-        name = #{row.name,jdbcType=VARCHAR},
-      </if>
       <if test="row.nickname != null">
         nickname = #{row.nickname,jdbcType=VARCHAR},
       </if>
@@ -252,17 +226,11 @@
       <if test="row.sex != null">
         sex = #{row.sex,jdbcType=INTEGER},
       </if>
-      <if test="row.phone != null">
-        phone = #{row.phone,jdbcType=VARCHAR},
-      </if>
       <if test="row.birthday != null">
         birthday = #{row.birthday,jdbcType=DATE},
       </if>
       <if test="row.address != null">
         address = #{row.address,jdbcType=VARCHAR},
-      </if>
-      <if test="row.password != null">
-        password = #{row.password,jdbcType=VARCHAR},
       </if>
       <if test="row.status != null">
         status = #{row.status,jdbcType=INTEGER},
@@ -282,8 +250,8 @@
       <if test="row.personalizedSignature != null">
         personalized_signature = #{row.personalizedSignature,jdbcType=VARCHAR},
       </if>
-      <if test="row.email != null">
-        email = #{row.email,jdbcType=VARCHAR},
+      <if test="row.roleId != null">
+        role_id = #{row.roleId,jdbcType=BIGINT},
       </if>
     </set>
     <if test="example != null">
@@ -293,21 +261,18 @@
   <update id="updateByExample" parameterType="map">
     update ret_user
     set id = #{row.id,jdbcType=BIGINT},
-      name = #{row.name,jdbcType=VARCHAR},
       nickname = #{row.nickname,jdbcType=VARCHAR},
       age = #{row.age,jdbcType=INTEGER},
       sex = #{row.sex,jdbcType=INTEGER},
-      phone = #{row.phone,jdbcType=VARCHAR},
       birthday = #{row.birthday,jdbcType=DATE},
       address = #{row.address,jdbcType=VARCHAR},
-      password = #{row.password,jdbcType=VARCHAR},
       status = #{row.status,jdbcType=INTEGER},
       create_time = #{row.createTime,jdbcType=TIMESTAMP},
       latest_time = #{row.latestTime,jdbcType=TIMESTAMP},
       icon = #{row.icon,jdbcType=VARCHAR},
       job = #{row.job,jdbcType=VARCHAR},
       personalized_signature = #{row.personalizedSignature,jdbcType=VARCHAR},
-      email = #{row.email,jdbcType=VARCHAR}
+      role_id = #{row.roleId,jdbcType=BIGINT}
     <if test="example != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -315,9 +280,6 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.rare_earth_track.mgb.model.RetUser">
     update ret_user
     <set>
-      <if test="name != null">
-        name = #{name,jdbcType=VARCHAR},
-      </if>
       <if test="nickname != null">
         nickname = #{nickname,jdbcType=VARCHAR},
       </if>
@@ -327,17 +289,11 @@
       <if test="sex != null">
         sex = #{sex,jdbcType=INTEGER},
       </if>
-      <if test="phone != null">
-        phone = #{phone,jdbcType=VARCHAR},
-      </if>
       <if test="birthday != null">
         birthday = #{birthday,jdbcType=DATE},
       </if>
       <if test="address != null">
         address = #{address,jdbcType=VARCHAR},
-      </if>
-      <if test="password != null">
-        password = #{password,jdbcType=VARCHAR},
       </if>
       <if test="status != null">
         status = #{status,jdbcType=INTEGER},
@@ -357,29 +313,26 @@
       <if test="personalizedSignature != null">
         personalized_signature = #{personalizedSignature,jdbcType=VARCHAR},
       </if>
-      <if test="email != null">
-        email = #{email,jdbcType=VARCHAR},
+      <if test="roleId != null">
+        role_id = #{roleId,jdbcType=BIGINT},
       </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.rare_earth_track.mgb.model.RetUser">
     update ret_user
-    set name = #{name,jdbcType=VARCHAR},
-      nickname = #{nickname,jdbcType=VARCHAR},
+    set nickname = #{nickname,jdbcType=VARCHAR},
       age = #{age,jdbcType=INTEGER},
       sex = #{sex,jdbcType=INTEGER},
-      phone = #{phone,jdbcType=VARCHAR},
       birthday = #{birthday,jdbcType=DATE},
       address = #{address,jdbcType=VARCHAR},
-      password = #{password,jdbcType=VARCHAR},
       status = #{status,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       latest_time = #{latestTime,jdbcType=TIMESTAMP},
       icon = #{icon,jdbcType=VARCHAR},
       job = #{job,jdbcType=VARCHAR},
       personalized_signature = #{personalizedSignature,jdbcType=VARCHAR},
-      email = #{email,jdbcType=VARCHAR}
+      role_id = #{roleId,jdbcType=BIGINT}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

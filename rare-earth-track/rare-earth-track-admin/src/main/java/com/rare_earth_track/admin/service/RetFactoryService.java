@@ -2,6 +2,7 @@ package com.rare_earth_track.admin.service;
 
 import com.rare_earth_track.mgb.model.RetFactory;
 import com.rare_earth_track.mgb.model.RetMember;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -15,7 +16,7 @@ public interface RetFactoryService {
     /**
      * 分页获取工厂列表
      *
-     * @param pageNum the pageNum
+     * @param pageNum  the pageNum
      * @param pageSize the pageSize
      * @return 分页角色 list
      */
@@ -33,6 +34,7 @@ public interface RetFactoryService {
      *
      * @param factory the factory
      */
+    @Transactional
     void updateFactory(RetFactory factory);
 
     /**
@@ -40,6 +42,7 @@ public interface RetFactoryService {
      *
      * @param id the id
      */
+    @Transactional
     void deleteFactoryByFactoryId(Long id);
 
     /**
@@ -48,6 +51,7 @@ public interface RetFactoryService {
      * @param name the name
      * @return 成功数量 int
      */
+    @Transactional
     int deleteFactoryByName(String name);
 
     /**
@@ -88,6 +92,7 @@ public interface RetFactoryService {
      *
      * @param memberId the member id
      */
+    @Transactional
     void deleteFactoryMemberByMemberId(Long memberId);
 
     /**
@@ -96,6 +101,7 @@ public interface RetFactoryService {
      * @param factoryId the factory id
      * @param userId    the user id
      */
+    @Transactional
     void addFactoryMember(Long factoryId, Long userId);
 
     /**
@@ -112,6 +118,7 @@ public interface RetFactoryService {
      * @param memberId the member id
      * @param job      the job
      */
+    @Transactional
     void updateFactoryMemberJob(Long memberId, Long job);
 
     /**

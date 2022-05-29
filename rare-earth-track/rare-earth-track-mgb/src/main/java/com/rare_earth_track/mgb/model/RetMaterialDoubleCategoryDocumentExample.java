@@ -112,7 +112,7 @@ public class RetMaterialDoubleCategoryDocumentExample {
 
     /**
      * ret_material_double_category_document
-     * @author hhoa 2022-05-27
+     * @author hhoa 2022-05-29
      */
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
@@ -215,6 +215,66 @@ public class RetMaterialDoubleCategoryDocumentExample {
             return (Criteria) this;
         }
 
+        public Criteria andMaterialDoubleCategoryIdIsNull() {
+            addCriterion("material_double_category_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaterialDoubleCategoryIdIsNotNull() {
+            addCriterion("material_double_category_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaterialDoubleCategoryIdEqualTo(Long value) {
+            addCriterion("material_double_category_id =", value, "materialDoubleCategoryId");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaterialDoubleCategoryIdNotEqualTo(Long value) {
+            addCriterion("material_double_category_id <>", value, "materialDoubleCategoryId");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaterialDoubleCategoryIdGreaterThan(Long value) {
+            addCriterion("material_double_category_id >", value, "materialDoubleCategoryId");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaterialDoubleCategoryIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("material_double_category_id >=", value, "materialDoubleCategoryId");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaterialDoubleCategoryIdLessThan(Long value) {
+            addCriterion("material_double_category_id <", value, "materialDoubleCategoryId");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaterialDoubleCategoryIdLessThanOrEqualTo(Long value) {
+            addCriterion("material_double_category_id <=", value, "materialDoubleCategoryId");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaterialDoubleCategoryIdIn(List<Long> values) {
+            addCriterion("material_double_category_id in", values, "materialDoubleCategoryId");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaterialDoubleCategoryIdNotIn(List<Long> values) {
+            addCriterion("material_double_category_id not in", values, "materialDoubleCategoryId");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaterialDoubleCategoryIdBetween(Long value1, Long value2) {
+            addCriterion("material_double_category_id between", value1, value2, "materialDoubleCategoryId");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaterialDoubleCategoryIdNotBetween(Long value1, Long value2) {
+            addCriterion("material_double_category_id not between", value1, value2, "materialDoubleCategoryId");
+            return (Criteria) this;
+        }
+
         public Criteria andTitleIsNull() {
             addCriterion("title is null");
             return (Criteria) this;
@@ -294,7 +354,7 @@ public class RetMaterialDoubleCategoryDocumentExample {
 
     /**
      * ret_material_double_category_document
-     * @author hhoa 2022-05-27
+     * @author hhoa 2022-05-29
      */
     public static class Criterion {
         private String condition;

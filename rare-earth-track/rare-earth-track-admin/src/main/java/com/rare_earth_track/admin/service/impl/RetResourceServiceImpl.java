@@ -53,10 +53,8 @@ public class RetResourceServiceImpl implements RetResourceService {
         return resourceMapper.selectByPrimaryKey(resourceId);
     }
 
-
-
     @Override
-    public int addResource(RetResourceParam resourceParam) {
+    public void addResource(RetResourceParam resourceParam) {
         RetResource resource = new RetResource();
         BeanUtil.copyProperties(resourceParam, resource);
         int insert = resourceMapper.insert(resource);
@@ -65,11 +63,10 @@ public class RetResourceServiceImpl implements RetResourceService {
         }
         RetResource resourceByName = getResourceByName(resourceParam.getName());
         roleResourceRelationService.refreshCacheByResourceId(resourceByName.getId());
-        return insert;
     }
 
     @Override
-    public int updateResource(RetResourceParam resourceParam) {
+    public void updateResource(RetResourceParam resourceParam) {
         RetResource resourceByName = getResourceByName(resourceParam.getName());
         if (resourceByName == null){
             Asserts.fail("没有该资源");
@@ -81,15 +78,17 @@ public class RetResourceServiceImpl implements RetResourceService {
         }
         //刷新缓存
         roleResourceRelationService.refreshCacheByResourceId(resourceByName.getId());
-        return  successCount;
     }
     @Override
-    public int delResource(Long id) {
-        RetResource resource = resourceMapper.selectByPrimaryKey(id);
+    public void deleteResource(Long resourceId) {
+        RetResource resource = resourceMapper.selectByPrimaryKey(resourceId);
         if (resource == null){
             Asserts.fail("没有该资源");
         }
-        roleResourceRelationService.deleteResourceRoleRelation(id);
-        return resourceMapper.deleteByPrimaryKey(id);
+        roleResourceRelationService.deleteResourceRoleRelation(resourceId);
+        int i = resourceMapper.deleteByPrimaryKey(resourceId);
+        if (i == 0){
+            Asserts.fail("删除资源失败");
+        }
     }
 }

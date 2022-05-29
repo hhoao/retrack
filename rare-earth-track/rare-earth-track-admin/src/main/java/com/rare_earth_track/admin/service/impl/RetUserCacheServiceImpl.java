@@ -44,12 +44,6 @@ public class RetUserCacheServiceImpl implements RetUserCacheService {
     }
 
     @Override
-    public void setUser(RetUser retUser){
-        redisService.set(getUsernameKey(retUser.getName()), retUser, redisExpire);
-    }
-
-
-    @Override
     public void setPhoneAuthCode(String phone, String authCode) {
         String key = redisDatabase+ ":" + redisKeyPhoneAuthCode + ":" + phone;
         redisService.set(key, authCode, redisExpire);

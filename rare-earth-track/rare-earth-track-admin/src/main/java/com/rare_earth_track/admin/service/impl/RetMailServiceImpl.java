@@ -1,9 +1,11 @@
 package com.rare_earth_track.admin.service.impl;
 
 import com.rare_earth_track.admin.bean.MailType;
+import com.rare_earth_track.admin.bean.RetUserDetails;
 import com.rare_earth_track.admin.service.RetMailCacheService;
 import com.rare_earth_track.admin.service.RetMailService;
 import com.rare_earth_track.common.exception.Asserts;
+import com.rare_earth_track.mgb.model.RetFactory;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -24,7 +26,6 @@ public class RetMailServiceImpl implements RetMailService {
     /**
      * 邮件类型
      */
-
     private final MailSender mailSender;
     private final RetMailCacheService mailCacheService;
     /**
@@ -60,20 +61,28 @@ public class RetMailServiceImpl implements RetMailService {
         simpleMailMessage.setText(body);
         mailSender.send(simpleMailMessage);
     }
-
-    /**
-     * 发送消息
-     * @param to 接收方
-     * @param type 类型
-     */
-    public void sendMessage(String to, MailType type){
-        switch (type) {
-            case USER_REGISTER -> {
-                String authCode = generateAuthCode();
-                sendTerminableMessage( to, "验证码", authCode, authCode, MailType.USER_REGISTER.toString());
-            }
-            case FACTORY_INVITATION -> sendTerminableMessage( to, "邀请地址", "http://localhost:8080/", null, MailType.USER_REGISTER.toString());
+    @Override
+    public void sendUserRegisterMail(String to, RetUserDetails user){
+        if (existMessage(to, MailType.USER_REGISTER)){
+            Asserts.fail("短时间内不能再验证码");
         }
+        String authCode = generateAuthCode();
+        String subject = user.getUsername()+ "的注册验证码";
+        String body = user.getUsername()+ ", 您的验证码为" + "\n" + authCode;
+        sendTerminableMessage( to, subject, body, authCode, MailType.USER_REGISTER.toString());
+
+    }
+    @Override
+    public void sendFactoryInvitation(String to, RetFactory factory){
+        if (existMessage(to, MailType.FACTORY_INVITATION)){
+            Asserts.fail("短时间内不能再验证码");
+        }
+        String subject = factory.getName()+ "邀请您加入我们工厂";
+        String body =
+                factory.getName()+ "邀请您加入我们工厂" + "\n" +
+                "点击下方链接接受邀请: " + "\n" +
+                "http://localhost:8080/factories/" + factory.getId() + "/invitations";
+        sendTerminableMessage( to, subject, body, null, MailType.USER_REGISTER.toString());
     }
     @Override
     public boolean existMessage(String to, MailType type){
@@ -83,16 +92,6 @@ public class RetMailServiceImpl implements RetMailService {
     @Override
     public boolean validateMessage(String to, String code, MailType type) {
         return getMessage(to, type).equals(code);
-    }
-
-    @Override
-    public void generateAndSendMessage(String to, MailType type) {
-        if (existMessage(to, type)){
-            Asserts.fail("短时间内不能再验证码");
-        }
-        String authCode = generateAuthCode();
-
-        sendMessage(to, type);
     }
 
     @Override

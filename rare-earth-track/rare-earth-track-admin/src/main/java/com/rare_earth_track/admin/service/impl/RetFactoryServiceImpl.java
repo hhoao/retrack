@@ -2,13 +2,11 @@ package com.rare_earth_track.admin.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.rare_earth_track.admin.bean.MailType;
+import com.rare_earth_track.admin.bean.RetFactoryJob;
 import com.rare_earth_track.admin.service.*;
 import com.rare_earth_track.common.exception.Asserts;
 import com.rare_earth_track.mgb.mapper.RetFactoryMapper;
-import com.rare_earth_track.mgb.model.RetFactory;
-import com.rare_earth_track.mgb.model.RetFactoryExample;
-import com.rare_earth_track.mgb.model.RetMember;
-import com.rare_earth_track.mgb.model.RetUser;
+import com.rare_earth_track.mgb.model.*;
 import com.rare_earth_track.security.util.JwtTokenService;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -28,10 +26,9 @@ public class RetFactoryServiceImpl implements RetFactoryService {
     private final JwtTokenService tokenService;
     private final RetFactoryInvitationCacheService factoryInvitationCacheService;
     private final RetMailService mailService;
-    private final RetUserService userService;
-    private final RetFactoryMemberRelationService factoryMemberRelationService;
+    private final RetTokenCacheService tokenCacheService;
     private final RetMemberService memberService;
-    private final RetUserMemberRelationService userMemberRelationService;
+    private final RetFactoryUserRelationService factoryUserRelationService;
 
     @Override
     public List<RetFactory> list(Integer pageNum, Integer pageSize) {
@@ -95,8 +92,12 @@ public class RetFactoryServiceImpl implements RetFactoryService {
     }
 
     @Override
-    public void inviteUserByEmail(Long factoryId, String emailOrPhone) {
-
+    public void inviteUserByEmail(Long factoryId, String email) {
+        RetFactory factory = factoryMapper.selectByPrimaryKey(factoryId);
+        if (factory == null){
+            Asserts.fail("没有该工厂");
+        }
+        mailService.sendFactoryInvitation(email, factory);
     }
 
     @Override
@@ -106,32 +107,30 @@ public class RetFactoryServiceImpl implements RetFactoryService {
 
     @Override
     public void deleteFactoryMemberByMemberId(Long memberId) {
-        userMemberRelationService.deleteUserMemberRelationByMemberId(memberId);
-        factoryMemberRelationService.deleteFactoryMemberRelationByMemberId(memberId);
         memberService.deleteMemberByMemberId(memberId);
     }
     @Override
     public void addFactoryMember(Long factoryId, Long userId) {
-        RetMember member = new RetMember();
+        RetMember member =new RetMember();
+        member.setFactoryId(factoryId);
+        member.setUserId(userId);
         memberService.addMember(member);
-        userMemberRelationService.addUserMemberRelation(userId, member.getId());
-        factoryMemberRelationService.addFactoryMemberRelation(factoryId, member.getId());
     }
     @Override
     public void handleInvitation(Long factoryId, String token) {
         //获取邮箱
         String username = tokenService.getSubjectFromToken(token);
-        RetUser user= userService.getUserByName(username);
-        if (user == null){
+        boolean hasLogin = tokenCacheService.hasKey(username);
+        if (!hasLogin){
             Asserts.fail("没有登陆");
         }
-        String email = user.getEmail();
+        RetUserAuth emailAuth = factoryUserRelationService.getUserEmailByUsername(username);
         //验证邮箱
-        boolean b = mailService.existMessage(email, MailType.FACTORY_INVITATION);
+        boolean b = mailService.existMessage(emailAuth.getIdentifier(), MailType.FACTORY_INVITATION);
         if (!b){
             Asserts.fail("没有该邮箱");
         }
-        addFactoryMember(factoryId, user.getId());
+        addFactoryMember(factoryId, emailAuth.getUserId());
     }
 
     @Override
@@ -142,6 +141,6 @@ public class RetFactoryServiceImpl implements RetFactoryService {
     @Override
     public List<RetMember> listFactoryMembers(Integer from, Integer size, Long factoryId) {
         PageHelper.startPage(from, size);
-        return factoryMemberRelationService.getFactoryMembers(factoryId);
+        return memberService.getFactoryMembers(factoryId);
     }
 }

@@ -7,11 +7,13 @@ import java.util.Date;
 /**
  * 帮助
  * @author hhoa 
- * @date 2022-05-27
+ * @date 2022-05-29
  */
 @Schema(name = "帮助")
 public class RetHelp implements Serializable {
     private Long id;
+
+    private Long helpCategoryId;
 
     @Schema(description = "名称")
     private String name;
@@ -47,6 +49,22 @@ public class RetHelp implements Serializable {
      */
     public void setId(Long id) {
         this.id = id;
+    }
+
+    /**
+     * 
+     * @return help_category_id 
+     */
+    public Long getHelpCategoryId() {
+        return helpCategoryId;
+    }
+
+    /**
+     * 
+     * @param helpCategoryId 
+     */
+    public void setHelpCategoryId(Long helpCategoryId) {
+        this.helpCategoryId = helpCategoryId;
     }
 
     /**
@@ -156,6 +174,7 @@ public class RetHelp implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
+        sb.append(", helpCategoryId=").append(helpCategoryId);
         sb.append(", name=").append(name);
         sb.append(", title=").append(title);
         sb.append(", createTime=").append(createTime);

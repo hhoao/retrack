@@ -41,7 +41,7 @@ public class RetRoleResourceRelationServiceImpl implements RetRoleResourceRelati
         refreshCacheByRole(roleByRoleName);
     }
     @Override
-    public   void refreshCacheByRoleId(Long roleId){
+    public void refreshCacheByRoleId(Long roleId){
         refreshCacheByRole(roleMapper.selectByPrimaryKey(roleId));
     }
 
@@ -89,21 +89,27 @@ public class RetRoleResourceRelationServiceImpl implements RetRoleResourceRelati
     }
 
     @Override
-    public int deleteRoleResource(Long roleId, Long resourceId) {
+    public void deleteRoleResource(Long roleId, Long resourceId) {
         RetRoleResourceRelationExample roleResourceRelationExample = new RetRoleResourceRelationExample();
         roleResourceRelationExample.createCriteria().andRoleIdEqualTo(roleId).andResourceIdEqualTo(resourceId);
-        return roleResourceRelationMapper.deleteByExample(roleResourceRelationExample);
+        int i = roleResourceRelationMapper.deleteByExample(roleResourceRelationExample);
+        if (i == 0){
+            Asserts.fail("删除角色资源失败");
+        }
     }
 
     @Override
-    public int deleteRole(Long roleId) {
+    public void deleteRole(Long roleId) {
         RetRoleResourceRelationExample relationExample = new RetRoleResourceRelationExample();
         relationExample.createCriteria().andRoleIdEqualTo(roleId);
-        return roleResourceRelationMapper.deleteByExample(relationExample);
+        int i = roleResourceRelationMapper.deleteByExample(relationExample);
+        if (i == 0){
+            Asserts.fail("删除角色失败");
+        }
     }
 
     @Override
-    public List<RetResource> getResourcesByRoleId(Long roleId) {
+    public List<RetResource> getRoleResources(Long roleId) {
         List<RetResource> resources = new ArrayList<>();
         RetRoleResourceRelationExample relationExample = new RetRoleResourceRelationExample();
         relationExample.createCriteria().andRoleIdEqualTo(roleId);
@@ -119,13 +125,15 @@ public class RetRoleResourceRelationServiceImpl implements RetRoleResourceRelati
     }
 
     @Override
-    public int addResourceRoleRelation(Long roleId, Long resourceId) {
+    public void addResourceRoleRelation(Long roleId, Long resourceId) {
         RetRoleResourceRelation roleResourceRelation = new RetRoleResourceRelation();
         roleResourceRelation.setRoleId(roleId);
         roleResourceRelation.setResourceId(resourceId);
         int insert = roleResourceRelationMapper.insert(roleResourceRelation);
+        if (insert == 0){
+            Asserts.fail("增加角色失败");
+        }
         refreshCacheByRoleId(roleId);
-        return insert;
     }
     public RetRole getRoleByRoleName(String name){
         RetRole role = null;
@@ -144,20 +152,21 @@ public class RetRoleResourceRelationServiceImpl implements RetRoleResourceRelati
         if (roleByRoleName == null){
             Asserts.fail("没有该角色");
         }
-        return getResourcesByRoleId(roleByRoleName.getId());
+        return getRoleResources(roleByRoleName.getId());
     }
 
     @Override
-    public int deleteResourceRoleRelation(Long id) {
+    public void deleteResourceRoleRelation(Long id) {
         RetRoleResourceRelationExample relationExample = new RetRoleResourceRelationExample();
         relationExample.createCriteria().andResourceIdEqualTo(id);
         List<RetRoleResourceRelation> retRoleResourceRelations = roleResourceRelationMapper.selectByExample(relationExample);
         int deleteRelationCount = roleResourceRelationMapper.deleteByExample(relationExample);
-
+        if (deleteRelationCount == 0){
+            Asserts.fail("删除角色资源失败");
+        }
         //刷新缓存
         for (RetRoleResourceRelation roleResourceRelation : retRoleResourceRelations){
             refreshCacheByRoleId(roleResourceRelation.getRoleId());
         }
-        return deleteRelationCount;
     }
 }

@@ -5,6 +5,9 @@
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="phone" jdbcType="VARCHAR" property="phone" />
     <result column="nickname" jdbcType="VARCHAR" property="nickname" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="job_id" jdbcType="BIGINT" property="jobId" />
+    <result column="factory_id" jdbcType="BIGINT" property="factoryId" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -65,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, phone, nickname
+    id, phone, nickname, user_id, job_id, factory_id
   </sql>
   <select id="selectByExample" parameterType="com.rare_earth_track.mgb.model.RetMemberExample" resultMap="BaseResultMap">
     select
@@ -101,8 +104,10 @@
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into ret_member (phone, nickname)
-    values (#{phone,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR})
+    insert into ret_member (phone, nickname, user_id, 
+      job_id, factory_id)
+    values (#{phone,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, #{userId,jdbcType=BIGINT}, 
+      #{jobId,jdbcType=BIGINT}, #{factoryId,jdbcType=BIGINT})
   </insert>
   <insert id="insertSelective" parameterType="com.rare_earth_track.mgb.model.RetMember">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
@@ -116,6 +121,15 @@
       <if test="nickname != null">
         nickname,
       </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="jobId != null">
+        job_id,
+      </if>
+      <if test="factoryId != null">
+        factory_id,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="phone != null">
@@ -123,6 +137,15 @@
       </if>
       <if test="nickname != null">
         #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="jobId != null">
+        #{jobId,jdbcType=BIGINT},
+      </if>
+      <if test="factoryId != null">
+        #{factoryId,jdbcType=BIGINT},
       </if>
     </trim>
   </insert>
@@ -144,6 +167,15 @@
       <if test="row.nickname != null">
         nickname = #{row.nickname,jdbcType=VARCHAR},
       </if>
+      <if test="row.userId != null">
+        user_id = #{row.userId,jdbcType=BIGINT},
+      </if>
+      <if test="row.jobId != null">
+        job_id = #{row.jobId,jdbcType=BIGINT},
+      </if>
+      <if test="row.factoryId != null">
+        factory_id = #{row.factoryId,jdbcType=BIGINT},
+      </if>
     </set>
     <if test="example != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -153,7 +185,10 @@
     update ret_member
     set id = #{row.id,jdbcType=BIGINT},
       phone = #{row.phone,jdbcType=VARCHAR},
-      nickname = #{row.nickname,jdbcType=VARCHAR}
+      nickname = #{row.nickname,jdbcType=VARCHAR},
+      user_id = #{row.userId,jdbcType=BIGINT},
+      job_id = #{row.jobId,jdbcType=BIGINT},
+      factory_id = #{row.factoryId,jdbcType=BIGINT}
     <if test="example != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -167,13 +202,25 @@
       <if test="nickname != null">
         nickname = #{nickname,jdbcType=VARCHAR},
       </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="jobId != null">
+        job_id = #{jobId,jdbcType=BIGINT},
+      </if>
+      <if test="factoryId != null">
+        factory_id = #{factoryId,jdbcType=BIGINT},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.rare_earth_track.mgb.model.RetMember">
     update ret_member
     set phone = #{phone,jdbcType=VARCHAR},
-      nickname = #{nickname,jdbcType=VARCHAR}
+      nickname = #{nickname,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=BIGINT},
+      job_id = #{jobId,jdbcType=BIGINT},
+      factory_id = #{factoryId,jdbcType=BIGINT}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

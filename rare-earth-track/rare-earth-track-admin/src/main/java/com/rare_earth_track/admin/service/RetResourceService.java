@@ -3,6 +3,7 @@ package com.rare_earth_track.admin.service;
 
 import com.rare_earth_track.admin.bean.RetResourceParam;
 import com.rare_earth_track.mgb.model.RetResource;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -40,20 +41,23 @@ public interface RetResourceService {
 
     /**
      * 添加资源
+     *
      * @param resourceParam 资源参数
-     * @return 插入资源数量
      */
-    int addResource(RetResourceParam resourceParam);
+    @Transactional
+    void addResource(RetResourceParam resourceParam);
     /**
      * 修改资源
+     *
      * @param resourceParam 资源参数
-     * @return 修改成功个数
      */
-    int updateResource(RetResourceParam resourceParam);
+    @Transactional
+    void updateResource(RetResourceParam resourceParam);
     /**
      * 删除资源
-     * @param id 资源id
-     * @return 删除资源id数量
+     *
+     * @param resourceId 资源id
      */
-    int delResource(Long id);
+    @Transactional
+    void deleteResource(Long resourceId);
 }

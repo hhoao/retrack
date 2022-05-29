@@ -112,7 +112,7 @@ public class RetMaterialCategoryDocumentExample {
 
     /**
      * ret_material_category_document
-     * @author hhoa 2022-05-27
+     * @author hhoa 2022-05-29
      */
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
@@ -215,6 +215,66 @@ public class RetMaterialCategoryDocumentExample {
             return (Criteria) this;
         }
 
+        public Criteria andMaterialCategoryIdIsNull() {
+            addCriterion("material_category_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaterialCategoryIdIsNotNull() {
+            addCriterion("material_category_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaterialCategoryIdEqualTo(Long value) {
+            addCriterion("material_category_id =", value, "materialCategoryId");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaterialCategoryIdNotEqualTo(Long value) {
+            addCriterion("material_category_id <>", value, "materialCategoryId");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaterialCategoryIdGreaterThan(Long value) {
+            addCriterion("material_category_id >", value, "materialCategoryId");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaterialCategoryIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("material_category_id >=", value, "materialCategoryId");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaterialCategoryIdLessThan(Long value) {
+            addCriterion("material_category_id <", value, "materialCategoryId");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaterialCategoryIdLessThanOrEqualTo(Long value) {
+            addCriterion("material_category_id <=", value, "materialCategoryId");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaterialCategoryIdIn(List<Long> values) {
+            addCriterion("material_category_id in", values, "materialCategoryId");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaterialCategoryIdNotIn(List<Long> values) {
+            addCriterion("material_category_id not in", values, "materialCategoryId");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaterialCategoryIdBetween(Long value1, Long value2) {
+            addCriterion("material_category_id between", value1, value2, "materialCategoryId");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaterialCategoryIdNotBetween(Long value1, Long value2) {
+            addCriterion("material_category_id not between", value1, value2, "materialCategoryId");
+            return (Criteria) this;
+        }
+
         public Criteria andTitleIsNull() {
             addCriterion("title is null");
             return (Criteria) this;
@@ -294,7 +354,7 @@ public class RetMaterialCategoryDocumentExample {
 
     /**
      * ret_material_category_document
-     * @author hhoa 2022-05-27
+     * @author hhoa 2022-05-29
      */
     public static class Criterion {
         private String condition;

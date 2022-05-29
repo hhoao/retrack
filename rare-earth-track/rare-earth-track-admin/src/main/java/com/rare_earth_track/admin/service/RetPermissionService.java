@@ -2,6 +2,7 @@ package com.rare_earth_track.admin.service;
 
 import com.rare_earth_track.admin.bean.RetPermissionParam;
 import com.rare_earth_track.mgb.model.RetPermission;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -51,6 +52,7 @@ public interface RetPermissionService {
      * @param resourceParam 权限参数
      * @return 插入权限数量 int
      */
+    @Transactional
     int addPermission(RetPermissionParam resourceParam);
 
     /**
@@ -59,6 +61,7 @@ public interface RetPermissionService {
      * @param resourceParam 权限参数
      * @return 修改成功个数 int
      */
+    @Transactional
     int updatePermission(RetPermissionParam resourceParam);
 
     /**
@@ -67,5 +70,6 @@ public interface RetPermissionService {
      * @param permissionId the permission id
      * @return the int
      */
+    @Transactional
     int deletePermission(Long permissionId);
 }

@@ -34,6 +34,7 @@ public class RetRoleResourceCacheServiceImpl implements RetRoleResourceCacheServ
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public List<RetResource> getByRoleName(String role) {
         return (List<RetResource>)redisService.get(getRoleNameKey(role));
     }

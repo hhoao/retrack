@@ -5,7 +5,9 @@ import com.github.pagehelper.PageHelper;
 import com.rare_earth_track.admin.bean.RetRoleParam;
 import com.rare_earth_track.admin.service.RetRoleResourceRelationService;
 import com.rare_earth_track.admin.service.RetRoleService;
+import com.rare_earth_track.common.exception.Asserts;
 import com.rare_earth_track.mgb.mapper.RetRoleMapper;
+import com.rare_earth_track.mgb.model.RetResource;
 import com.rare_earth_track.mgb.model.RetRole;
 import com.rare_earth_track.mgb.model.RetRoleExample;
 import lombok.RequiredArgsConstructor;
@@ -25,22 +27,31 @@ public class RetRoleServiceImpl implements RetRoleService {
     private final RetRoleResourceRelationService roleResourceRelationService;
 
     @Override
-    public int updateRole(RetRoleParam roleParam) {
+    public void updateRole(RetRoleParam roleParam) {
         RetRole role = new RetRole();
         BeanUtils.copyProperties(roleParam, role);
-        return roleMapper.updateByPrimaryKey(role);
+        int i = roleMapper.updateByPrimaryKey(role);
+        if (i == 0){
+            Asserts.fail("修改角色失败");
+        }
     }
-
+    @Override
+    public List<RetResource> getRoleResources(Long roleId){
+        return roleResourceRelationService.getRoleResources(roleId);
+    }
     @Override
     public RetRole getRoleByRoleId(Long roleId) {
         return roleMapper.selectByPrimaryKey(roleId);
     }
 
     @Override
-    public int addRole(RetRoleParam roleParam) {
+    public void addRole(RetRoleParam roleParam) {
         RetRole role = new RetRole();
         BeanUtil.copyProperties(roleParam, role);
-        return roleMapper.insert(role);
+        int insert = roleMapper.insert(role);
+        if (insert == 0){
+            Asserts.fail("插入角色失败");
+        }
     }
 
     @Override
@@ -55,8 +66,11 @@ public class RetRoleServiceImpl implements RetRoleService {
     }
 
     @Override
-    public int deleteRole(Long id) {
+    public void deleteRole(Long id) {
         roleResourceRelationService.deleteRole(id);
-        return roleMapper.deleteByPrimaryKey(id);
+        int i = roleMapper.deleteByPrimaryKey(id);
+        if (i == 0){
+            Asserts.fail("删除角色失败");
+        }
     }
 }

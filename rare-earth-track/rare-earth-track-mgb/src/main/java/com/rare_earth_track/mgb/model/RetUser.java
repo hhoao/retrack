@@ -7,14 +7,11 @@ import java.util.Date;
 /**
  * 用户
  * @author hhoa 
- * @date 2022-05-27
+ * @date 2022-05-29
  */
 @Schema(name = "用户")
 public class RetUser implements Serializable {
     private Long id;
-
-    @Schema(description = "姓名")
-    private String name;
 
     @Schema(description = "昵称")
     private String nickname;
@@ -25,17 +22,11 @@ public class RetUser implements Serializable {
     @Schema(description = "性别: 0->未知, 1->男, 2->女")
     private Integer sex;
 
-    @Schema(description = "手机号码")
-    private String phone;
-
     @Schema(description = "生日")
     private Date birthday;
 
     @Schema(description = "地址")
     private String address;
-
-    @Schema(description = "密码")
-    private String password;
 
     @Schema(description = "账号启用状态: 0->禁言， 1->启用")
     private Integer status;
@@ -55,8 +46,8 @@ public class RetUser implements Serializable {
     @Schema(description = "个性签名")
     private String personalizedSignature;
 
-    @Schema(description = "邮箱")
-    private String email;
+    @Schema(description = "角色id")
+    private Long roleId;
 
     private static final long serialVersionUID = 1L;
 
@@ -74,22 +65,6 @@ public class RetUser implements Serializable {
      */
     public void setId(Long id) {
         this.id = id;
-    }
-
-    /**
-     * 姓名
-     * @return name 姓名
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * 姓名
-     * @param name 姓名
-     */
-    public void setName(String name) {
-        this.name = name;
     }
 
     /**
@@ -141,22 +116,6 @@ public class RetUser implements Serializable {
     }
 
     /**
-     * 手机号码
-     * @return phone 手机号码
-     */
-    public String getPhone() {
-        return phone;
-    }
-
-    /**
-     * 手机号码
-     * @param phone 手机号码
-     */
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    /**
      * 生日
      * @return birthday 生日
      */
@@ -186,22 +145,6 @@ public class RetUser implements Serializable {
      */
     public void setAddress(String address) {
         this.address = address;
-    }
-
-    /**
-     * 密码
-     * @return password 密码
-     */
-    public String getPassword() {
-        return password;
-    }
-
-    /**
-     * 密码
-     * @param password 密码
-     */
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     /**
@@ -301,19 +244,19 @@ public class RetUser implements Serializable {
     }
 
     /**
-     * 邮箱
-     * @return email 邮箱
+     * 角色id
+     * @return role_id 角色id
      */
-    public String getEmail() {
-        return email;
+    public Long getRoleId() {
+        return roleId;
     }
 
     /**
-     * 邮箱
-     * @param email 邮箱
+     * 角色id
+     * @param roleId 角色id
      */
-    public void setEmail(String email) {
-        this.email = email;
+    public void setRoleId(Long roleId) {
+        this.roleId = roleId;
     }
 
     /**
@@ -327,21 +270,18 @@ public class RetUser implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
-        sb.append(", name=").append(name);
         sb.append(", nickname=").append(nickname);
         sb.append(", age=").append(age);
         sb.append(", sex=").append(sex);
-        sb.append(", phone=").append(phone);
         sb.append(", birthday=").append(birthday);
         sb.append(", address=").append(address);
-        sb.append(", password=").append(password);
         sb.append(", status=").append(status);
         sb.append(", createTime=").append(createTime);
         sb.append(", latestTime=").append(latestTime);
         sb.append(", icon=").append(icon);
         sb.append(", job=").append(job);
         sb.append(", personalizedSignature=").append(personalizedSignature);
-        sb.append(", email=").append(email);
+        sb.append(", roleId=").append(roleId);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

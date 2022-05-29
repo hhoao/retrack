@@ -113,7 +113,7 @@ public class RetHelpExample {
 
     /**
      * ret_help
-     * @author hhoa 2022-05-27
+     * @author hhoa 2022-05-29
      */
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
@@ -213,6 +213,66 @@ public class RetHelpExample {
 
         public Criteria andIdNotBetween(Long value1, Long value2) {
             addCriterion("id not between", value1, value2, "id");
+            return (Criteria) this;
+        }
+
+        public Criteria andHelpCategoryIdIsNull() {
+            addCriterion("help_category_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andHelpCategoryIdIsNotNull() {
+            addCriterion("help_category_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andHelpCategoryIdEqualTo(Long value) {
+            addCriterion("help_category_id =", value, "helpCategoryId");
+            return (Criteria) this;
+        }
+
+        public Criteria andHelpCategoryIdNotEqualTo(Long value) {
+            addCriterion("help_category_id <>", value, "helpCategoryId");
+            return (Criteria) this;
+        }
+
+        public Criteria andHelpCategoryIdGreaterThan(Long value) {
+            addCriterion("help_category_id >", value, "helpCategoryId");
+            return (Criteria) this;
+        }
+
+        public Criteria andHelpCategoryIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("help_category_id >=", value, "helpCategoryId");
+            return (Criteria) this;
+        }
+
+        public Criteria andHelpCategoryIdLessThan(Long value) {
+            addCriterion("help_category_id <", value, "helpCategoryId");
+            return (Criteria) this;
+        }
+
+        public Criteria andHelpCategoryIdLessThanOrEqualTo(Long value) {
+            addCriterion("help_category_id <=", value, "helpCategoryId");
+            return (Criteria) this;
+        }
+
+        public Criteria andHelpCategoryIdIn(List<Long> values) {
+            addCriterion("help_category_id in", values, "helpCategoryId");
+            return (Criteria) this;
+        }
+
+        public Criteria andHelpCategoryIdNotIn(List<Long> values) {
+            addCriterion("help_category_id not in", values, "helpCategoryId");
+            return (Criteria) this;
+        }
+
+        public Criteria andHelpCategoryIdBetween(Long value1, Long value2) {
+            addCriterion("help_category_id between", value1, value2, "helpCategoryId");
+            return (Criteria) this;
+        }
+
+        public Criteria andHelpCategoryIdNotBetween(Long value1, Long value2) {
+            addCriterion("help_category_id not between", value1, value2, "helpCategoryId");
             return (Criteria) this;
         }
 
@@ -545,7 +605,7 @@ public class RetHelpExample {
 
     /**
      * ret_help
-     * @author hhoa 2022-05-27
+     * @author hhoa 2022-05-29
      */
     public static class Criterion {
         private String condition;

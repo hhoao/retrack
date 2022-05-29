@@ -1,0 +1,29 @@
+package com.rare_earth_track.admin.bean;
+
+/**
+ * @author hhoa
+ * @date 2022/5/29
+ **/
+
+public enum IdentifyType {
+    /**
+     * 手机号
+     */
+    PHONE("phone"),
+    /**
+     * 邮件
+     */
+    EMAIL("email"),
+    /**
+     * 用户名
+     */
+    USERNAME("username");
+    private final String value;
+    IdentifyType(String value){
+        this.value = value;
+    }
+
+    public String value() {
+        return this.value;
+    }
+}

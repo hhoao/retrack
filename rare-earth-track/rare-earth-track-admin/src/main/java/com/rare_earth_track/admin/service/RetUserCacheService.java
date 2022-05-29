@@ -27,12 +27,6 @@ public interface RetUserCacheService {
     RetUser getUserByName(String username);
 
     /**
-     * 设置用户
-     * @param retUser 用户
-     */
-    void setUser(RetUser retUser);
-
-    /**
      * 设置短信验证码
      * @param phone 手机号
      * @param authCode 验证码

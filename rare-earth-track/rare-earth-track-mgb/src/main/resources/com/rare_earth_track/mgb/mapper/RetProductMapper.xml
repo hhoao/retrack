@@ -3,6 +3,7 @@
 <mapper namespace="com.rare_earth_track.mgb.mapper.RetProductMapper">
   <resultMap id="BaseResultMap" type="com.rare_earth_track.mgb.model.RetProduct">
     <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="factory_id" jdbcType="BIGINT" property="factoryId" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="batch_id" jdbcType="VARCHAR" property="batchId" />
     <result column="dispatch_time" jdbcType="TIMESTAMP" property="dispatchTime" />
@@ -80,9 +81,9 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, name, batch_id, dispatch_time, moisture_proof_logo, specification, packing_type, 
-    net_weight, transport_log, pic, purity, production_equipment, material_ratio, extraction_unit, 
-    album_pics
+    id, factory_id, name, batch_id, dispatch_time, moisture_proof_logo, specification, 
+    packing_type, net_weight, transport_log, pic, purity, production_equipment, material_ratio, 
+    extraction_unit, album_pics
   </sql>
   <sql id="Blob_Column_List">
     description
@@ -139,18 +140,18 @@
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into ret_product (name, batch_id, dispatch_time, 
-      moisture_proof_logo, specification, packing_type, 
-      net_weight, transport_log, pic, 
-      purity, production_equipment, material_ratio, 
-      extraction_unit, album_pics, description
-      )
-    values (#{name,jdbcType=VARCHAR}, #{batchId,jdbcType=VARCHAR}, #{dispatchTime,jdbcType=TIMESTAMP}, 
-      #{moistureProofLogo,jdbcType=VARCHAR}, #{specification,jdbcType=VARCHAR}, #{packingType,jdbcType=VARCHAR}, 
-      #{netWeight,jdbcType=VARCHAR}, #{transportLog,jdbcType=VARCHAR}, #{pic,jdbcType=VARCHAR}, 
-      #{purity,jdbcType=VARCHAR}, #{productionEquipment,jdbcType=VARCHAR}, #{materialRatio,jdbcType=VARCHAR}, 
-      #{extractionUnit,jdbcType=VARCHAR}, #{albumPics,jdbcType=VARCHAR}, #{description,jdbcType=LONGVARCHAR}
-      )
+    insert into ret_product (factory_id, name, batch_id, 
+      dispatch_time, moisture_proof_logo, specification, 
+      packing_type, net_weight, transport_log, 
+      pic, purity, production_equipment, 
+      material_ratio, extraction_unit, album_pics, 
+      description)
+    values (#{factoryId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{batchId,jdbcType=VARCHAR}, 
+      #{dispatchTime,jdbcType=TIMESTAMP}, #{moistureProofLogo,jdbcType=VARCHAR}, #{specification,jdbcType=VARCHAR}, 
+      #{packingType,jdbcType=VARCHAR}, #{netWeight,jdbcType=VARCHAR}, #{transportLog,jdbcType=VARCHAR}, 
+      #{pic,jdbcType=VARCHAR}, #{purity,jdbcType=VARCHAR}, #{productionEquipment,jdbcType=VARCHAR}, 
+      #{materialRatio,jdbcType=VARCHAR}, #{extractionUnit,jdbcType=VARCHAR}, #{albumPics,jdbcType=VARCHAR}, 
+      #{description,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.rare_earth_track.mgb.model.RetProduct">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
@@ -158,6 +159,9 @@
     </selectKey>
     insert into ret_product
     <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="factoryId != null">
+        factory_id,
+      </if>
       <if test="name != null">
         name,
       </if>
@@ -205,6 +209,9 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="factoryId != null">
+        #{factoryId,jdbcType=BIGINT},
+      </if>
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
       </if>
@@ -264,6 +271,9 @@
       <if test="row.id != null">
         id = #{row.id,jdbcType=BIGINT},
       </if>
+      <if test="row.factoryId != null">
+        factory_id = #{row.factoryId,jdbcType=BIGINT},
+      </if>
       <if test="row.name != null">
         name = #{row.name,jdbcType=VARCHAR},
       </if>
@@ -317,6 +327,7 @@
   <update id="updateByExampleWithBLOBs" parameterType="map">
     update ret_product
     set id = #{row.id,jdbcType=BIGINT},
+      factory_id = #{row.factoryId,jdbcType=BIGINT},
       name = #{row.name,jdbcType=VARCHAR},
       batch_id = #{row.batchId,jdbcType=VARCHAR},
       dispatch_time = #{row.dispatchTime,jdbcType=TIMESTAMP},
@@ -339,6 +350,7 @@
   <update id="updateByExample" parameterType="map">
     update ret_product
     set id = #{row.id,jdbcType=BIGINT},
+      factory_id = #{row.factoryId,jdbcType=BIGINT},
       name = #{row.name,jdbcType=VARCHAR},
       batch_id = #{row.batchId,jdbcType=VARCHAR},
       dispatch_time = #{row.dispatchTime,jdbcType=TIMESTAMP},
@@ -360,6 +372,9 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.rare_earth_track.mgb.model.RetProduct">
     update ret_product
     <set>
+      <if test="factoryId != null">
+        factory_id = #{factoryId,jdbcType=BIGINT},
+      </if>
       <if test="name != null">
         name = #{name,jdbcType=VARCHAR},
       </if>
@@ -410,7 +425,8 @@
   </update>
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.rare_earth_track.mgb.model.RetProduct">
     update ret_product
-    set name = #{name,jdbcType=VARCHAR},
+    set factory_id = #{factoryId,jdbcType=BIGINT},
+      name = #{name,jdbcType=VARCHAR},
       batch_id = #{batchId,jdbcType=VARCHAR},
       dispatch_time = #{dispatchTime,jdbcType=TIMESTAMP},
       moisture_proof_logo = #{moistureProofLogo,jdbcType=VARCHAR},
@@ -429,7 +445,8 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.rare_earth_track.mgb.model.RetProduct">
     update ret_product
-    set name = #{name,jdbcType=VARCHAR},
+    set factory_id = #{factoryId,jdbcType=BIGINT},
+      name = #{name,jdbcType=VARCHAR},
       batch_id = #{batchId,jdbcType=VARCHAR},
       dispatch_time = #{dispatchTime,jdbcType=TIMESTAMP},
       moisture_proof_logo = #{moistureProofLogo,jdbcType=VARCHAR},

@@ -112,7 +112,7 @@ public class RetRoleResourceRelationExample {
 
     /**
      * ret_role_resource_relation
-     * @author hhoa 2022-05-27
+     * @author hhoa 2022-05-29
      */
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
@@ -344,7 +344,7 @@ public class RetRoleResourceRelationExample {
 
     /**
      * ret_role_resource_relation
-     * @author hhoa 2022-05-27
+     * @author hhoa 2022-05-29
      */
     public static class Criterion {
         private String condition;

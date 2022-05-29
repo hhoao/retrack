@@ -31,10 +31,8 @@ public class RetRoleController {
     @PostMapping("/role/{roleId}/resource/{resourceId}")
     public CommonResult<String> insertRoleResource(@PathVariable("roleId") Long roleId,
                                                    @PathVariable("resourceId") Long resourceId){
-        int i = resourceRoleRelationService.addResourceRoleRelation(roleId, resourceId);
-        if (i == 0){
-            return CommonResult.failed("授予失败");
-        }
+        resourceRoleRelationService.addResourceRoleRelation(roleId, resourceId);
+
         return CommonResult.success(null);
     }
     @Operation(summary = "分页获取角色所有资源")
@@ -50,20 +48,14 @@ public class RetRoleController {
     @DeleteMapping("/roles/{roleId}/resources/{resourceId}")
     public CommonResult<String> deleteRoleResource(@PathVariable("roleId") Long roleId,
                                                    @PathVariable("resourceId") Long resourceId){
-        int count = resourceRoleRelationService.deleteRoleResource(roleId, resourceId);
-        if (count == 0){
-            return CommonResult.failed("删除角色资源失败");
-        }
+        resourceRoleRelationService.deleteRoleResource(roleId, resourceId);
         return CommonResult.success(null);
     }
 
     @Operation(summary = "增加角色")
     @PostMapping("/role")
     public CommonResult<String> addRole(@RequestBody RetRoleParam roleParam) {
-        int i = roleService.addRole(roleParam);
-        if (i == 0) {
-            return CommonResult.failed("插入失败");
-        }
+        roleService.addRole(roleParam);
         return CommonResult.success(null);
     }
 
@@ -77,19 +69,14 @@ public class RetRoleController {
     @Operation(summary = "删除角色")
     @DeleteMapping("/role/{id}")
     public CommonResult<String> delRole(@PathVariable("id") Long roleId){
-        int i = roleService.deleteRole(roleId);
-        if (i == 0){
-            return CommonResult.failed("删除失败");
-        }
+        roleService.deleteRole(roleId);
+
         return CommonResult.success(null);
     }
     @Operation(summary = "修改角色")
     @PatchMapping("/role")
     public CommonResult<String> updateRole(@RequestBody RetRoleParam roleParam){
-        int i = roleService.updateRole(roleParam);
-        if (i == 0){
-            return CommonResult.failed("修改失败");
-        }
+        roleService.updateRole(roleParam);
         return CommonResult.success(null);
     }
 }

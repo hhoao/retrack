@@ -2,6 +2,7 @@ package com.rare_earth_track.admin.service;
 
 import com.rare_earth_track.mgb.model.RetMemberJob;
 import com.rare_earth_track.mgb.model.RetPermission;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -39,6 +40,7 @@ public interface RetMemberJobService {
      * @param jobId      the job id
      * @param resourceId the resource id
      */
+    @Transactional
     void addJobPermission(Long jobId, Long resourceId);
 
     /**
@@ -47,5 +49,6 @@ public interface RetMemberJobService {
      * @param jobId      the job id
      * @param resourceId the resource id
      */
+    @Transactional
     void deleteJobPermission(Long jobId, Long resourceId);
 }

@@ -1,6 +1,8 @@
 package com.rare_earth_track.admin.service;
 
 import com.rare_earth_track.admin.bean.MailType;
+import com.rare_earth_track.admin.bean.RetUserDetails;
+import com.rare_earth_track.mgb.model.RetFactory;
 
 /**
  * The interface Ret mail service.
@@ -9,15 +11,6 @@ import com.rare_earth_track.admin.bean.MailType;
  * @date 2022 /5/15
  */
 public interface RetMailService {
-
-    /**
-     * 生成并且发送消息
-     *
-     * @param to   接收方
-     * @param type the type
-     */
-    void generateAndSendMessage(String to, MailType type);
-
     /**
      * 获取消息
      *
@@ -26,6 +19,22 @@ public interface RetMailService {
      * @return 消息 auth code
      */
     String getMessage(String to, MailType type);
+
+    /**
+     * Send user register mail.
+     *
+     * @param to   the to
+     * @param user the user
+     */
+    void sendUserRegisterMail(String to, RetUserDetails user);
+
+    /**
+     * Send factory invitation.
+     *
+     * @param to      the to
+     * @param factory the factory
+     */
+    void sendFactoryInvitation(String to, RetFactory factory);
 
     /**
      * 是否存在消息

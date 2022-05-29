@@ -1,8 +1,11 @@
 package com.rare_earth_track.admin.controller;
 
+import com.rare_earth_track.admin.bean.IdentifyType;
 import com.rare_earth_track.admin.bean.RetLoginParam;
 import com.rare_earth_track.admin.bean.RetUserRegisterParam;
-import com.rare_earth_track.admin.bean.RetUserUpdatePasswordParam;
+import com.rare_earth_track.admin.bean.RetUserUpdatePasswordByAuthCodeParam;
+import com.rare_earth_track.admin.service.RetMailService;
+import com.rare_earth_track.admin.service.RetUserAuthService;
 import com.rare_earth_track.admin.service.RetUserService;
 import com.rare_earth_track.common.api.CommonResult;
 import com.rare_earth_track.mgb.model.RetUser;
@@ -31,15 +34,14 @@ import java.util.Map;
 public class RetAdminController {
     private RetUserService userService;
     private JwtSecurityProperties properties;
+    private RetUserAuthService userAuthService;
+    private RetMailService mailService;
 
 
     @Operation(summary = "用户登录")
     @PostMapping("/user/auth/token")
     public CommonResult<Map<String, String>> login(@RequestBody RetLoginParam loginParam){
         String token = userService.login(loginParam.getName(), loginParam.getPassword());
-        if (token == null) {
-            return CommonResult.validateFailed("用户名或密码错误");
-        }
         Map<String, String> tokenMap = new HashMap<>(1);
         tokenMap.put("token", token);
         tokenMap.put("tokenHead", properties.getTokenHead());
@@ -65,14 +67,8 @@ public class RetAdminController {
     @Operation(summary = "更新密码")
     @PatchMapping("/user/password")
     @ResponseBody
-    public CommonResult<String> updatePassword(@Schema(description = "验证类型", required = true, allowableValues = {"phone", "email"})
-                                           @RequestParam("type") String type,
-                                       @RequestBody RetUserUpdatePasswordParam passwordParam) {
-        if ("phone".equals(type)){
-            userService.updatePasswordWithPhone(passwordParam);
-        }else {
-            userService.updatePasswordWithMail(passwordParam);
-        }
+    public CommonResult<String> updatePassword(@RequestBody RetUserUpdatePasswordByAuthCodeParam passwordParam) {
+        userService.updatePasswordByAuthCode(passwordParam);
         return CommonResult.success(null);
     }
 
@@ -82,9 +78,6 @@ public class RetAdminController {
     public CommonResult<Map<String, String>> refreshToken(HttpServletRequest request) {
         String token = request.getHeader(properties.getTokenHeader());
         String refreshToken = userService.refreshToken(token);
-        if (refreshToken == null) {
-            return CommonResult.failed("token已经过期！");
-        }
         Map<String, String> tokenMap = new HashMap<>(1);
         tokenMap.put("token", refreshToken);
         tokenMap.put("tokenHead", properties.getTokenHead());
@@ -94,19 +87,14 @@ public class RetAdminController {
     @GetMapping(value="/user/auth/code")
     @Operation(summary = "获取验证码")
     public CommonResult<String> generateAuthCode(@Schema(description = "验证类型", required = true, allowableValues = {"phone", "email"})
-                                                 @RequestParam("type") String type,
+                                                 @RequestParam("type") IdentifyType type,
                                                  @Schema(description = "手机号码或者email", required = true)
                                                  @RequestParam("body") String phoneOrMail){
-        if ("phone".equals(type)) {
-            userService.generatePhoneAuthCode(phoneOrMail);
-        }else{
-            Boolean aBoolean = userService.existsMail(phoneOrMail);
-            if (aBoolean) {
-                userService.sendMailAuthCode(phoneOrMail);
-            }else{
-                CommonResult.failed("没有该邮箱");
-            }
-        }
+//        if ("phone".equals(type)) {
+            //...
+//        }else{
+        userService.sendMailAuthCode(phoneOrMail);
+//        }
         return CommonResult.success(null);
     }
 }

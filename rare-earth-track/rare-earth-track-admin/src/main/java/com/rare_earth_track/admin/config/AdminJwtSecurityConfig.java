@@ -65,7 +65,7 @@ public class AdminJwtSecurityConfig {
                 factoryJobs = new ArrayList<>();
             }
             RetUser userCacheByUserName = userService.getUserCacheByUserName(username);
-            return new RetUserDetails(userCacheByUserName, resourcesByRoleName, factoryJobs);
+            return new RetUserDetails(userCacheByUserName, null, resourcesByRoleName, factoryJobs);
         };
     }
 

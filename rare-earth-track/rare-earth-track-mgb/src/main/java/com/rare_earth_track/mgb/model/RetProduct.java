@@ -7,11 +7,14 @@ import java.util.Date;
 /**
  * 产品信
  * @author hhoa 
- * @date 2022-05-27
+ * @date 2022-05-29
  */
 @Schema(name = "产品信")
 public class RetProduct implements Serializable {
     private Long id;
+
+    @Schema(description = "工厂id")
+    private Long factoryId;
 
     @Schema(description = "名称")
     private String name;
@@ -73,6 +76,22 @@ public class RetProduct implements Serializable {
      */
     public void setId(Long id) {
         this.id = id;
+    }
+
+    /**
+     * 工厂id
+     * @return factory_id 工厂id
+     */
+    public Long getFactoryId() {
+        return factoryId;
+    }
+
+    /**
+     * 工厂id
+     * @param factoryId 工厂id
+     */
+    public void setFactoryId(Long factoryId) {
+        this.factoryId = factoryId;
     }
 
     /**
@@ -326,6 +345,7 @@ public class RetProduct implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
+        sb.append(", factoryId=").append(factoryId);
         sb.append(", name=").append(name);
         sb.append(", batchId=").append(batchId);
         sb.append(", dispatchTime=").append(dispatchTime);

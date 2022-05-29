@@ -113,7 +113,7 @@ public class RetProductExample {
 
     /**
      * ret_product
-     * @author hhoa 2022-05-27
+     * @author hhoa 2022-05-29
      */
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
@@ -213,6 +213,66 @@ public class RetProductExample {
 
         public Criteria andIdNotBetween(Long value1, Long value2) {
             addCriterion("id not between", value1, value2, "id");
+            return (Criteria) this;
+        }
+
+        public Criteria andFactoryIdIsNull() {
+            addCriterion("factory_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFactoryIdIsNotNull() {
+            addCriterion("factory_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFactoryIdEqualTo(Long value) {
+            addCriterion("factory_id =", value, "factoryId");
+            return (Criteria) this;
+        }
+
+        public Criteria andFactoryIdNotEqualTo(Long value) {
+            addCriterion("factory_id <>", value, "factoryId");
+            return (Criteria) this;
+        }
+
+        public Criteria andFactoryIdGreaterThan(Long value) {
+            addCriterion("factory_id >", value, "factoryId");
+            return (Criteria) this;
+        }
+
+        public Criteria andFactoryIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("factory_id >=", value, "factoryId");
+            return (Criteria) this;
+        }
+
+        public Criteria andFactoryIdLessThan(Long value) {
+            addCriterion("factory_id <", value, "factoryId");
+            return (Criteria) this;
+        }
+
+        public Criteria andFactoryIdLessThanOrEqualTo(Long value) {
+            addCriterion("factory_id <=", value, "factoryId");
+            return (Criteria) this;
+        }
+
+        public Criteria andFactoryIdIn(List<Long> values) {
+            addCriterion("factory_id in", values, "factoryId");
+            return (Criteria) this;
+        }
+
+        public Criteria andFactoryIdNotIn(List<Long> values) {
+            addCriterion("factory_id not in", values, "factoryId");
+            return (Criteria) this;
+        }
+
+        public Criteria andFactoryIdBetween(Long value1, Long value2) {
+            addCriterion("factory_id between", value1, value2, "factoryId");
+            return (Criteria) this;
+        }
+
+        public Criteria andFactoryIdNotBetween(Long value1, Long value2) {
+            addCriterion("factory_id not between", value1, value2, "factoryId");
             return (Criteria) this;
         }
 
@@ -1195,7 +1255,7 @@ public class RetProductExample {
 
     /**
      * ret_product
-     * @author hhoa 2022-05-27
+     * @author hhoa 2022-05-29
      */
     public static class Criterion {
         private String condition;

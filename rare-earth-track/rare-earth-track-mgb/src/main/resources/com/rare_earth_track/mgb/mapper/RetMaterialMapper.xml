@@ -3,6 +3,7 @@
 <mapper namespace="com.rare_earth_track.mgb.mapper.RetMaterialMapper">
   <resultMap id="BaseResultMap" type="com.rare_earth_track.mgb.model.RetMaterial">
     <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="material_double_category_id" jdbcType="BIGINT" property="materialDoubleCategoryId" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="origin" jdbcType="VARCHAR" property="origin" />
     <result column="create_company_name" jdbcType="VARCHAR" property="createCompanyName" />
@@ -69,7 +70,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, name, origin, create_company_name
+    id, material_double_category_id, name, origin, create_company_name
   </sql>
   <sql id="Blob_Column_List">
     description
@@ -126,10 +127,10 @@
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into ret_material (name, origin, create_company_name, 
-      description)
-    values (#{name,jdbcType=VARCHAR}, #{origin,jdbcType=VARCHAR}, #{createCompanyName,jdbcType=VARCHAR}, 
-      #{description,jdbcType=LONGVARCHAR})
+    insert into ret_material (material_double_category_id, name, origin, 
+      create_company_name, description)
+    values (#{materialDoubleCategoryId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{origin,jdbcType=VARCHAR}, 
+      #{createCompanyName,jdbcType=VARCHAR}, #{description,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.rare_earth_track.mgb.model.RetMaterial">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
@@ -137,6 +138,9 @@
     </selectKey>
     insert into ret_material
     <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="materialDoubleCategoryId != null">
+        material_double_category_id,
+      </if>
       <if test="name != null">
         name,
       </if>
@@ -151,6 +155,9 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="materialDoubleCategoryId != null">
+        #{materialDoubleCategoryId,jdbcType=BIGINT},
+      </if>
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
       </if>
@@ -177,6 +184,9 @@
       <if test="row.id != null">
         id = #{row.id,jdbcType=BIGINT},
       </if>
+      <if test="row.materialDoubleCategoryId != null">
+        material_double_category_id = #{row.materialDoubleCategoryId,jdbcType=BIGINT},
+      </if>
       <if test="row.name != null">
         name = #{row.name,jdbcType=VARCHAR},
       </if>
@@ -197,6 +207,7 @@
   <update id="updateByExampleWithBLOBs" parameterType="map">
     update ret_material
     set id = #{row.id,jdbcType=BIGINT},
+      material_double_category_id = #{row.materialDoubleCategoryId,jdbcType=BIGINT},
       name = #{row.name,jdbcType=VARCHAR},
       origin = #{row.origin,jdbcType=VARCHAR},
       create_company_name = #{row.createCompanyName,jdbcType=VARCHAR},
@@ -208,6 +219,7 @@
   <update id="updateByExample" parameterType="map">
     update ret_material
     set id = #{row.id,jdbcType=BIGINT},
+      material_double_category_id = #{row.materialDoubleCategoryId,jdbcType=BIGINT},
       name = #{row.name,jdbcType=VARCHAR},
       origin = #{row.origin,jdbcType=VARCHAR},
       create_company_name = #{row.createCompanyName,jdbcType=VARCHAR}
@@ -218,6 +230,9 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.rare_earth_track.mgb.model.RetMaterial">
     update ret_material
     <set>
+      <if test="materialDoubleCategoryId != null">
+        material_double_category_id = #{materialDoubleCategoryId,jdbcType=BIGINT},
+      </if>
       <if test="name != null">
         name = #{name,jdbcType=VARCHAR},
       </if>
@@ -235,7 +250,8 @@
   </update>
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.rare_earth_track.mgb.model.RetMaterial">
     update ret_material
-    set name = #{name,jdbcType=VARCHAR},
+    set material_double_category_id = #{materialDoubleCategoryId,jdbcType=BIGINT},
+      name = #{name,jdbcType=VARCHAR},
       origin = #{origin,jdbcType=VARCHAR},
       create_company_name = #{createCompanyName,jdbcType=VARCHAR},
       description = #{description,jdbcType=LONGVARCHAR}
@@ -243,7 +259,8 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.rare_earth_track.mgb.model.RetMaterial">
     update ret_material
-    set name = #{name,jdbcType=VARCHAR},
+    set material_double_category_id = #{materialDoubleCategoryId,jdbcType=BIGINT},
+      name = #{name,jdbcType=VARCHAR},
       origin = #{origin,jdbcType=VARCHAR},
       create_company_name = #{createCompanyName,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}

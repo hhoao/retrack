@@ -6,11 +6,13 @@ import java.io.Serializable;
 /**
  * 材料
  * @author hhoa 
- * @date 2022-05-27
+ * @date 2022-05-29
  */
 @Schema(name = "材料")
 public class RetMaterial implements Serializable {
     private Long id;
+
+    private Long materialDoubleCategoryId;
 
     @Schema(description = "名称")
     private String name;
@@ -40,6 +42,22 @@ public class RetMaterial implements Serializable {
      */
     public void setId(Long id) {
         this.id = id;
+    }
+
+    /**
+     * 
+     * @return material_double_category_id 
+     */
+    public Long getMaterialDoubleCategoryId() {
+        return materialDoubleCategoryId;
+    }
+
+    /**
+     * 
+     * @param materialDoubleCategoryId 
+     */
+    public void setMaterialDoubleCategoryId(Long materialDoubleCategoryId) {
+        this.materialDoubleCategoryId = materialDoubleCategoryId;
     }
 
     /**
@@ -117,6 +135,7 @@ public class RetMaterial implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
+        sb.append(", materialDoubleCategoryId=").append(materialDoubleCategoryId);
         sb.append(", name=").append(name);
         sb.append(", origin=").append(origin);
         sb.append(", createCompanyName=").append(createCompanyName);

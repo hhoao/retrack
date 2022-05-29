@@ -3,6 +3,7 @@
 <mapper namespace="com.rare_earth_track.mgb.mapper.RetProductDocumentMapper">
   <resultMap id="BaseResultMap" type="com.rare_earth_track.mgb.model.RetProductDocument">
     <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="product_id" jdbcType="BIGINT" property="productId" />
     <result column="title" jdbcType="VARCHAR" property="title" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.rare_earth_track.mgb.model.RetProductDocument">
@@ -67,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, title
+    id, product_id, title
   </sql>
   <sql id="Blob_Column_List">
     content
@@ -124,8 +125,10 @@
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into ret_product_document (title, content)
-    values (#{title,jdbcType=VARCHAR}, #{content,jdbcType=LONGVARCHAR})
+    insert into ret_product_document (product_id, title, content
+      )
+    values (#{productId,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, #{content,jdbcType=LONGVARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.rare_earth_track.mgb.model.RetProductDocument">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
@@ -133,6 +136,9 @@
     </selectKey>
     insert into ret_product_document
     <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="productId != null">
+        product_id,
+      </if>
       <if test="title != null">
         title,
       </if>
@@ -141,6 +147,9 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="productId != null">
+        #{productId,jdbcType=BIGINT},
+      </if>
       <if test="title != null">
         #{title,jdbcType=VARCHAR},
       </if>
@@ -161,6 +170,9 @@
       <if test="row.id != null">
         id = #{row.id,jdbcType=BIGINT},
       </if>
+      <if test="row.productId != null">
+        product_id = #{row.productId,jdbcType=BIGINT},
+      </if>
       <if test="row.title != null">
         title = #{row.title,jdbcType=VARCHAR},
       </if>
@@ -175,6 +187,7 @@
   <update id="updateByExampleWithBLOBs" parameterType="map">
     update ret_product_document
     set id = #{row.id,jdbcType=BIGINT},
+      product_id = #{row.productId,jdbcType=BIGINT},
       title = #{row.title,jdbcType=VARCHAR},
       content = #{row.content,jdbcType=LONGVARCHAR}
     <if test="example != null">
@@ -184,6 +197,7 @@
   <update id="updateByExample" parameterType="map">
     update ret_product_document
     set id = #{row.id,jdbcType=BIGINT},
+      product_id = #{row.productId,jdbcType=BIGINT},
       title = #{row.title,jdbcType=VARCHAR}
     <if test="example != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -192,6 +206,9 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.rare_earth_track.mgb.model.RetProductDocument">
     update ret_product_document
     <set>
+      <if test="productId != null">
+        product_id = #{productId,jdbcType=BIGINT},
+      </if>
       <if test="title != null">
         title = #{title,jdbcType=VARCHAR},
       </if>
@@ -203,13 +220,15 @@
   </update>
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.rare_earth_track.mgb.model.RetProductDocument">
     update ret_product_document
-    set title = #{title,jdbcType=VARCHAR},
+    set product_id = #{productId,jdbcType=BIGINT},
+      title = #{title,jdbcType=VARCHAR},
       content = #{content,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.rare_earth_track.mgb.model.RetProductDocument">
     update ret_product_document
-    set title = #{title,jdbcType=VARCHAR}
+    set product_id = #{productId,jdbcType=BIGINT},
+      title = #{title,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

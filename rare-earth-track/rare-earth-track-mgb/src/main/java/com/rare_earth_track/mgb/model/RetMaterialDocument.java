@@ -6,11 +6,13 @@ import java.io.Serializable;
 /**
  * 材料文档
  * @author hhoa 
- * @date 2022-05-27
+ * @date 2022-05-29
  */
 @Schema(name = "材料文档")
 public class RetMaterialDocument implements Serializable {
     private Long id;
+
+    private Long materialId;
 
     @Schema(description = "标题")
     private String title;
@@ -34,6 +36,22 @@ public class RetMaterialDocument implements Serializable {
      */
     public void setId(Long id) {
         this.id = id;
+    }
+
+    /**
+     * 
+     * @return material_id 
+     */
+    public Long getMaterialId() {
+        return materialId;
+    }
+
+    /**
+     * 
+     * @param materialId 
+     */
+    public void setMaterialId(Long materialId) {
+        this.materialId = materialId;
     }
 
     /**
@@ -79,6 +97,7 @@ public class RetMaterialDocument implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
+        sb.append(", materialId=").append(materialId);
         sb.append(", title=").append(title);
         sb.append(", content=").append(content);
         sb.append(", serialVersionUID=").append(serialVersionUID);

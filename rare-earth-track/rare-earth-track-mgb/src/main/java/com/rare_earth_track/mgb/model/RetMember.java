@@ -6,7 +6,7 @@ import java.io.Serializable;
 /**
  * 工厂成员
  * @author hhoa 
- * @date 2022-05-27
+ * @date 2022-05-29
  */
 @Schema(name = "工厂成员")
 public class RetMember implements Serializable {
@@ -17,6 +17,15 @@ public class RetMember implements Serializable {
 
     @Schema(description = "昵称")
     private String nickname;
+
+    @Schema(description = "用户id")
+    private Long userId;
+
+    @Schema(description = "职位id")
+    private Long jobId;
+
+    @Schema(description = "工厂id")
+    private Long factoryId;
 
     private static final long serialVersionUID = 1L;
 
@@ -69,6 +78,54 @@ public class RetMember implements Serializable {
     }
 
     /**
+     * 用户id
+     * @return user_id 用户id
+     */
+    public Long getUserId() {
+        return userId;
+    }
+
+    /**
+     * 用户id
+     * @param userId 用户id
+     */
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    /**
+     * 职位id
+     * @return job_id 职位id
+     */
+    public Long getJobId() {
+        return jobId;
+    }
+
+    /**
+     * 职位id
+     * @param jobId 职位id
+     */
+    public void setJobId(Long jobId) {
+        this.jobId = jobId;
+    }
+
+    /**
+     * 工厂id
+     * @return factory_id 工厂id
+     */
+    public Long getFactoryId() {
+        return factoryId;
+    }
+
+    /**
+     * 工厂id
+     * @param factoryId 工厂id
+     */
+    public void setFactoryId(Long factoryId) {
+        this.factoryId = factoryId;
+    }
+
+    /**
      * toString
      * @return java.lang.String
      */
@@ -81,6 +138,9 @@ public class RetMember implements Serializable {
         sb.append(", id=").append(id);
         sb.append(", phone=").append(phone);
         sb.append(", nickname=").append(nickname);
+        sb.append(", userId=").append(userId);
+        sb.append(", jobId=").append(jobId);
+        sb.append(", factoryId=").append(factoryId);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

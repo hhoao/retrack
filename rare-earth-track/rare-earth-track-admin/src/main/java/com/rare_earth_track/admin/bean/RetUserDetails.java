@@ -3,6 +3,7 @@ package com.rare_earth_track.admin.bean;
 
 import com.rare_earth_track.mgb.model.RetResource;
 import com.rare_earth_track.mgb.model.RetUser;
+import com.rare_earth_track.mgb.model.RetUserAuth;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -19,6 +20,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class RetUserDetails implements UserDetails {
     private final RetUser retUser;
+    private final RetUserAuth userAuth;
     private final List<RetResource> retResources;
     private final List<RetFactoryJob> factoryJobs;
     @Override
@@ -36,12 +38,12 @@ public class RetUserDetails implements UserDetails {
 
     @Override
     public String getPassword() {
-        return retUser.getPassword();
+        return userAuth.getCredential();
     }
 
     @Override
     public String getUsername() {
-        return retUser.getName();
+        return userAuth.getIdentifier();
     }
 
     @Override

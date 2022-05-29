@@ -112,7 +112,7 @@ public class RetMaterialDocumentExample {
 
     /**
      * ret_material_document
-     * @author hhoa 2022-05-27
+     * @author hhoa 2022-05-29
      */
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
@@ -215,6 +215,66 @@ public class RetMaterialDocumentExample {
             return (Criteria) this;
         }
 
+        public Criteria andMaterialIdIsNull() {
+            addCriterion("material_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaterialIdIsNotNull() {
+            addCriterion("material_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaterialIdEqualTo(Long value) {
+            addCriterion("material_id =", value, "materialId");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaterialIdNotEqualTo(Long value) {
+            addCriterion("material_id <>", value, "materialId");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaterialIdGreaterThan(Long value) {
+            addCriterion("material_id >", value, "materialId");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaterialIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("material_id >=", value, "materialId");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaterialIdLessThan(Long value) {
+            addCriterion("material_id <", value, "materialId");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaterialIdLessThanOrEqualTo(Long value) {
+            addCriterion("material_id <=", value, "materialId");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaterialIdIn(List<Long> values) {
+            addCriterion("material_id in", values, "materialId");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaterialIdNotIn(List<Long> values) {
+            addCriterion("material_id not in", values, "materialId");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaterialIdBetween(Long value1, Long value2) {
+            addCriterion("material_id between", value1, value2, "materialId");
+            return (Criteria) this;
+        }
+
+        public Criteria andMaterialIdNotBetween(Long value1, Long value2) {
+            addCriterion("material_id not between", value1, value2, "materialId");
+            return (Criteria) this;
+        }
+
         public Criteria andTitleIsNull() {
             addCriterion("title is null");
             return (Criteria) this;
@@ -294,7 +354,7 @@ public class RetMaterialDocumentExample {
 
     /**
      * ret_material_document
-     * @author hhoa 2022-05-27
+     * @author hhoa 2022-05-29
      */
     public static class Criterion {
         private String condition;

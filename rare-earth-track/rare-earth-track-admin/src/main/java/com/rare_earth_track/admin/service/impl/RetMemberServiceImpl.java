@@ -1,7 +1,7 @@
 package com.rare_earth_track.admin.service.impl;
 
 import com.github.pagehelper.PageHelper;
-import com.rare_earth_track.admin.service.RetMemberJobRelationService;
+import com.rare_earth_track.admin.bean.RetFactoryJob;
 import com.rare_earth_track.admin.service.RetMemberService;
 import com.rare_earth_track.common.exception.Asserts;
 import com.rare_earth_track.mgb.mapper.RetMemberMapper;
@@ -10,6 +10,7 @@ import com.rare_earth_track.mgb.model.RetMemberExample;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,7 +22,7 @@ import java.util.List;
 @Service
 public class RetMemberServiceImpl implements RetMemberService {
     private final RetMemberMapper memberMapper;
-    private final RetMemberJobRelationService memberJobRelationService;
+
     @Override
     public List<RetMember> list(Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
@@ -34,7 +35,6 @@ public class RetMemberServiceImpl implements RetMemberService {
         if (insert == 0){
             Asserts.fail("插入失败");
         }
-        memberJobRelationService.addMemberJobRelation(member.getId());
     }
 
 
@@ -44,7 +44,6 @@ public class RetMemberServiceImpl implements RetMemberService {
         if (i == 0){
             Asserts.fail("删除失败");
         }
-        memberJobRelationService.deleteMemberJobRelationByMemberId(memberId);
     }
     @Override
     public RetMember getMemberByMemberId(Long id) {
@@ -57,6 +56,32 @@ public class RetMemberServiceImpl implements RetMemberService {
 
     @Override
     public void updateMemberJob(Long memberId, Long jobId) {
-        memberJobRelationService.updateMemberJobRelation(memberId, jobId);
+        RetMember member = memberMapper.selectByPrimaryKey(memberId);
+        if (member == null){
+            Asserts.fail("没有该memberId");
+        }
+        member.setJobId(jobId);
+        memberMapper.updateByPrimaryKey(member);
+    }
+
+    @Override
+    public List<RetMember> getFactoryMembers(Long factoryId) {
+        RetMemberExample memberExample = new RetMemberExample();
+        memberExample.createCriteria().andFactoryIdEqualTo(factoryId);
+        return memberMapper.selectByExample(memberExample);
+    }
+
+    @Override
+    public List<RetFactoryJob> getFactoryJobsByUserId(Long userId) {
+        RetMemberExample memberExample = new RetMemberExample();
+        memberExample.createCriteria().
+                andUserIdEqualTo(userId);
+        List<RetMember> members = memberMapper.selectByExample(memberExample);
+        List<RetFactoryJob> factoryJobs = new ArrayList<>();
+        for (RetMember member : members){
+            RetFactoryJob factoryJob = new RetFactoryJob(member.getFactoryId(), member.getJobId());
+            factoryJobs.add(factoryJob);
+        }
+        return factoryJobs;
     }
 }

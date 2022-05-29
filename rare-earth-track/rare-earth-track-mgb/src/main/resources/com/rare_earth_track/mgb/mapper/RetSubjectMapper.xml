@@ -3,6 +3,7 @@
 <mapper namespace="com.rare_earth_track.mgb.mapper.RetSubjectMapper">
   <resultMap id="BaseResultMap" type="com.rare_earth_track.mgb.model.RetSubject">
     <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="subject_id" jdbcType="BIGINT" property="subjectId" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="title" jdbcType="VARCHAR" property="title" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
@@ -71,7 +72,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, name, title, create_time, reading, sort
+    id, subject_id, name, title, create_time, reading, sort
   </sql>
   <sql id="Blob_Column_List">
     content
@@ -128,12 +129,12 @@
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into ret_subject (name, title, create_time, 
-      reading, sort, content
-      )
-    values (#{name,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{reading,jdbcType=BIGINT}, #{sort,jdbcType=INTEGER}, #{content,jdbcType=LONGVARCHAR}
-      )
+    insert into ret_subject (subject_id, name, title, 
+      create_time, reading, sort, 
+      content)
+    values (#{subjectId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{reading,jdbcType=BIGINT}, #{sort,jdbcType=INTEGER}, 
+      #{content,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.rare_earth_track.mgb.model.RetSubject">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
@@ -141,6 +142,9 @@
     </selectKey>
     insert into ret_subject
     <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="subjectId != null">
+        subject_id,
+      </if>
       <if test="name != null">
         name,
       </if>
@@ -161,6 +165,9 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="subjectId != null">
+        #{subjectId,jdbcType=BIGINT},
+      </if>
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
       </if>
@@ -193,6 +200,9 @@
       <if test="row.id != null">
         id = #{row.id,jdbcType=BIGINT},
       </if>
+      <if test="row.subjectId != null">
+        subject_id = #{row.subjectId,jdbcType=BIGINT},
+      </if>
       <if test="row.name != null">
         name = #{row.name,jdbcType=VARCHAR},
       </if>
@@ -219,6 +229,7 @@
   <update id="updateByExampleWithBLOBs" parameterType="map">
     update ret_subject
     set id = #{row.id,jdbcType=BIGINT},
+      subject_id = #{row.subjectId,jdbcType=BIGINT},
       name = #{row.name,jdbcType=VARCHAR},
       title = #{row.title,jdbcType=VARCHAR},
       create_time = #{row.createTime,jdbcType=TIMESTAMP},
@@ -232,6 +243,7 @@
   <update id="updateByExample" parameterType="map">
     update ret_subject
     set id = #{row.id,jdbcType=BIGINT},
+      subject_id = #{row.subjectId,jdbcType=BIGINT},
       name = #{row.name,jdbcType=VARCHAR},
       title = #{row.title,jdbcType=VARCHAR},
       create_time = #{row.createTime,jdbcType=TIMESTAMP},
@@ -244,6 +256,9 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.rare_earth_track.mgb.model.RetSubject">
     update ret_subject
     <set>
+      <if test="subjectId != null">
+        subject_id = #{subjectId,jdbcType=BIGINT},
+      </if>
       <if test="name != null">
         name = #{name,jdbcType=VARCHAR},
       </if>
@@ -267,7 +282,8 @@
   </update>
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.rare_earth_track.mgb.model.RetSubject">
     update ret_subject
-    set name = #{name,jdbcType=VARCHAR},
+    set subject_id = #{subjectId,jdbcType=BIGINT},
+      name = #{name,jdbcType=VARCHAR},
       title = #{title,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       reading = #{reading,jdbcType=BIGINT},
@@ -277,7 +293,8 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.rare_earth_track.mgb.model.RetSubject">
     update ret_subject
-    set name = #{name,jdbcType=VARCHAR},
+    set subject_id = #{subjectId,jdbcType=BIGINT},
+      name = #{name,jdbcType=VARCHAR},
       title = #{title,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       reading = #{reading,jdbcType=BIGINT},

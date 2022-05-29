@@ -34,28 +34,20 @@ public class RetResourceController {
     @Operation(description = "添加资源", summary = "添加资源")
     @PostMapping("/resource")
     public CommonResult<String> addResource(@RequestBody RetResourceParam resourceParam){
-        int count = resourceService.addResource(resourceParam);
-        if (count == 0){
-            return CommonResult.failed("插入失败");
-        }
+        resourceService.addResource(resourceParam);
         return CommonResult.success(null);
     }
     @Operation(summary = "修改资源")
     @PatchMapping("/resource")
     public CommonResult<String> updateResource(@RequestBody RetResourceParam resourceParam){
-        int count = resourceService.updateResource(resourceParam);
-        if (count == 0){
-            return CommonResult.failed("插入失败");
-        }
+        resourceService.updateResource(resourceParam);
         return CommonResult.success(null);
     }
     @Operation(summary = "删除资源")
     @DeleteMapping("/resources/{id}")
     public CommonResult<String> delResource(@PathVariable Long id){
-        int i = resourceService.delResource(id);
-        if (i == 0){
-            return CommonResult.failed("删除失败");
-        }
+        resourceService.deleteResource(id);
+
         return CommonResult.success(null);
     }
 }

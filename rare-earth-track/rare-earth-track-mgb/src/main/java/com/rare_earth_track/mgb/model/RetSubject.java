@@ -7,11 +7,13 @@ import java.util.Date;
 /**
  * 专题
  * @author hhoa 
- * @date 2022-05-27
+ * @date 2022-05-29
  */
 @Schema(name = "专题")
 public class RetSubject implements Serializable {
     private Long id;
+
+    private Long subjectId;
 
     @Schema(description = "名称")
     private String name;
@@ -47,6 +49,22 @@ public class RetSubject implements Serializable {
      */
     public void setId(Long id) {
         this.id = id;
+    }
+
+    /**
+     * 
+     * @return subject_id 
+     */
+    public Long getSubjectId() {
+        return subjectId;
+    }
+
+    /**
+     * 
+     * @param subjectId 
+     */
+    public void setSubjectId(Long subjectId) {
+        this.subjectId = subjectId;
     }
 
     /**
@@ -156,6 +174,7 @@ public class RetSubject implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
+        sb.append(", subjectId=").append(subjectId);
         sb.append(", name=").append(name);
         sb.append(", title=").append(title);
         sb.append(", createTime=").append(createTime);

@@ -36,7 +36,7 @@ public class RetMemberJobPermissionRelationServiceImpl implements RetMemberJobPe
     @Override
     public List<RetPermission> getJobPermissions(Long jobId) {
         RetMemberJobPermissionRelationExample memberJobPermissionRelationExample = new RetMemberJobPermissionRelationExample();
-        RetMemberJobPermissionRelationExample.Criteria criteria = memberJobPermissionRelationExample.createCriteria().andMemberJobIdEqualTo(jobId);
+        memberJobPermissionRelationExample.createCriteria().andMemberJobIdEqualTo(jobId);
         List<RetMemberJobPermissionRelation> retMemberJobPermissionRelations = memberJobPermissionRelationMapper.selectByExample(memberJobPermissionRelationExample);
         List<RetPermission> permissions = new ArrayList<>();
         for (RetMemberJobPermissionRelation memberJobPermissionRelation : retMemberJobPermissionRelations){
