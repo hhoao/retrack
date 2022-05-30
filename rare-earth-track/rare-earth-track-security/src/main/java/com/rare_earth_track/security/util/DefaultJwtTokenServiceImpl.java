@@ -3,6 +3,7 @@ package com.rare_earth_track.security.util;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.jwt.JWT;
+import com.rare_earth_track.common.exception.Asserts;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -73,6 +74,16 @@ public class DefaultJwtTokenServiceImpl extends AbstractJwtTokenService{
             subject = null;
         }
         return subject;
+    }
+
+    @Override
+    public String getSubjectFromAuthorization(String authorization) {
+        String authToken = authorization.substring(getTokenHead().length());
+        String subjectFromToken = getSubjectFromToken(authToken);
+        if (subjectFromToken == null){
+            Asserts.fail("该用户未登陆");
+        }
+        return subjectFromToken;
     }
 
     @Override

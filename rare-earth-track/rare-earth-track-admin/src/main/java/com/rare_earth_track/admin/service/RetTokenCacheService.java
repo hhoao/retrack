@@ -1,5 +1,7 @@
 package com.rare_earth_track.admin.service;
 
+import com.rare_earth_track.admin.bean.RetUserDetails;
+
 /**
  * @author hhoa
  * @date 2022/5/13
@@ -17,12 +19,12 @@ public interface RetTokenCacheService {
      */
     void expire(String username, Long expiration);
     /**
-     *
      * 通过角色名和资源设置token
-     * @param username 用户名
-     * @param roleName 角色名
+     *
+     * @param username    用户名
+     * @param userDetails 角色名
      */
-    void setKey(String username, String roleName);
+    void setKey(String username, RetUserDetails userDetails);
 
     /**
      * 判断是否有该key
@@ -33,10 +35,11 @@ public interface RetTokenCacheService {
 
     /**
      * 获取
+     *
      * @param username 用户名
      * @return 角色
      */
-    String getKey(String username);
+    RetUserDetails getKey(String username);
 
     /**
      * 删除key

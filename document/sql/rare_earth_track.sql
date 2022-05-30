@@ -160,44 +160,45 @@ CREATE TABLE `ret_user_auth`
     `identifier` varchar(100) NOT NULL COMMENT '标识',
     `credential` varchar(100) NOT NULL COMMENT '凭证',
     CHECK ( identity_type IN ('email', 'phone', 'username') ),
+    UNIQUE (`identifier`),
+    UNIQUE (`user_id`, `identity_type`),
     PRIMARY KEY (`id`),
     FOREIGN KEY (`user_id`) REFERENCES `ret_user`(`id`)
 ) COMMENT '用户授权信息表';
 # 密码为123456 密码经BCrypt加密
 INSERT INTO `ret_user_auth`(user_id, identity_type, identifier, credential)
-VALUES(1, 'username', 'test', '$2a$10$qWk7KeDqgddC8eIbRf/XeOIBarzcghgLkwOVhkvaprWJjGxkQchn.');
+VALUES(1, 'username', 'test', '$2a$10$xDpwrinpPCImweyjDMl.0.xIo9hbOXYu1xOOenyERJndMzWnmonqG');
 INSERT INTO `ret_user_auth`(user_id, identity_type, identifier, credential)
-VALUES(1, 'email', 'haunghao@foxmail.com', '$2a$10$qWk7KeDqgddC8eIbRf/XeOIBarzcghgLkwOVhkvaprWJjGxkQchn.');
+VALUES(1, 'email', 'haunghao@foxmail.com', '$2a$10$xDpwrinpPCImweyjDMl.0.xIo9hbOXYu1xOOenyERJndMzWnmonqG');
 INSERT INTO `ret_user_auth`(user_id, identity_type, identifier, credential)
-VALUES(1, 'phone', '17679358123', '$2a$10$qWk7KeDqgddC8eIbRf/XeOIBarzcghgLkwOVhkvaprWJjGxkQchn.');
+VALUES(1, 'phone', '17679358123', '$2a$10$xDpwrinpPCImweyjDMl.0.xIo9hbOXYu1xOOenyERJndMzWnmonqG');
 INSERT INTO `ret_user_auth`(user_id, identity_type, identifier, credential)
-VALUES(2, 'username', 'test', '$2a$10$qWk7KeDqgddC8eIbRf/XeOIBarzcghgLkwOVhkvaprWJjGxkQchn.');
+VALUES(2, 'username', 'user0', '$2a$10$xDpwrinpPCImweyjDMl.0.xIo9hbOXYu1xOOenyERJndMzWnmonqG');
 INSERT INTO `ret_user_auth`(user_id, identity_type, identifier, credential)
-VALUES(2, 'username', 'test', '$2a$10$qWk7KeDqgddC8eIbRf/XeOIBarzcghgLkwOVhkvaprWJjGxkQchn.');
+VALUES(3, 'username', 'user1', '$2a$10$xDpwrinpPCImweyjDMl.0.xIo9hbOXYu1xOOenyERJndMzWnmonqG');
 INSERT INTO `ret_user_auth`(user_id, identity_type, identifier, credential)
-VALUES(2, 'username', 'test', '$2a$10$qWk7KeDqgddC8eIbRf/XeOIBarzcghgLkwOVhkvaprWJjGxkQchn.');
+VALUES(4, 'username', 'user2', '$2a$10$xDpwrinpPCImweyjDMl.0.xIo9hbOXYu1xOOenyERJndMzWnmonqG');
 INSERT INTO `ret_user_auth`(user_id, identity_type, identifier, credential)
-VALUES(2, 'username', 'test', '$2a$10$qWk7KeDqgddC8eIbRf/XeOIBarzcghgLkwOVhkvaprWJjGxkQchn.');
+VALUES(5, 'username', 'user3', '$2a$10$xDpwrinpPCImweyjDMl.0.xIo9hbOXYu1xOOenyERJndMzWnmonqG');
 INSERT INTO `ret_user_auth`(user_id, identity_type, identifier, credential)
-VALUES(2, 'username', 'test', '$2a$10$qWk7KeDqgddC8eIbRf/XeOIBarzcghgLkwOVhkvaprWJjGxkQchn.');
+VALUES(6, 'username', 'user4', '$2a$10$xDpwrinpPCImweyjDMl.0.xIo9hbOXYu1xOOenyERJndMzWnmonqG');
 INSERT INTO `ret_user_auth`(user_id, identity_type, identifier, credential)
-VALUES(2, 'username', 'test', '$2a$10$qWk7KeDqgddC8eIbRf/XeOIBarzcghgLkwOVhkvaprWJjGxkQchn.');
+VALUES(7, 'username', 'user5', '$2a$10$xDpwrinpPCImweyjDMl.0.xIo9hbOXYu1xOOenyERJndMzWnmonqG');
 INSERT INTO `ret_user_auth`(user_id, identity_type, identifier, credential)
-VALUES(2, 'username', 'test', '$2a$10$qWk7KeDqgddC8eIbRf/XeOIBarzcghgLkwOVhkvaprWJjGxkQchn.');
+VALUES(8, 'username', 'user6', '$2a$10$xDpwrinpPCImweyjDMl.0.xIo9hbOXYu1xOOenyERJndMzWnmonqG');
 INSERT INTO `ret_user_auth`(user_id, identity_type, identifier, credential)
-VALUES(2, 'username', 'test', '$2a$10$qWk7KeDqgddC8eIbRf/XeOIBarzcghgLkwOVhkvaprWJjGxkQchn.');
+VALUES(9, 'username', 'user7', '$2a$10$xDpwrinpPCImweyjDMl.0.xIo9hbOXYu1xOOenyERJndMzWnmonqG');
 INSERT INTO `ret_user_auth`(user_id, identity_type, identifier, credential)
-VALUES(2, 'username', 'test', '$2a$10$qWk7KeDqgddC8eIbRf/XeOIBarzcghgLkwOVhkvaprWJjGxkQchn.');
+VALUES(10, 'username', 'user8', '$2a$10$xDpwrinpPCImweyjDMl.0.xIo9hbOXYu1xOOenyERJndMzWnmonqG');
 INSERT INTO `ret_user_auth`(user_id, identity_type, identifier, credential)
-VALUES(2, 'username', 'test', '$2a$10$qWk7KeDqgddC8eIbRf/XeOIBarzcghgLkwOVhkvaprWJjGxkQchn.');
+VALUES(11, 'username', 'user9', '$2a$10$xDpwrinpPCImweyjDMl.0.xIo9hbOXYu1xOOenyERJndMzWnmonqG');
 INSERT INTO `ret_user_auth`(user_id, identity_type, identifier, credential)
-VALUES(2, 'username', 'test', '$2a$10$qWk7KeDqgddC8eIbRf/XeOIBarzcghgLkwOVhkvaprWJjGxkQchn.');
+VALUES(12, 'username', 'user10', '$2a$10$xDpwrinpPCImweyjDMl.0.xIo9hbOXYu1xOOenyERJndMzWnmonqG');
 INSERT INTO `ret_user_auth`(user_id, identity_type, identifier, credential)
-VALUES(2, 'username', 'test', '$2a$10$qWk7KeDqgddC8eIbRf/XeOIBarzcghgLkwOVhkvaprWJjGxkQchn.');
+VALUES(13, 'username', 'user11', '$2a$10$xDpwrinpPCImweyjDMl.0.xIo9hbOXYu1xOOenyERJndMzWnmonqG');
 INSERT INTO `ret_user_auth`(user_id, identity_type, identifier, credential)
-VALUES(2, 'username', 'test', '$2a$10$qWk7KeDqgddC8eIbRf/XeOIBarzcghgLkwOVhkvaprWJjGxkQchn.');
-INSERT INTO `ret_user_auth`(user_id, identity_type, identifier, credential)
-VALUES(2, 'username', 'test', '$2a$10$qWk7KeDqgddC8eIbRf/XeOIBarzcghgLkwOVhkvaprWJjGxkQchn.');
+VALUES(14, 'username', 'user12', '$2a$10$xDpwrinpPCImweyjDMl.0.xIo9hbOXYu1xOOenyERJndMzWnmonqG');
+
 
 
 -- 工厂表
@@ -253,6 +254,9 @@ CREATE TABLE ret_member
     `job_id` bigint DEFAULT '3' NOT NULL COMMENT '职位id',
     `factory_id` bigint NOT NULL COMMENT '工厂id',
     CONSTRAINT PK_MEMBER PRIMARY KEY (`id`),
+    UNIQUE (`id`, `user_id`),
+    UNIQUE (`id`, `job_id`),
+    UNIQUE (`id`, `factory_id`),
     FOREIGN KEY (`factory_id`) REFERENCES `ret_factory`(`id`),
     FOREIGN KEY (`user_id`) references `ret_user`(`id`),
     FOREIGN KEY (`job_id`) references `ret_member_job`(`id`)

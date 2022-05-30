@@ -3,12 +3,9 @@ package com.rare_earth_track.admin.config;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.jwt.JWT;
-import com.rare_earth_track.admin.bean.RetFactoryJob;
-import com.rare_earth_track.admin.bean.RetUserDetails;
 import com.rare_earth_track.admin.service.*;
 import com.rare_earth_track.mgb.model.RetPermission;
 import com.rare_earth_track.mgb.model.RetResource;
-import com.rare_earth_track.mgb.model.RetUser;
 import com.rare_earth_track.security.component.DynamicSecurityService;
 import com.rare_earth_track.security.config.JwtSecurityProperties;
 import com.rare_earth_track.security.util.DefaultJwtTokenServiceImpl;
@@ -51,22 +48,8 @@ public class AdminJwtSecurityConfig {
      * @return userDetailsService
      */
     @Bean
-    public static UserDetailsService userDetailsService(RetTokenCacheService tokenCacheService,
-                                                        RetUserService userService,
-                                                        RetRoleResourceCacheService resourceRoleCacheService) {
-        return (username)->{
-            String roleName = tokenCacheService.getKey(username);
-            List<RetResource> resourcesByRoleName = resourceRoleCacheService.getByRoleName(roleName);
-            List<RetFactoryJob> factoryJobs =  userService.getFactoryJobsByUserName(username);
-            if (resourcesByRoleName == null){
-                resourcesByRoleName = new ArrayList<>();
-            }
-            if (factoryJobs == null){
-                factoryJobs = new ArrayList<>();
-            }
-            RetUser userCacheByUserName = userService.getUserCacheByUserName(username);
-            return new RetUserDetails(userCacheByUserName, null, resourcesByRoleName, factoryJobs);
-        };
+    public static UserDetailsService userDetailsService(RetUserService userService) {
+        return userService::getUserDetails;
     }
 
     /**
@@ -242,6 +225,7 @@ public class AdminJwtSecurityConfig {
                         .signWith(SignatureAlgorithm.HS512, getSecret())
                         .compact();
             }
+
 
             @Override
             public boolean isTokenExpired(String token) {

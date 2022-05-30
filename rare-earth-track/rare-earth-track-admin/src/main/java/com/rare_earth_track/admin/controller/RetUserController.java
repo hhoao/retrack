@@ -12,6 +12,7 @@ import io.swagger.v3.oas.annotations.tags.Tags;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 用户controller
@@ -40,14 +41,23 @@ public class RetUserController {
         return CommonResult.success(userByName);
     }
     @Operation(summary = "通过用户参数获取用户信息")
-    @GetMapping
+    @GetMapping("/users/search")
     public CommonResult<List<RetUser>> getUserByUserParam(RetUser user){
         List<RetUser> users = userService.getUser(user);
         return CommonResult.success(users);
     }
 
-    @Operation(summary = "更新用户资料")
+    @Operation(summary = "更新当前用户资料")
     @PatchMapping("/user")
+    public CommonResult<String> updateUser(@RequestBody RetUser user,
+                                           @RequestHeader Map<String, String> headers){
+        String authorization = headers.get("Authorization");
+        userService.updateUser(user, authorization);
+        return CommonResult.success(null);
+    }
+
+    @Operation(summary = "更新用户资料")
+    @PatchMapping("/users/{userId}")
     public CommonResult<String> updateUser(@RequestBody RetUser newUser){
         userService.updateUser(newUser);
         return CommonResult.success(null);

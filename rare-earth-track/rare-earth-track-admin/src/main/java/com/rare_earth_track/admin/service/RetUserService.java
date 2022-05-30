@@ -26,21 +26,12 @@ public interface RetUserService {
     UserDetails getUserDetails(String username);
 
     /**
-     * 通过用户获取UserDetails
-     *
-     * @param retUser user
-     * @return userDetails user details by user
-     */
-    UserDetails getUserDetails(RetUser retUser);
-
-    /**
      * 登录
      *
-     * @param identifier 认证标识
-     * @param credential 认证凭据
+     * @param loginParam the login param
      * @return token string
      */
-    String login(String identifier, String credential);
+    String login(RetLoginParam loginParam);
 
     /**
      * 退出
@@ -82,7 +73,7 @@ public interface RetUserService {
      * @param passwordParam 更新密码需要的参数
      */
     @Transactional(rollbackFor = Exception.class, noRollbackFor = ApiException.class)
-    void updatePasswordByAuthCode(RetUserUpdatePasswordByAuthCodeParam passwordParam);
+    void updateUserPassword(RetUserAuthParam passwordParam);
 
     /**
      * 获取所有用户
@@ -179,4 +170,37 @@ public interface RetUserService {
      * @return the user email by username
      */
     RetUserAuth getUserEmailByUsername(String username);
+
+    /**
+     * Update user.
+     *
+     * @param user          the user
+     * @param authorization the authorization
+     */
+    void updateUser(RetUser user, String authorization);
+
+    /**
+     * Update user auth.
+     *
+     * @param userId   the user id
+     * @param authType the auth type
+     * @param userAuth the user auth
+     */
+    void updateUserAuth(Long userId, IdentifyType authType, RetUserAuth userAuth);
+
+    /**
+     * Unbind user auth.
+     *
+     * @param authType      the auth type
+     * @param authorization the authorization
+     */
+    void unbindUserAuth(IdentifyType authType, String authorization);
+
+    /**
+     * Update newUsername.
+     *
+     * @param newUsername      the newUsername
+     * @param authorization the authorization
+     */
+    void updateUsername(String newUsername, String authorization);
 }

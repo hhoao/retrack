@@ -49,6 +49,7 @@ public class JwtDynamicSecurityFilter extends AbstractSecurityInterceptor implem
         PathMatcher pathMatcher = new AntPathMatcher();
         for (String path : ignoredUrls) {
             if(pathMatcher.match(path,request.getRequestURI())){
+//                fi.getRequest().setAttribute("__spring_security_filterSecurityInterceptor_filterApplied", true);
                 fi.getChain().doFilter(fi.getRequest(), fi.getResponse());
                 return;
             }

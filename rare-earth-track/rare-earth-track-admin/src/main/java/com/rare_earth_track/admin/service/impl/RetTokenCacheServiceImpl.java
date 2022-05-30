@@ -1,7 +1,8 @@
 package com.rare_earth_track.admin.service.impl;
 
+import com.rare_earth_track.admin.bean.RetUserDetails;
 import com.rare_earth_track.admin.service.RetTokenCacheService;
-import com.rare_earth_track.admin.service.RetUserRoleCacheService;
+import com.rare_earth_track.common.service.RedisService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -14,37 +15,43 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class RetTokenCacheServiceImpl implements RetTokenCacheService {
+    @Value("${ret.redis.database}")
+    private String redisDatabase;
     @Value("${ret.redis.expire.token}")
     private Long redisExpire;
-    private final RetUserRoleCacheService userRoleCacheService;
-
+    @Value("${ret.redis.key.user}")
+    private String redisKeyRole;
+    private final RedisService redisService;
+    public String getUserNameKey(String username){
+        return redisDatabase + ":" + redisKeyRole + ":" + username;
+    }
     @Override
     public void expire(String username) {
-        userRoleCacheService.expireByUsername(username, redisExpire);
+        redisService.expire(getUserNameKey(username), redisExpire);
     }
 
     @Override
     public void expire(String username, Long expiration) {
-        userRoleCacheService.expireByUsername(username, expiration);
+        redisService.expire(getUserNameKey(username), expiration);
     }
 
     @Override
-    public void setKey(String username, String roleName) {
-        userRoleCacheService.setByUsername(username, roleName, redisExpire);
+    public void setKey(String username, RetUserDetails userDetails) {
+        redisService.set(username, userDetails);
     }
 
     @Override
     public boolean hasKey(String username){
-        return userRoleCacheService.hasByUserName(username);
+        return redisService.hasKey(username);
     }
 
     @Override
-    public String getKey(String username) {
-        return userRoleCacheService.getByUsername(username);
+    public RetUserDetails getKey(String username) {
+        return (RetUserDetails) redisService.get(getUserNameKey(username));
     }
 
     @Override
     public void delKey(String username){
-        userRoleCacheService.deleteByUsername(username);
+        redisService.del(username);
     }
 }

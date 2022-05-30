@@ -1,7 +1,7 @@
 package com.rare_earth_track.admin.service;
 
 import com.rare_earth_track.admin.bean.IdentifyType;
-import com.rare_earth_track.admin.bean.RetUserUpdatePasswordByAuthCodeParam;
+import com.rare_earth_track.admin.bean.RetUserAuthParam;
 import com.rare_earth_track.mgb.model.RetUserAuth;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -61,12 +61,20 @@ public interface RetUserAuthService {
     void bind(Long id, IdentifyType username);
 
     /**
+     * Update credential.
+     *
+     * @param userId     the user id
+     * @param credential the credential
+     */
+    void updateCredential(Long userId, String credential);
+
+    /**
      * Update credential by auth code.
      *
      * @param passwordParam the password param
      */
     @Transactional
-    void updateCredential(RetUserUpdatePasswordByAuthCodeParam passwordParam);
+    void updateCredential(RetUserAuthParam passwordParam);
 
     /**
      * Delete user auth.
@@ -74,7 +82,7 @@ public interface RetUserAuthService {
      * @param userId the user id
      */
     @Transactional
-    void deleteUserAuth(Long userId);
+    void deleteAllUserAuth(Long userId);
 
     /**
      * Gets user auth.
@@ -84,4 +92,35 @@ public interface RetUserAuthService {
      * @return the user auth
      */
     RetUserAuth getUserAuth(String identifier, String credential);
+
+    /**
+     * Update user auth.
+     *
+     * @param userAuth the user auth
+     */
+    void updateUserAuth(RetUserAuth userAuth);
+
+    /**
+     * Gets user id by user name.
+     *
+     * @param username the username
+     * @return the user id by user name
+     */
+    Long getUserIdByUserName(String username);
+
+    /**
+     * Delete user auth.
+     *
+     * @param userId   the user id
+     * @param authType the auth type
+     */
+    void deleteUserAuth(Long userId, IdentifyType authType);
+
+    /**
+     * Gets user auth.
+     *
+     * @param identifier the identifier
+     * @return the user auth
+     */
+    RetUserAuth getUserAuth(String identifier);
 }

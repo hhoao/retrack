@@ -23,7 +23,6 @@ public class RetRoleResourceRelationServiceImpl implements RetRoleResourceRelati
     private final RetResourceMapper resourceMapper;
     private final RetRoleMapper roleMapper;
     private final RetRoleResourceCacheService resourceCacheService;
-
     public RetRoleResourceRelationServiceImpl(RetRoleResourceRelationMapper roleResourceRelationMapper,
                                               RetResourceMapper resourceMapper,
                                               RetRoleMapper roleMapper,
@@ -110,18 +109,12 @@ public class RetRoleResourceRelationServiceImpl implements RetRoleResourceRelati
 
     @Override
     public List<RetResource> getRoleResources(Long roleId) {
-        List<RetResource> resources = new ArrayList<>();
-        RetRoleResourceRelationExample relationExample = new RetRoleResourceRelationExample();
-        relationExample.createCriteria().andRoleIdEqualTo(roleId);
-        List<RetRoleResourceRelation> roleResourceRelations = roleResourceRelationMapper.selectByExample(relationExample);
-        if ( roleResourceRelations.size() > 0){
-            for (RetRoleResourceRelation relation :  roleResourceRelations){
-                Long resourceId = relation.getResourceId();
-                RetResource resourceByResourceId = resourceMapper.selectByPrimaryKey(resourceId);
-                resources.add(resourceByResourceId);
-            }
+        RetRole retRole = roleMapper.selectByPrimaryKey(roleId);
+        List<RetResource> byRoleName = resourceCacheService.getByRoleName(retRole.getName());
+        if (byRoleName == null){
+            return new ArrayList<>();
         }
-        return resources;
+        return byRoleName;
     }
 
     @Override

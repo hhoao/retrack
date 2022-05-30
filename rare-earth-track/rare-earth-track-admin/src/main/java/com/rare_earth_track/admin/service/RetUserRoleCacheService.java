@@ -1,5 +1,7 @@
 package com.rare_earth_track.admin.service;
 
+import com.rare_earth_track.admin.bean.RetUserDetails;
+
 /**
  * @author hhoa
  * @date 2022/5/18
@@ -28,11 +30,12 @@ public interface RetUserRoleCacheService {
 
     /**
      * 设置角色名
-     * @param username 用户名
-     * @param roleName 角色名
-     * @param expiration 过期时间 空则使用默认
+     *
+     * @param username    用户名
+     * @param userDetails 角色名
+     * @param expiration  过期时间 空则使用默认
      */
-    void setByUsername(String username, String roleName, Long expiration);
+    void setByUsername(String username, RetUserDetails userDetails, Long expiration);
 
     /**
      * 删除userNameKey

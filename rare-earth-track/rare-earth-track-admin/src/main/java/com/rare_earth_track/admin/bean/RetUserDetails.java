@@ -4,7 +4,8 @@ package com.rare_earth_track.admin.bean;
 import com.rare_earth_track.mgb.model.RetResource;
 import com.rare_earth_track.mgb.model.RetUser;
 import com.rare_earth_track.mgb.model.RetUserAuth;
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,12 +18,13 @@ import java.util.List;
  * 认证需要的UserDetails
  * @author hhoa
  **/
-@RequiredArgsConstructor
+@AllArgsConstructor
+@Data
 public class RetUserDetails implements UserDetails {
-    private final RetUser retUser;
-    private final RetUserAuth userAuth;
-    private final List<RetResource> retResources;
-    private final List<RetFactoryJob> factoryJobs;
+    private RetUser retUser;
+    private List<RetUserAuth> userAuths;
+    private List<RetResource> retResources;
+    private List<RetFactoryJob> factoryJobs;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<SimpleGrantedAuthority> grantedAuthorities = new ArrayList<>();
@@ -38,12 +40,17 @@ public class RetUserDetails implements UserDetails {
 
     @Override
     public String getPassword() {
-        return userAuth.getCredential();
+        return userAuths.get(0).getCredential();
     }
 
     @Override
     public String getUsername() {
-        return userAuth.getIdentifier();
+        for (RetUserAuth userAuth : userAuths){
+            if (userAuth.getIdentityType().equals(IdentifyType.USERNAME.value())){
+                return userAuth.getCredential();
+            }
+        }
+        return null;
     }
 
     @Override

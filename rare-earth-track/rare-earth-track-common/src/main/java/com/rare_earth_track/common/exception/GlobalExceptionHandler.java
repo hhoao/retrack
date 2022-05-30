@@ -2,6 +2,7 @@ package com.rare_earth_track.common.exception;
 
 
 import com.rare_earth_track.common.api.CommonResult;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author hhoa
  */
 @ControllerAdvice
+@Slf4j
 public class GlobalExceptionHandler {
 
     @ResponseBody
@@ -24,6 +26,13 @@ public class GlobalExceptionHandler {
             return CommonResult.failed(e.getErrorCode());
         }
         return CommonResult.failed(e.getMessage());
+    }
+    @ResponseBody
+    @ExceptionHandler(value = RuntimeException.class)
+    public CommonResult handle(RuntimeException e) {
+        log.error(e.getMessage());
+        e.printStackTrace();
+        return CommonResult.failed("系统内部出错");
     }
 
     @ResponseBody

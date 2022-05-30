@@ -1,5 +1,6 @@
 package com.rare_earth_track.admin.service.impl;
 
+import com.rare_earth_track.admin.bean.RetUserDetails;
 import com.rare_earth_track.admin.service.RetUserRoleCacheService;
 import com.rare_earth_track.common.service.RedisService;
 import lombok.RequiredArgsConstructor;
@@ -47,11 +48,11 @@ public class RetUserRoleCacheServiceImpl implements RetUserRoleCacheService {
 
 
     @Override
-    public void setByUsername(String username, String roleName, Long expiration) {
+    public void setByUsername(String username, RetUserDetails userDetails, Long expiration) {
         if (expiration == null){
-            redisService.set(getUserNameKey(username), roleName, redisExpire);
+            redisService.set(getUserNameKey(username), userDetails, redisExpire);
         }else {
-            redisService.set(getUserNameKey(username), roleName, expiration);
+            redisService.set(getUserNameKey(username), userDetails, expiration);
         }
     }
 

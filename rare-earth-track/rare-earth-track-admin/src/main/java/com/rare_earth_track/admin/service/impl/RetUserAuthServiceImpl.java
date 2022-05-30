@@ -1,7 +1,7 @@
 package com.rare_earth_track.admin.service.impl;
 
 import com.rare_earth_track.admin.bean.IdentifyType;
-import com.rare_earth_track.admin.bean.RetUserUpdatePasswordByAuthCodeParam;
+import com.rare_earth_track.admin.bean.RetUserAuthParam;
 import com.rare_earth_track.admin.service.RetUserAuthService;
 import com.rare_earth_track.common.exception.Asserts;
 import com.rare_earth_track.mgb.mapper.RetUserAuthMapper;
@@ -77,7 +77,8 @@ public class RetUserAuthServiceImpl implements RetUserAuthService {
     }
 
 
-    private void updateCredential(Long userId, String credential){
+    @Override
+    public void updateCredential(Long userId, String credential){
         List<RetUserAuth> userAuths = getUserAuth(userId);
         for (RetUserAuth userAuth : userAuths){
             userAuth.setCredential(credential);
@@ -89,7 +90,7 @@ public class RetUserAuthServiceImpl implements RetUserAuthService {
     }
 
     @Override
-    public void updateCredential(RetUserUpdatePasswordByAuthCodeParam passwordParam) {
+    public void updateCredential(RetUserAuthParam passwordParam) {
         switch (passwordParam.getIdentifyType()) {
             case EMAIL -> {
                 RetUserAuthExample userAuthExample = new RetUserAuthExample();
@@ -101,7 +102,7 @@ public class RetUserAuthServiceImpl implements RetUserAuthService {
                     Asserts.fail("没有该邮箱或者密码");
                 }
                 RetUserAuth userAuth = retUserAuths.get(0);
-                updateCredential(userAuth.getUserId(), passwordParam.getPassword());
+                updateCredential(userAuth.getUserId(), passwordParam.getNewPassword());
             }
             case PHONE -> {
             }
@@ -109,7 +110,7 @@ public class RetUserAuthServiceImpl implements RetUserAuthService {
     }
 
     @Override
-    public void deleteUserAuth(Long userId) {
+    public void deleteAllUserAuth(Long userId) {
         RetUserAuthExample userAuthExample = new RetUserAuthExample();
         userAuthExample.createCriteria().
                 andUserIdEqualTo(userId);
@@ -132,6 +133,45 @@ public class RetUserAuthServiceImpl implements RetUserAuthService {
         if (retUserAuths.size() > 1){
             Asserts.fail("有多个验证方式");
         }
+        return retUserAuths.get(0);
+    }
+
+    @Override
+    public void updateUserAuth(RetUserAuth userAuth) {
+        RetUserAuth oldUserAuth = userAuthMapper.selectByPrimaryKey(userAuth.getId());
+        if (oldUserAuth.getCredential().equals(userAuth.getCredential())){
+            updateCredential(userAuth.getUserId(), userAuth.getCredential());
+        }
+        int i = userAuthMapper.updateByPrimaryKey(userAuth);
+        if (i == 0){
+            Asserts.fail("更新失败");
+        }
+    }
+
+    @Override
+    public Long getUserIdByUserName(String username) {
+        RetUserAuth usernameAuth = getUserAuth(IdentifyType.USERNAME, username);
+        return usernameAuth.getUserId();
+    }
+
+    @Override
+    public void deleteUserAuth(Long userId, IdentifyType authType) {
+        RetUserAuth userAuth = getUserAuth(userId, authType);
+        int i = userAuthMapper.deleteByPrimaryKey(userAuth.getId());
+    }
+
+    @Override
+    public RetUserAuth getUserAuth(String identifier) {
+        RetUserAuthExample userAuthExample = new RetUserAuthExample();
+        userAuthExample.createCriteria().andIdentifierEqualTo(identifier);
+        List<RetUserAuth> retUserAuths = userAuthMapper.selectByExample(userAuthExample);
+        if (retUserAuths == null || retUserAuths.size() == 0){
+            Asserts.fail("没有该用户");
+        }
+        if (retUserAuths.size() > 1){
+            Asserts.fail("该认证标识数量不少于一个");
+        }
+
         return retUserAuths.get(0);
     }
 }

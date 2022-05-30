@@ -11,8 +11,8 @@ import lombok.Data;
 @Data
 @Schema(description = "RetLoginParam", name = "用户登录参数")
 public class RetLoginParam {
-    @Schema(description = "用户名")
-    private String name;
+    @Schema(description = "认证标识")
+    private String identifier;
     @Schema(description = "密码")
     private String password;
 }
