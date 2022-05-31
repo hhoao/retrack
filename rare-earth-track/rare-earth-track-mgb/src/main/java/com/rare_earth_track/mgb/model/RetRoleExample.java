@@ -113,7 +113,7 @@ public class RetRoleExample {
 
     /**
      * ret_role
-     * @author hhoa 2022-05-29
+     * @author hhoa 2022-05-30
      */
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
@@ -485,7 +485,7 @@ public class RetRoleExample {
 
     /**
      * ret_role
-     * @author hhoa 2022-05-29
+     * @author hhoa 2022-05-30
      */
     public static class Criterion {
         private String condition;

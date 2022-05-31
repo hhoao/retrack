@@ -75,10 +75,13 @@ public class DefaultJwtTokenServiceImpl extends AbstractJwtTokenService{
         }
         return subject;
     }
-
+    @Override
+    public String getTokenFromAuthorization(String authorization){
+        return authorization.substring(getTokenHead().length());
+    }
     @Override
     public String getSubjectFromAuthorization(String authorization) {
-        String authToken = authorization.substring(getTokenHead().length());
+        String authToken = getTokenFromAuthorization(authorization);
         String subjectFromToken = getSubjectFromToken(authToken);
         if (subjectFromToken == null){
             Asserts.fail("该用户未登陆");

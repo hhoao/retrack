@@ -9,12 +9,14 @@ import com.rare_earth_track.admin.bean.RetUserDetails;
 public interface RetTokenCacheService {
     /**
      * 延长时间
+     *
      * @param username 用户名
      */
     void expire(String username);
     /**
      * 延长时间
-     * @param username 用户名
+     *
+     * @param username   用户名
      * @param expiration 时间
      */
     void expire(String username, Long expiration);
@@ -28,6 +30,7 @@ public interface RetTokenCacheService {
 
     /**
      * 判断是否有该key
+     *
      * @param username username
      * @return 是否存在
      */
@@ -43,6 +46,7 @@ public interface RetTokenCacheService {
 
     /**
      * 删除key
+     *
      * @param username 用户名
      */
     void delKey(String username);

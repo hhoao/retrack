@@ -23,7 +23,7 @@
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
-            <version>${mybatis-spring-boot-starter.version}</version>
+            <version>2.2.2</version>
         </dependency>
         <dependency>
             <groupId>org.demo</groupId>

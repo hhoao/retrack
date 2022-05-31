@@ -11,14 +11,13 @@ import lombok.Data;
 @Data
 @Schema(name = "用户注册参数", description = "RetUserRegisterParam")
 public class RetUserRegisterParam {
-    @Schema(description = "用户名")
-    private String name;
+    @Schema(description = "认证类型")
+    private IdentifyType identifyType;
 
-    @Schema(description = "用户邮箱")
-    private String email;
-    @Schema(description = "用户密码")
-    private String password;
+    @Schema(description = "认证标识")
+    private String identifier;
 
-    @Schema(description = "手机号")
-    private String phone;
+    @Schema(description = "验证码")
+    private String authCode;
+
 }

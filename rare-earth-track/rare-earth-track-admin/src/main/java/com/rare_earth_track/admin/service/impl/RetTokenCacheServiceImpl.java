@@ -22,7 +22,7 @@ public class RetTokenCacheServiceImpl implements RetTokenCacheService {
     @Value("${ret.redis.key.user}")
     private String redisKeyRole;
     private final RedisService redisService;
-    public String getUserNameKey(String username){
+    private String getUserNameKey(String username){
         return redisDatabase + ":" + redisKeyRole + ":" + username;
     }
     @Override
@@ -37,12 +37,12 @@ public class RetTokenCacheServiceImpl implements RetTokenCacheService {
 
     @Override
     public void setKey(String username, RetUserDetails userDetails) {
-        redisService.set(username, userDetails);
+        redisService.set(getUserNameKey(username), userDetails, redisExpire);
     }
 
     @Override
     public boolean hasKey(String username){
-        return redisService.hasKey(username);
+        return redisService.hasKey(getUserNameKey(username));
     }
 
     @Override
@@ -52,6 +52,6 @@ public class RetTokenCacheServiceImpl implements RetTokenCacheService {
 
     @Override
     public void delKey(String username){
-        redisService.del(username);
+        redisService.del(getUserNameKey(username));
     }
 }

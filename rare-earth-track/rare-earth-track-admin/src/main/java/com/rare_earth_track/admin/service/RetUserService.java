@@ -39,33 +39,21 @@ public interface RetUserService {
      * @param token token
      */
     void logout(String token);
-
-    /**
-     * 用户注册(使用用户名注册)
-     *
-     * @param registerParam 注册参数
-     * @return user ret user
-     */
-    @Transactional(rollbackFor = Exception.class, noRollbackFor = ApiException.class)
-    RetUser register(RetUserRegisterParam registerParam);
-
     /**
      * Register ret user.
      *
      * @param registerParam the register param
-     * @param identifyType  the identify type
-     * @return the ret user
      */
     @Transactional
-    RetUser register(RetUserRegisterParam registerParam, IdentifyType identifyType);
+    void register(RetUserRegisterParam registerParam);
 
     /**
      * 刷新token
      *
-     * @param token 旧token
-     * @return token 新token
+     * @param authorization 旧token
+     * @return authorization 新token
      */
-    String refreshToken(String token);
+    String refreshToken(String authorization);
 
     /**
      * 使用验证码更改密码
@@ -121,7 +109,7 @@ public interface RetUserService {
      *
      * @param mail 接收方
      */
-    void sendMailAuthCode(String mail);
+    void sendUserRegisterMail(String mail);
 
     /**
      * Gets factory jobs by user name.
@@ -186,7 +174,7 @@ public interface RetUserService {
      * @param authType the auth type
      * @param userAuth the user auth
      */
-    void updateUserAuth(Long userId, IdentifyType authType, RetUserAuth userAuth);
+    void updateUserAuth(Long userId, IdentifyType authType, RetAdminUserAuthParam userAuth);
 
     /**
      * Unbind user auth.

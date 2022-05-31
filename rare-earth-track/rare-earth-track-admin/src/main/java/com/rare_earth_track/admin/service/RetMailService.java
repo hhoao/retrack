@@ -1,7 +1,6 @@
 package com.rare_earth_track.admin.service;
 
 import com.rare_earth_track.admin.bean.MailType;
-import com.rare_earth_track.admin.bean.RetUserDetails;
 import com.rare_earth_track.mgb.model.RetFactory;
 
 /**
@@ -23,10 +22,9 @@ public interface RetMailService {
     /**
      * Send user register mail.
      *
-     * @param to   the to
-     * @param user the user
+     * @param to the to
      */
-    void sendUserRegisterMail(String to, RetUserDetails user);
+    void sendUserRegisterMail(String to);
 
     /**
      * Send factory invitation.

@@ -6,7 +6,7 @@ import java.io.Serializable;
 /**
  * 材料
  * @author hhoa 
- * @date 2022-05-29
+ * @date 2022-05-30
  */
 @Schema(name = "材料")
 public class RetMaterial implements Serializable {

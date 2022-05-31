@@ -72,4 +72,6 @@ public interface RetMemberService {
      * @return the factory jobs by user userId
      */
     List<RetFactoryJob> getFactoryJobsByUserId(Long userId);
+
+    void deleteMembers(Long userId);
 }

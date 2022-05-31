@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @author hhoa
@@ -25,7 +26,7 @@ public class RetUserAuthServiceImpl implements RetUserAuthService {
         RetUserAuthExample userAuthExample = new RetUserAuthExample();
         userAuthExample.createCriteria().
                 andUserIdEqualTo(userId).
-                andIdentityTypeEqualTo(IdentifyType.USERNAME.value());
+                andIdentityTypeEqualTo(IdentifyType.username.value());
         List<RetUserAuth> retUserAuths = userAuthMapper.selectByExample(userAuthExample);
         if (retUserAuths == null || retUserAuths.size() == 0){
             Asserts.fail("没有该验证方式");
@@ -69,10 +70,13 @@ public class RetUserAuthServiceImpl implements RetUserAuthService {
     }
 
     @Override
-    public void bind(Long id, IdentifyType identifyType) {
+    public void bind(Long id, String identifier, IdentifyType identifyType) {
         RetUserAuth userAuth = new RetUserAuth();
+        String s = UUID.randomUUID().toString();
         userAuth.setUserId(id);
+        userAuth.setIdentifier(identifier);
         userAuth.setIdentityType(identifyType.value());
+        userAuth.setCredential(s);
         userAuthMapper.insert(userAuth);
     }
 
@@ -92,7 +96,7 @@ public class RetUserAuthServiceImpl implements RetUserAuthService {
     @Override
     public void updateCredential(RetUserAuthParam passwordParam) {
         switch (passwordParam.getIdentifyType()) {
-            case EMAIL -> {
+            case email -> {
                 RetUserAuthExample userAuthExample = new RetUserAuthExample();
                 userAuthExample.createCriteria().
                         andIdentityTypeEqualTo(passwordParam.getIdentifyType().value()).
@@ -104,7 +108,7 @@ public class RetUserAuthServiceImpl implements RetUserAuthService {
                 RetUserAuth userAuth = retUserAuths.get(0);
                 updateCredential(userAuth.getUserId(), passwordParam.getNewPassword());
             }
-            case PHONE -> {
+            case phone -> {
             }
         }
     }
@@ -150,7 +154,7 @@ public class RetUserAuthServiceImpl implements RetUserAuthService {
 
     @Override
     public Long getUserIdByUserName(String username) {
-        RetUserAuth usernameAuth = getUserAuth(IdentifyType.USERNAME, username);
+        RetUserAuth usernameAuth = getUserAuth(IdentifyType.username, username);
         return usernameAuth.getUserId();
     }
 

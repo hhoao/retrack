@@ -54,11 +54,12 @@ public interface RetUserAuthService {
     /**
      * Bind.
      *
-     * @param id       the id
-     * @param username the username
+     * @param id           the id
+     * @param identifier   the identifier
+     * @param identifyType the identifyType
      */
     @Transactional
-    void bind(Long id, IdentifyType username);
+    void bind(Long id, String identifier, IdentifyType identifyType);
 
     /**
      * Update credential.

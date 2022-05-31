@@ -1,15 +1,10 @@
 package com.rare_earth_track.admin.controller;
 
-import com.rare_earth_track.admin.bean.IdentifyType;
-import com.rare_earth_track.admin.bean.RetLoginParam;
-import com.rare_earth_track.admin.bean.RetUserAuthParam;
-import com.rare_earth_track.admin.bean.RetUserRegisterParam;
+import com.rare_earth_track.admin.bean.*;
 import com.rare_earth_track.admin.service.RetMailService;
 import com.rare_earth_track.admin.service.RetUserAuthService;
 import com.rare_earth_track.admin.service.RetUserService;
 import com.rare_earth_track.common.api.CommonResult;
-import com.rare_earth_track.mgb.model.RetUser;
-import com.rare_earth_track.mgb.model.RetUserAuth;
 import com.rare_earth_track.security.config.JwtSecurityProperties;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -52,6 +47,7 @@ public class RetAdminController {
         userService.updateUsername(newUsername, headers.get(properties.getTokenHeader()));
         return CommonResult.success(null);
     }
+    @Operation(summary = "更改用户密码")
     @PatchMapping("/auth/password")
     public CommonResult<String> updateUserPassword(@RequestBody RetUserAuthParam userAuthParam){
         userService.updateUserPassword(userAuthParam);
@@ -71,9 +67,9 @@ public class RetAdminController {
 
     @Operation(summary = "注册用户")
     @PostMapping("/user")
-    public CommonResult<RetUser> register(@RequestBody RetUserRegisterParam userRegisterParam){
-        RetUser register = userService.register(userRegisterParam);
-        return CommonResult.success(register);
+    public CommonResult<String> register(@RequestBody RetUserRegisterParam userRegisterParam){
+        userService.register(userRegisterParam);
+        return CommonResult.success(null);
     }
 
     @Operation(description = "用户退出, 需要前端删除token", summary = "用户退出")
@@ -91,7 +87,7 @@ public class RetAdminController {
     @ResponseBody
     public CommonResult<String> updateUserAuth(@PathVariable("userId") Long userId,
                                                @PathVariable("authType") IdentifyType authType,
-                                               @RequestBody RetUserAuth userAuth) {
+                                               @RequestBody RetAdminUserAuthParam userAuth) {
         userService.updateUserAuth(userId, authType, userAuth);
         return CommonResult.success(null);
     }
@@ -100,8 +96,8 @@ public class RetAdminController {
     @PatchMapping(value = "/user/auth/token")
     @ResponseBody
     public CommonResult<Map<String, String>> refreshToken(HttpServletRequest request) {
-        String token = request.getHeader(properties.getTokenHeader());
-        String refreshToken = userService.refreshToken(token);
+        String authorization = request.getHeader(properties.getTokenHeader());
+        String refreshToken = userService.refreshToken(authorization);
         Map<String, String> tokenMap = new HashMap<>(1);
         tokenMap.put("token", refreshToken);
         tokenMap.put("tokenHead", properties.getTokenHead());
@@ -115,8 +111,8 @@ public class RetAdminController {
                                                  @Schema(description = "手机号码或者email", required = true)
                                                  @RequestParam("body") String phoneOrMail){
         //目前通过phone获取验证码还没有开放
-        if (type.name().equals(IdentifyType.EMAIL.name())) {
-            userService.sendMailAuthCode(phoneOrMail);
+        if (type.name().equals(IdentifyType.email.name())) {
+            userService.sendUserRegisterMail(phoneOrMail);
         }
         return CommonResult.success(null);
     }

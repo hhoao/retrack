@@ -30,11 +30,12 @@ public interface JwtTokenService {
      * @return the subject from authorization
      */
     String getSubjectFromAuthorization(String authorization);
+
     /**
      * 验证token是否还有效
      *
-     * @param token       客户端传入的token
-     * @return 是否有效
+     * @param token 客户端传入的token
+     * @return 是否有效 boolean
      */
     boolean validateToken(String token);
 
@@ -101,4 +102,12 @@ public interface JwtTokenService {
      * @return the token head
      */
     String getTokenHead();
+
+    /**
+     * Gets token from authorization.
+     *
+     * @param authorization the authorization
+     * @return the token from authorization
+     */
+    String getTokenFromAuthorization(String authorization);
 }

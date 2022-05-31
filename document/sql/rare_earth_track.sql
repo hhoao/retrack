@@ -87,26 +87,25 @@ SELECT * FROM ret_role_resource_relation;
 DROP TABLE IF EXISTS ret_user;
 create table IF NOT EXISTS ret_user
 (
-    `id`                     bigint   NOT NULL AUTO_INCREMENT,
-    `nickname`               varchar(64) COMMENT '昵称',
-    `age`                    int COMMENT '年龄',
-    `sex`                    int COMMENT '性别' DEFAULT '0' COMMENT '性别: 0->未知, 1->男, 2->女',
-    `birthday`               date          COMMENT '生日',
-    `address`                varchar(100) DEFAULT NULL COMMENT '地址',
-    `status`                 int              DEFAULT '1' COMMENT '账号启用状态: 0->禁言， 1->启用',
-    `create_time`            datetime            DEFAULT NOW() COMMENT '创建时间',
-    `latest_time`            datetime            DEFAULT NOW() COMMENT '最后登录时间',
-    `icon`                   varchar(500)        DEFAULT null COMMENT '头像',
-    `job`                    varchar(100)        DEFAULT NULL COMMENT '职业',
-    `personalized_signature` varchar(200)        DEFAULT NULL COMMENT '个性签名',
-    `role_id` bigint DEFAULT 4 NOT NULL COMMENT '角色id',
+    id                     bigint   NOT NULL AUTO_INCREMENT,
+    nickname               varchar(64) DEFAULT NULL COMMENT '昵称',
+    age                    int COMMENT '年龄' DEFAULT NULL,
+    sex                    int COMMENT '性别' DEFAULT '0' COMMENT '性别: 0->未知, 1->男, 2->女',
+    birthday               date       DEFAULT NULL  COMMENT '生日',
+    address                varchar(100) DEFAULT NULL COMMENT '地址',
+    status                 int              DEFAULT '1' COMMENT '账号启用状态: 0->禁言， 1->启用',
+    create_time            datetime            DEFAULT NOW() COMMENT '创建时间',
+    latest_time            datetime            DEFAULT NOW() COMMENT '最后登录时间',
+    icon                   varchar(500)        DEFAULT null COMMENT '头像',
+    job                    varchar(100)        DEFAULT NULL COMMENT '职业',
+    personalized_signature varchar(200)        DEFAULT NULL COMMENT '个性签名',
+    role_id bigint DEFAULT 4 NOT NULL COMMENT '角色id',
     PRIMARY KEY (`id`),
     FOREIGN KEY (`role_id`) REFERENCES `ret_role`(`id`),
     CHECK (`status` in ('0', '1')),
     CHECK (`sex` in ('0', '1', '2'))
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 10 COMMENT '用户表';
-
 # 123456
 INSERT INTO ret_user(`id`, sex, age, birthday, address, status, role_id)
 VALUES ('1', '1', '19', now(), 'beijing', 1, 1);
@@ -149,6 +148,8 @@ VALUES ('13', '2', '24', now(), '广西', 1, 3);
 # 123456
 INSERT INTO ret_user(`id`, sex, age, birthday, address, status, role_id)
 VALUES ('14', '2', '25', now(), '山西', 1, 3);
+INSERT INTO ret_user(`id`, sex, age, birthday, address, status)
+VALUES ('15', '2', '25', now(), '山西', 1);
 
 # 用户权限信息表
 DROP TABLE IF EXISTS `ret_user_auth`;

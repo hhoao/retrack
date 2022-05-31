@@ -84,4 +84,17 @@ public class RetMemberServiceImpl implements RetMemberService {
         }
         return factoryJobs;
     }
+
+    @Override
+    public void deleteMembers(Long userId) {
+        RetMemberExample memberExample = new RetMemberExample();
+        memberExample.createCriteria().andUserIdEqualTo(userId);
+        List<RetMember> members = memberMapper.selectByExample(memberExample);
+        for (RetMember member : members){
+            int i = memberMapper.deleteByPrimaryKey(member.getId());
+            if (i == 0){
+                Asserts.fail("删除失败");
+            }
+        }
+    }
 }

@@ -9,15 +9,15 @@ public enum IdentifyType {
     /**
      * 手机号
      */
-    PHONE("phone"),
+    phone("phone"),
     /**
      * 邮件
      */
-    EMAIL("email"),
+    email("email"),
     /**
      * 用户名
      */
-    USERNAME("username");
+    username("username");
     private final String value;
     IdentifyType(String value){
         this.value = value;

@@ -1,7 +1,6 @@
 package com.rare_earth_track.admin.service.impl;
 
 import com.rare_earth_track.admin.bean.MailType;
-import com.rare_earth_track.admin.bean.RetUserDetails;
 import com.rare_earth_track.admin.service.RetMailCacheService;
 import com.rare_earth_track.admin.service.RetMailService;
 import com.rare_earth_track.common.exception.Asserts;
@@ -62,13 +61,13 @@ public class RetMailServiceImpl implements RetMailService {
         mailSender.send(simpleMailMessage);
     }
     @Override
-    public void sendUserRegisterMail(String to, RetUserDetails user){
+    public void sendUserRegisterMail(String to){
         if (existMessage(to, MailType.USER_REGISTER)){
             Asserts.fail("短时间内不能再验证码");
         }
         String authCode = generateAuthCode();
-        String subject = user.getUsername()+ "的注册验证码";
-        String body = user.getUsername()+ ", 您的验证码为" + "\n" + authCode;
+        String subject = "注册验证码";
+        String body = "您的验证码为" + "\n" + authCode;
         sendTerminableMessage( to, subject, body, authCode, MailType.USER_REGISTER.toString());
 
     }

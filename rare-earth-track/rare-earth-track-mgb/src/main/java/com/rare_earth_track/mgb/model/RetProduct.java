@@ -7,7 +7,7 @@ import java.util.Date;
 /**
  * 产品信
  * @author hhoa 
- * @date 2022-05-29
+ * @date 2022-05-30
  */
 @Schema(name = "产品信")
 public class RetProduct implements Serializable {

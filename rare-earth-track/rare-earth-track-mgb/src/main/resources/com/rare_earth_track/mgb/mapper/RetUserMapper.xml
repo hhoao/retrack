@@ -186,10 +186,10 @@
         #{status,jdbcType=INTEGER},
       </if>
       <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
+        #{createTime},
       </if>
       <if test="latestTime != null">
-        #{latestTime,jdbcType=TIMESTAMP},
+        #{latestTime},
       </if>
       <if test="icon != null">
         #{icon,jdbcType=VARCHAR},
