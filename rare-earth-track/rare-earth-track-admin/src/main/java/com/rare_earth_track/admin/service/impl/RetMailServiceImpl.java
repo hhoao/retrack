@@ -61,7 +61,7 @@ public class RetMailServiceImpl implements RetMailService {
         mailSender.send(simpleMailMessage);
     }
     @Override
-    public void sendUserRegisterMail(String to){
+    public String sendUserRegisterMail(String to){
         if (existMessage(to, MailType.USER_REGISTER)){
             Asserts.fail("短时间内不能再验证码");
         }
@@ -69,7 +69,7 @@ public class RetMailServiceImpl implements RetMailService {
         String subject = "注册验证码";
         String body = "您的验证码为" + "\n" + authCode;
         sendTerminableMessage( to, subject, body, authCode, MailType.USER_REGISTER.toString());
-
+        return authCode;
     }
     @Override
     public void sendFactoryInvitation(String to, RetFactory factory){

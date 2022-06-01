@@ -26,6 +26,14 @@ public interface RetUserService {
     UserDetails getUserDetails(String username);
 
     /**
+     * Has login boolean.
+     *
+     * @param username the username
+     * @return the boolean
+     */
+    boolean hasLogin(String username);
+
+    /**
      * 登录
      *
      * @param loginParam the login param
@@ -36,16 +44,18 @@ public interface RetUserService {
     /**
      * 退出
      *
-     * @param token token
+     * @param authorization authorization
      */
-    void logout(String token);
+    void logout(String authorization);
+
     /**
      * Register ret user.
      *
      * @param registerParam the register param
+     * @return userId long
      */
     @Transactional
-    void register(RetUserRegisterParam registerParam);
+    Long register(RetUserRegisterParam registerParam);
 
     /**
      * 刷新token
@@ -88,13 +98,38 @@ public interface RetUserService {
      */
     RetUser getUserByName(String name);
 
+
     /**
-     * 通过用户名获取用户
+     * Gets user by identifier.
      *
-     * @param username 用户名
-     * @return 用户 user cache by user name
+     * @param identifier the identifier
+     * @return the user by identifier
      */
-    RetUser getUserCacheByUserName(String username);
+    RetUser getUserByIdentifier(String identifier);
+
+    /**
+     * Gets user by username.
+     *
+     * @param username the username
+     * @return the user by username
+     */
+    RetUser getUserByUsername(String username);
+
+    /**
+     * Gets user detail by identifier.
+     *
+     * @param identifier the identifier
+     * @return the user detail by identifier
+     */
+    RetUserDetails getUserDetailByIdentifier(String identifier);
+
+    /**
+     * Gets user by indentifier.
+     *
+     * @param identifier the identifier
+     * @return the user by indentifier
+     */
+    RetUser getUserByIndentifier(String identifier);
 
     /**
      * 更新用户
@@ -118,6 +153,8 @@ public interface RetUserService {
      * @return the factory jobs by user name
      */
     List<RetFactoryJob> getFactoryJobsByUserName(String username);
+
+    RetUser getUser(Long userId);
 
     /**
      * Delete user by user id.
@@ -187,8 +224,16 @@ public interface RetUserService {
     /**
      * Update newUsername.
      *
-     * @param newUsername      the newUsername
+     * @param newUsername   the newUsername
      * @param authorization the authorization
      */
     void updateUsername(String newUsername, String authorization);
+
+    /**
+     * Gets user by authorization.
+     *
+     * @param authorization the authorization
+     * @return the user by authorization
+     */
+    RetUser getUserByAuthorization(String authorization);
 }

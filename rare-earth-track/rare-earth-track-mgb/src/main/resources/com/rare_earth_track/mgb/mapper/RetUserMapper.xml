@@ -129,37 +129,37 @@
     </selectKey>
     insert into ret_user
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="nickname != null">
+      <if test="#{nickname} != null">
         nickname,
       </if>
-      <if test="age != null">
+      <if test="#{age} != null">
         age,
       </if>
-      <if test="sex != null">
+      <if test="#{sex} != null">
         sex,
       </if>
-      <if test="birthday != null">
+      <if test="#{birthday} != null">
         birthday,
       </if>
-      <if test="address != null">
+      <if test="#{address} != null">
         address,
       </if>
-      <if test="status != null">
+      <if test="#{status} != null">
         status,
       </if>
-      <if test="createTime != null">
+      <if test="#{createTime} != null">
         create_time,
       </if>
-      <if test="latestTime != null">
+      <if test="#{latestTime} != null">
         latest_time,
       </if>
-      <if test="icon != null">
+      <if test="#{icon} != null">
         icon,
       </if>
-      <if test="job != null">
+      <if test="#{job} != null">
         job,
       </if>
-      <if test="personalizedSignature != null">
+      <if test="#{personalizedSignature} != null">
         personalized_signature,
       </if>
       <if test="roleId != null">
@@ -167,37 +167,37 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="nickname != null">
+      <if test="#{nickname} != null">
         #{nickname,jdbcType=VARCHAR},
       </if>
-      <if test="age != null">
+      <if test="#{age} != null">
         #{age,jdbcType=INTEGER},
       </if>
-      <if test="sex != null">
+      <if test="#{sex} != null">
         #{sex,jdbcType=INTEGER},
       </if>
-      <if test="birthday != null">
+      <if test="#{birthday} != null">
         #{birthday,jdbcType=DATE},
       </if>
-      <if test="address != null">
+      <if test="#{address} != null">
         #{address,jdbcType=VARCHAR},
       </if>
-      <if test="status != null">
+      <if test="#{status} != null">
         #{status,jdbcType=INTEGER},
       </if>
-      <if test="createTime != null">
+      <if test="#{createTime} != null">
         #{createTime},
       </if>
-      <if test="latestTime != null">
+      <if test="#{latestTime} != null">
         #{latestTime},
       </if>
-      <if test="icon != null">
+      <if test="#{icon} != null">
         #{icon,jdbcType=VARCHAR},
       </if>
-      <if test="job != null">
+      <if test="#{job} != null">
         #{job,jdbcType=VARCHAR},
       </if>
-      <if test="personalizedSignature != null">
+      <if test="#{personalizedSignature} != null">
         #{personalizedSignature,jdbcType=VARCHAR},
       </if>
       <if test="roleId != null">

@@ -2,6 +2,7 @@ package com.rare_earth_track.admin.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.rare_earth_track.admin.bean.RetFactoryJob;
+import com.rare_earth_track.admin.bean.RetMemberParam;
 import com.rare_earth_track.admin.service.RetMemberService;
 import com.rare_earth_track.common.exception.Asserts;
 import com.rare_earth_track.mgb.mapper.RetMemberMapper;
@@ -30,24 +31,25 @@ public class RetMemberServiceImpl implements RetMemberService {
     }
 
     @Override
-    public void addMember(RetMember member) {
-        int insert = memberMapper.insert(member);
+    public Long addMember(RetMember member) {
+        int insert = memberMapper.insertSelective(member);
         if (insert == 0){
             Asserts.fail("插入失败");
         }
+        return member.getId();
     }
 
 
     @Override
-    public void deleteMemberByMemberId(Long memberId) {
+    public void deleteMember(Long memberId) {
         int i = memberMapper.deleteByPrimaryKey(memberId);
         if (i == 0){
             Asserts.fail("删除失败");
         }
     }
     @Override
-    public RetMember getMemberByMemberId(Long id) {
-        RetMember retMember = memberMapper.selectByPrimaryKey(id);
+    public RetMember getMember(Long memberId) {
+        RetMember retMember = memberMapper.selectByPrimaryKey(memberId);
         if (retMember == null){
             Asserts.fail("没有该成员");
         }
@@ -55,13 +57,15 @@ public class RetMemberServiceImpl implements RetMemberService {
     }
 
     @Override
-    public void updateMemberJob(Long memberId, Long jobId) {
-        RetMember member = memberMapper.selectByPrimaryKey(memberId);
-        if (member == null){
-            Asserts.fail("没有该memberId");
+    public void updateMember(Long factoryId, Long userId, RetMemberParam memberParam) {
+        RetMember member = getMember(factoryId, userId);
+        member.setJobId(memberParam.getJobId());
+        member.setNickname(memberParam.getNickname());
+        member.setPhone(memberParam.getPhone());
+        int i = memberMapper.updateByPrimaryKey(member);
+        if (i == 0){
+            Asserts.fail("修改失败");
         }
-        member.setJobId(jobId);
-        memberMapper.updateByPrimaryKey(member);
     }
 
     @Override
@@ -96,5 +100,22 @@ public class RetMemberServiceImpl implements RetMemberService {
                 Asserts.fail("删除失败");
             }
         }
+    }
+    @Override
+    public RetMember getMember(Long factoryId, Long userId){
+        RetMemberExample memberExample = new RetMemberExample();
+        memberExample.createCriteria().
+                andFactoryIdEqualTo(factoryId).
+                andUserIdEqualTo(userId);
+        List<RetMember> members = memberMapper.selectByExample(memberExample);
+        if (members.size() == 0){
+            Asserts.fail("没有该成员");
+        }
+        return members.get(0);
+    }
+    @Override
+    public void deleteMember(Long factoryId, Long userId) {
+        RetMember member = getMember(factoryId, userId);
+        deleteMember(member.getId());
     }
 }

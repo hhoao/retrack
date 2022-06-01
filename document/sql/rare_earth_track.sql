@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS ret_resource
 (
     `id`          bigint AUTO_INCREMENT NOT NULL,
     `create_time` datetime DEFAULT NOW() COMMENT '创建时间',
-    `name`        varchar(50) UNIQUE COMMENT  '资源名称',
+    `name`        varchar(50) UNIQUE COMMENT '资源名称',
     `method`      varchar(10) COMMENT '请求方法',
     `url`         varchar(50) COMMENT '请求路径',
     `description` varchar(50) COMMENT '描述',
@@ -16,7 +16,8 @@ CREATE TABLE IF NOT EXISTS ret_resource
     CONSTRAINT PK_RESOURCE PRIMARY KEY (`id`)
 ) ENGINE = Innodb
   DEFAULT CHARSET = UTF8MB4 COMMENT '资源表';
-SELECT * FROM ret_resource;
+SELECT *
+FROM ret_resource;
 INSERT INTO ret_resource(id, create_time, name, url, method, description)
 VALUES (1, NOW(), '所有GET资源', '/**', 'GET', '所有GET资源');
 INSERT INTO ret_resource(id, create_time, name, url, method, description)
@@ -31,14 +32,15 @@ INSERT INTO ret_resource(id, create_time, name, url, method, description)
 VALUES (6, NOW(), '获取所有用户', '/users', 'GET', '获取所有用户');
 INSERT INTO ret_resource(id, create_time, name, url, method, description)
 VALUES (7, NOW(), '插入资源', '/resource', 'POST', '插入资源');
-SELECT * FROM ret_resource;
+SELECT *
+FROM ret_resource;
 
 
 -- 角色表
 DROP TABLE IF EXISTS `ret_role`;
 CREATE TABLE `ret_role`
 (
-    `status`      int       DEFAULT '1' COMMENT '启用状态：0->禁用；1->启用',
+    `status`      int          DEFAULT '1' COMMENT '启用状态：0->禁用；1->启用',
     `id`          bigint NOT NULL AUTO_INCREMENT,
     `name`        varchar(100) DEFAULT NULL COMMENT '名称',
     `description` varchar(500) DEFAULT NULL COMMENT '描述',
@@ -62,8 +64,8 @@ DROP TABLE IF EXISTS ret_role_resource_relation;
 CREATE TABLE IF NOT EXISTS ret_role_resource_relation
 (
     id          bigint AUTO_INCREMENT PRIMARY KEY,
-    role_id bigint,
-    resource_id     bigint,
+    role_id     bigint,
+    resource_id bigint,
     UNIQUE (resource_id, role_id),
     FOREIGN KEY (resource_id) REFERENCES ret_resource (`id`),
     FOREIGN KEY (`role_id`) REFERENCES ret_role (`id`)
@@ -78,7 +80,8 @@ INSERT INTO ret_role_resource_relation(role_id, resource_id)
 VALUES ('1', '4');
 INSERT INTO ret_role_resource_relation(role_id, resource_id)
 VALUES ('1', '5');
-SELECT * FROM ret_role_resource_relation;
+SELECT *
+FROM ret_role_resource_relation;
 
 
 
@@ -87,21 +90,21 @@ SELECT * FROM ret_role_resource_relation;
 DROP TABLE IF EXISTS ret_user;
 create table IF NOT EXISTS ret_user
 (
-    id                     bigint   NOT NULL AUTO_INCREMENT,
-    nickname               varchar(64) DEFAULT NULL COMMENT '昵称',
+    id                     bigint                     NOT NULL AUTO_INCREMENT,
+    nickname               varchar(64)      DEFAULT NULL COMMENT '昵称',
     age                    int COMMENT '年龄' DEFAULT NULL,
     sex                    int COMMENT '性别' DEFAULT '0' COMMENT '性别: 0->未知, 1->男, 2->女',
-    birthday               date       DEFAULT NULL  COMMENT '生日',
-    address                varchar(100) DEFAULT NULL COMMENT '地址',
+    birthday               date             DEFAULT NULL COMMENT '生日',
+    address                varchar(100)     DEFAULT NULL COMMENT '地址',
     status                 int              DEFAULT '1' COMMENT '账号启用状态: 0->禁言， 1->启用',
-    create_time            datetime            DEFAULT NOW() COMMENT '创建时间',
-    latest_time            datetime            DEFAULT NOW() COMMENT '最后登录时间',
-    icon                   varchar(500)        DEFAULT null COMMENT '头像',
-    job                    varchar(100)        DEFAULT NULL COMMENT '职业',
-    personalized_signature varchar(200)        DEFAULT NULL COMMENT '个性签名',
-    role_id bigint DEFAULT 4 NOT NULL COMMENT '角色id',
+    create_time            datetime         DEFAULT NOW() COMMENT '创建时间',
+    latest_time            datetime         DEFAULT NOW() COMMENT '最后登录时间',
+    icon                   varchar(500)     DEFAULT null COMMENT '头像',
+    job                    varchar(100)     DEFAULT NULL COMMENT '职业',
+    personalized_signature varchar(200)     DEFAULT NULL COMMENT '个性签名',
+    role_id                bigint           DEFAULT 4 NOT NULL COMMENT '角色id',
     PRIMARY KEY (`id`),
-    FOREIGN KEY (`role_id`) REFERENCES `ret_role`(`id`),
+    FOREIGN KEY (`role_id`) REFERENCES `ret_role` (`id`),
     CHECK (`status` in ('0', '1')),
     CHECK (`sex` in ('0', '1', '2'))
 ) ENGINE = InnoDB
@@ -155,63 +158,62 @@ VALUES ('15', '2', '25', now(), '山西', 1);
 DROP TABLE IF EXISTS `ret_user_auth`;
 CREATE TABLE `ret_user_auth`
 (
-    `id` bigint NOT NULL AUTO_INCREMENT,
-    `user_id` bigint NOT NULL COMMENT '用户id',
-    `identity_type` varchar(20) NOT NULL COMMENT '类型',
-    `identifier` varchar(100) NOT NULL COMMENT '标识',
-    `credential` varchar(100) NOT NULL COMMENT '凭证',
+    `id`            bigint       NOT NULL AUTO_INCREMENT,
+    `user_id`       bigint       NOT NULL COMMENT '用户id',
+    `identity_type` varchar(20)  NOT NULL COMMENT '类型',
+    `identifier`    varchar(100) NOT NULL COMMENT '标识',
+    `credential`    varchar(100) NOT NULL COMMENT '凭证',
     CHECK ( identity_type IN ('email', 'phone', 'username') ),
     UNIQUE (`identifier`),
     UNIQUE (`user_id`, `identity_type`),
     PRIMARY KEY (`id`),
-    FOREIGN KEY (`user_id`) REFERENCES `ret_user`(`id`)
+    FOREIGN KEY (`user_id`) REFERENCES `ret_user` (`id`)
 ) COMMENT '用户授权信息表';
 # 密码为123456 密码经BCrypt加密
 INSERT INTO `ret_user_auth`(user_id, identity_type, identifier, credential)
-VALUES(1, 'username', 'test', '$2a$10$xDpwrinpPCImweyjDMl.0.xIo9hbOXYu1xOOenyERJndMzWnmonqG');
+VALUES (1, 'username', 'test', '$2a$10$xDpwrinpPCImweyjDMl.0.xIo9hbOXYu1xOOenyERJndMzWnmonqG');
 INSERT INTO `ret_user_auth`(user_id, identity_type, identifier, credential)
-VALUES(1, 'email', 'haunghao@foxmail.com', '$2a$10$xDpwrinpPCImweyjDMl.0.xIo9hbOXYu1xOOenyERJndMzWnmonqG');
+VALUES (1, 'email', 'haunghao@foxmail.com', '$2a$10$xDpwrinpPCImweyjDMl.0.xIo9hbOXYu1xOOenyERJndMzWnmonqG');
 INSERT INTO `ret_user_auth`(user_id, identity_type, identifier, credential)
-VALUES(1, 'phone', '17679358123', '$2a$10$xDpwrinpPCImweyjDMl.0.xIo9hbOXYu1xOOenyERJndMzWnmonqG');
+VALUES (1, 'phone', '17679358123', '$2a$10$xDpwrinpPCImweyjDMl.0.xIo9hbOXYu1xOOenyERJndMzWnmonqG');
 INSERT INTO `ret_user_auth`(user_id, identity_type, identifier, credential)
-VALUES(2, 'username', 'user0', '$2a$10$xDpwrinpPCImweyjDMl.0.xIo9hbOXYu1xOOenyERJndMzWnmonqG');
+VALUES (2, 'username', 'user0', '$2a$10$xDpwrinpPCImweyjDMl.0.xIo9hbOXYu1xOOenyERJndMzWnmonqG');
 INSERT INTO `ret_user_auth`(user_id, identity_type, identifier, credential)
-VALUES(3, 'username', 'user1', '$2a$10$xDpwrinpPCImweyjDMl.0.xIo9hbOXYu1xOOenyERJndMzWnmonqG');
+VALUES (3, 'username', 'user1', '$2a$10$xDpwrinpPCImweyjDMl.0.xIo9hbOXYu1xOOenyERJndMzWnmonqG');
 INSERT INTO `ret_user_auth`(user_id, identity_type, identifier, credential)
-VALUES(4, 'username', 'user2', '$2a$10$xDpwrinpPCImweyjDMl.0.xIo9hbOXYu1xOOenyERJndMzWnmonqG');
+VALUES (4, 'username', 'user2', '$2a$10$xDpwrinpPCImweyjDMl.0.xIo9hbOXYu1xOOenyERJndMzWnmonqG');
 INSERT INTO `ret_user_auth`(user_id, identity_type, identifier, credential)
-VALUES(5, 'username', 'user3', '$2a$10$xDpwrinpPCImweyjDMl.0.xIo9hbOXYu1xOOenyERJndMzWnmonqG');
+VALUES (5, 'username', 'user3', '$2a$10$xDpwrinpPCImweyjDMl.0.xIo9hbOXYu1xOOenyERJndMzWnmonqG');
 INSERT INTO `ret_user_auth`(user_id, identity_type, identifier, credential)
-VALUES(6, 'username', 'user4', '$2a$10$xDpwrinpPCImweyjDMl.0.xIo9hbOXYu1xOOenyERJndMzWnmonqG');
+VALUES (6, 'username', 'user4', '$2a$10$xDpwrinpPCImweyjDMl.0.xIo9hbOXYu1xOOenyERJndMzWnmonqG');
 INSERT INTO `ret_user_auth`(user_id, identity_type, identifier, credential)
-VALUES(7, 'username', 'user5', '$2a$10$xDpwrinpPCImweyjDMl.0.xIo9hbOXYu1xOOenyERJndMzWnmonqG');
+VALUES (7, 'username', 'user5', '$2a$10$xDpwrinpPCImweyjDMl.0.xIo9hbOXYu1xOOenyERJndMzWnmonqG');
 INSERT INTO `ret_user_auth`(user_id, identity_type, identifier, credential)
-VALUES(8, 'username', 'user6', '$2a$10$xDpwrinpPCImweyjDMl.0.xIo9hbOXYu1xOOenyERJndMzWnmonqG');
+VALUES (8, 'username', 'user6', '$2a$10$xDpwrinpPCImweyjDMl.0.xIo9hbOXYu1xOOenyERJndMzWnmonqG');
 INSERT INTO `ret_user_auth`(user_id, identity_type, identifier, credential)
-VALUES(9, 'username', 'user7', '$2a$10$xDpwrinpPCImweyjDMl.0.xIo9hbOXYu1xOOenyERJndMzWnmonqG');
+VALUES (9, 'username', 'user7', '$2a$10$xDpwrinpPCImweyjDMl.0.xIo9hbOXYu1xOOenyERJndMzWnmonqG');
 INSERT INTO `ret_user_auth`(user_id, identity_type, identifier, credential)
-VALUES(10, 'username', 'user8', '$2a$10$xDpwrinpPCImweyjDMl.0.xIo9hbOXYu1xOOenyERJndMzWnmonqG');
+VALUES (10, 'username', 'user8', '$2a$10$xDpwrinpPCImweyjDMl.0.xIo9hbOXYu1xOOenyERJndMzWnmonqG');
 INSERT INTO `ret_user_auth`(user_id, identity_type, identifier, credential)
-VALUES(11, 'username', 'user9', '$2a$10$xDpwrinpPCImweyjDMl.0.xIo9hbOXYu1xOOenyERJndMzWnmonqG');
+VALUES (11, 'username', 'user9', '$2a$10$xDpwrinpPCImweyjDMl.0.xIo9hbOXYu1xOOenyERJndMzWnmonqG');
 INSERT INTO `ret_user_auth`(user_id, identity_type, identifier, credential)
-VALUES(12, 'username', 'user10', '$2a$10$xDpwrinpPCImweyjDMl.0.xIo9hbOXYu1xOOenyERJndMzWnmonqG');
+VALUES (12, 'username', 'user10', '$2a$10$xDpwrinpPCImweyjDMl.0.xIo9hbOXYu1xOOenyERJndMzWnmonqG');
 INSERT INTO `ret_user_auth`(user_id, identity_type, identifier, credential)
-VALUES(13, 'username', 'user11', '$2a$10$xDpwrinpPCImweyjDMl.0.xIo9hbOXYu1xOOenyERJndMzWnmonqG');
+VALUES (13, 'username', 'user11', '$2a$10$xDpwrinpPCImweyjDMl.0.xIo9hbOXYu1xOOenyERJndMzWnmonqG');
 INSERT INTO `ret_user_auth`(user_id, identity_type, identifier, credential)
-VALUES(14, 'username', 'user12', '$2a$10$xDpwrinpPCImweyjDMl.0.xIo9hbOXYu1xOOenyERJndMzWnmonqG');
-
+VALUES (14, 'username', 'user12', '$2a$10$xDpwrinpPCImweyjDMl.0.xIo9hbOXYu1xOOenyERJndMzWnmonqG');
 
 
 -- 工厂表
 DROP TABLE IF EXISTS ret_factory;
 CREATE TABLE ret_factory
 (
-    `id`          bigint   NOT NULL AUTO_INCREMENT,
-    `name`        varchar(64)  NOT NULL COMMENT '工厂名',
-    `phone`       varchar(64)  NOT NULL COMMENT '联系电话',
-    `email`       varchar(100) NOT NULL COMMENT '邮箱',
-    `address`     varchar(100) NOT NULL COMMENT '地址',
-    `description` varchar(50) COMMENT '描述',
+    `id`          bigint       NOT NULL AUTO_INCREMENT,
+    `name`        varchar(64)  NULL COMMENT '工厂名',
+    `phone`       varchar(64)  NULL COMMENT '联系电话',
+    `email`       varchar(100) NULL COMMENT '邮箱',
+    `address`     varchar(100) NULL COMMENT '地址',
+    `description` varchar(50) NULL COMMENT '描述',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 37
@@ -230,7 +232,7 @@ VALUES ('4', '金力永磁', '未知4', '未知@未知4', '广州', '没什么�
 DROP TABLE IF EXISTS `ret_member_job`;
 CREATE TABLE `ret_member_job`
 (
-    `id`          bigint  NOT NULL AUTO_INCREMENT,
+    `id`          bigint      NOT NULL AUTO_INCREMENT,
     `name`        varchar(20) NOT NULL COMMENT '名称',
     `description` varchar(100) DEFAULT NULL COMMENT '描述',
     CONSTRAINT PK_MEMBER_CATEGORY PRIMARY KEY (`id`)
@@ -248,19 +250,19 @@ VALUES (3, '销售人员', '卖货的');
 DROP TABLE IF EXISTS ret_member;
 CREATE TABLE ret_member
 (
-    `id`       bigint  NOT NULL AUTO_INCREMENT,
-    `phone`    varchar(64) NOT NULL COMMENT '联系方式',
-    `nickname` varchar(64) NOT NULL COMMENT '昵称',
-    `user_id` bigint NOT NULL COMMENT '用户id',
-    `job_id` bigint DEFAULT '3' NOT NULL COMMENT '职位id',
-    `factory_id` bigint NOT NULL COMMENT '工厂id',
+    `id`         bigint             NOT NULL AUTO_INCREMENT,
+    `phone`      varchar(64)        NULL COMMENT '联系方式',
+    `nickname`   varchar(64)        NULL COMMENT '昵称',
+    `user_id`    bigint             NOT NULL COMMENT '用户id',
+    `job_id`     bigint DEFAULT '3' NOT NULL COMMENT '职位id',
+    `factory_id` bigint             NOT NULL COMMENT '工厂id',
     CONSTRAINT PK_MEMBER PRIMARY KEY (`id`),
     UNIQUE (`id`, `user_id`),
     UNIQUE (`id`, `job_id`),
     UNIQUE (`id`, `factory_id`),
-    FOREIGN KEY (`factory_id`) REFERENCES `ret_factory`(`id`),
-    FOREIGN KEY (`user_id`) references `ret_user`(`id`),
-    FOREIGN KEY (`job_id`) references `ret_member_job`(`id`)
+    FOREIGN KEY (`factory_id`) REFERENCES `ret_factory` (`id`),
+    FOREIGN KEY (`user_id`) references `ret_user` (`id`),
+    FOREIGN KEY (`job_id`) references `ret_member_job` (`id`)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 37
   DEFAULT CHARSET = UTF8MB4 COMMENT ='工厂成员表';
@@ -290,7 +292,7 @@ CREATE TABLE `ret_permission`
 (
     `id`          bigint AUTO_INCREMENT NOT NULL,
     `create_time` datetime DEFAULT NOW() COMMENT '创建时间',
-    `name`        varchar(50) UNIQUE COMMENT  '权限名称',
+    `name`        varchar(50) UNIQUE COMMENT '权限名称',
     `method`      varchar(10) COMMENT '请求方法',
     `url`         varchar(50) COMMENT '请求路径',
     `description` varchar(50) COMMENT '描述',
@@ -303,13 +305,13 @@ CREATE TABLE `ret_permission`
 DROP TABLE IF EXISTS `ret_member_job_permission_relation`;
 CREATE TABLE `ret_member_job_permission_relation`
 (
-    `id` bigint NOT NULL AUTO_INCREMENT,
+    `id`            bigint NOT NULL AUTO_INCREMENT,
     `member_job_id` bigint NOT NULL,
     `permission_id` bigint NOT NULL,
     CONSTRAINT PRIMARY KEY (`id`),
     UNIQUE (`member_job_id`, `permission_id`),
-    CONSTRAINT FOREIGN KEY (`member_job_id`) REFERENCES `ret_member_job`(`id`),
-    CONSTRAINT FOREIGN KEY (`permission_id`) REFERENCES `ret_permission`(`id`)
+    CONSTRAINT FOREIGN KEY (`member_job_id`) REFERENCES `ret_member_job` (`id`),
+    CONSTRAINT FOREIGN KEY (`permission_id`) REFERENCES `ret_permission` (`id`)
 ) COMMENT = '职位权限关系表';
 
 
@@ -317,8 +319,8 @@ CREATE TABLE `ret_member_job_permission_relation`
 DROP TABLE IF EXISTS `ret_product`;
 CREATE TABLE `ret_product`
 (
-    `id`                   bigint   NOT NULL AUTO_INCREMENT,
-    `factory_id` bigint NOT NULL COMMENT '工厂id',
+    `id`                   bigint       NOT NULL AUTO_INCREMENT,
+    `factory_id`           bigint       NOT NULL COMMENT '工厂id',
     `name`                 varchar(100) NOT NULL COMMENT '名称',
     `batch_id`             varchar(100) NOT NULL,
     `description`          text         DEFAULT NULL COMMENT '描述',
@@ -335,7 +337,7 @@ CREATE TABLE `ret_product`
     `extraction_unit`      varchar(50)  DEFAULT NULL COMMENT '提取单位',
     `album_pics`           varchar(255) DEFAULT NULL COMMENT '画册图片，连产品图片限制为5张，以逗号分割',
     CONSTRAINT PK_PRODUCT PRIMARY KEY (`id`),
-    FOREIGN KEY (`factory_id`) REFERENCES `ret_factory`(`id`)
+    FOREIGN KEY (`factory_id`) REFERENCES `ret_factory` (`id`)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 37
   DEFAULT CHARSET = UTF8MB4 COMMENT ='产品信息';
@@ -358,7 +360,7 @@ VALUES (8, 1, '永磁铁氧体', 'A-10');
 INSERT `ret_product`(id, factory_id, name, batch_id)
 VALUES (9, 1, '软磁铁氧体', 'A-10');
 INSERT `ret_product`(id, factory_id, name, batch_id)
-VALUES (10, 1,'旋磁铁氧体', 'A-10');
+VALUES (10, 1, '旋磁铁氧体', 'A-10');
 INSERT `ret_product`(id, factory_id, name, batch_id)
 VALUES (11, 1, '同性橡胶磁', 'A-10');
 INSERT `ret_product`(id, factory_id, name, batch_id)
@@ -377,11 +379,11 @@ VALUES (16, 1, '不背胶', 'A-10');
 DROP TABLE IF EXISTS `ret_product_document`;
 CREATE TABLE `ret_product_document`
 (
-    `id`      bigint NOT NULL,
+    `id`         bigint NOT NULL,
     `product_id` bigint NOT NULL,
-    `title`   varchar(50) DEFAULT NULL COMMENT '标题',
-    `content` text        DEFAULT NULL COMMENT '内容',
-    FOREIGN KEY (`product_id`) REFERENCES `ret_product`(`id`),
+    `title`      varchar(50) DEFAULT NULL COMMENT '标题',
+    `content`    text        DEFAULT NULL COMMENT '内容',
+    FOREIGN KEY (`product_id`) REFERENCES `ret_product` (`id`),
     CONSTRAINT PK_PRODUCT_DOCUMENT PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 7
@@ -392,7 +394,7 @@ CREATE TABLE `ret_product_document`
 DROP TABLE IF EXISTS `ret_material_category`;
 CREATE TABLE `ret_material_category`
 (
-    `id`          bigint   NOT NULL AUTO_INCREMENT,
+    `id`          bigint       NOT NULL AUTO_INCREMENT,
     `name`        varchar(100) NULL NULL COMMENT '名称',
     `description` text DEFAULT NULL COMMENt '描述',
     CONSTRAINT PK_MATERIAL_CATEGORY PRIMARY KEY (`id`)
@@ -413,11 +415,11 @@ VALUES (4, '功能磁材材料', '功能磁材材料');
 DROP TABLE IF EXISTS `ret_material_category_document`;
 CREATE TABLE `ret_material_category_document`
 (
-    `id`      bigint   NOT NULL AUTO_INCREMENT,
-    `material_category_id` bigint NOT NULL COMMENT '材料分类id',
-    `title`   varchar(100) NULL NULL COMMENT '标题',
-    `content` text DEFAULT NULL COMMENt '内容',
-    FOREIGN KEY (`material_category_id`) REFERENCES `ret_material_category`(`id`),
+    `id`                   bigint       NOT NULL AUTO_INCREMENT,
+    `material_category_id` bigint       NOT NULL COMMENT '材料分类id',
+    `title`                varchar(100) NULL NULL COMMENT '标题',
+    `content`              text DEFAULT NULL COMMENt '内容',
+    FOREIGN KEY (`material_category_id`) REFERENCES `ret_material_category` (`id`),
     CONSTRAINT PK_MATERIAL_CATEGORY_DOCUMENT PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = UTF8MB4 COMMENT ='材料分类文档表';
@@ -463,7 +465,7 @@ VALUES (8, 3, '应用', '
 
         目前，世界上90%的炼油裂化装置都使用含稀土的催化剂，其中稀土分子筛型石油裂化。
 ');
-INSERT `ret_material_category_document`(id, material_category_id,title, content)
+INSERT `ret_material_category_document`(id, material_category_id, title, content)
 VALUES (9, 1, '基本概念', '        “磁”来源于电。一个环形电流在其运动中心产生的磁矩为P=is，i为电流强度，s为环形回路所包围的面积
 原子内的电子做循轨运动和自旋运动，这必然产生磁矩，产生的磁矩分别称为轨道磁矩P1和自旋磁矩Ps。
 磁矩，原子核虽然也产生磁矩，但它的值比电子个数量级，一般情況下可忽略不计。因此:原子磁矩的产生是电子的循轨运动、电子自旋这二者组合的结果');
@@ -473,11 +475,11 @@ VALUES (9, 1, '基本概念', '        “磁”来源于电。一个环形电�
 DROP TABLE IF EXISTS `ret_material_double_category`;
 CREATE TABLE `ret_material_double_category`
 (
-    `id`          bigint   NOT NULL AUTO_INCREMENT,
-    `material_category_id` bigint NOT NULL,
-    `name`        varchar(100) NULL NULL COMMENT '名称',
-    `description` text DEFAULT NULL COMMENt '描述',
-    FOREIGN KEY (`material_category_id`) REFERENCES `ret_material_category`(`id`),
+    `id`                   bigint       NOT NULL AUTO_INCREMENT,
+    `material_category_id` bigint       NOT NULL,
+    `name`                 varchar(100) NULL NULL COMMENT '名称',
+    `description`          text DEFAULT NULL COMMENt '描述',
+    FOREIGN KEY (`material_category_id`) REFERENCES `ret_material_category` (`id`),
     CONSTRAINT PK_MATERIAL_DOUBLE_CATEGORY PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 7
@@ -500,13 +502,13 @@ VALUES ('6', '3', '稀土氧化物', ' 稀土元素氧化物是指元素周期�
 DROP TABLE IF EXISTS `ret_material`;
 CREATE TABLE `ret_material`
 (
-    `id`                  bigint   NOT NULL AUTO_INCREMENT,
-    `material_double_category_id` bigint NOT NULL,
-    `name`                varchar(100) NOT NULL COMMENT '名称',
-    `origin`              varchar(100) DEFAULT NULL COMMENT '产地',
-    `create_company_name` varchar(100) DEFAULT NULL COMMENT '出产公司名',
-    `description`         text         DEFAULT NULL COMMENT '描述',
-    FOREIGN KEY (`material_double_category_id`) REFERENCES `ret_material_double_category`(`id`),
+    `id`                          bigint       NOT NULL AUTO_INCREMENT,
+    `material_double_category_id` bigint       NOT NULL,
+    `name`                        varchar(100) NOT NULL COMMENT '名称',
+    `origin`                      varchar(100) DEFAULT NULL COMMENT '产地',
+    `create_company_name`         varchar(100) DEFAULT NULL COMMENT '出产公司名',
+    `description`                 text         DEFAULT NULL COMMENT '描述',
+    FOREIGN KEY (`material_double_category_id`) REFERENCES `ret_material_double_category` (`id`),
     CONSTRAINT PK_MATERIAL PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 37
@@ -517,9 +519,9 @@ VALUES (1, 1, '铝镍钴', '产地1', '出产公司1', '        铝镍钴（AlNi
 
         铝镍钴系磁铁的优点是剩磁高（最高可达1.35T）、温度系数低。在温度系数为-0.02%/℃时，最高使用温度可达520℃左右。缺点是矫顽力非常低（通常小于160kA/m），退磁曲线非线性。 因此铝镍钴磁铁虽然容易被磁化， 同样也容易退磁。');
 INSERT `ret_material`(id, `material_double_category_id`, name)
-VALUES (2, 3 , '钐钴');
+VALUES (2, 3, '钐钴');
 INSERT `ret_material`(id, `material_double_category_id`, name)
-VALUES (3, 3 , '钕铁硼');
+VALUES (3, 3, '钕铁硼');
 INSERT `ret_material`(id, `material_double_category_id`, name)
 VALUES (4, 3, '钐铁氮');
 INSERT `ret_material`(id, `material_double_category_id`, name)
@@ -546,11 +548,11 @@ VALUES (13, 6, '氧化镨钕');
 DROP TABLE IF EXISTS `ret_material_double_category_document`;
 CREATE TABLE `ret_material_double_category_document`
 (
-    `id`      bigint   NOT NULL AUTO_INCREMENT,
-    `material_double_category_id` bigint NOT NULL,
-    `title`   varchar(100) NULL NULL COMMENT '标题',
-    `content` text DEFAULT NULL COMMENt '内容',
-    FOREIGN KEY (`material_double_category_id`) REFERENCES `ret_material_double_category`(`id`),
+    `id`                          bigint       NOT NULL AUTO_INCREMENT,
+    `material_double_category_id` bigint       NOT NULL,
+    `title`                       varchar(100) NULL NULL COMMENT '标题',
+    `content`                     text DEFAULT NULL COMMENt '内容',
+    FOREIGN KEY (`material_double_category_id`) REFERENCES `ret_material_double_category` (`id`),
     CONSTRAINT PK_MATERIAL_CATEGORY_DOCUMENT PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = UTF8MB4 COMMENT ='材料二次分类文档表';
@@ -586,11 +588,11 @@ VALUES (6, 3, '制备技术', '稀土永磁材料的制备:熔炼、浇铸机械
 DROP TABLE IF EXISTS `ret_material_document`;
 CREATE TABLE `ret_material_document`
 (
-    `id`      bigint   NOT NULL AUTO_INCREMENT,
-    `material_id` bigint NOT NULL,
-    `title`   varchar(100) NULL NULL COMMENT '标题',
-    `content` text DEFAULT NULL COMMENt '内容',
-    FOREIGN KEY (`material_id`) REFERENCES `ret_material`(`id`),
+    `id`          bigint       NOT NULL AUTO_INCREMENT,
+    `material_id` bigint       NOT NULL,
+    `title`       varchar(100) NULL NULL COMMENT '标题',
+    `content`     text DEFAULT NULL COMMENt '内容',
+    FOREIGN KEY (`material_id`) REFERENCES `ret_material` (`id`),
     CONSTRAINT PK_MATERIAL_DOCUMENT PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = UTF8MB4 COMMENT ='材料文档表';
@@ -672,7 +674,7 @@ CREATE TABLE `ret_subject_category`
     `name`        varchar(100) DEFAULT NULL COMMENt '名称',
     `description` varchar(100) DEFAULT NULL COMMENT '描述',
     `logo`        varchar(256) DEFAULT NULL COMMENT '图标',
-    `status`      int       DEFAULT '1' COMMENT '状态: 0->禁用, 1->启用',
+    `status`      int          DEFAULT '1' COMMENT '状态: 0->禁用, 1->启用',
     CONSTRAINT PK_SUBJECT_CATEGORY PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 37
@@ -683,15 +685,15 @@ CREATE TABLE `ret_subject_category`
 DROP TABLE IF EXISTS `ret_subject`;
 CREATE TABLE `ret_subject`
 (
-    `id`          bigint   NOT NULL AUTO_INCREMENT,
-    `subject_id` bigint NOT NULL,
+    `id`          bigint       NOT NULL AUTO_INCREMENT,
+    `subject_id`  bigint       NOT NULL,
     `name`        varchar(100) NOT NULL COMMENT '名称',
     `content`     text         NOT NULL COMMENT '描述',
     `title`       varchar(100) NOT NULL COMMENT '标题',
     `create_time` datetime DEFAULT NOW() COMMENT '创建时间',
-    `reading`     bigint   NOT NULL COMMENT '阅读量',
+    `reading`     bigint       NOT NULL COMMENT '阅读量',
     `sort`        int      DEFAULT '0' COMMENT '排序',
-    FOREIGN KEY (`subject_id`) REFERENCES `ret_subject_category`(`id`),
+    FOREIGN KEY (`subject_id`) REFERENCES `ret_subject_category` (`id`),
     CONSTRAINT PK_THEME PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = UTF8MB4 COMMENT ='专题表';
@@ -699,14 +701,14 @@ CREATE TABLE `ret_subject`
 
 -- 产品和产品主题关系表
 DROP TABLE IF EXISTS `ret_product_subject_relation`;
-CREATE TABLE  `ret_product_subject_relation`
+CREATE TABLE `ret_product_subject_relation`
 (
-    `id` bigint NOT NULL,
+    `id`         bigint NOT NULL,
     `product_id` bigint NOT NULL,
     `subject_id` bigint NOT NULL,
     PRIMARY KEY (`id`),
-    FOREIGN KEY (`product_id`) REFERENCES `ret_product`(`id`),
-    FOREIGN KEY (`subject_id`) REFERENCES `ret_subject`(`id`)
+    FOREIGN KEY (`product_id`) REFERENCES `ret_product` (`id`),
+    FOREIGN KEY (`subject_id`) REFERENCES `ret_subject` (`id`)
 ) COMMENT '产品和主题关系表';
 
 
@@ -718,7 +720,7 @@ CREATE TABLE `ret_help_category`
     `name`        varchar(100) DEFAULT NULL COMMENt '名称',
     `description` varchar(100) DEFAULT NULL COMMENT '描述',
     `logo`        varchar(256) DEFAULT NULL COMMENT '图标',
-    `status`      int       DEFAULT '1' COMMENT '状态: 0->禁用, 1->启用',
+    `status`      int          DEFAULT '1' COMMENT '状态: 0->禁用, 1->启用',
     CONSTRAINT PK_HELP_CATEGORY PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = UTF8MB4 COMMENT ='帮助分类表';
@@ -728,15 +730,15 @@ CREATE TABLE `ret_help_category`
 DROP TABLE IF EXISTS `ret_help`;
 CREATE TABLE `ret_help`
 (
-    `id`          bigint   NOT NULL AUTO_INCREMENT,
-    `help_category_id` bigint NOT NULL,
-    `name`        varchar(100) NOT NULL COMMENT '名称',
-    `content`     text         NOT NULL COMMENT '描述',
-    `title`       varchar(100) NOT NULL COMMENT '标题',
-    `create_time` datetime DEFAULT NOW() COMMENT '创建时间',
-    `reading`     bigint   NOT NULL COMMENT '阅读量',
-    `sort`        int      DEFAULT '0' COMMENT '排序',
-    FOREIGN KEY (`help_category_id`) REFERENCES `ret_help_category`(`id`),
+    `id`               bigint       NOT NULL AUTO_INCREMENT,
+    `help_category_id` bigint       NOT NULL,
+    `name`             varchar(100) NOT NULL COMMENT '名称',
+    `content`          text         NOT NULL COMMENT '描述',
+    `title`            varchar(100) NOT NULL COMMENT '标题',
+    `create_time`      datetime DEFAULT NOW() COMMENT '创建时间',
+    `reading`          bigint       NOT NULL COMMENT '阅读量',
+    `sort`             int      DEFAULT '0' COMMENT '排序',
+    FOREIGN KEY (`help_category_id`) REFERENCES `ret_help_category` (`id`),
     CONSTRAINT PK_HELP PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 37
@@ -747,7 +749,7 @@ CREATE TABLE `ret_help`
 DROP TABLE IF EXISTS `ret_feedback_category`;
 CREATE TABLE `ret_feedback_category`
 (
-    `id`          bigint  NOT NULL AUTO_INCREMENT,
+    `id`          bigint      NOT NULL AUTO_INCREMENT,
     `name`        varchar(20) NOT NULL COMMENT '名称',
     `description` varchar(100) DEFAULT NULL COMMENT '描述',
     CONSTRAINT PK_FEET_BACK_CATEGORY PRIMARY KEY (`id`)
@@ -760,15 +762,15 @@ CREATE TABLE `ret_feedback_category`
 DROP TABLE IF EXISTS `ret_feedback`;
 CREATE TABLE `ret_feedback`
 (
-    `id`          bigint   NOT NULL AUTO_INCREMENT,
-    `feedback_category_id` bigint NOT NULL,
-    `title`       varchar(100) NOT NULL COMMENT '标题',
-    `type`        varchar(20)  NOT NULL COMMENT '类型',
-    `content`     text         NOT NULL COMMENT '内容',
-    `status`      int      DEFAULT '0' COMMENT '状态: 0->未处理, 1->处理中, 2->已处理',
-    `create_time` datetime    DEFAULT NOW() COMMENT '创建时间',
-    `object`      varchar(20) DEFAULT NULL COMMENT '反馈对象',
-    FOREIGN KEY (`feedback_category_id`) REFERENCES `ret_feedback_category`(`id`),
+    `id`                   bigint       NOT NULL AUTO_INCREMENT,
+    `feedback_category_id` bigint       NOT NULL,
+    `title`                varchar(100) NOT NULL COMMENT '标题',
+    `type`                 varchar(20)  NOT NULL COMMENT '类型',
+    `content`              text         NOT NULL COMMENT '内容',
+    `status`               int         DEFAULT '0' COMMENT '状态: 0->未处理, 1->处理中, 2->已处理',
+    `create_time`          datetime    DEFAULT NOW() COMMENT '创建时间',
+    `object`               varchar(20) DEFAULT NULL COMMENT '反馈对象',
+    FOREIGN KEY (`feedback_category_id`) REFERENCES `ret_feedback_category` (`id`),
     CONSTRAINT PK_FEET_BACK PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = UTF8MB4 COMMENT ='反馈表';

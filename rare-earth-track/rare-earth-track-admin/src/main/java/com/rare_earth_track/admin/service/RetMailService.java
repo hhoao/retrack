@@ -23,8 +23,9 @@ public interface RetMailService {
      * Send user register mail.
      *
      * @param to the to
+     * @return string authcode
      */
-    void sendUserRegisterMail(String to);
+    String sendUserRegisterMail(String to);
 
     /**
      * Send factory invitation.
@@ -39,7 +40,7 @@ public interface RetMailService {
      *
      * @param to   接收方
      * @param type the type
-     * @return boolean
+     * @return boolean boolean
      */
     boolean existMessage(String to, MailType type);
 
@@ -49,7 +50,7 @@ public interface RetMailService {
      * @param to   接收方
      * @param code 消息
      * @param type the type
-     * @return boolean
+     * @return boolean boolean
      */
     boolean validateMessage(String to, String code, MailType type);
 }

@@ -2,13 +2,15 @@ package com.rare_earth_track.admin.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.rare_earth_track.admin.bean.MailType;
-import com.rare_earth_track.admin.bean.RetFactoryJob;
+import com.rare_earth_track.admin.bean.RetMemberParam;
 import com.rare_earth_track.admin.service.*;
 import com.rare_earth_track.common.exception.Asserts;
 import com.rare_earth_track.mgb.mapper.RetFactoryMapper;
-import com.rare_earth_track.mgb.model.*;
+import com.rare_earth_track.mgb.model.RetFactory;
+import com.rare_earth_track.mgb.model.RetFactoryExample;
+import com.rare_earth_track.mgb.model.RetMember;
+import com.rare_earth_track.mgb.model.RetUserAuth;
 import com.rare_earth_track.security.util.JwtTokenService;
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,11 +22,9 @@ import java.util.List;
  **/
 @Service
 @RequiredArgsConstructor
-@Data
 public class RetFactoryServiceImpl implements RetFactoryService {
     private final RetFactoryMapper factoryMapper;
     private final JwtTokenService tokenService;
-    private final RetFactoryInvitationCacheService factoryInvitationCacheService;
     private final RetMailService mailService;
     private final RetTokenCacheService tokenCacheService;
     private final RetMemberService memberService;
@@ -37,11 +37,12 @@ public class RetFactoryServiceImpl implements RetFactoryService {
     }
 
     @Override
-    public void addFactory(RetFactory factory) {
+    public Long addFactory(RetFactory factory) {
         int insert = factoryMapper.insert(factory);
         if (insert == 0){
             Asserts.fail("插入失败");
         }
+        return factory.getId();
     }
 
     @Override
@@ -50,7 +51,7 @@ public class RetFactoryServiceImpl implements RetFactoryService {
         if (id == null){
             Asserts.fail("没有id");
         }
-        factoryMapper.updateByPrimaryKey(factory);
+        factoryMapper.updateByPrimaryKeySelective(factory);
     }
 
     @Override
@@ -106,15 +107,16 @@ public class RetFactoryServiceImpl implements RetFactoryService {
     }
 
     @Override
-    public void deleteFactoryMemberByMemberId(Long memberId) {
-        memberService.deleteMemberByMemberId(memberId);
+    public void deleteFactoryMemberByUsername(Long factoryId, String username) {
+        Long userIdByUsername = factoryUserRelationService.getUserIdByUsername(username);
+        memberService.deleteMember(factoryId, userIdByUsername);
     }
     @Override
-    public void addFactoryMember(Long factoryId, Long userId) {
+    public Long addFactoryMember(Long factoryId, Long userId) {
         RetMember member =new RetMember();
         member.setFactoryId(factoryId);
         member.setUserId(userId);
-        memberService.addMember(member);
+        return memberService.addMember(member);
     }
     @Override
     public void handleInvitation(Long factoryId, String token) {
@@ -134,8 +136,10 @@ public class RetFactoryServiceImpl implements RetFactoryService {
     }
 
     @Override
-    public void updateFactoryMemberJob(Long memberId, Long job) {
-        memberService.updateMemberJob(memberId, job);
+    public void updateFactoryMemberJob(String factoryName, String username, RetMemberParam memberParam) {
+        RetFactory factoryByFactoryName = getFactoryByFactoryName(factoryName);
+        Long userIdByUsername = factoryUserRelationService.getUserIdByUsername(username);
+        memberService.updateMember(factoryByFactoryName.getId(), userIdByUsername, memberParam);
     }
 
     @Override

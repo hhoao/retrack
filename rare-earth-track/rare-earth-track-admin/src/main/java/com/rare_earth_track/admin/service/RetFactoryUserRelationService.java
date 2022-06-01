@@ -16,4 +16,12 @@ public interface RetFactoryUserRelationService {
      * @return the user email by username
      */
     RetUserAuth getUserEmailByUsername(String username);
+
+    /**
+     * Gets user id by username.
+     *
+     * @param username the username
+     * @return user id by username
+     */
+    Long getUserIdByUsername(String username);
 }

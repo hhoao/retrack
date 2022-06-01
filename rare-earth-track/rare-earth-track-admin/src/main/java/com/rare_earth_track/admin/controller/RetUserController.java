@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.tags.Tags;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,13 +20,10 @@ import java.util.Map;
  * @author hhoa
  **/
 @RestController
+@RequiredArgsConstructor
 @Tags({@Tag(name="用户管理", description = "RetUserController")})
 public class RetUserController {
     private final RetUserService userService;
-
-    public RetUserController(RetUserService userService) {
-        this.userService = userService;
-    }
 
     @Operation(summary = "分页获取用户列表")
     @GetMapping("/users")
@@ -34,11 +32,17 @@ public class RetUserController {
         return CommonResult.success(CommonPage.restPage(userService.list(pageNum, pageSize)));
     }
 
-    @Operation(summary = "通过用户名获取用户")
-    @GetMapping("/users/{username}")
-    public CommonResult<RetUser> getUser(@PathVariable("username") String username){
-        RetUser userByName = userService.getUserByName(username);
+    @Operation(summary = "通过认证标识获取用户")
+    @GetMapping("/users/{identifier}")
+    public CommonResult<RetUser> getUser(@PathVariable("identifier") String identifier){
+        RetUser userByName = userService.getUserByIdentifier(identifier);
         return CommonResult.success(userByName);
+    }
+    @Operation(summary = "获取已认证用户信息")
+    @GetMapping("/user")
+    public CommonResult<RetUser> getUser(@RequestHeader Map<String, String> headers){
+        RetUser user =  userService.getUserByAuthorization(headers.get("Authorization"));
+        return CommonResult.success(user);
     }
     @Operation(summary = "通过用户参数获取用户信息")
     @GetMapping("/users/search")
@@ -57,7 +61,7 @@ public class RetUserController {
     }
 
     @Operation(summary = "更新用户资料")
-    @PatchMapping("/users/{userId}")
+    @PatchMapping("/users")
     public CommonResult<String> updateUser(@RequestBody RetUser newUser){
         userService.updateUser(newUser);
         return CommonResult.success(null);

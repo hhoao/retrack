@@ -1,5 +1,6 @@
 package com.rare_earth_track.admin.controller;
 
+import com.rare_earth_track.admin.bean.RetMemberParam;
 import com.rare_earth_track.admin.service.RetFactoryService;
 import com.rare_earth_track.common.api.CommonResult;
 import com.rare_earth_track.mgb.model.RetFactory;
@@ -32,19 +33,19 @@ public class RetFactoryController {
         return CommonResult.success(list);
     }
     @Operation(summary = "添加工厂")
-    @PostMapping("/factory")
+    @PostMapping("/factories")
     public CommonResult<String> addFactory(@RequestBody RetFactory factory){
         factoryService.addFactory(factory);
         return CommonResult.success(null);
     }
     @Operation(summary = "删除工厂")
-    @DeleteMapping("/factory/{id}")
-    public CommonResult<String> deleteFactory(@PathVariable(value="id") Long id){
+    @DeleteMapping("/factories/{factoryId}")
+    public CommonResult<String> deleteFactory(@PathVariable(value= "factoryId") Long id){
         factoryService.deleteFactoryByFactoryId(id);
         return CommonResult.success(null);
     }
     @Operation(summary = "更新工厂")
-    @PatchMapping("/factory")
+    @PatchMapping("/factories")
     public CommonResult<String> updateFactory(@RequestBody RetFactory factory){
         factoryService.updateFactory(factory);
         return CommonResult.success(null);
@@ -69,17 +70,20 @@ public class RetFactoryController {
         List<RetMember> members = factoryService.listFactoryMembers(from, size, factoryId);
         return CommonResult.success(members);
     }
-    @Operation(summary = "删除成员")
-    @DeleteMapping("/factory/members/{memberId}")
-    public CommonResult<String> deleteMember(@PathVariable(value="memberId") Long memberId){
-        factoryService.deleteFactoryMemberByMemberId(memberId);
+
+    @Operation(summary = "通过用户名删除工厂成员")
+    @DeleteMapping("/factories/{factoryId}/members/{username}")
+    public CommonResult<String> deleteMember(@PathVariable("factoryId") Long factoryId,
+                                             @PathVariable("username") String username){
+        factoryService.deleteFactoryMemberByUsername(factoryId, username);
         return CommonResult.success(null);
     }
-    @Operation(summary = "更新成员职位")
-    @PatchMapping("/factory/members/{memberId}")
-    public CommonResult<String> updateMemberJob(@PathVariable(value = "memberId") Long memberId,
-                                                @RequestParam(value = "job") Long jobId){
-        factoryService.updateFactoryMemberJob(memberId, jobId);
+    @Operation(summary = "更新工厂成员")
+    @PatchMapping("/factories/{factoryName}/members/{username}")
+    public CommonResult<String> updateMemberJob(@PathVariable("factoryName") String factoryName,
+                                                @PathVariable(value = "username") String username,
+                                                @RequestBody RetMemberParam memberParam){
+        factoryService.updateFactoryMemberJob(factoryName, username, memberParam);
         return CommonResult.success(null);
     }
     @Operation(summary = "处理邀请")

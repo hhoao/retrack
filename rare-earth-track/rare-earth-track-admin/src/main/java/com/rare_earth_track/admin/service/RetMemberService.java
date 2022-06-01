@@ -1,6 +1,7 @@
 package com.rare_earth_track.admin.service;
 
 import com.rare_earth_track.admin.bean.RetFactoryJob;
+import com.rare_earth_track.admin.bean.RetMemberParam;
 import com.rare_earth_track.mgb.model.RetMember;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,9 +28,10 @@ public interface RetMemberService {
      * Add member int.
      *
      * @param member the factory
+     * @return memberId
      */
     @Transactional
-    void addMember(RetMember member);
+    Long addMember(RetMember member);
 
     /**
      * Delete member by member id int.
@@ -37,25 +39,26 @@ public interface RetMemberService {
      * @param id the id
      */
     @Transactional
-    void deleteMemberByMemberId(Long id);
+    void deleteMember(Long id);
 
 
     /**
      * Gets member by member id.
      *
-     * @param id the id
+     * @param memberId the id
      * @return the member by member id
      */
-    RetMember getMemberByMemberId(Long id);
+    RetMember getMember(Long memberId);
 
     /**
      * Update member job.
      *
-     * @param memberId the member id
-     * @param job      the job
+     * @param factoryId   the member id
+     * @param userId      the job
+     * @param memberParam the member param
      */
     @Transactional
-    void updateMemberJob(Long memberId, Long job);
+    void updateMember(Long factoryId, Long userId, RetMemberParam memberParam);
 
     /**
      * Gets factory members.
@@ -73,5 +76,20 @@ public interface RetMemberService {
      */
     List<RetFactoryJob> getFactoryJobsByUserId(Long userId);
 
+    /**
+     * Delete members.
+     *
+     * @param userId the user id
+     */
     void deleteMembers(Long userId);
+
+    RetMember getMember(Long factoryId, Long userId);
+
+    /**
+     * Delete member.
+     *
+     * @param factoryId        the factory id
+     * @param userIdByUsername the user id by username
+     */
+    void deleteMember(Long factoryId, Long userIdByUsername);
 }

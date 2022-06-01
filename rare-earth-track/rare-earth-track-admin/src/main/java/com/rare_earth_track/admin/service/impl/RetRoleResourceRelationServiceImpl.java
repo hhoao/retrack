@@ -133,7 +133,7 @@ public class RetRoleResourceRelationServiceImpl implements RetRoleResourceRelati
         RetRoleExample roleExample = new RetRoleExample();
         roleExample.createCriteria().andNameEqualTo(name);
         List<RetRole> retRoles = roleMapper.selectByExample(roleExample);
-        if (retRoles != null){
+        if (retRoles != null && retRoles.size() > 0){
             role = retRoles.get(0);
         }
         return role;

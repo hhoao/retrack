@@ -1,5 +1,6 @@
 package com.rare_earth_track.admin.service;
 
+import com.rare_earth_track.admin.bean.RetMemberParam;
 import com.rare_earth_track.mgb.model.RetFactory;
 import com.rare_earth_track.mgb.model.RetMember;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,8 +27,9 @@ public interface RetFactoryService {
      * 增加工厂
      *
      * @param factory the factory
+     * @return
      */
-    void addFactory(RetFactory factory);
+    Long addFactory(RetFactory factory);
 
     /**
      * Update factory int.
@@ -90,19 +92,21 @@ public interface RetFactoryService {
     /**
      * Delete factory member by member id.
      *
-     * @param memberId the member id
+     * @param factoryId the factory id
+     * @param username  the member id
      */
     @Transactional
-    void deleteFactoryMemberByMemberId(Long memberId);
+    void deleteFactoryMemberByUsername(Long factoryId, String username);
 
     /**
      * Add factory member.
      *
      * @param factoryId the factory id
      * @param userId    the user id
+     * @return memberId
      */
     @Transactional
-    void addFactoryMember(Long factoryId, Long userId);
+    Long addFactoryMember(Long factoryId, Long userId);
 
     /**
      * 处理
@@ -115,11 +119,11 @@ public interface RetFactoryService {
     /**
      * Update factory member job.
      *
-     * @param memberId the member id
-     * @param job      the job
+     * @param username    the member id
+     * @param memberParam the job
      */
     @Transactional
-    void updateFactoryMemberJob(Long memberId, Long job);
+    void updateFactoryMemberJob(String factoryName, String username, RetMemberParam memberParam);
 
     /**
      * List factory members list.

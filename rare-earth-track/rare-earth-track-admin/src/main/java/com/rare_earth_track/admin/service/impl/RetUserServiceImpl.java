@@ -1,6 +1,5 @@
 package com.rare_earth_track.admin.service.impl;
 
-import cn.hutool.core.bean.BeanUtil;
 import com.github.pagehelper.PageHelper;
 import com.rare_earth_track.admin.bean.*;
 import com.rare_earth_track.admin.service.*;
@@ -12,7 +11,6 @@ import com.rare_earth_track.mgb.model.RetUserAuth;
 import com.rare_earth_track.mgb.model.RetUserExample;
 import com.rare_earth_track.security.util.JwtTokenService;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -25,16 +23,14 @@ import org.springframework.util.StringUtils;
 import java.util.List;
 
 /**
- *
  * @author hhoa
  **/
 @Slf4j
 @Service
 @AllArgsConstructor
-@Data
 public class RetUserServiceImpl implements RetUserService {
     private final RetUserMapper userMapper;
-//    private final RetUserCacheService userCacheService;
+    //    private final RetUserCacheService userCacheService;
     private final PasswordEncoder passwordEncoder;
     private final RetTokenCacheService tokenCacheService;
     private final JwtTokenService jwtTokenService;
@@ -44,16 +40,21 @@ public class RetUserServiceImpl implements RetUserService {
     private final RetMemberService memberService;
 
     @Override
+    public boolean hasLogin(String username) {
+        return tokenCacheService.hasKey(username);
+    }
+
+    @Override
     public String login(RetLoginParam loginParam) {
         String token = null;
         try {
             RetUserAuth userAuth = userAuthService.getUserAuth(loginParam.getIdentifier());
-            if (!passwordEncoder.matches(loginParam.getPassword(), userAuth.getCredential())){
+            if (!passwordEncoder.matches(loginParam.getPassword(), userAuth.getCredential())) {
                 Asserts.fail("密码错误");
             }
 
             RetUser user = userMapper.selectByPrimaryKey(userAuth.getUserId());
-            if(!user.getStatus().equals(1)){
+            if (!user.getStatus().equals(1)) {
                 throw new DisabledException("用户已被冻结");
             }
             RetUserAuth usernameAuth = userAuthService.getUserAuth(userAuth.getUserId(), IdentifyType.username);
@@ -63,26 +64,28 @@ public class RetUserServiceImpl implements RetUserService {
             tokenCacheService.setKey(usernameAuth.getIdentifier(), userDetails);
             token = jwtTokenService.generateToken(usernameAuth.getIdentifier());
             log.info(userDetails.getUsername() + "登录成功");
-        }catch (AuthenticationException e){
+        } catch (AuthenticationException e) {
             log.warn("登录异常:{}", e.getMessage());
         }
 
         return token;
     }
+
     @Override
-    public void logout(String token){
-        String username = jwtTokenService.getSubjectFromToken(token);
+    public void logout(String authorization) {
+        String username = jwtTokenService.getSubjectFromAuthorization(authorization);
         clearUserStatus(username);
     }
 
-    private void clearUserStatus(String userName){
+    private void clearUserStatus(String userName) {
         tokenCacheService.delKey(userName);
     }
+
     @Override
     public RetUserDetails getUserDetails(String username) {
         //使用了缓存
         RetUserDetails userDetails = tokenCacheService.getKey(username);
-        if (userDetails != null){
+        if (userDetails != null) {
             return userDetails;
         }
         RetUserAuth userAuth = userAuthService.getUserAuth(IdentifyType.username, username);
@@ -90,61 +93,67 @@ public class RetUserServiceImpl implements RetUserService {
         RetUser user = userMapper.selectByPrimaryKey(userAuth.getUserId());
         List<RetResource> userResources = getUserResources(userAuth.getUserId());
         List<RetFactoryJob> factoryJobsByUserId = memberService.getFactoryJobsByUserId(userAuth.getUserId());
-        userDetails = new RetUserDetails(user, userAuths,  userResources, factoryJobsByUserId);
+        userDetails = new RetUserDetails(user, userAuths, userResources, factoryJobsByUserId);
         tokenCacheService.setKey(username, userDetails);
         return userDetails;
     }
 
-    private Long registerDefaultUser(){
+    private Long registerDefaultUser() {
         RetUser user = new RetUser();
         user.setRoleId(4L);
         int insert = userMapper.insert(user);
-        if (insert == 0){
+        if (insert == 0) {
             Asserts.fail("注册失败");
         }
         return user.getId();
     }
 
     @Override
-    public void register(RetUserRegisterParam registerParam) {
+    public Long register(RetUserRegisterParam registerParam) {
         IdentifyType identifyType = registerParam.getIdentifyType();
         String identifier = registerParam.getIdentifier();
         if (StringUtils.hasLength(identifier) && userAuthService.exists(identifyType, identifier)) {
             Asserts.fail("该认证方式已存在");
         }
-        if (registerParam.getIdentifyType() == IdentifyType.email){
+        if (registerParam.getIdentifyType() == IdentifyType.email) {
             boolean b = mailService.validateMessage(registerParam.getIdentifier(), registerParam.getAuthCode(), MailType.USER_REGISTER);
-            if (!b){
+            if (!b) {
                 Asserts.fail("验证码错误");
             }
-        }else{
+        } else {
             Asserts.fail("没有开通该认证方式");
             //...手机号注册没有开放
         }
         Long userId = registerDefaultUser();
         userAuthService.bind(userId, identifier, identifyType);
+        return userId;
     }
 
     @Override
     public String refreshToken(String authorization) {
+        String username = jwtTokenService.getSubjectFromAuthorization(authorization);
+        boolean b = tokenCacheService.hasKey(username);
+        if (!b) {
+            Asserts.fail("用户未登陆");
+        }
         String tokenFromAuthorization = jwtTokenService.getTokenFromAuthorization(authorization);
         String retToken = jwtTokenService.refreshHeadToken(tokenFromAuthorization);
-        if (retToken == null){
+        if (retToken == null) {
             Asserts.fail("token已经过期");
         }
         return retToken;
     }
 
     @Override
-    public void updateUserPassword(RetUserAuthParam passwordParam){
+    public void updateUserPassword(RetUserAuthParam passwordParam) {
         String identifier = passwordParam.getIdentifier();
         RetUserAuth usernameAuth = null;
         switch (passwordParam.getIdentifyType()) {
             case email -> {
-                if (!userAuthService.exists(IdentifyType.email, identifier)){
+                if (!userAuthService.exists(IdentifyType.email, identifier)) {
                     Asserts.fail("该邮箱不存在");
                 }
-                if(!mailService.validateMessage(identifier, passwordParam.getAuthCode(), MailType.USER_REGISTER)){
+                if (!mailService.validateMessage(identifier, passwordParam.getAuthCode(), MailType.UPDATE_PASSWORD)) {
                     Asserts.fail("验证码错误");
                 }
             }
@@ -153,12 +162,11 @@ public class RetUserServiceImpl implements RetUserService {
             }
             case username -> {
                 if (passwordParam.getNewPassword() != null) {
-                    usernameAuth = userAuthService.getUserAuth(passwordParam.getIdentifyType(), passwordParam.getIdentifier());
-                    if (passwordParam.getOldPassword().equals(usernameAuth.getCredential())) {
-                        Asserts.fail("密码错误");
+                    RetUserAuth userAuth = userAuthService.getUserAuth(passwordParam.getIdentifier());
+                    if (!userAuth.getIdentityType().equals(passwordParam.getIdentifyType().value())) {
+                        usernameAuth = userAuthService.getUserAuth(userAuth.getUserId(), IdentifyType.username);
                     } else {
-                        usernameAuth.setCredential(passwordParam.getNewPassword());
-                        userAuthService.updateCredential(usernameAuth.getUserId(), usernameAuth.getCredential());
+                        usernameAuth = userAuth;
                     }
                 }
             }
@@ -167,27 +175,50 @@ public class RetUserServiceImpl implements RetUserService {
         if (usernameAuth == null) {
             usernameAuth = userAuthService.getUserAuth(passwordParam.getIdentifyType(), identifier);
         }
-        RetUserAuth userNameAuth = userAuthService.getUserAuth(usernameAuth.getUserId(), IdentifyType.username);
-        userAuthService.updateCredential(passwordParam);
+        if (passwordParam.getOldPassword().equals(usernameAuth.getCredential())) {
+            Asserts.fail("密码错误");
+        } else {
+            usernameAuth.setCredential(passwordParam.getNewPassword());
+            userAuthService.updateCredential(usernameAuth.getUserId(), usernameAuth.getCredential());
+        }
+//        RetUserAuth userNameAuth = userAuthService.getUserAuth(usernameAuth.getUserId(), IdentifyType.username);
+//        userAuthService.updateCredential(passwordParam);
         //刷新用户登陆状态
-        clearUserStatus(userNameAuth.getIdentifier());
+        clearUserStatus(usernameAuth.getIdentifier());
     }
 
     @Override
-    public RetUser getUserCacheByUserName(String username) {
-        RetUserDetails key = tokenCacheService.getKey(username);
-        return key.getRetUser();
+    public RetUser getUserByIdentifier(String identifier) {
+        return getUserDetailByIdentifier(identifier).getRetUser();
     }
-    
+
+    @Override
+    public RetUser getUserByUsername(String username) {
+        RetUserDetails userDetails = tokenCacheService.getKey(username);
+        return userDetails.getRetUser();
+    }
+
+    @Override
+    public RetUserDetails getUserDetailByIdentifier(String identifier) {
+        RetUserAuth userAuth = userAuthService.getUserAuth(identifier);
+        RetUserAuth usernameAuth = userAuthService.getUserAuth(IdentifyType.username, userAuth.getIdentifier());
+        return getUserDetails(usernameAuth.getIdentifier());
+    }
+
+    @Override
+    public RetUser getUserByIndentifier(String identifier) {
+        RetUserDetails userDetailByIdentifier = getUserDetailByIdentifier(identifier);
+        return userDetailByIdentifier.getRetUser();
+    }
+
     @Override
     public void updateUser(RetUser newUser) {
-        RetUser oldUser = userMapper.selectByPrimaryKey(newUser.getId());
-        if (oldUser == null){
-            Asserts.fail("没有该用户");
+        RetUser user = userMapper.selectByPrimaryKey(newUser.getId());
+        if (newUser.getRoleId() == null) {
+            newUser.setRoleId(user.getRoleId());
         }
-        BeanUtil.copyProperties(newUser, oldUser);
-        int i = userMapper.updateByPrimaryKey(oldUser);
-        if (i == 0){
+        int i = userMapper.updateByPrimaryKeySelective(newUser);
+        if (i == 0) {
             Asserts.fail("用户更新失败");
         }
         RetUserAuth userAuth = userAuthService.getUserAuth(newUser.getId(), IdentifyType.username);
@@ -207,28 +238,51 @@ public class RetUserServiceImpl implements RetUserService {
     }
 
     @Override
+    public RetUser getUser(Long userId) {
+        RetUser user = userMapper.selectByPrimaryKey(userId);
+        if (user == null) {
+            Asserts.fail("没有该用户");
+        }
+        return user;
+    }
+
+    @Override
     public void deleteUserByUserId(Long userId) {
+        RetUserAuth userAuth = userAuthService.getUserAuth(userId, IdentifyType.username);
+        clearUserStatus(userAuth.getIdentifier());
         userAuthService.deleteAllUserAuth(userId);
         memberService.deleteMembers(userId);
         int i = userMapper.deleteByPrimaryKey(userId);
-        if (i == 0){
+        if (i == 0) {
             Asserts.fail("删除失败");
         }
+
     }
+
     @Override
     public List<RetUser> getUser(RetUser user) {
         RetUserExample userExample = new RetUserExample();
-        userExample.createCriteria().
-                andAddressEqualTo(user.getAddress()).
-                andAgeEqualTo(user.getAge()).
-                andBirthdayEqualTo(user.getBirthday()).
-                andIdEqualTo(user.getId()).
-                andJobEqualTo(user.getJob()).
-                andNicknameEqualTo(user.getNickname()).
-                andStatusEqualTo(user.getStatus()).
-                andSexEqualTo(user.getSex()).
-                andJobEqualTo(user.getJob()).
-                andRoleIdEqualTo(user.getRoleId());
+        RetUserExample.Criteria criteria = userExample.createCriteria();
+        if (user.getAddress() != null)
+            criteria.andAddressEqualTo(user.getAddress());
+        if (user.getAge() != null)
+            criteria.andAgeEqualTo(user.getAge());
+        if (user.getBirthday() != null)
+            criteria.andBirthdayEqualTo(user.getBirthday());
+        if (user.getId() != null)
+            criteria.andIdEqualTo(user.getId());
+        if (user.getJob() != null)
+            criteria.andJobEqualTo(user.getJob());
+        if (user.getNickname() != null)
+            criteria.andNicknameEqualTo(user.getNickname());
+        if (user.getStatus() != null)
+            criteria.andStatusEqualTo(user.getStatus());
+        if (user.getSex() != null)
+            criteria.andSexEqualTo(user.getSex());
+        if (user.getJob() != null)
+            criteria.andJobEqualTo(user.getJob());
+        if (user.getRoleId() != null)
+            criteria.andRoleIdEqualTo(user.getRoleId());
         return userMapper.selectByExample(userExample);
     }
 
@@ -244,28 +298,28 @@ public class RetUserServiceImpl implements RetUserService {
     }
 
     @Override
-    public RetUser getUserByName(String name){
+    public RetUser getUserByName(String name) {
         RetUserAuth userAuth = userAuthService.getUserAuth(IdentifyType.username, name);
         Long userId = userAuth.getUserId();
         return userMapper.selectByPrimaryKey(userId);
     }
 
     @Override
-    public List<RetResource> getUserResources(Long userId){
+    public List<RetResource> getUserResources(Long userId) {
         RetUser user = userMapper.selectByPrimaryKey(userId);
         return roleService.getRoleResources(user.getRoleId());
     }
 
     @Override
-    public void updateUserRole(Long userId, Long roleId){
+    public void updateUserRole(Long userId, Long roleId) {
         RetUser user = userMapper.selectByPrimaryKey(userId);
-        if (user == null){
+        if (user == null) {
             Asserts.fail("没有该用户id");
         }
         user.setRoleId(roleId);
         int i = userMapper.updateByPrimaryKey(user);
-        if (i == 0){
-            Asserts.fail("修改用户"+userId+"角色"+roleId+"失败");
+        if (i == 0) {
+            Asserts.fail("修改用户" + userId + "角色" + roleId + "失败");
         }
     }
 
@@ -281,19 +335,26 @@ public class RetUserServiceImpl implements RetUserService {
         RetUserAuth userAuth = userAuthService.getUserAuth(IdentifyType.username, username);
         user.setId(userAuth.getUserId());
         int i = userMapper.updateByPrimaryKey(user);
-        if (i == 0){
+        if (i == 0) {
             Asserts.fail("更新失败");
         }
     }
 
     @Override
     public void updateUserAuth(Long userId, IdentifyType authType, RetAdminUserAuthParam adminUserAuthParam) {
-        RetUserAuth userAuth = new RetUserAuth();
-        userAuth.setUserId(userId);
-        userAuth.setIdentityType(authType.value());
-        userAuth.setCredential(adminUserAuthParam.getCredential());
-        userAuth.setIdentifier(adminUserAuthParam.getIdentifier());
-        userAuthService.updateUserAuth(userAuth);
+        RetUserAuth userAuth1 = userAuthService.getUserAuth(userId, authType);
+        RetUserAuth usernameAuth = userAuthService.getUserAuth(userId, IdentifyType.username);
+        RetUserAuth newUserAuth = new RetUserAuth();
+        newUserAuth.setId(userAuth1.getId());
+        newUserAuth.setUserId(userId);
+        newUserAuth.setIdentityType(authType.value());
+        if (adminUserAuthParam.getCredential() != null){
+            newUserAuth.setCredential(adminUserAuthParam.getCredential());
+        }
+        if (adminUserAuthParam.getIdentifier() != null)
+            newUserAuth.setIdentifier(adminUserAuthParam.getIdentifier());
+        userAuthService.updateUserAuth(newUserAuth);
+        clearUserStatus(usernameAuth.getIdentifier());
     }
 
     @Override
@@ -309,6 +370,13 @@ public class RetUserServiceImpl implements RetUserService {
         RetUserAuth userAuth = userAuthService.getUserAuth(IdentifyType.username, username);
         userAuth.setIdentifier(newUsername);
         userAuthService.updateUserAuth(userAuth);
+        clearUserStatus(username);
+    }
+
+    @Override
+    public RetUser getUserByAuthorization(String authorization) {
+        String username = jwtTokenService.getSubjectFromAuthorization(authorization);
+        return getUserByName(username);
     }
 
 }

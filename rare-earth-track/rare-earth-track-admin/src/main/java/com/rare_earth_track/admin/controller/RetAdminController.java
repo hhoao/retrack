@@ -34,28 +34,28 @@ public class RetAdminController {
     private RetMailService mailService;
 
     @Operation(summary = "已经认证用户解绑认证方式")
-    @DeleteMapping("/user/auth/{authType}")
+    @DeleteMapping("/user/auths/{authType}")
     public CommonResult<String> unbindUserAuth(@PathVariable("authType") IdentifyType authType,
                                                @RequestHeader Map<String, String> headers){
         userService.unbindUserAuth(authType, headers.get(properties.getTokenHeader()));
         return CommonResult.success(null);
     }
-    @Operation(summary = "更新已经认证用户的用户名")
-    @PatchMapping("/user/auth/username")
+    @Operation(summary = "更新已经认证用户的认证方式")
+    @PatchMapping("/user/auths/username")
     public CommonResult<String> updateUsername(@RequestHeader Map<String, String> headers,
                                                @RequestParam("newUsername") String newUsername){
         userService.updateUsername(newUsername, headers.get(properties.getTokenHeader()));
         return CommonResult.success(null);
     }
     @Operation(summary = "更改用户密码")
-    @PatchMapping("/auth/password")
+    @PatchMapping("/users/auth/password")
     public CommonResult<String> updateUserPassword(@RequestBody RetUserAuthParam userAuthParam){
         userService.updateUserPassword(userAuthParam);
         return CommonResult.success(null);
     }
 
     @Operation(summary = "用户登录")
-    @PostMapping("/user/auth/token")
+    @PostMapping("/users/auth/token")
     public CommonResult<Map<String, String>> login(@RequestBody RetLoginParam loginParam){
         String token = userService.login(loginParam);
         Map<String, String> tokenMap = new HashMap<>(1);
@@ -66,7 +66,7 @@ public class RetAdminController {
 
 
     @Operation(summary = "注册用户")
-    @PostMapping("/user")
+    @PostMapping("/users")
     public CommonResult<String> register(@RequestBody RetUserRegisterParam userRegisterParam){
         userService.register(userRegisterParam);
         return CommonResult.success(null);
@@ -76,8 +76,7 @@ public class RetAdminController {
     @DeleteMapping("/user/auth/token")
     public CommonResult<String> logout(@RequestHeader Map<String, String> headers){
         String bearer = headers.get(properties.getTokenHeader().toLowerCase());
-        String authToken = bearer.substring(properties.getTokenHead().length());
-        userService.logout(authToken);
+        userService.logout(bearer);
         return CommonResult.success(null);
     }
 
@@ -104,7 +103,7 @@ public class RetAdminController {
         return CommonResult.success(tokenMap);
     }
 
-    @GetMapping(value="/user/auth/code")
+    @GetMapping(value="/users/auth/code")
     @Operation(summary = "获取验证码")
     public CommonResult<String> generateAuthCode(@Schema(description = "验证类型", required = true, allowableValues = {"phone", "email"})
                                                  @RequestParam("type") IdentifyType type,

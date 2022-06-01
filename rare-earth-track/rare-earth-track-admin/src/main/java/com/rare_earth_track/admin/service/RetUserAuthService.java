@@ -1,7 +1,6 @@
 package com.rare_earth_track.admin.service;
 
 import com.rare_earth_track.admin.bean.IdentifyType;
-import com.rare_earth_track.admin.bean.RetUserAuthParam;
 import com.rare_earth_track.mgb.model.RetUserAuth;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -68,14 +67,6 @@ public interface RetUserAuthService {
      * @param credential the credential
      */
     void updateCredential(Long userId, String credential);
-
-    /**
-     * Update credential by auth code.
-     *
-     * @param passwordParam the password param
-     */
-    @Transactional
-    void updateCredential(RetUserAuthParam passwordParam);
 
     /**
      * Delete user auth.

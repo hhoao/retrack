@@ -11,7 +11,11 @@ public enum MailType {
     /**
      * 工厂邀请类型
      */
-    FACTORY_INVITATION(2);
+    FACTORY_INVITATION(2),
+    /**
+     * 修改密码类型
+     */
+    UPDATE_PASSWORD(3);
     /**
      * 类型唯一标志
      */

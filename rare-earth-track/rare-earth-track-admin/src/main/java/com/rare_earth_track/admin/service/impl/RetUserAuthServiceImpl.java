@@ -1,13 +1,14 @@
 package com.rare_earth_track.admin.service.impl;
 
 import com.rare_earth_track.admin.bean.IdentifyType;
-import com.rare_earth_track.admin.bean.RetUserAuthParam;
+import com.rare_earth_track.admin.service.RetMailService;
 import com.rare_earth_track.admin.service.RetUserAuthService;
 import com.rare_earth_track.common.exception.Asserts;
 import com.rare_earth_track.mgb.mapper.RetUserAuthMapper;
 import com.rare_earth_track.mgb.model.RetUserAuth;
 import com.rare_earth_track.mgb.model.RetUserAuthExample;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,6 +22,8 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class RetUserAuthServiceImpl implements RetUserAuthService {
     private final RetUserAuthMapper userAuthMapper;
+    private final PasswordEncoder passwordEncoder;
+    private final RetMailService mailService;
     @Override
     public List<RetUserAuth> getUserAuth(Long userId){
         RetUserAuthExample userAuthExample = new RetUserAuthExample();
@@ -85,30 +88,10 @@ public class RetUserAuthServiceImpl implements RetUserAuthService {
     public void updateCredential(Long userId, String credential){
         List<RetUserAuth> userAuths = getUserAuth(userId);
         for (RetUserAuth userAuth : userAuths){
-            userAuth.setCredential(credential);
+            userAuth.setCredential(passwordEncoder.encode(credential));
             int i = userAuthMapper.updateByPrimaryKey(userAuth);
             if (i == 0){
                 Asserts.fail("更新失败");
-            }
-        }
-    }
-
-    @Override
-    public void updateCredential(RetUserAuthParam passwordParam) {
-        switch (passwordParam.getIdentifyType()) {
-            case email -> {
-                RetUserAuthExample userAuthExample = new RetUserAuthExample();
-                userAuthExample.createCriteria().
-                        andIdentityTypeEqualTo(passwordParam.getIdentifyType().value()).
-                        andIdentifierEqualTo(passwordParam.getIdentifier());
-                List<RetUserAuth> retUserAuths = userAuthMapper.selectByExample(userAuthExample);
-                if (retUserAuths == null || retUserAuths.size() == 0){
-                    Asserts.fail("没有该邮箱或者密码");
-                }
-                RetUserAuth userAuth = retUserAuths.get(0);
-                updateCredential(userAuth.getUserId(), passwordParam.getNewPassword());
-            }
-            case phone -> {
             }
         }
     }
@@ -143,10 +126,14 @@ public class RetUserAuthServiceImpl implements RetUserAuthService {
     @Override
     public void updateUserAuth(RetUserAuth userAuth) {
         RetUserAuth oldUserAuth = userAuthMapper.selectByPrimaryKey(userAuth.getId());
-        if (oldUserAuth.getCredential().equals(userAuth.getCredential())){
-            updateCredential(userAuth.getUserId(), userAuth.getCredential());
+        if (userAuth.getCredential() != null) {
+            if (!passwordEncoder.matches(userAuth.getCredential(), oldUserAuth.getCredential())) {
+//            updateCredential(userAuth.getUserId(), userAuth.getCredential());
+                updateCredential(userAuth.getUserId(), userAuth.getCredential());
+                userAuth.setCredential(passwordEncoder.encode(userAuth.getCredential()));
+            }
         }
-        int i = userAuthMapper.updateByPrimaryKey(userAuth);
+        int i = userAuthMapper.updateByPrimaryKeySelective(userAuth);
         if (i == 0){
             Asserts.fail("更新失败");
         }
