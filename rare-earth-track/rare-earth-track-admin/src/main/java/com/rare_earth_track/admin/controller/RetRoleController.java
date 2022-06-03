@@ -21,17 +21,17 @@ import java.util.List;
  * @date 2022/5/16
  **/
 @RestController
-@RequiredArgsConstructor
 @Tag(description = "RetRoleController", name = "角色管理")
+@RequiredArgsConstructor
 public class RetRoleController {
     private final RetRoleService roleService;
     private final RetRoleResourceRelationService resourceRoleRelationService;
 
     @Operation(summary = "授予角色资源")
-    @PostMapping("/role/{roleId}/resource/{resourceId}")
-    public CommonResult<String> insertRoleResource(@PathVariable("roleId") Long roleId,
-                                                   @PathVariable("resourceId") Long resourceId){
-        resourceRoleRelationService.addResourceRoleRelation(roleId, resourceId);
+    @PostMapping("/roles/{roleName}/resource/{resourceName}")
+    public CommonResult<String> insertRoleResource(@PathVariable("roleName") String roleName,
+                                                   @PathVariable("resourceName") String resourceName){
+        resourceRoleRelationService.addRoleResource(roleName, resourceName);
 
         return CommonResult.success(null);
     }
@@ -45,15 +45,15 @@ public class RetRoleController {
     }
 
     @Operation(summary = "删除角色资源")
-    @DeleteMapping("/roles/{roleId}/resources/{resourceId}")
-    public CommonResult<String> deleteRoleResource(@PathVariable("roleId") Long roleId,
-                                                   @PathVariable("resourceId") Long resourceId){
-        resourceRoleRelationService.deleteRoleResource(roleId, resourceId);
+    @DeleteMapping("/roles/{roleName}/resources/{resourceName}")
+    public CommonResult<String> deleteRoleResource(@PathVariable("roleName") String roleName,
+                                                   @PathVariable("resourceName") String resourceName){
+        resourceRoleRelationService.deleteRoleResource(roleName, resourceName);
         return CommonResult.success(null);
     }
 
     @Operation(summary = "增加角色")
-    @PostMapping("/role")
+    @PostMapping("/roles")
     public CommonResult<String> addRole(@RequestBody RetRoleParam roleParam) {
         roleService.addRole(roleParam);
         return CommonResult.success(null);
@@ -67,16 +67,16 @@ public class RetRoleController {
         return CommonResult.success(CommonPage.restPage(list));
     }
     @Operation(summary = "删除角色")
-    @DeleteMapping("/role/{id}")
-    public CommonResult<String> delRole(@PathVariable("id") Long roleId){
-        roleService.deleteRole(roleId);
-
+    @DeleteMapping("/roles/{roleName}")
+    public CommonResult<String> delRole(@PathVariable("roleName") String roleName){
+        roleService.deleteRole(roleName);
         return CommonResult.success(null);
     }
     @Operation(summary = "修改角色")
-    @PatchMapping("/role")
-    public CommonResult<String> updateRole(@RequestBody RetRoleParam roleParam){
-        roleService.updateRole(roleParam);
+    @PatchMapping("/roles/{roleName}")
+    public CommonResult<String> updateRole(@PathVariable("roleName") String roleName,
+                                           @RequestBody RetRoleParam roleParam){
+        roleService.updateRole(roleName, roleParam);
         return CommonResult.success(null);
     }
 }

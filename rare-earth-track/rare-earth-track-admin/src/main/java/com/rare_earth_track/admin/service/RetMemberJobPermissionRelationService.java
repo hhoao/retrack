@@ -16,7 +16,7 @@ public interface RetMemberJobPermissionRelationService {
      *
      * @param permissionId the permission id
      */
-    void deleteMemberPermissionRelationByPermissionId(Long permissionId);
+    void deleteMemberPermission(Long permissionId);
 
     /**
      * Gets job permissions.
@@ -41,4 +41,12 @@ public interface RetMemberJobPermissionRelationService {
      * @param permissionId the permission id
      */
     void deleteJobPermission(Long jobId, Long permissionId);
+
+    /**
+     * Add job permission.
+     *
+     * @param jobName        the job name
+     * @param permissionName the permission name
+     */
+    void addJobPermission(String jobName, String permissionName);
 }

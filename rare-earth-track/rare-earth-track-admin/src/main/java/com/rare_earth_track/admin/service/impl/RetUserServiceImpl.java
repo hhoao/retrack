@@ -10,7 +10,7 @@ import com.rare_earth_track.mgb.model.RetUser;
 import com.rare_earth_track.mgb.model.RetUserAuth;
 import com.rare_earth_track.mgb.model.RetUserExample;
 import com.rare_earth_track.security.util.JwtTokenService;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -27,12 +27,12 @@ import java.util.List;
  **/
 @Slf4j
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class RetUserServiceImpl implements RetUserService {
     private final RetUserMapper userMapper;
-    //    private final RetUserCacheService userCacheService;
     private final PasswordEncoder passwordEncoder;
     private final RetTokenCacheService tokenCacheService;
+
     private final JwtTokenService jwtTokenService;
     private final RetMailService mailService;
     private final RetRoleService roleService;
@@ -194,7 +194,7 @@ public class RetUserServiceImpl implements RetUserService {
 
     @Override
     public RetUser getUserByUsername(String username) {
-        RetUserDetails userDetails = tokenCacheService.getKey(username);
+        RetUserDetails userDetails = getUserDetails(username);
         return userDetails.getRetUser();
     }
 
@@ -251,7 +251,7 @@ public class RetUserServiceImpl implements RetUserService {
         RetUserAuth userAuth = userAuthService.getUserAuth(userId, IdentifyType.username);
         clearUserStatus(userAuth.getIdentifier());
         userAuthService.deleteAllUserAuth(userId);
-        memberService.deleteMembers(userId);
+        memberService.deleteMembersByUserId(userId);
         int i = userMapper.deleteByPrimaryKey(userId);
         if (i == 0) {
             Asserts.fail("删除失败");
@@ -348,7 +348,7 @@ public class RetUserServiceImpl implements RetUserService {
         newUserAuth.setId(userAuth1.getId());
         newUserAuth.setUserId(userId);
         newUserAuth.setIdentityType(authType.value());
-        if (adminUserAuthParam.getCredential() != null){
+        if (adminUserAuthParam.getCredential() != null) {
             newUserAuth.setCredential(adminUserAuthParam.getCredential());
         }
         if (adminUserAuthParam.getIdentifier() != null)

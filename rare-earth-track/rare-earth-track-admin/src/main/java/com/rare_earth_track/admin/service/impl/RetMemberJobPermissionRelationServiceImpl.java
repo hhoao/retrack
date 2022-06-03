@@ -1,13 +1,12 @@
 package com.rare_earth_track.admin.service.impl;
 
 import com.rare_earth_track.admin.service.RetMemberJobPermissionRelationService;
+import com.rare_earth_track.admin.service.RetMemberJobService;
+import com.rare_earth_track.admin.service.RetPermissionService;
 import com.rare_earth_track.common.exception.Asserts;
 import com.rare_earth_track.mgb.mapper.RetMemberJobPermissionRelationMapper;
-import com.rare_earth_track.mgb.mapper.RetPermissionMapper;
-import com.rare_earth_track.mgb.model.RetMemberJobPermissionRelation;
-import com.rare_earth_track.mgb.model.RetMemberJobPermissionRelationExample;
-import com.rare_earth_track.mgb.model.RetPermission;
-import lombok.RequiredArgsConstructor;
+import com.rare_earth_track.mgb.model.*;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -19,12 +18,21 @@ import java.util.List;
  **/
 
 @Service
-@RequiredArgsConstructor
 public class RetMemberJobPermissionRelationServiceImpl implements RetMemberJobPermissionRelationService {
-    private final  RetMemberJobPermissionRelationMapper memberJobPermissionRelationMapper;
-    private final RetPermissionMapper permissionMapper;
+    private final RetMemberJobPermissionRelationMapper memberJobPermissionRelationMapper;
+    private final RetPermissionService permissionService;
+    private final RetMemberJobService jobService;
+    @Lazy
+    public RetMemberJobPermissionRelationServiceImpl(RetMemberJobPermissionRelationMapper memberJobPermissionRelationMapper,
+                                                     RetPermissionService permissionService,
+                                                     RetMemberJobService jobService) {
+        this.memberJobPermissionRelationMapper = memberJobPermissionRelationMapper;
+        this.permissionService= permissionService;
+        this.jobService = jobService;
+    }
+
     @Override
-    public void deleteMemberPermissionRelationByPermissionId(Long permissionId) {
+    public void deleteMemberPermission(Long permissionId) {
         RetMemberJobPermissionRelationExample memberJobPermissionRelationExample = new RetMemberJobPermissionRelationExample();
         memberJobPermissionRelationExample.createCriteria().andPermissionIdEqualTo(permissionId);
         List<RetMemberJobPermissionRelation> retMemberJobPermissionRelations = memberJobPermissionRelationMapper.selectByExample(memberJobPermissionRelationExample);
@@ -40,8 +48,8 @@ public class RetMemberJobPermissionRelationServiceImpl implements RetMemberJobPe
         List<RetMemberJobPermissionRelation> retMemberJobPermissionRelations = memberJobPermissionRelationMapper.selectByExample(memberJobPermissionRelationExample);
         List<RetPermission> permissions = new ArrayList<>();
         for (RetMemberJobPermissionRelation memberJobPermissionRelation : retMemberJobPermissionRelations){
-            RetPermission retPermission = permissionMapper.selectByPrimaryKey(memberJobPermissionRelation.getPermissionId());
-            permissions.add(retPermission);
+            RetPermission permissionByPermissionId = permissionService.getPermission(memberJobPermissionRelation.getPermissionId());
+            permissions.add(permissionByPermissionId);
         }
         return permissions;
     }
@@ -69,5 +77,12 @@ public class RetMemberJobPermissionRelationServiceImpl implements RetMemberJobPe
         if (i == 0){
             Asserts.fail("job权限删除失败");
         }
+    }
+
+    @Override
+    public void addJobPermission(String jobName, String permissionName) {
+        RetMemberJob job = jobService.getJob(jobName);
+        RetPermission permission = permissionService.getPermission(permissionName);
+        addJobPermission(job.getId(), permission.getId());
     }
 }

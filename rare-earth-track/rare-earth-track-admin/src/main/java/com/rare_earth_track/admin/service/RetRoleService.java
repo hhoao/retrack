@@ -15,12 +15,34 @@ import java.util.List;
  */
 public interface RetRoleService {
     /**
+     * Refresh cache by role id.
+     *
+     * @param roleId the role id
+     */
+    void refreshCache(Long roleId);
+
+    void refreshCache(RetRole role);
+
+    /**
+     * Refresh cache.
+     *
+     * @param roleName the role name
+     */
+    void refreshCache(String roleName);
+
+    /**
+     * Refresh cache.
+     */
+    void refreshCache();
+
+    /**
      * 更新角色
      *
+     * @param roleName  the role name
      * @param roleParam 角色参数
      */
     @Transactional
-    void updateRole(RetRoleParam roleParam);
+    void updateRole(String roleName, RetRoleParam roleParam);
 
     /**
      * Gets role resources.
@@ -31,12 +53,20 @@ public interface RetRoleService {
     List<RetResource> getRoleResources(Long roleId);
 
     /**
+     * Gets role.
+     *
+     * @param roleName the role name
+     * @return the role
+     */
+    RetRole getRole(String roleName);
+
+    /**
      * 通过roleId获取角色
      *
      * @param roleId roleId
      * @return 角色 role by role id
      */
-    RetRole getRoleByRoleId(Long roleId);
+    RetRole getRole(Long roleId);
 
     /**
      * 增加角色
@@ -65,8 +95,8 @@ public interface RetRoleService {
     /**
      * 删除角色
      *
-     * @param id 角色id
+     * @param roleName 角色id
      */
     @Transactional
-    void deleteRole(Long id);
+    void deleteRole(String roleName);
 }

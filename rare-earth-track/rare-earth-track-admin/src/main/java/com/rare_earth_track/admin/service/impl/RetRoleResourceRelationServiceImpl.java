@@ -1,13 +1,17 @@
 package com.rare_earth_track.admin.service.impl;
 
 import com.github.pagehelper.PageHelper;
+import com.rare_earth_track.admin.service.RetResourceService;
 import com.rare_earth_track.admin.service.RetRoleResourceCacheService;
 import com.rare_earth_track.admin.service.RetRoleResourceRelationService;
+import com.rare_earth_track.admin.service.RetRoleService;
 import com.rare_earth_track.common.exception.Asserts;
-import com.rare_earth_track.mgb.mapper.RetResourceMapper;
 import com.rare_earth_track.mgb.mapper.RetRoleResourceRelationMapper;
-import com.rare_earth_track.mgb.mapper.RetRoleMapper;
-import com.rare_earth_track.mgb.model.*;
+import com.rare_earth_track.mgb.model.RetResource;
+import com.rare_earth_track.mgb.model.RetRole;
+import com.rare_earth_track.mgb.model.RetRoleResourceRelation;
+import com.rare_earth_track.mgb.model.RetRoleResourceRelationExample;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -19,72 +23,47 @@ import java.util.List;
  **/
 @Service
 public class RetRoleResourceRelationServiceImpl implements RetRoleResourceRelationService {
-    private final RetRoleResourceRelationMapper roleResourceRelationMapper;
-    private final RetResourceMapper resourceMapper;
-    private final RetRoleMapper roleMapper;
-    private final RetRoleResourceCacheService resourceCacheService;
+//    @Lazy
+//    @Autowired
+    private RetRoleResourceRelationMapper roleResourceRelationMapper;
+//    @Lazy
+//    @Autowired
+    private RetResourceService resourceService;
+//    @Lazy
+//    @Autowired
+    private RetRoleService roleService;
+//    @Lazy
+//    @Autowired
+    private RetRoleResourceCacheService roleResourceCacheService;
+
+    @Lazy
     public RetRoleResourceRelationServiceImpl(RetRoleResourceRelationMapper roleResourceRelationMapper,
-                                              RetResourceMapper resourceMapper,
-                                              RetRoleMapper roleMapper,
-                                              RetRoleResourceCacheService resourceCacheService) {
+                                              RetResourceService resourceService,
+                                              RetRoleService roleService,
+                                              RetRoleResourceCacheService roleResourceCacheService) {
         this.roleResourceRelationMapper = roleResourceRelationMapper;
-        this.resourceMapper = resourceMapper;
-        this.roleMapper = roleMapper;
-        this.resourceCacheService = resourceCacheService;
-        //初始化 将所有角色对应资源加载进缓存中
-        refreshCacheByAllRoleNames();
-    }
-    @Override
-    public void refreshCacheByRoleName(String roleName){
-        RetRole roleByRoleName = getRoleByRoleName(roleName);
-        refreshCacheByRole(roleByRoleName);
-    }
-    @Override
-    public void refreshCacheByRoleId(Long roleId){
-        refreshCacheByRole(roleMapper.selectByPrimaryKey(roleId));
-    }
+        this.resourceService = resourceService;
+        this.roleService = roleService;
+        this.roleResourceCacheService =  roleResourceCacheService;
 
-    @Override
-    public void refreshCacheByResourceId(Long resourceId) {
-        List<RetRole> rolesByResourceId = getRolesByResourceId(resourceId);
-        for (RetRole role : rolesByResourceId){
-            refreshCacheByRoleName(role.getName());
-        }
-    }
-
-    @Override
-    public void refreshCacheByRole(RetRole role){
-        RetRoleResourceRelationExample roleResourceRelationExample = new RetRoleResourceRelationExample();
-        roleResourceRelationExample.createCriteria().andRoleIdEqualTo(role.getId());
-        List<RetRoleResourceRelation> roleResourceRoleRelations = roleResourceRelationMapper.selectByExample(roleResourceRelationExample);
-        List<RetResource> resources = new ArrayList<>();
-        for (RetRoleResourceRelation resourceRoleRelation : roleResourceRoleRelations) {
-            RetResource retResource = resourceMapper.selectByPrimaryKey(resourceRoleRelation.getResourceId());
-            resources.add(retResource);
-        }
-        resourceCacheService.setByRoleName(resources, role.getName());
     }
     @Override
-    public void refreshCacheByAllRoleNames(){
-        List<RetRole> roles = roleMapper.selectByExample(new RetRoleExample());
-        for (RetRole role : roles) {
-            refreshCacheByRole(role);
-        }
-    }
-
-
-    @Override
-    public List<RetRole> getRolesByResourceId(Long resourceId) {
+    public List<RetRole> getRoles(Long resourceId) {
         RetRoleResourceRelationExample roleRelationExample = new RetRoleResourceRelationExample();
         roleRelationExample.createCriteria().andResourceIdEqualTo(resourceId);
         List<RetRoleResourceRelation> roleResourceRelations = roleResourceRelationMapper.selectByExample(roleRelationExample);
         List<RetRole> roles = new ArrayList<>();
         for (RetRoleResourceRelation resourceRoleRelation : roleResourceRelations){
             Long roleId = resourceRoleRelation.getRoleId();
-            RetRole role = roleMapper.selectByPrimaryKey(roleId);
+            RetRole role = roleService.getRole(roleId);
             roles.add(role);
         }
         return roles;
+    }
+    @Override
+    public List<RetRole> getRoles(String resourceName) {
+        RetResource resource = resourceService.getResource(resourceName);
+        return  getRoles(resource.getId());
     }
 
     @Override
@@ -109,8 +88,8 @@ public class RetRoleResourceRelationServiceImpl implements RetRoleResourceRelati
 
     @Override
     public List<RetResource> getRoleResources(Long roleId) {
-        RetRole retRole = roleMapper.selectByPrimaryKey(roleId);
-        List<RetResource> byRoleName = resourceCacheService.getByRoleName(retRole.getName());
+        RetRole retRole = roleService.getRole(roleId);
+        List<RetResource> byRoleName = roleResourceCacheService.getByRoleName(retRole.getName());
         if (byRoleName == null){
             return new ArrayList<>();
         }
@@ -118,7 +97,7 @@ public class RetRoleResourceRelationServiceImpl implements RetRoleResourceRelati
     }
 
     @Override
-    public void addResourceRoleRelation(Long roleId, Long resourceId) {
+    public void addRoleResource(Long roleId, Long resourceId) {
         RetRoleResourceRelation roleResourceRelation = new RetRoleResourceRelation();
         roleResourceRelation.setRoleId(roleId);
         roleResourceRelation.setResourceId(resourceId);
@@ -126,22 +105,12 @@ public class RetRoleResourceRelationServiceImpl implements RetRoleResourceRelati
         if (insert == 0){
             Asserts.fail("增加角色失败");
         }
-        refreshCacheByRoleId(roleId);
-    }
-    public RetRole getRoleByRoleName(String name){
-        RetRole role = null;
-        RetRoleExample roleExample = new RetRoleExample();
-        roleExample.createCriteria().andNameEqualTo(name);
-        List<RetRole> retRoles = roleMapper.selectByExample(roleExample);
-        if (retRoles != null && retRoles.size() > 0){
-            role = retRoles.get(0);
-        }
-        return role;
+        roleService.refreshCache(roleId);
     }
     @Override
     public List<RetResource> listRoleResources(String name, Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
-        RetRole roleByRoleName = getRoleByRoleName(name);
+        RetRole roleByRoleName = roleService.getRole(name);
         if (roleByRoleName == null){
             Asserts.fail("没有该角色");
         }
@@ -149,7 +118,7 @@ public class RetRoleResourceRelationServiceImpl implements RetRoleResourceRelati
     }
 
     @Override
-    public void deleteResourceRoleRelation(Long id) {
+    public void deleteRoleResource(Long id) {
         RetRoleResourceRelationExample relationExample = new RetRoleResourceRelationExample();
         relationExample.createCriteria().andResourceIdEqualTo(id);
         List<RetRoleResourceRelation> retRoleResourceRelations = roleResourceRelationMapper.selectByExample(relationExample);
@@ -159,7 +128,21 @@ public class RetRoleResourceRelationServiceImpl implements RetRoleResourceRelati
         }
         //刷新缓存
         for (RetRoleResourceRelation roleResourceRelation : retRoleResourceRelations){
-            refreshCacheByRoleId(roleResourceRelation.getRoleId());
+            roleService.refreshCache(roleResourceRelation.getRoleId());
         }
+    }
+
+    @Override
+    public void deleteRoleResource(String roleName, String resourceName) {
+        RetRole role = roleService.getRole(roleName);
+        RetResource resource = resourceService.getResource(resourceName);
+        deleteRoleResource(role.getId(), resource.getId());
+    }
+
+    @Override
+    public void addRoleResource(String roleName, String resourceName) {
+        RetResource resource = resourceService.getResource(resourceName);
+        RetRole role = roleService.getRole(roleName);
+        addRoleResource(role.getId(), resource.getId());
     }
 }

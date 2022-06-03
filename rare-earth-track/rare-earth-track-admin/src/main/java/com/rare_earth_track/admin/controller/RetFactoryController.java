@@ -1,11 +1,12 @@
 package com.rare_earth_track.admin.controller;
 
+import com.rare_earth_track.admin.bean.RetFactoryParam;
 import com.rare_earth_track.admin.bean.RetMemberParam;
 import com.rare_earth_track.admin.service.RetFactoryService;
 import com.rare_earth_track.common.api.CommonResult;
 import com.rare_earth_track.mgb.model.RetFactory;
 import com.rare_earth_track.mgb.model.RetMember;
-import com.rare_earth_track.security.config.JwtSecurityProperties;
+import com.rare_earth_track.mgb.model.RetProduct;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -23,7 +24,6 @@ import java.util.List;
 @Tag(name = "工厂管理", description = "RetFactoryController")
 public class RetFactoryController {
     private final RetFactoryService factoryService;
-    private final JwtSecurityProperties securityProperties;
 
     @Operation(summary = "分页获取工厂")
     @GetMapping("/factories")
@@ -34,48 +34,56 @@ public class RetFactoryController {
     }
     @Operation(summary = "添加工厂")
     @PostMapping("/factories")
-    public CommonResult<String> addFactory(@RequestBody RetFactory factory){
-        factoryService.addFactory(factory);
+    public CommonResult<String> addFactory(@RequestBody RetFactoryParam factoryParam){
+        factoryService.addFactory(factoryParam);
         return CommonResult.success(null);
     }
     @Operation(summary = "删除工厂")
-    @DeleteMapping("/factories/{factoryId}")
-    public CommonResult<String> deleteFactory(@PathVariable(value= "factoryId") Long id){
-        factoryService.deleteFactoryByFactoryId(id);
+    @DeleteMapping("/factories/{factoryName}")
+    public CommonResult<String> deleteFactory(@PathVariable(value= "factoryName") String factoryName){
+        factoryService.deleteFactoryByName(factoryName);
         return CommonResult.success(null);
     }
     @Operation(summary = "更新工厂")
-    @PatchMapping("/factories")
-    public CommonResult<String> updateFactory(@RequestBody RetFactory factory){
-        factoryService.updateFactory(factory);
+    @PatchMapping("/factories/{factoryName}")
+    public CommonResult<String> updateFactory(@PathVariable("factoryName") String factoryName,
+                                              @RequestBody RetFactoryParam factoryParam){
+        factoryService.updateFactory(factoryName, factoryParam);
         return CommonResult.success(null);
     }
     @Operation(summary = "邀请用户成员")
-    @PostMapping("/factories/{factoryId}/member")
+    @PostMapping("/factories/{factoryName}/member")
     public CommonResult<String> inviteUser(@RequestParam(value = "type", defaultValue = "email") String type,
                                           @RequestParam("emailOrPhone") String emailOrPhone,
-                                          @PathVariable("factoryId") Long factoryId){
+                                          @PathVariable("factoryName") String factoryName){
         if ("email".equals(type)){
-            factoryService.inviteUserByEmail(factoryId, emailOrPhone);
+            factoryService.inviteUserByEmail(factoryName, emailOrPhone);
         } else{
-            factoryService.inviteUserByPhone(factoryId, emailOrPhone);
+            factoryService.inviteUserByPhone(factoryName, emailOrPhone);
         }
         return CommonResult.success(null);
     }
+
+    @Operation(summary = "根据条件查询工厂信息")
+    @GetMapping("/factories/search")
+    public CommonResult<List<RetFactory>> getFactory(RetFactory factory){
+        List<RetFactory> factories = factoryService.getFactory(factory);
+        return CommonResult.success(factories);
+    }
     @Operation(summary = "获取工厂所有成员")
-    @GetMapping("/factories/{factoryId}/members")
+    @GetMapping("/factories/{factoryName}/members")
     public CommonResult<List<RetMember>> listMembers(@RequestParam(value = "from", defaultValue = "1") Integer from,
                                                      @RequestParam(value = "size", defaultValue = "5") Integer size,
-                                                     @PathVariable(value="factoryId") Long factoryId){
-        List<RetMember> members = factoryService.listFactoryMembers(from, size, factoryId);
+                                                     @PathVariable(value="factoryName") String factoryName){
+        List<RetMember> members = factoryService.listFactoryMembers(from, size, factoryName);
         return CommonResult.success(members);
     }
 
     @Operation(summary = "通过用户名删除工厂成员")
-    @DeleteMapping("/factories/{factoryId}/members/{username}")
-    public CommonResult<String> deleteMember(@PathVariable("factoryId") Long factoryId,
+    @DeleteMapping("/factories/{factoryName}/members/{username}")
+    public CommonResult<String> deleteMember(@PathVariable("factoryName") String factoryName,
                                              @PathVariable("username") String username){
-        factoryService.deleteFactoryMemberByUsername(factoryId, username);
+        factoryService.deleteFactoryMemberByUsername(factoryName, username);
         return CommonResult.success(null);
     }
     @Operation(summary = "更新工厂成员")
@@ -83,15 +91,21 @@ public class RetFactoryController {
     public CommonResult<String> updateMemberJob(@PathVariable("factoryName") String factoryName,
                                                 @PathVariable(value = "username") String username,
                                                 @RequestBody RetMemberParam memberParam){
-        factoryService.updateFactoryMemberJob(factoryName, username, memberParam);
+        factoryService.updateFactoryMember(factoryName, username, memberParam);
         return CommonResult.success(null);
     }
     @Operation(summary = "处理邀请")
-    @GetMapping("/factories/{id}/invitations")
-    public CommonResult<String> handleInvitation(@PathVariable(value="id") Long factoryId,
-                                                 @CookieValue(value="Authorization") String bearer){
-        String authToken = bearer.substring(securityProperties.getTokenHead().length());
-        factoryService.handleInvitation(factoryId, authToken);
+    @GetMapping("/factories/{factoryName}/invitations")
+    public CommonResult<String> handleInvitation(@PathVariable(value= "factoryName") String factoryName,
+                                                 @CookieValue(value="Authorization") String authorization){
+        factoryService.handleInvitation(factoryName, authorization);
         return CommonResult.success(null);
+    }
+
+    @Operation(summary = "分页获取工厂产品")
+    @GetMapping("/factories/{factoryName}/products")
+    public CommonResult<List<RetProduct>> listProducts(@PathVariable(value = "factoryName") String factoryName){
+        List<RetProduct> products = factoryService.listProducts(factoryName);
+        return CommonResult.success(products);
     }
 }

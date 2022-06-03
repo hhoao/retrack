@@ -53,3 +53,7 @@ jwt:
       - /**/*.png
       - /**/*.ico
       - /user/auth/token
+logging:
+  level:
+    root: info
+    com.rare_earth_track.: debug

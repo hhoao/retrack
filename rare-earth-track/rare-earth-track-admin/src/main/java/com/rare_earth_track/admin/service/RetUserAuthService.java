@@ -76,14 +76,6 @@ public interface RetUserAuthService {
     @Transactional
     void deleteAllUserAuth(Long userId);
 
-    /**
-     * Gets user auth.
-     *
-     * @param identifier the identifier
-     * @param credential the credential
-     * @return the user auth
-     */
-    RetUserAuth getUserAuth(String identifier, String credential);
 
     /**
      * Update user auth.

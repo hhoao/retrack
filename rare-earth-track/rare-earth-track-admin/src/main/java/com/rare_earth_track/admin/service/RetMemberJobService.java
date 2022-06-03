@@ -17,7 +17,7 @@ public interface RetMemberJobService {
     /**
      * 分页获取成员列表
      *
-     * @param pageNum the pageNum
+     * @param pageNum  the pageNum
      * @param pageSize the pageSize
      * @return 分页成员 list
      */
@@ -27,8 +27,8 @@ public interface RetMemberJobService {
      * List job resources list.
      *
      * @param pageNum  the pageNum
-     * @param pageSize  the pageSize
-     * @param jobId the job id
+     * @param pageSize the pageSize
+     * @param jobId    the job id
      * @return the list
      */
     List<RetPermission> listJobPermissions(Integer pageNum, Integer pageSize, Long jobId);
@@ -51,4 +51,22 @@ public interface RetMemberJobService {
      */
     @Transactional
     void deleteJobPermission(Long jobId, Long resourceId);
+
+    /**
+     * Add job permission.
+     *
+     * @param jobName        the job name
+     * @param permissionName the resource name
+     */
+    void addJobPermission(String jobName, String permissionName);
+
+    RetMemberJob getJob(String jobName);
+
+    /**
+     * Delete job permission.
+     *
+     * @param jobName      the job name
+     * @param resourceName the resource name
+     */
+    void deleteJobPermission(String jobName, String resourceName);
 }

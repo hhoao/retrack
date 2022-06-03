@@ -1,14 +1,18 @@
 package com.rare_earth_track.admin.service.impl;
 
 import com.rare_earth_track.admin.TransactionTest;
+import com.rare_earth_track.admin.bean.MailType;
+import com.rare_earth_track.admin.bean.RetFactoryParam;
+import com.rare_earth_track.admin.bean.RetMemberParam;
 import com.rare_earth_track.admin.service.RetFactoryService;
+import com.rare_earth_track.admin.service.RetMailService;
 import com.rare_earth_track.admin.service.RetMemberService;
+import com.rare_earth_track.common.exception.ApiException;
 import com.rare_earth_track.mgb.model.RetFactory;
-import lombok.RequiredArgsConstructor;
+import com.rare_earth_track.mgb.model.RetMember;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 
@@ -17,13 +21,16 @@ import java.util.List;
  * @date 2022/5/31
  **/
 
-@SpringBootTest
-@RequiredArgsConstructor
 class RetFactoryServiceImplTest extends TransactionTest {
     @Autowired
     RetFactoryService factoryService;
     @Autowired
     RetMemberService memberService;
+    @Autowired
+    RetMailService mailService;
+
+    private final String testName = "五矿稀土";
+    private final Long testId = 1L;
 
     @Test
     void addFactoryMember() {
@@ -39,33 +46,43 @@ class RetFactoryServiceImplTest extends TransactionTest {
 
     @Test
     void addFactory() {
-        RetFactory factory = new RetFactory();
-        Long aLong = factoryService.addFactory(factory);
+        RetFactoryParam factoryParam = new RetFactoryParam();
+        Long aLong = factoryService.addFactory(factoryParam);
         Assertions.assertNotNull(factoryService.getFactoryByFactoryId(aLong));
     }
 
     @Test
     void updateFactory() {
-    }
+        RetFactoryParam factoryParam = new RetFactoryParam();
+        factoryParam.setPhone("1239581239");
+        factoryService.updateFactory("五矿稀土", factoryParam);
 
-    @Test
-    void deleteFactoryByFactoryId() {
     }
 
     @Test
     void deleteFactoryByName() {
+        factoryService.deleteFactoryByName("五矿稀土");
+        RetFactory factory = factoryService.getFactoryByFactoryName("五矿稀土");
+        Assertions.assertNull(factory);
     }
 
     @Test
     void getFactoryByFactoryName() {
+        RetFactory factoryByFactoryName = factoryService.getFactoryByFactoryName(testName);
+        Assertions.assertNotNull(factoryByFactoryName);
     }
 
     @Test
     void getFactoryByFactoryId() {
+        RetFactory factoryByFactoryId = factoryService.getFactoryByFactoryId(testId);
+        Assertions.assertNotNull(factoryByFactoryId);
     }
 
     @Test
     void inviteUserByEmail() {
+        factoryService.inviteUserByEmail(testName, tRegisterMail);
+        boolean b = mailService.existMessage(tRegisterMail, MailType.FACTORY_INVITATION);
+        Assertions.assertTrue(b);
     }
 
     @Test
@@ -74,49 +91,39 @@ class RetFactoryServiceImplTest extends TransactionTest {
 
     @Test
     void deleteFactoryMemberByUsername() {
+        factoryService.deleteFactoryMemberByUsername(testName, tUsername);
+        Assertions.assertThrows(ApiException.class, ()-> memberService.getMember(testId, tUserId));
     }
 
-    @Test
-    void testAddFactoryMember() {
-    }
+
 
     @Test
     void handleInvitation() {
     }
 
     @Test
-    void updateFactoryMemberJob() {
+    void updateFactoryMember() {
+        RetMemberParam memberParam = new RetMemberParam();
+        memberParam.setNickname("哈哈哈哈");
+        factoryService.updateFactoryMember(testName, "user5", memberParam);
+        RetMember member = new RetMember();
+        member.setNickname("哈哈哈哈");
+        member.setFactoryId(testId);
+        List<RetMember> member1 = memberService.getMember(member);
+        Assertions.assertEquals(member1.size(), 1);
     }
 
     @Test
     void listFactoryMembers() {
+        List<RetMember> members = factoryService.listFactoryMembers(1, 5, testName);
     }
 
     @Test
-    void getFactoryMapper() {
-    }
-
-    @Test
-    void getTokenService() {
-    }
-
-    @Test
-    void getFactoryInvitationCacheService() {
-    }
-
-    @Test
-    void getMailService() {
-    }
-
-    @Test
-    void getTokenCacheService() {
-    }
-
-    @Test
-    void getMemberService() {
-    }
-
-    @Test
-    void getFactoryUserRelationService() {
+    void getFactory() {
+        RetFactory factory1 = new RetFactory();
+        factory1.setName("五矿%");
+        List<RetFactory> factory2 = factoryService.getFactory(factory1);
+        Assertions.assertEquals(factory2.size(), 1);
+        Assertions.assertEquals(factory2.get(0).getName(), "五矿稀土");
     }
 }

@@ -81,7 +81,11 @@ public interface RetMemberService {
      *
      * @param userId the user id
      */
-    void deleteMembers(Long userId);
+    void deleteMembersByUserId(Long userId);
+
+    List<RetMember> getMember(RetMember member);
+
+    void deleteMembers(RetMember member);
 
     RetMember getMember(Long factoryId, Long userId);
 

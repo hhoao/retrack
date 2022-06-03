@@ -6,12 +6,14 @@ import com.github.pagehelper.PageHelper;
 import com.rare_earth_track.admin.bean.RetResourceParam;
 import com.rare_earth_track.admin.service.RetResourceService;
 import com.rare_earth_track.admin.service.RetRoleResourceRelationService;
+import com.rare_earth_track.admin.service.RetRoleService;
 import com.rare_earth_track.common.exception.Asserts;
 import com.rare_earth_track.mgb.mapper.RetResourceMapper;
 import com.rare_earth_track.mgb.model.RetResource;
 import com.rare_earth_track.mgb.model.RetResourceExample;
-import lombok.AllArgsConstructor;
+import com.rare_earth_track.mgb.model.RetRole;
 import org.springframework.beans.BeanUtils;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,15 +23,24 @@ import java.util.List;
  * @date 2022/5/5
  **/
 @Service
-@AllArgsConstructor
 public class RetResourceServiceImpl implements RetResourceService {
-    private RetResourceMapper resourceMapper;
-    private RetRoleResourceRelationService roleResourceRelationService;
+    private final RetResourceMapper resourceMapper;
+    private final RetRoleResourceRelationService roleResourceRelationService;
+    private final RetRoleService roleService;
+    @Lazy
+    public RetResourceServiceImpl(RetResourceMapper resourceMapper,
+                                  RetRoleResourceRelationService roleResourceRelationService,
+                                  RetRoleService roleService) {
+        this.resourceMapper = resourceMapper;
+        this.roleResourceRelationService = roleResourceRelationService;
+        this.roleService = roleService;
+    }
+
 
     @Override
-    public RetResource getResourceByName(String name) {
+    public RetResource getResource(String resourceName) {
         RetResourceExample resourceExample = new RetResourceExample();
-        resourceExample.createCriteria().andNameEqualTo(name);
+        resourceExample.createCriteria().andNameEqualTo(resourceName);
         List<RetResource> resources = resourceMapper.selectByExample(resourceExample);
         if (resources != null && resources.size() > 0){
             return resources.get(0);
@@ -49,8 +60,12 @@ public class RetResourceServiceImpl implements RetResourceService {
     }
 
     @Override
-    public RetResource getResourceByResourceId(Long resourceId) {
-        return resourceMapper.selectByPrimaryKey(resourceId);
+    public RetResource getResource(Long resourceId) {
+        RetResource retResource = resourceMapper.selectByPrimaryKey(resourceId);
+        if (retResource == null){
+            Asserts.fail("没有该资源");
+        }
+        return retResource;
     }
 
     @Override
@@ -61,34 +76,52 @@ public class RetResourceServiceImpl implements RetResourceService {
         if (insert == 0){
             Asserts.fail("插入资源失败");
         }
-        RetResource resourceByName = getResourceByName(resourceParam.getName());
-        roleResourceRelationService.refreshCacheByResourceId(resourceByName.getId());
     }
 
     @Override
-    public void updateResource(RetResourceParam resourceParam) {
-        RetResource resourceByName = getResourceByName(resourceParam.getName());
-        if (resourceByName == null){
-            Asserts.fail("没有该资源");
-        }
+    public void updateResource(String resourceName, RetResourceParam resourceParam) {
+        RetResource resourceByName = getResource(resourceParam.getName());
+        //获取影响的角色
+        List<RetRole> rolesByResourceId = roleResourceRelationService.getRoles(resourceByName.getId());
         BeanUtils.copyProperties(resourceParam, resourceByName);
         int successCount = resourceMapper.updateByPrimaryKey(resourceByName);
         if (successCount == 0){
             Asserts.fail("更新失败");
         }
         //刷新缓存
-        roleResourceRelationService.refreshCacheByResourceId(resourceByName.getId());
+        for (RetRole role : rolesByResourceId){
+            roleService.refreshCache(role);
+        }
     }
     @Override
     public void deleteResource(Long resourceId) {
-        RetResource resource = resourceMapper.selectByPrimaryKey(resourceId);
-        if (resource == null){
-            Asserts.fail("没有该资源");
-        }
-        roleResourceRelationService.deleteResourceRoleRelation(resourceId);
+        //获取影响的角色
+        List<RetRole> roles = roleResourceRelationService.getRoles(resourceId);
+
+        roleResourceRelationService.deleteRoleResource(resourceId);
         int i = resourceMapper.deleteByPrimaryKey(resourceId);
         if (i == 0){
             Asserts.fail("删除资源失败");
+        }
+        //刷新缓存
+        for (RetRole role : roles){
+            roleService.refreshCache(role);
+        }
+    }
+
+    @Override
+    public void deleteResource(String resourceName) {
+        //获取影响的角色
+        List<RetRole> roles = roleResourceRelationService.getRoles(resourceName);
+
+        RetResourceExample resourceExample = new RetResourceExample();
+        int i = resourceMapper.deleteByExample(resourceExample);
+        if (i == 0){
+            Asserts.fail("删除资源失败");
+        }
+        //刷新缓存
+        for (RetRole role : roles){
+            roleService.refreshCache(role);
         }
     }
 }

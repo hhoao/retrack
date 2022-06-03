@@ -62,7 +62,7 @@ public class RetMemberServiceImpl implements RetMemberService {
         member.setJobId(memberParam.getJobId());
         member.setNickname(memberParam.getNickname());
         member.setPhone(memberParam.getPhone());
-        int i = memberMapper.updateByPrimaryKey(member);
+        int i = memberMapper.updateByPrimaryKeySelective(member);
         if (i == 0){
             Asserts.fail("修改失败");
         }
@@ -90,7 +90,7 @@ public class RetMemberServiceImpl implements RetMemberService {
     }
 
     @Override
-    public void deleteMembers(Long userId) {
+    public void deleteMembersByUserId(Long userId) {
         RetMemberExample memberExample = new RetMemberExample();
         memberExample.createCriteria().andUserIdEqualTo(userId);
         List<RetMember> members = memberMapper.selectByExample(memberExample);
@@ -101,6 +101,42 @@ public class RetMemberServiceImpl implements RetMemberService {
             }
         }
     }
+    private RetMemberExample getMemberExample(RetMember member){
+        RetMemberExample memberExample = new RetMemberExample();
+        RetMemberExample.Criteria criteria = memberExample.createCriteria();
+        if (member.getId() != null){
+            criteria.andIdEqualTo(member.getId());
+            return memberExample;
+        }
+        if (member.getFactoryId() != null){
+            criteria.andFactoryIdEqualTo(member.getFactoryId());
+        }
+        if (member.getJobId() != null){
+            criteria.andJobIdEqualTo(member.getJobId());
+        }
+        if (member.getNickname() != null){
+            criteria.andNicknameLike(member.getNickname());
+        }
+        if (member.getPhone() != null){
+            criteria.andPhoneEqualTo(member.getPhone());
+        }
+        return memberExample;
+    }
+
+    @Override
+    public List<RetMember> getMember(RetMember member){
+        RetMemberExample memberExample = getMemberExample(member);
+        return memberMapper.selectByExample(memberExample);
+    }
+    @Override
+    public void deleteMembers(RetMember member){
+        RetMemberExample memberExample = getMemberExample(member);
+        int i = memberMapper.deleteByExample(memberExample);
+        if (i == 0){
+            Asserts.fail("删除失败");
+        }
+    }
+
     @Override
     public RetMember getMember(Long factoryId, Long userId){
         RetMemberExample memberExample = new RetMemberExample();

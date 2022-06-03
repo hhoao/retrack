@@ -32,22 +32,22 @@ public class RetResourceController {
         return CommonResult.success(CommonPage.restPage(allResources));
     }
     @Operation(description = "添加资源", summary = "添加资源")
-    @PostMapping("/resource")
+    @PostMapping("/resources")
     public CommonResult<String> addResource(@RequestBody RetResourceParam resourceParam){
         resourceService.addResource(resourceParam);
         return CommonResult.success(null);
     }
     @Operation(summary = "修改资源")
-    @PatchMapping("/resource")
-    public CommonResult<String> updateResource(@RequestBody RetResourceParam resourceParam){
-        resourceService.updateResource(resourceParam);
+    @PatchMapping("/resources/{resourceName}")
+    public CommonResult<String> updateResource(@PathVariable("resourceName") String resourceName,
+                                               @RequestBody RetResourceParam resourceParam){
+        resourceService.updateResource(resourceName, resourceParam);
         return CommonResult.success(null);
     }
     @Operation(summary = "删除资源")
-    @DeleteMapping("/resources/{id}")
-    public CommonResult<String> delResource(@PathVariable Long id){
-        resourceService.deleteResource(id);
-
+    @DeleteMapping("/resources/{resourceName}")
+    public CommonResult<String> delResource(@PathVariable String resourceName){
+        resourceService.deleteResource(resourceName);
         return CommonResult.success(null);
     }
 }

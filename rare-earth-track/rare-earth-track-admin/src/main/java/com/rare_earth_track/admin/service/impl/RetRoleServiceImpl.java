@@ -3,6 +3,7 @@ package com.rare_earth_track.admin.service.impl;
 import cn.hutool.core.bean.BeanUtil;
 import com.github.pagehelper.PageHelper;
 import com.rare_earth_track.admin.bean.RetRoleParam;
+import com.rare_earth_track.admin.service.RetRoleResourceCacheService;
 import com.rare_earth_track.admin.service.RetRoleResourceRelationService;
 import com.rare_earth_track.admin.service.RetRoleService;
 import com.rare_earth_track.common.exception.Asserts;
@@ -10,8 +11,10 @@ import com.rare_earth_track.mgb.mapper.RetRoleMapper;
 import com.rare_earth_track.mgb.model.RetResource;
 import com.rare_earth_track.mgb.model.RetRole;
 import com.rare_earth_track.mgb.model.RetRoleExample;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
+import org.springframework.boot.ApplicationArguments;
+import org.springframework.boot.ApplicationRunner;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,16 +24,52 @@ import java.util.List;
  * @date 2022/5/15
  **/
 @Service
-@RequiredArgsConstructor
-public class RetRoleServiceImpl implements RetRoleService {
+public class RetRoleServiceImpl implements RetRoleService, ApplicationRunner {
     private final RetRoleMapper roleMapper;
     private final RetRoleResourceRelationService roleResourceRelationService;
+    private final RetRoleResourceCacheService resourceCacheService;
+    @Lazy
+    public RetRoleServiceImpl(RetRoleMapper roleMapper,
+                              RetRoleResourceRelationService roleResourceRelationService,
+                              RetRoleResourceCacheService resourceCacheService) {
+        this.roleMapper = roleMapper;
+        this.resourceCacheService = resourceCacheService;
+        this.roleResourceRelationService = roleResourceRelationService;
+    }
+
 
     @Override
-    public void updateRole(RetRoleParam roleParam) {
-        RetRole role = new RetRole();
-        BeanUtils.copyProperties(roleParam, role);
-        int i = roleMapper.updateByPrimaryKey(role);
+    public void refreshCache(Long roleId){
+        RetRole role = getRole(roleId);
+        List<RetResource> roleResources = getRoleResources(role.getId());
+        resourceCacheService.setByRoleName(roleResources, role.getName());
+    }
+    @Override
+    public void refreshCache(RetRole role){
+        List<RetResource> roleResources = getRoleResources(role.getId());
+        resourceCacheService.setByRoleName(roleResources, role.getName());
+    }
+    @Override
+    public void refreshCache(String roleName){
+        RetRole role = getRole(roleName);
+        List<RetResource> roleResources = getRoleResources(role.getId());
+        resourceCacheService.setByRoleName(roleResources, role.getName());
+    }
+    @Override
+    public void refreshCache(){
+        List<RetRole> roles = getAllRoles();
+        for (RetRole role : roles) {
+            List<RetResource> roleResources = getRoleResources(role.getId());
+            resourceCacheService.setByRoleName(roleResources, role.getName());
+        }
+    }
+    @Override
+    public void updateRole(String roleName, RetRoleParam roleParam) {
+        RetRole role = getRole(roleName);
+        RetRole newRole = new RetRole();
+        BeanUtils.copyProperties(roleParam, newRole);
+        newRole.setId(role.getId());
+        int i = roleMapper.updateByPrimaryKey(newRole);
         if (i == 0){
             Asserts.fail("修改角色失败");
         }
@@ -40,7 +79,18 @@ public class RetRoleServiceImpl implements RetRoleService {
         return roleResourceRelationService.getRoleResources(roleId);
     }
     @Override
-    public RetRole getRoleByRoleId(Long roleId) {
+    public RetRole getRole(String roleName) {
+        RetRoleExample retRoleExample = new RetRoleExample();
+        retRoleExample.createCriteria().andNameEqualTo(roleName);
+        List<RetRole> retRoles = roleMapper.selectByExample(retRoleExample);
+
+        if (retRoles == null ){
+            Asserts.fail("没有该角色");
+        }
+        return retRoles.get(0);
+    }
+    @Override
+    public RetRole getRole(Long roleId) {
         return roleMapper.selectByPrimaryKey(roleId);
     }
 
@@ -66,11 +116,18 @@ public class RetRoleServiceImpl implements RetRoleService {
     }
 
     @Override
-    public void deleteRole(Long id) {
-        roleResourceRelationService.deleteRole(id);
-        int i = roleMapper.deleteByPrimaryKey(id);
+    public void deleteRole(String roleName) {
+        RetRole role = getRole(roleName);
+        roleResourceRelationService.deleteRole(role.getId());
+        int i = roleMapper.deleteByPrimaryKey(role.getId());
         if (i == 0){
             Asserts.fail("删除角色失败");
         }
+    }
+
+    @Override
+    public void run(ApplicationArguments args) throws Exception {
+        //初始化 将所有角色对应资源加载进缓存中
+        refreshCache();
     }
 }

@@ -1,12 +1,14 @@
 package com.rare_earth_track.admin.bean;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
 
 /**
  * @author hhoa
  * @date 2022/5/31
  **/
 @Schema(name = "工厂参数")
+@Data
 public class RetFactoryParam {
     @Schema(description = "工厂名")
     private String name;

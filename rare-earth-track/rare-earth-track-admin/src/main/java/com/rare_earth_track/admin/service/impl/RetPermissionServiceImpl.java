@@ -27,9 +27,9 @@ public class RetPermissionServiceImpl implements RetPermissionService {
     private final RetMemberJobPermissionRelationService memberJobPermissionRelationService;
 
     @Override
-    public RetPermission getPermissionByName(String name) {
+    public RetPermission getPermission(String permissionName) {
         RetPermissionExample permissionExample = new RetPermissionExample();
-        permissionExample.createCriteria().andNameEqualTo(name);
+        permissionExample.createCriteria().andNameEqualTo(permissionName);
         List<RetPermission> permissions = permissionMapper.selectByExample(permissionExample);
         if (permissions != null && permissions.size() > 0){
             return permissions.get(0);
@@ -49,7 +49,7 @@ public class RetPermissionServiceImpl implements RetPermissionService {
     }
 
     @Override
-    public RetPermission getPermissionByPermissionId(Long permissionId) {
+    public RetPermission getPermission(Long permissionId) {
         return permissionMapper.selectByPrimaryKey(permissionId);
     }
 
@@ -68,7 +68,7 @@ public class RetPermissionServiceImpl implements RetPermissionService {
 
     @Override
     public int updatePermission(RetPermissionParam permissionParam) {
-        RetPermission permissionByName = getPermissionByName(permissionParam.getName());
+        RetPermission permissionByName = getPermission(permissionParam.getName());
         if (permissionByName == null){
             Asserts.fail("没有该权限");
         }
@@ -85,7 +85,7 @@ public class RetPermissionServiceImpl implements RetPermissionService {
         if (permission == null){
             Asserts.fail("没有该权限");
         }
-        memberJobPermissionRelationService.deleteMemberPermissionRelationByPermissionId(permissionId);
+        memberJobPermissionRelationService.deleteMemberPermission(permissionId);
         return permissionMapper.deleteByPrimaryKey(permissionId);
     }
 }

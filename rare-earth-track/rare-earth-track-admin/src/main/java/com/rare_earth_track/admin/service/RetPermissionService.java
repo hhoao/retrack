@@ -16,10 +16,10 @@ public interface RetPermissionService {
     /**
      * 通过权限名获取资源
      *
-     * @param name the name
-     * @return 权限 permission by name
+     * @param permissionName the permissionName
+     * @return 权限 permission by permissionName
      */
-    RetPermission getPermissionByName(String name);
+    RetPermission getPermission(String permissionName);
 
     /**
      * 获取所有权限
@@ -43,7 +43,7 @@ public interface RetPermissionService {
      * @param resourceId 权限id
      * @return resource permission by permission id
      */
-    RetPermission getPermissionByPermissionId(Long resourceId);
+    RetPermission getPermission(Long resourceId);
 
 
     /**

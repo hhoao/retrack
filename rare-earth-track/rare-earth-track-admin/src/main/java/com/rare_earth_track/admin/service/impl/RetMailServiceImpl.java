@@ -81,7 +81,7 @@ public class RetMailServiceImpl implements RetMailService {
                 factory.getName()+ "邀请您加入我们工厂" + "\n" +
                 "点击下方链接接受邀请: " + "\n" +
                 "http://localhost:8080/factories/" + factory.getId() + "/invitations";
-        sendTerminableMessage( to, subject, body, null, MailType.USER_REGISTER.toString());
+        sendTerminableMessage( to, subject, body, null, MailType.FACTORY_INVITATION.toString());
     }
     @Override
     public boolean existMessage(String to, MailType type){

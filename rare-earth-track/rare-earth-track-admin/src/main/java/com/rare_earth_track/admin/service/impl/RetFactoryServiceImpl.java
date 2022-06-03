@@ -1,15 +1,14 @@
 package com.rare_earth_track.admin.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.github.pagehelper.PageHelper;
 import com.rare_earth_track.admin.bean.MailType;
+import com.rare_earth_track.admin.bean.RetFactoryParam;
 import com.rare_earth_track.admin.bean.RetMemberParam;
 import com.rare_earth_track.admin.service.*;
 import com.rare_earth_track.common.exception.Asserts;
 import com.rare_earth_track.mgb.mapper.RetFactoryMapper;
-import com.rare_earth_track.mgb.model.RetFactory;
-import com.rare_earth_track.mgb.model.RetFactoryExample;
-import com.rare_earth_track.mgb.model.RetMember;
-import com.rare_earth_track.mgb.model.RetUserAuth;
+import com.rare_earth_track.mgb.model.*;
 import com.rare_earth_track.security.util.JwtTokenService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -28,6 +27,8 @@ public class RetFactoryServiceImpl implements RetFactoryService {
     private final RetMailService mailService;
     private final RetTokenCacheService tokenCacheService;
     private final RetMemberService memberService;
+
+    private final RetProductService productService;
     private final RetFactoryUserRelationService factoryUserRelationService;
 
     @Override
@@ -37,34 +38,40 @@ public class RetFactoryServiceImpl implements RetFactoryService {
     }
 
     @Override
-    public Long addFactory(RetFactory factory) {
-        int insert = factoryMapper.insert(factory);
+    public Long addFactory(RetFactoryParam factoryParam) {
+        RetFactory newFactory = new RetFactory();
+        BeanUtil.copyProperties(factoryParam, newFactory);
+        int insert = factoryMapper.insert(newFactory);
         if (insert == 0){
             Asserts.fail("插入失败");
         }
-        return factory.getId();
+        return newFactory.getId();
     }
 
     @Override
-    public void updateFactory(RetFactory factory) {
-        Long id = factory.getId();
-        if (id == null){
-            Asserts.fail("没有id");
-        }
-        factoryMapper.updateByPrimaryKeySelective(factory);
-    }
-
-    @Override
-    public void deleteFactoryByFactoryId(Long id) {
-        int i = factoryMapper.deleteByPrimaryKey(id);
+    public void updateFactory(String factoryName, RetFactoryParam factoryParam) {
+        RetFactory factoryByFactoryName = getFactoryByFactoryName(factoryName);
+        RetFactory newFactory = new RetFactory();
+        BeanUtil.copyProperties(factoryParam, newFactory);
+        newFactory.setId(factoryByFactoryName.getId());
+        int i = factoryMapper.updateByPrimaryKeySelective(newFactory);
         if (i == 0){
-            Asserts.fail("删除失败");
+            Asserts.fail("更新失败");
         }
     }
 
     @Override
     public int deleteFactoryByName(String name) {
         RetFactory factoryByFactoryName = getFactoryByFactoryName(name);
+        //删除工厂成员
+        RetMember member = new RetMember();
+        member.setFactoryId(factoryByFactoryName.getId());
+        memberService.deleteMembers(member);
+        //删除工厂产品
+        RetProduct product = new RetProduct();
+        product.setFactoryId(factoryByFactoryName.getId());
+        productService.deleteProducts(product);
+        //删除工厂
         int i = factoryMapper.deleteByPrimaryKey(factoryByFactoryName.getId());
         if (i == 0){
             Asserts.fail("删除失败");
@@ -93,8 +100,8 @@ public class RetFactoryServiceImpl implements RetFactoryService {
     }
 
     @Override
-    public void inviteUserByEmail(Long factoryId, String email) {
-        RetFactory factory = factoryMapper.selectByPrimaryKey(factoryId);
+    public void inviteUserByEmail(String factoryName, String email) {
+        RetFactory factory = getFactoryByFactoryName(factoryName);
         if (factory == null){
             Asserts.fail("没有该工厂");
         }
@@ -102,15 +109,18 @@ public class RetFactoryServiceImpl implements RetFactoryService {
     }
 
     @Override
-    public void inviteUserByPhone(Long factoryId, String emailOrPhone) {
+    public void inviteUserByPhone(String factoryName, String emailOrPhone) {
 
     }
 
     @Override
-    public void deleteFactoryMemberByUsername(Long factoryId, String username) {
+    public void deleteFactoryMemberByUsername(String factoryName, String username) {
+        RetMember member = new RetMember();
         Long userIdByUsername = factoryUserRelationService.getUserIdByUsername(username);
-        memberService.deleteMember(factoryId, userIdByUsername);
+        member.setUserId(userIdByUsername);
+        memberService.deleteMembers(member);
     }
+
     @Override
     public Long addFactoryMember(Long factoryId, Long userId) {
         RetMember member =new RetMember();
@@ -119,9 +129,9 @@ public class RetFactoryServiceImpl implements RetFactoryService {
         return memberService.addMember(member);
     }
     @Override
-    public void handleInvitation(Long factoryId, String token) {
+    public void handleInvitation(String factoryName, String authorization) {
         //获取邮箱
-        String username = tokenService.getSubjectFromToken(token);
+        String username = tokenService.getSubjectFromAuthorization(authorization);
         boolean hasLogin = tokenCacheService.hasKey(username);
         if (!hasLogin){
             Asserts.fail("没有登陆");
@@ -132,19 +142,63 @@ public class RetFactoryServiceImpl implements RetFactoryService {
         if (!b){
             Asserts.fail("没有该邮箱");
         }
-        addFactoryMember(factoryId, emailAuth.getUserId());
+        RetFactory factoryByFactoryName = getFactoryByFactoryName(factoryName);
+        addFactoryMember(factoryByFactoryName.getId(), emailAuth.getUserId());
     }
 
     @Override
-    public void updateFactoryMemberJob(String factoryName, String username, RetMemberParam memberParam) {
+    public void updateFactoryMember(String factoryName, String username, RetMemberParam memberParam) {
         RetFactory factoryByFactoryName = getFactoryByFactoryName(factoryName);
         Long userIdByUsername = factoryUserRelationService.getUserIdByUsername(username);
         memberService.updateMember(factoryByFactoryName.getId(), userIdByUsername, memberParam);
     }
 
     @Override
-    public List<RetMember> listFactoryMembers(Integer from, Integer size, Long factoryId) {
+    public List<RetMember> listFactoryMembers(Integer from, Integer size, String factoryName) {
         PageHelper.startPage(from, size);
-        return memberService.getFactoryMembers(factoryId);
+        RetFactory factoryByFactoryName = getFactoryByFactoryName(factoryName);
+        return memberService.getFactoryMembers(factoryByFactoryName.getId());
+    }
+
+    private RetFactoryExample getFactoryExample(RetFactory factory){
+        RetFactoryExample factoryExample = new RetFactoryExample();
+        RetFactoryExample.Criteria criteria = factoryExample.createCriteria();
+        if (factory.getId() != null){
+            criteria.andIdEqualTo(factory.getId());
+            return factoryExample;
+        }
+        if (factory.getEmail() != null){
+            criteria.andEmailEqualTo(factory.getEmail());
+            return factoryExample;
+        }
+        if (factory.getAddress() != null){
+            criteria.andAddressLike(factory.getAddress());
+        }
+        if (factory.getName() != null){
+            criteria.andNameLike(factory.getName());
+            return factoryExample;
+        }
+        if (factory.getPhone() != null){
+            criteria.andPhoneEqualTo(factory.getPhone());
+            return factoryExample;
+        }
+        if (factory.getDescription() != null){
+            criteria.andDescriptionLike(factory.getDescription());
+        }
+        return factoryExample;
+    }
+
+    @Override
+    public List<RetFactory> getFactory(RetFactory factory) {
+        RetFactoryExample factoryExample = getFactoryExample(factory);
+        return factoryMapper.selectByExample(factoryExample);
+    }
+
+    @Override
+    public List<RetProduct> listProducts(String factoryName) {
+        RetProduct product = new RetProduct();
+        RetFactory factoryByFactoryName = getFactoryByFactoryName(factoryName);
+        product.setFactoryId(factoryByFactoryName.getId());
+        return productService.getProducts(product);
     }
 }

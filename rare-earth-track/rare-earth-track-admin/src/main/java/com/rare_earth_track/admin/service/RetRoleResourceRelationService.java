@@ -13,38 +13,6 @@ import java.util.List;
  * @date 2022 /5/15
  */
 public interface RetRoleResourceRelationService {
-    /**
-     * 刷新缓存
-     *
-     * @param roleId roleId
-     */
-    void refreshCacheByRoleId(Long roleId);
-
-    /**
-     * 刷新缓存
-     *
-     * @param resourceId 资源id
-     */
-    void refreshCacheByResourceId(Long resourceId);
-
-    /**
-     * 刷新
-     *
-     * @param role role
-     */
-    void refreshCacheByRole(RetRole role);
-
-    /**
-     * 刷新缓存
-     */
-    void refreshCacheByAllRoleNames();
-
-    /**
-     * 刷新缓存
-     *
-     * @param roleName 角色名
-     */
-    void refreshCacheByRoleName(String roleName);
 
     /**
      * 通过资源Id获取所有相关联角色
@@ -52,7 +20,15 @@ public interface RetRoleResourceRelationService {
      * @param resourceId 资源Id
      * @return 关联角色 roles by resource id
      */
-    List<RetRole> getRolesByResourceId(Long resourceId);
+    List<RetRole> getRoles(Long resourceId);
+
+    /**
+     * Gets roles.
+     *
+     * @param resourceName the resource name
+     * @return the roles
+     */
+    List<RetRole> getRoles(String resourceName);
 
     /**
      * 删除角色资源
@@ -86,7 +62,7 @@ public interface RetRoleResourceRelationService {
      * @param resourceId 资源id
      */
     @Transactional
-    void addResourceRoleRelation(Long roleId, Long resourceId);
+    void addRoleResource(Long roleId, Long resourceId);
 
     /**
      * 分页获取角色资源列表
@@ -104,5 +80,21 @@ public interface RetRoleResourceRelationService {
      * @param id 资源id
      */
     @Transactional
-    void deleteResourceRoleRelation(Long id);
+    void deleteRoleResource(Long id);
+
+    /**
+     * Delete role resource.
+     *
+     * @param roleName     the role name
+     * @param resourceName the resource name
+     */
+    void deleteRoleResource(String roleName, String resourceName);
+
+    /**
+     * Add resource role relation.
+     *
+     * @param roleName     the role name
+     * @param resourceName the resource name
+     */
+    void addRoleResource(String roleName, String resourceName);
 }

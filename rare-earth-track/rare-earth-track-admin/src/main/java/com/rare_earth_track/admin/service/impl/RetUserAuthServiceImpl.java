@@ -1,7 +1,6 @@
 package com.rare_earth_track.admin.service.impl;
 
 import com.rare_earth_track.admin.bean.IdentifyType;
-import com.rare_earth_track.admin.service.RetMailService;
 import com.rare_earth_track.admin.service.RetUserAuthService;
 import com.rare_earth_track.common.exception.Asserts;
 import com.rare_earth_track.mgb.mapper.RetUserAuthMapper;
@@ -23,13 +22,11 @@ import java.util.UUID;
 public class RetUserAuthServiceImpl implements RetUserAuthService {
     private final RetUserAuthMapper userAuthMapper;
     private final PasswordEncoder passwordEncoder;
-    private final RetMailService mailService;
     @Override
     public List<RetUserAuth> getUserAuth(Long userId){
         RetUserAuthExample userAuthExample = new RetUserAuthExample();
         userAuthExample.createCriteria().
-                andUserIdEqualTo(userId).
-                andIdentityTypeEqualTo(IdentifyType.username.value());
+                andUserIdEqualTo(userId);
         List<RetUserAuth> retUserAuths = userAuthMapper.selectByExample(userAuthExample);
         if (retUserAuths == null || retUserAuths.size() == 0){
             Asserts.fail("没有该验证方式");
@@ -108,27 +105,10 @@ public class RetUserAuthServiceImpl implements RetUserAuthService {
     }
 
     @Override
-    public RetUserAuth getUserAuth(String identifier, String credential) {
-        RetUserAuthExample userAuthExample = new RetUserAuthExample();
-        userAuthExample.createCriteria().
-                andIdentifierEqualTo(identifier).
-                andCredentialEqualTo(credential);
-        List<RetUserAuth> retUserAuths = userAuthMapper.selectByExample(userAuthExample);
-        if (retUserAuths == null || retUserAuths.size() == 0){
-            Asserts.fail("没有该验证方式");
-        }
-        if (retUserAuths.size() > 1){
-            Asserts.fail("有多个验证方式");
-        }
-        return retUserAuths.get(0);
-    }
-
-    @Override
     public void updateUserAuth(RetUserAuth userAuth) {
         RetUserAuth oldUserAuth = userAuthMapper.selectByPrimaryKey(userAuth.getId());
         if (userAuth.getCredential() != null) {
             if (!passwordEncoder.matches(userAuth.getCredential(), oldUserAuth.getCredential())) {
-//            updateCredential(userAuth.getUserId(), userAuth.getCredential());
                 updateCredential(userAuth.getUserId(), userAuth.getCredential());
                 userAuth.setCredential(passwordEncoder.encode(userAuth.getCredential()));
             }
@@ -149,6 +129,9 @@ public class RetUserAuthServiceImpl implements RetUserAuthService {
     public void deleteUserAuth(Long userId, IdentifyType authType) {
         RetUserAuth userAuth = getUserAuth(userId, authType);
         int i = userAuthMapper.deleteByPrimaryKey(userAuth.getId());
+        if (i == 0){
+            Asserts.fail("删除失败");
+        }
     }
 
     @Override

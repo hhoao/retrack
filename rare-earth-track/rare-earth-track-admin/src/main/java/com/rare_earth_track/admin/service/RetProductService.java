@@ -19,4 +19,19 @@ public interface RetProductService {
      * @return the list
      */
     List<RetProduct> list(Integer pageNum, Integer pageSize);
+
+    /**
+     * Gets products.
+     *
+     * @param product the product
+     * @return the products
+     */
+    List<RetProduct> getProducts(RetProduct product);
+
+    /**
+     * Delete products.
+     *
+     * @param product the product
+     */
+    void deleteProducts(RetProduct product);
 }

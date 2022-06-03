@@ -19,5 +19,5 @@ public class RetFactoryJob implements Serializable {
     @Schema(description = "工厂id")
     private Long factoryId;
     @Schema(description = "职位Id")
-    private Long JobId;
+    private Long jobId;
 }

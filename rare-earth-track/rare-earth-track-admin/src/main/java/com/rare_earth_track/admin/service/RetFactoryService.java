@@ -1,8 +1,10 @@
 package com.rare_earth_track.admin.service;
 
+import com.rare_earth_track.admin.bean.RetFactoryParam;
 import com.rare_earth_track.admin.bean.RetMemberParam;
 import com.rare_earth_track.mgb.model.RetFactory;
 import com.rare_earth_track.mgb.model.RetMember;
+import com.rare_earth_track.mgb.model.RetProduct;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -26,26 +28,20 @@ public interface RetFactoryService {
     /**
      * 增加工厂
      *
-     * @param factory the factory
-     * @return
+     * @param factoryParam the factory
+     * @return long long
      */
-    Long addFactory(RetFactory factory);
+    Long addFactory(RetFactoryParam factoryParam);
 
     /**
      * Update factory int.
      *
-     * @param factory the factory
+     * @param factoryName  the factory name
+     * @param factoryParam the factory
      */
     @Transactional
-    void updateFactory(RetFactory factory);
+    void updateFactory(String factoryName, RetFactoryParam factoryParam);
 
-    /**
-     * Delete factory by factory id int.
-     *
-     * @param id the id
-     */
-    @Transactional
-    void deleteFactoryByFactoryId(Long id);
 
     /**
      * Delete factory by name int.
@@ -75,35 +71,35 @@ public interface RetFactoryService {
     /**
      * Invite user by email.
      *
-     * @param factoryId    工厂id
+     * @param factoryName  工厂id
      * @param emailOrPhone the email or phone
      */
-    void inviteUserByEmail(Long factoryId, String emailOrPhone);
+    void inviteUserByEmail(String factoryName, String emailOrPhone);
 
     /**
      * Invite user by phone.
      *
-     * @param factoryId    the factory id
+     * @param factoryName  the factory id
      * @param emailOrPhone the email or phone
      */
-    void inviteUserByPhone(Long factoryId, String emailOrPhone);
+    void inviteUserByPhone(String factoryName, String emailOrPhone);
 
 
     /**
      * Delete factory member by member id.
      *
-     * @param factoryId the factory id
-     * @param username  the member id
+     * @param factoryName the factory id
+     * @param username    the member id
      */
     @Transactional
-    void deleteFactoryMemberByUsername(Long factoryId, String username);
+    void deleteFactoryMemberByUsername(String factoryName, String username);
 
     /**
      * Add factory member.
      *
      * @param factoryId the factory id
      * @param userId    the user id
-     * @return memberId
+     * @return memberId long
      */
     @Transactional
     Long addFactoryMember(Long factoryId, Long userId);
@@ -111,27 +107,44 @@ public interface RetFactoryService {
     /**
      * 处理
      *
-     * @param factoryId the factory id
-     * @param token     the token
+     * @param factoryName   the factory id
+     * @param authorization the token
      */
-    void handleInvitation(Long factoryId, String token);
+    void handleInvitation(String factoryName, String authorization);
 
     /**
      * Update factory member job.
      *
+     * @param factoryName the factory name
      * @param username    the member id
      * @param memberParam the job
      */
     @Transactional
-    void updateFactoryMemberJob(String factoryName, String username, RetMemberParam memberParam);
+    void updateFactoryMember(String factoryName, String username, RetMemberParam memberParam);
 
     /**
      * List factory members list.
      *
-     * @param from      the from
-     * @param size      the size
-     * @param factoryId the factory id
+     * @param from        the from
+     * @param size        the size
+     * @param factoryName the factory id
      * @return the list
      */
-    List<RetMember> listFactoryMembers(Integer from, Integer size, Long factoryId);
+    List<RetMember> listFactoryMembers(Integer from, Integer size, String factoryName);
+
+    /**
+     * Gets factory.
+     *
+     * @param factory the factory param
+     * @return the factory
+     */
+    List<RetFactory> getFactory(RetFactory factory);
+
+    /**
+     * List products list.
+     *
+     * @param factoryName the factory name
+     * @return the list
+     */
+    List<RetProduct> listProducts(String factoryName);
 }

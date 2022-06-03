@@ -39,19 +39,19 @@ public class RetMemberJobController {
         return CommonResult.success(resources);
     }
 
-    @Operation(summary = "赋予角色资源")
-    @PostMapping("/jobs/{jobId}/resources/{resourceId}")
-    public CommonResult<String> addJobResource(@PathVariable("jobId") Long jobId,
-                                               @PathVariable("resourceId") Long resourceId){
-        memberJobService.addJobPermission(jobId, resourceId);
+    @Operation(summary = "赋予职位权限")
+    @PostMapping("/jobs/{jobName}/permissions/{permissionName}")
+    public CommonResult<String> addJobResource(@PathVariable("jobName") String jobName,
+                                               @PathVariable("permissionName") String resourceName){
+        memberJobService.addJobPermission(jobName, resourceName);
         return CommonResult.success(null);
     }
 
     @Operation(summary = "删除job资源")
-    @DeleteMapping("/jobs/{jobId}/resource/{resourceId}")
-    public CommonResult<String> deleteJobResource(@PathVariable("jobId") Long jobId,
-                                                  @PathVariable("resourceId") Long resourceId){
-        memberJobService.deleteJobPermission(jobId, resourceId);
+    @DeleteMapping("/jobs/{jobName}/permissions/{permissionName}")
+    public CommonResult<String> deleteJobResource(@PathVariable("jobName") String jobName,
+                                                  @PathVariable("permissionName") String resourceName){
+        memberJobService.deleteJobPermission(jobName, resourceName);
         return CommonResult.success(null);
     }
 }
