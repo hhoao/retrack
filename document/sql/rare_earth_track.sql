@@ -239,11 +239,13 @@ CREATE TABLE `ret_member_job`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = UTF8MB4 COMMENT ='成员职位表';
 INSERT INTO `ret_member_job`(id, name, description)
-VALUES (1, '运输人员', '送货到家');
+VALUES (1, '管理员', '拥有所有权限');
 INSERT INTO `ret_member_job`(id, name, description)
-VALUES (2, '运营人员', '专题板块管理');
+VALUES (2, '运输人员', '送货到家');
 INSERT INTO `ret_member_job`(id, name, description)
-VALUES (3, '销售人员', '卖货的');
+VALUES (3, '运营人员', '专题板块管理');
+INSERT INTO `ret_member_job`(id, name, description)
+VALUES (4, '销售人员', '卖货的');
 
 
 -- 工厂成员表
@@ -298,9 +300,12 @@ CREATE TABLE `ret_permission`
     `description` varchar(50) COMMENT '描述',
     UNIQUE (`method`, `url`),
     PRIMARY KEY (`id`)
+
 ) COMMENT = '职位权限表';
-
-
+INSERT INTO `ret_permission`(id, create_time, name, method, url, description)
+VALUES(1, NOW(), '邀请用户成员', 'POST', '/factories/**/member', '邀请用户成员');
+INSERT INTO `ret_permission`(id, create_time, name, method, url, description)
+VALUES(2, NOW(), '获取工厂所有成员', 'GET', '/factories/**/members', '获取工厂所有成员');
 -- 权限职位关系表
 DROP TABLE IF EXISTS `ret_member_job_permission_relation`;
 CREATE TABLE `ret_member_job_permission_relation`
@@ -313,6 +318,8 @@ CREATE TABLE `ret_member_job_permission_relation`
     CONSTRAINT FOREIGN KEY (`member_job_id`) REFERENCES `ret_member_job` (`id`),
     CONSTRAINT FOREIGN KEY (`permission_id`) REFERENCES `ret_permission` (`id`)
 ) COMMENT = '职位权限关系表';
+INSERT `ret_member_job_permission_relation`(member_job_id, permission_id)  values(1, 1);
+INSERT `ret_member_job_permission_relation`(member_job_id, permission_id)  values(1, 2);
 
 
 -- 产品表

@@ -53,16 +53,17 @@ public interface RetPermissionService {
      * @return 插入权限数量 int
      */
     @Transactional
-    int addPermission(RetPermissionParam resourceParam);
+    Long addPermission(RetPermissionParam resourceParam);
 
     /**
      * 修改权限
      *
-     * @param resourceParam 权限参数
+     * @param permissionName
+     * @param resourceParam  权限参数
      * @return 修改成功个数 int
      */
     @Transactional
-    int updatePermission(RetPermissionParam resourceParam);
+    int updatePermission(String permissionName, RetPermissionParam resourceParam);
 
     /**
      * Del permission int.

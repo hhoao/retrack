@@ -6,11 +6,13 @@ import com.rare_earth_track.admin.bean.RetRoleParam;
 import com.rare_earth_track.admin.service.RetRoleResourceCacheService;
 import com.rare_earth_track.admin.service.RetRoleResourceRelationService;
 import com.rare_earth_track.admin.service.RetRoleService;
+import com.rare_earth_track.admin.service.RetUserService;
 import com.rare_earth_track.common.exception.Asserts;
 import com.rare_earth_track.mgb.mapper.RetRoleMapper;
 import com.rare_earth_track.mgb.model.RetResource;
 import com.rare_earth_track.mgb.model.RetRole;
 import com.rare_earth_track.mgb.model.RetRoleExample;
+import com.rare_earth_track.mgb.model.RetUser;
 import org.springframework.beans.BeanUtils;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -28,13 +30,16 @@ public class RetRoleServiceImpl implements RetRoleService, ApplicationRunner {
     private final RetRoleMapper roleMapper;
     private final RetRoleResourceRelationService roleResourceRelationService;
     private final RetRoleResourceCacheService resourceCacheService;
+    private final RetUserService userService;
     @Lazy
     public RetRoleServiceImpl(RetRoleMapper roleMapper,
                               RetRoleResourceRelationService roleResourceRelationService,
-                              RetRoleResourceCacheService resourceCacheService) {
+                              RetRoleResourceCacheService resourceCacheService,
+                              RetUserService userService) {
         this.roleMapper = roleMapper;
         this.resourceCacheService = resourceCacheService;
         this.roleResourceRelationService = roleResourceRelationService;
+        this.userService = userService;
     }
 
 
@@ -84,7 +89,7 @@ public class RetRoleServiceImpl implements RetRoleService, ApplicationRunner {
         retRoleExample.createCriteria().andNameEqualTo(roleName);
         List<RetRole> retRoles = roleMapper.selectByExample(retRoleExample);
 
-        if (retRoles == null ){
+        if (retRoles.size() == 0){
             Asserts.fail("没有该角色");
         }
         return retRoles.get(0);
@@ -115,10 +120,22 @@ public class RetRoleServiceImpl implements RetRoleService, ApplicationRunner {
         return getAllRoles();
     }
 
+    /**
+     * 删除引用
+     * @param roleId 角色id
+     */
+    private void deleteReference(Long roleId){
+        RetUser user = new RetUser();
+        user.setRoleId(roleId);
+        userService.deleteUsers(user);
+    }
+
     @Override
     public void deleteRole(String roleName) {
         RetRole role = getRole(roleName);
-        roleResourceRelationService.deleteRole(role.getId());
+        roleResourceRelationService.deleteRoleResources(role.getId());
+        deleteReference(role.getId());
+
         int i = roleMapper.deleteByPrimaryKey(role.getId());
         if (i == 0){
             Asserts.fail("删除角色失败");
@@ -126,7 +143,7 @@ public class RetRoleServiceImpl implements RetRoleService, ApplicationRunner {
     }
 
     @Override
-    public void run(ApplicationArguments args) throws Exception {
+    public void run(ApplicationArguments args) {
         //初始化 将所有角色对应资源加载进缓存中
         refreshCache();
     }

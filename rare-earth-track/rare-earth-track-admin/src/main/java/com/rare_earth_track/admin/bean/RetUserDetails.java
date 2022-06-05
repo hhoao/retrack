@@ -33,12 +33,13 @@ public class RetUserDetails implements UserDetails {
     @Override
     @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
+        //最终roleId:roleName即为访问资源所需要的权限, factoryId:jobId为访问公司所需要的权限
         List<SimpleGrantedAuthority> grantedAuthorities = new ArrayList<>();
         grantedAuthorities.addAll(retResources.stream()
                 .map(role -> new SimpleGrantedAuthority(role.getId() + ":" + role.getName()))
                 .toList());
         grantedAuthorities.addAll(factoryJobs.stream()
-                .map(factoryJob -> new SimpleGrantedAuthority(factoryJob.getFactoryId() + ":" + factoryJob.getJobId()))
+                .map(factoryJob -> new SimpleGrantedAuthority(factoryJob.getFactoryName() + ":" + factoryJob.getJobName()))
                 .toList());
 
         return grantedAuthorities;

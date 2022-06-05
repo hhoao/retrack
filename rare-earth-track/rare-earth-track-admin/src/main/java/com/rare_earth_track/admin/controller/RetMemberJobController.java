@@ -39,7 +39,7 @@ public class RetMemberJobController {
         return CommonResult.success(resources);
     }
 
-    @Operation(summary = "赋予职位权限")
+    @Operation(summary = "增加职位权限")
     @PostMapping("/jobs/{jobName}/permissions/{permissionName}")
     public CommonResult<String> addJobResource(@PathVariable("jobName") String jobName,
                                                @PathVariable("permissionName") String resourceName){

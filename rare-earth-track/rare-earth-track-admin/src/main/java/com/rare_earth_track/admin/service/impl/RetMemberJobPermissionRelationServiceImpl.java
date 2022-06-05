@@ -42,6 +42,19 @@ public class RetMemberJobPermissionRelationServiceImpl implements RetMemberJobPe
     }
 
     @Override
+    public RetPermission getJobPermission(Long jobId, Long permissionId){
+        RetMemberJobPermissionRelationExample memberJobPermissionRelationExample = new RetMemberJobPermissionRelationExample();
+        memberJobPermissionRelationExample.createCriteria().
+                andPermissionIdEqualTo(permissionId).
+                andMemberJobIdEqualTo(jobId);
+        List<RetMemberJobPermissionRelation> retMemberJobPermissionRelations = memberJobPermissionRelationMapper.selectByExample(memberJobPermissionRelationExample);
+        if (retMemberJobPermissionRelations.size() == 0){
+            Asserts.fail("该角色没有该权限");
+        }
+        return permissionService.getPermission(retMemberJobPermissionRelations.get(0).getPermissionId());
+    }
+
+    @Override
     public List<RetPermission> getJobPermissions(Long jobId) {
         RetMemberJobPermissionRelationExample memberJobPermissionRelationExample = new RetMemberJobPermissionRelationExample();
         memberJobPermissionRelationExample.createCriteria().andMemberJobIdEqualTo(jobId);
@@ -84,5 +97,26 @@ public class RetMemberJobPermissionRelationServiceImpl implements RetMemberJobPe
         RetMemberJob job = jobService.getJob(jobName);
         RetPermission permission = permissionService.getPermission(permissionName);
         addJobPermission(job.getId(), permission.getId());
+    }
+
+    @Override
+    public List<RetMemberJob> getJobs(Long permissionId) {
+        RetMemberJobPermissionRelationExample memberJobPermissionRelationExample = new RetMemberJobPermissionRelationExample();
+        memberJobPermissionRelationExample.createCriteria().andPermissionIdEqualTo(permissionId);
+        List<RetMemberJobPermissionRelation> retMemberJobPermissionRelations = memberJobPermissionRelationMapper.selectByExample(memberJobPermissionRelationExample);
+        List<RetMemberJob> memberJobs = new ArrayList<>();
+        for (RetMemberJobPermissionRelation memberJobPermissionRelation : retMemberJobPermissionRelations){
+            Long memberJobId = memberJobPermissionRelation.getMemberJobId();
+            RetMemberJob memberJob = jobService.getJob(memberJobId);
+            memberJobs.add(memberJob);
+        }
+        return memberJobs;
+    }
+
+    @Override
+    public void deleteJobPermission(String jobName, String permissionName) {
+        RetMemberJob job = jobService.getJob(jobName);
+        RetPermission permission = permissionService.getPermission(permissionName);
+        deleteJobPermission(job.getId(), permission.getId());
     }
 }

@@ -68,7 +68,16 @@ public class RetMemberJobServiceImpl implements RetMemberJobService {
         return retMemberJobs.get(0);
     }
     @Override
-    public void deleteJobPermission(String jobName, String resourceName) {
+    public void deleteJobPermission(String jobName, String permissionName) {
+        memberJobPermissionRelationService.deleteJobPermission(jobName, permissionName);
+    }
 
+    @Override
+    public RetMemberJob getJob(Long memberJobId) {
+        RetMemberJob memberJob = jobMapper.selectByPrimaryKey(memberJobId);
+        if (memberJob == null){
+            Asserts.fail("没有该成员");
+        }
+        return memberJob;
     }
 }

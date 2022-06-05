@@ -3,10 +3,14 @@ package com.rare_earth_track.admin.service.impl;
 import com.rare_earth_track.admin.TransactionTest;
 import com.rare_earth_track.admin.bean.RetRoleParam;
 import com.rare_earth_track.admin.service.RetRoleService;
+import com.rare_earth_track.common.exception.ApiException;
+import com.rare_earth_track.mgb.model.RetResource;
+import com.rare_earth_track.mgb.model.RetRole;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.List;
 
 /**
  * @author hhoa
@@ -26,25 +30,28 @@ class RetRoleServiceImplTest extends TransactionTest {
 
     @Test
     void getRoleResources() {
+        List<RetResource> roleResources = roleService.getRoleResources(1L);
+        Assertions.assertNotNull(roleResources);
     }
 
     @Test
     void getRole() {
+        RetRole role = roleService.getRole(testRoleName);
+        Assertions.assertEquals(role.getId(), 1L);
     }
 
     @Test
     void addRole() {
-    }
-
-    @Test
-    void getAllRoles() {
-    }
-
-    @Test
-    void list() {
+        RetRoleParam roleParam = new RetRoleParam();
+        roleParam.setName("ROLE_CONTROLLER");
+        roleService.addRole(roleParam);
+        RetRole role_controller = roleService.getRole("ROLE_CONTROLLER");
+        Assertions.assertEquals(role_controller.getName(), "ROLE_CONTROLLER");
     }
 
     @Test
     void deleteRole() {
+        roleService.deleteRole("ROLE_ADMIN");
+        Assertions.assertThrows(ApiException.class, ()-> roleService.getRole("ROLE_ADMIN"));
     }
 }

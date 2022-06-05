@@ -5,10 +5,7 @@ import com.rare_earth_track.admin.bean.*;
 import com.rare_earth_track.admin.service.*;
 import com.rare_earth_track.common.exception.Asserts;
 import com.rare_earth_track.mgb.mapper.RetUserMapper;
-import com.rare_earth_track.mgb.model.RetResource;
-import com.rare_earth_track.mgb.model.RetUser;
-import com.rare_earth_track.mgb.model.RetUserAuth;
-import com.rare_earth_track.mgb.model.RetUserExample;
+import com.rare_earth_track.mgb.model.*;
 import com.rare_earth_track.security.util.JwtTokenService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,8 +20,10 @@ import org.springframework.util.StringUtils;
 import java.util.List;
 
 /**
+ * The type Ret user service.
+ *
  * @author hhoa
- **/
+ */
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -145,7 +144,7 @@ public class RetUserServiceImpl implements RetUserService {
     }
 
     @Override
-    public void updateUserPassword(RetUserAuthParam passwordParam) {
+    public void updateUserPassword(RetUpdateUserPasswordParam passwordParam) {
         String identifier = passwordParam.getIdentifier();
         RetUserAuth usernameAuth = null;
         switch (passwordParam.getIdentifyType()) {
@@ -246,12 +245,20 @@ public class RetUserServiceImpl implements RetUserService {
         return user;
     }
 
+    /**
+     * 删除相关引用
+     * @param userId 用户id
+     */
+    private void deleteReference(Long userId){
+        userAuthService.deleteAllUserAuth(userId);
+        memberService.deleteMembersByUserId(userId);
+    }
+
     @Override
     public void deleteUserByUserId(Long userId) {
         RetUserAuth userAuth = userAuthService.getUserAuth(userId, IdentifyType.username);
         clearUserStatus(userAuth.getIdentifier());
-        userAuthService.deleteAllUserAuth(userId);
-        memberService.deleteMembersByUserId(userId);
+        deleteReference(userId);
         int i = userMapper.deleteByPrimaryKey(userId);
         if (i == 0) {
             Asserts.fail("删除失败");
@@ -260,7 +267,20 @@ public class RetUserServiceImpl implements RetUserService {
     }
 
     @Override
-    public List<RetUser> getUser(RetUser user) {
+    public void deleteUsers(RetUser user){
+        List<RetUser> users = getUser(user);
+        for (RetUser delUser : users){
+            deleteReference(delUser.getId());
+            userMapper.deleteByPrimaryKey(delUser.getId());
+        }
+    }
+
+    /**
+     * 获取userExample
+     * @param user user
+     * @return RetUserExample
+     */
+    private RetUserExample getUserExample(RetUser user){
         RetUserExample userExample = new RetUserExample();
         RetUserExample.Criteria criteria = userExample.createCriteria();
         if (user.getAddress() != null)
@@ -283,6 +303,11 @@ public class RetUserServiceImpl implements RetUserService {
             criteria.andJobEqualTo(user.getJob());
         if (user.getRoleId() != null)
             criteria.andRoleIdEqualTo(user.getRoleId());
+        return userExample;
+    }
+    @Override
+    public List<RetUser> getUser(RetUser user) {
+        RetUserExample userExample = getUserExample(user);
         return userMapper.selectByExample(userExample);
     }
 
@@ -341,19 +366,9 @@ public class RetUserServiceImpl implements RetUserService {
     }
 
     @Override
-    public void updateUserAuth(Long userId, IdentifyType authType, RetAdminUserAuthParam adminUserAuthParam) {
-        RetUserAuth userAuth1 = userAuthService.getUserAuth(userId, authType);
+    public void updateUserAuth(Long userId, IdentifyType authType, RetUserAuthParam adminUserAuthParam) {
         RetUserAuth usernameAuth = userAuthService.getUserAuth(userId, IdentifyType.username);
-        RetUserAuth newUserAuth = new RetUserAuth();
-        newUserAuth.setId(userAuth1.getId());
-        newUserAuth.setUserId(userId);
-        newUserAuth.setIdentityType(authType.value());
-        if (adminUserAuthParam.getCredential() != null) {
-            newUserAuth.setCredential(adminUserAuthParam.getCredential());
-        }
-        if (adminUserAuthParam.getIdentifier() != null)
-            newUserAuth.setIdentifier(adminUserAuthParam.getIdentifier());
-        userAuthService.updateUserAuth(newUserAuth);
+        userAuthService.updateUserAuth(userId, authType, adminUserAuthParam);
         clearUserStatus(usernameAuth.getIdentifier());
     }
 
@@ -368,8 +383,10 @@ public class RetUserServiceImpl implements RetUserService {
     public void updateUsername(String newUsername, String authorization) {
         String username = jwtTokenService.getSubjectFromAuthorization(authorization);
         RetUserAuth userAuth = userAuthService.getUserAuth(IdentifyType.username, username);
-        userAuth.setIdentifier(newUsername);
-        userAuthService.updateUserAuth(userAuth);
+        RetUserAuthParam userAuthParam = new RetUserAuthParam();
+        userAuthParam.setIdentifier(newUsername);
+        IdentifyType identifyType = Enum.valueOf(IdentifyType.class, userAuth.getIdentityType());
+        userAuthService.updateUserAuth(userAuth.getUserId(), identifyType, userAuthParam);
         clearUserStatus(username);
     }
 

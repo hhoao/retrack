@@ -49,7 +49,7 @@ public class RetAdminController {
     }
     @Operation(summary = "更改用户密码")
     @PatchMapping("/users/auth/password")
-    public CommonResult<String> updateUserPassword(@RequestBody RetUserAuthParam userAuthParam){
+    public CommonResult<String> updateUserPassword(@RequestBody RetUpdateUserPasswordParam userAuthParam){
         userService.updateUserPassword(userAuthParam);
         return CommonResult.success(null);
     }
@@ -86,7 +86,7 @@ public class RetAdminController {
     @ResponseBody
     public CommonResult<String> updateUserAuth(@PathVariable("userId") Long userId,
                                                @PathVariable("authType") IdentifyType authType,
-                                               @RequestBody RetAdminUserAuthParam userAuth) {
+                                               @RequestBody RetUserAuthParam userAuth) {
         userService.updateUserAuth(userId, authType, userAuth);
         return CommonResult.success(null);
     }

@@ -3,12 +3,16 @@ package com.rare_earth_track.admin.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.rare_earth_track.admin.bean.RetFactoryJob;
 import com.rare_earth_track.admin.bean.RetMemberParam;
+import com.rare_earth_track.admin.service.RetFactoryService;
+import com.rare_earth_track.admin.service.RetMemberJobService;
 import com.rare_earth_track.admin.service.RetMemberService;
 import com.rare_earth_track.common.exception.Asserts;
 import com.rare_earth_track.mgb.mapper.RetMemberMapper;
+import com.rare_earth_track.mgb.model.RetFactory;
 import com.rare_earth_track.mgb.model.RetMember;
 import com.rare_earth_track.mgb.model.RetMemberExample;
-import lombok.RequiredArgsConstructor;
+import com.rare_earth_track.mgb.model.RetMemberJob;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -19,10 +23,19 @@ import java.util.List;
  * @date 2022/5/24
  **/
 
-@RequiredArgsConstructor
 @Service
 public class RetMemberServiceImpl implements RetMemberService {
     private final RetMemberMapper memberMapper;
+    private final RetFactoryService factoryService;
+
+    @Lazy
+    public RetMemberServiceImpl(RetMemberMapper memberMapper, RetFactoryService factoryService, RetMemberJobService memberJobService) {
+        this.memberMapper = memberMapper;
+        this.factoryService = factoryService;
+        this.memberJobService = memberJobService;
+    }
+
+    private final RetMemberJobService memberJobService;
 
     @Override
     public List<RetMember> list(Integer pageNum, Integer pageSize) {
@@ -83,7 +96,9 @@ public class RetMemberServiceImpl implements RetMemberService {
         List<RetMember> members = memberMapper.selectByExample(memberExample);
         List<RetFactoryJob> factoryJobs = new ArrayList<>();
         for (RetMember member : members){
-            RetFactoryJob factoryJob = new RetFactoryJob(member.getFactoryId(), member.getJobId());
+            RetFactory factoryByFactoryId = factoryService.getFactoryByFactoryId(member.getFactoryId());
+            RetMemberJob job = memberJobService.getJob(member.getJobId());
+            RetFactoryJob factoryJob = new RetFactoryJob(factoryByFactoryId.getName(), job.getName());
             factoryJobs.add(factoryJob);
         }
         return factoryJobs;

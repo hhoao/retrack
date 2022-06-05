@@ -2,6 +2,7 @@ package com.rare_earth_track.admin.service.impl;
 
 import com.rare_earth_track.admin.TransactionTest;
 import com.rare_earth_track.admin.bean.IdentifyType;
+import com.rare_earth_track.admin.bean.RetUserAuthParam;
 import com.rare_earth_track.admin.service.RetUserAuthService;
 import com.rare_earth_track.common.exception.ApiException;
 import com.rare_earth_track.mgb.model.RetUserAuth;
@@ -61,10 +62,11 @@ class RetUserAuthServiceImplTest extends TransactionTest {
     }
     @Test
     void updateUserAuth() {
-        RetUserAuth userAuth = userAuthService.getUserAuth(tUsername);
         String testPassword = "oooooo";
-        userAuth.setCredential(testPassword);
-        userAuthService.updateUserAuth(userAuth);
+        RetUserAuthParam userAuthParam = new RetUserAuthParam();
+        userAuthParam.setCredential(testPassword);
+        userAuthService.updateUserAuth(tUserId, IdentifyType.username, userAuthParam);
+        RetUserAuth userAuth = userAuthService.getUserAuth(tUserId, IdentifyType.email);
         Assertions.assertTrue(passwordEncoder.matches(testPassword, userAuth.getCredential()));
     }
 

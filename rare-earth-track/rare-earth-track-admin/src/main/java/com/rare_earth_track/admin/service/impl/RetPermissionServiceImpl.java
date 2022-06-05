@@ -50,30 +50,36 @@ public class RetPermissionServiceImpl implements RetPermissionService {
 
     @Override
     public RetPermission getPermission(Long permissionId) {
-        return permissionMapper.selectByPrimaryKey(permissionId);
+        RetPermission permission = permissionMapper.selectByPrimaryKey(permissionId);
+        if (permission == null){
+            Asserts.fail("没有该权限");
+        }
+        return permission;
     }
 
 
 
     @Override
-    public int addPermission(RetPermissionParam permissionParam) {
+    public Long addPermission(RetPermissionParam permissionParam) {
         RetPermission permission = new RetPermission();
         BeanUtil.copyProperties(permissionParam, permission);
-        int insert = permissionMapper.insert(permission);
+        int insert = permissionMapper.insertSelective(permission);
         if (insert == 0){
             Asserts.fail("插入权限失败");
         }
-        return insert;
+        return permission.getId();
     }
 
     @Override
-    public int updatePermission(RetPermissionParam permissionParam) {
-        RetPermission permissionByName = getPermission(permissionParam.getName());
+    public int updatePermission(String permissionName, RetPermissionParam permissionParam) {
+        RetPermission permissionByName = getPermission(permissionName);
+        RetPermission newPermission = new RetPermission();
         if (permissionByName == null){
             Asserts.fail("没有该权限");
         }
-        BeanUtils.copyProperties(permissionParam, permissionByName);
-        int successCount = permissionMapper.updateByPrimaryKey(permissionByName);
+        BeanUtils.copyProperties(permissionParam, newPermission);
+        newPermission.setId(permissionByName.getId());
+        int successCount = permissionMapper.updateByPrimaryKeySelective(newPermission);
         if (successCount == 0){
             Asserts.fail("更新失败");
         }

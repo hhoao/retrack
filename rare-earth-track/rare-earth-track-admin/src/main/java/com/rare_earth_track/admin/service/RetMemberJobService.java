@@ -38,19 +38,19 @@ public interface RetMemberJobService {
      * Add job resource.
      *
      * @param jobId      the job id
-     * @param resourceId the resource id
+     * @param permissionId the resource id
      */
     @Transactional
-    void addJobPermission(Long jobId, Long resourceId);
+    void addJobPermission(Long jobId, Long permissionId);
 
     /**
      * Delete job resource.
      *
      * @param jobId      the job id
-     * @param resourceId the resource id
+     * @param permissionId the resource id
      */
     @Transactional
-    void deleteJobPermission(Long jobId, Long resourceId);
+    void deleteJobPermission(Long jobId, Long permissionId);
 
     /**
      * Add job permission.
@@ -60,13 +60,27 @@ public interface RetMemberJobService {
      */
     void addJobPermission(String jobName, String permissionName);
 
+    /**
+     * Gets job.
+     *
+     * @param jobName the job name
+     * @return the job
+     */
     RetMemberJob getJob(String jobName);
 
     /**
      * Delete job permission.
      *
      * @param jobName      the job name
-     * @param resourceName the resource name
+     * @param permissionName the resource name
      */
-    void deleteJobPermission(String jobName, String resourceName);
+    void deleteJobPermission(String jobName, String permissionName);
+
+    /**
+     * Gets job.
+     *
+     * @param memberJobId the member job id
+     * @return the job
+     */
+    RetMemberJob getJob(Long memberJobId);
 }

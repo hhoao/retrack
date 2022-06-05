@@ -1,12 +1,14 @@
 package com.rare_earth_track.admin.service.impl;
 
 import com.rare_earth_track.admin.bean.IdentifyType;
+import com.rare_earth_track.admin.bean.RetUserAuthParam;
 import com.rare_earth_track.admin.service.RetUserAuthService;
 import com.rare_earth_track.common.exception.Asserts;
 import com.rare_earth_track.mgb.mapper.RetUserAuthMapper;
 import com.rare_earth_track.mgb.model.RetUserAuth;
 import com.rare_earth_track.mgb.model.RetUserAuthExample;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.BeanUtils;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -93,6 +95,30 @@ public class RetUserAuthServiceImpl implements RetUserAuthService {
         }
     }
 
+    private RetUserAuthExample getUserAuthExample(RetUserAuth userAuth){
+        RetUserAuthExample userAuthExample = new RetUserAuthExample();
+        RetUserAuthExample.Criteria criteria = userAuthExample.createCriteria();
+        if (userAuth.getId() != null){
+            criteria.andIdEqualTo(userAuth.getId());
+            return userAuthExample;
+        }
+        if (userAuth.getUserId() != null){
+            criteria.andUserIdEqualTo(userAuth.getUserId());
+            return userAuthExample;
+        }
+        if (userAuth.getIdentifier() != null){
+            criteria.andIdentifierEqualTo(userAuth.getIdentifier());
+            return userAuthExample;
+        }
+        if (userAuth.getCredential() != null && userAuth.getUserId() != null){
+            String newCredential = passwordEncoder.encode(userAuth.getCredential());
+            criteria.andCredentialEqualTo(newCredential);
+        }
+        if (userAuth.getIdentityType() != null){
+            criteria.andIdentityTypeEqualTo(userAuth.getIdentityType());
+        }
+        return userAuthExample;
+    }
     @Override
     public void deleteAllUserAuth(Long userId) {
         RetUserAuthExample userAuthExample = new RetUserAuthExample();
@@ -101,21 +127,20 @@ public class RetUserAuthServiceImpl implements RetUserAuthService {
         List<RetUserAuth> retUserAuths = userAuthMapper.selectByExample(userAuthExample);
         for (RetUserAuth userAuth : retUserAuths){
             userAuthMapper.deleteByPrimaryKey(userAuth.getId());
+            userAuthMapper.deleteByPrimaryKey(userAuth.getId());
         }
     }
 
     @Override
-    public void updateUserAuth(RetUserAuth userAuth) {
-        RetUserAuth oldUserAuth = userAuthMapper.selectByPrimaryKey(userAuth.getId());
-        if (userAuth.getCredential() != null) {
-            if (!passwordEncoder.matches(userAuth.getCredential(), oldUserAuth.getCredential())) {
-                updateCredential(userAuth.getUserId(), userAuth.getCredential());
-                userAuth.setCredential(passwordEncoder.encode(userAuth.getCredential()));
-            }
-        }
-        int i = userAuthMapper.updateByPrimaryKeySelective(userAuth);
-        if (i == 0){
-            Asserts.fail("更新失败");
+    public void updateUserAuth(Long userId, IdentifyType identifyType, RetUserAuthParam userAuthParam){
+        RetUserAuth oldUserAuth = getUserAuth(userId, identifyType);
+        RetUserAuth userAuth = new RetUserAuth();
+        BeanUtils.copyProperties(userAuthParam, userAuth);
+
+        userAuth.setId(oldUserAuth.getId());
+        userAuthMapper.updateByPrimaryKeySelective(userAuth);
+        if (userAuthParam.getCredential() != null) {
+            updateCredential(userId, userAuthParam.getCredential());
         }
     }
 

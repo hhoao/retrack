@@ -45,7 +45,7 @@ public interface RetRoleResourceRelationService {
      * @param roleId 角色id
      */
     @Transactional
-    void deleteRole(Long roleId);
+    void deleteRoleResources(Long roleId);
 
     /**
      * 通过角色id获取资源

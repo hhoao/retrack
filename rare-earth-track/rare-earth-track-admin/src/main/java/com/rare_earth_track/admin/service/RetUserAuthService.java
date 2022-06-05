@@ -1,6 +1,7 @@
 package com.rare_earth_track.admin.service;
 
 import com.rare_earth_track.admin.bean.IdentifyType;
+import com.rare_earth_track.admin.bean.RetUserAuthParam;
 import com.rare_earth_track.mgb.model.RetUserAuth;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -80,9 +81,12 @@ public interface RetUserAuthService {
     /**
      * Update user auth.
      *
-     * @param userAuth the user auth
+     * @param userId        the user id
+     * @param identifyType  the identify type
+     * @param userAuthParam the user auth param
      */
-    void updateUserAuth(RetUserAuth userAuth);
+    void updateUserAuth(Long userId, IdentifyType identifyType, RetUserAuthParam userAuthParam);
+
 
     /**
      * Gets user id by user name.

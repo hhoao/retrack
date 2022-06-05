@@ -71,7 +71,7 @@ public interface RetUserService {
      * @param passwordParam 更新密码需要的参数
      */
     @Transactional(rollbackFor = Exception.class, noRollbackFor = ApiException.class)
-    void updateUserPassword(RetUserAuthParam passwordParam);
+    void updateUserPassword(RetUpdateUserPasswordParam passwordParam);
 
     /**
      * 获取所有用户
@@ -164,6 +164,8 @@ public interface RetUserService {
     @Transactional
     void deleteUserByUserId(Long userId);
 
+    void deleteUsers(RetUser user);
+
     /**
      * Gets user.
      *
@@ -211,7 +213,7 @@ public interface RetUserService {
      * @param authType the auth type
      * @param userAuth the user auth
      */
-    void updateUserAuth(Long userId, IdentifyType authType, RetAdminUserAuthParam userAuth);
+    void updateUserAuth(Long userId, IdentifyType authType, RetUserAuthParam userAuth);
 
     /**
      * Unbind user auth.

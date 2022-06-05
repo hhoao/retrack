@@ -80,11 +80,11 @@ public class RetResourceServiceImpl implements RetResourceService {
 
     @Override
     public void updateResource(String resourceName, RetResourceParam resourceParam) {
-        RetResource resourceByName = getResource(resourceParam.getName());
+        RetResource resourceByName = getResource(resourceName);
         //获取影响的角色
         List<RetRole> rolesByResourceId = roleResourceRelationService.getRoles(resourceByName.getId());
         BeanUtils.copyProperties(resourceParam, resourceByName);
-        int successCount = resourceMapper.updateByPrimaryKey(resourceByName);
+        int successCount = resourceMapper.updateByPrimaryKeySelective(resourceByName);
         if (successCount == 0){
             Asserts.fail("更新失败");
         }

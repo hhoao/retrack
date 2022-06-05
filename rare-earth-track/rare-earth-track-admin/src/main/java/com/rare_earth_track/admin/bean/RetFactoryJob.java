@@ -3,6 +3,7 @@ package com.rare_earth_track.admin.bean;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
@@ -15,9 +16,10 @@ import java.io.Serializable;
 @Data
 @Schema(description = "RetFactoryJob", name = "工厂职位")
 @AllArgsConstructor
+@NoArgsConstructor
 public class RetFactoryJob implements Serializable {
-    @Schema(description = "工厂id")
-    private Long factoryId;
-    @Schema(description = "职位Id")
-    private Long jobId;
+    @Schema(description = "工厂名")
+    private String factoryName;
+    @Schema(description = "职位名")
+    private String jobName;
 }

@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.sql.SQLIntegrityConstraintViolationException;
+
 /**
  * 全局异常处理
  * @author hhoa
@@ -26,6 +28,12 @@ public class GlobalExceptionHandler {
             return CommonResult.failed(e.getErrorCode());
         }
         return CommonResult.failed(e.getMessage());
+    }
+
+    @ResponseBody
+    @ExceptionHandler(value = SQLIntegrityConstraintViolationException.class)
+    public CommonResult handle(SQLIntegrityConstraintViolationException e){
+        return CommonResult.failed("有相关联的项目没有处理");
     }
     @ResponseBody
     @ExceptionHandler(value = RuntimeException.class)
