@@ -329,7 +329,7 @@ CREATE TABLE `ret_product`
     `id`                   bigint       NOT NULL AUTO_INCREMENT,
     `factory_id`           bigint       NOT NULL COMMENT '工厂id',
     `name`                 varchar(100) NOT NULL COMMENT '名称',
-    `batch_id`             varchar(100) NOT NULL,
+    `batch_id`             varchar(100) NOT NULL COMMENT '批次',
     `description`          text         DEFAULT NULL COMMENT '描述',
     `dispatch_time`        datetime     DEFAULT NULL COMMENT '出货日期',
     `moisture_proof_logo`  varchar(256) DEFAULT NULL COMMENT '防潮标识',
@@ -338,11 +338,14 @@ CREATE TABLE `ret_product`
     `net_weight`           varchar(50)  DEFAULT NULL COMMENt '净重',
     `transport_log`        varchar(256) DEFAULT NULL COMMENT '运输标志',
     `pic`                  varchar(256) DEFAULT NULL COMMENT '图片',
+    `quality_certificate` varchar(256) NULL COMMENT '质量证明书',
+    `standard_number` varchar(256) NULL COMMENT '标准编号',
     `purity`               varchar(20)  DEFAULT NULL COMMENT '纯度',
     `production_equipment` varchar(100) DEFAULT NULL COMMENT '生产设备',
     `material_ratio`       varchar(50)  DEFAULT NULL COMMENT '物料配比',
     `extraction_unit`      varchar(50)  DEFAULT NULL COMMENT '提取单位',
     `album_pics`           varchar(255) DEFAULT NULL COMMENT '画册图片，连产品图片限制为5张，以逗号分割',
+    `chemical_composition` varchar(255) NULL COMMENT '化学成分',
     CONSTRAINT PK_PRODUCT PRIMARY KEY (`id`),
     FOREIGN KEY (`factory_id`) REFERENCES `ret_factory` (`id`)
 ) ENGINE = InnoDB

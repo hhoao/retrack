@@ -9,6 +9,7 @@ import lombok.Data;
  **/
 
 @Data
+@Schema(name = "用户认证参数", description = "RetUserAuthParam")
 public class RetUserAuthParam {
     @Schema(description = "标识")
     private String identifier;

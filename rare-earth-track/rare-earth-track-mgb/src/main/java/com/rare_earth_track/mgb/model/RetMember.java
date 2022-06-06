@@ -1,6 +1,8 @@
 package com.rare_earth_track.mgb.model;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+
+import java.io.Serial;
 import java.io.Serializable;
 
 /**
@@ -27,6 +29,7 @@ public class RetMember implements Serializable {
     @Schema(description = "工厂id")
     private Long factoryId;
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     /**

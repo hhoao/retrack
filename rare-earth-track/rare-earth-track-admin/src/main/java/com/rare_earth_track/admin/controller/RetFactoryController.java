@@ -32,7 +32,7 @@ public class RetFactoryController {
         List<RetFactory> list = factoryService.list(pageNum, pageSize);
         return CommonResult.success(list);
     }
-    @Operation(summary = "添加工厂")
+    @Operation(summary = "创建工厂")
     @PostMapping("/factories")
     public CommonResult<String> addFactory(@RequestBody RetFactoryParam factoryParam){
         factoryService.addFactory(factoryParam);

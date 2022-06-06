@@ -91,7 +91,13 @@ public class RetRoleResourceRelationServiceImpl implements RetRoleResourceRelati
         RetRole retRole = roleService.getRole(roleId);
         List<RetResource> byRoleName = roleResourceCacheService.getByRoleName(retRole.getName());
         if (byRoleName == null){
-            return new ArrayList<>();
+            byRoleName = new ArrayList<>();
+            RetRoleResourceRelationExample roleResourceRelationExample = new RetRoleResourceRelationExample();
+            roleResourceRelationExample.createCriteria().andRoleIdEqualTo(roleId);
+            List<RetRoleResourceRelation> retRoleResourceRelations = roleResourceRelationMapper.selectByExample(roleResourceRelationExample);
+            for (RetRoleResourceRelation roleResourceRelation : retRoleResourceRelations){
+                byRoleName.add(resourceService.getResource(roleResourceRelation.getResourceId()));
+            }
         }
         return byRoleName;
     }

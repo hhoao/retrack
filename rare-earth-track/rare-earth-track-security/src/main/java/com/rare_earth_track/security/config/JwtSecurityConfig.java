@@ -1,14 +1,14 @@
 package com.rare_earth_track.security.config;
 
 
+import cn.hutool.extra.spring.SpringUtil;
 import com.rare_earth_track.security.component.*;
 import com.rare_earth_track.security.util.DefaultJwtTokenServiceImpl;
 import com.rare_earth_track.security.util.JwtTokenService;
 import io.jsonwebtoken.lang.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.access.AccessDecisionVoter;
@@ -48,14 +48,18 @@ public class JwtSecurityConfig extends WebSecurityConfigurerAdapter {
         this.jwtSecurityProperties = jwtSecurityProperties;
     }
 
-    @Bean
-    @ConditionalOnMissingBean(JwtTokenService.class)
-    public JwtTokenService jwtTokenService(){
+
+    public JwtTokenService getDefaultJwtTokenService(){
         this.jwtTokenService = new DefaultJwtTokenServiceImpl();
         configureJwtTokenService();
         return this.jwtTokenService;
     }
-
+    @Autowired(required = false)
+    @ConditionalOnBean(JwtTokenService.class)
+    public JwtTokenService jwtTokenService(JwtTokenService jwtTokenService){
+        this.jwtTokenService = jwtTokenService;
+        return this.jwtTokenService;
+    }
     public void configureJwtTokenService(){
         this.jwtTokenService.setTokenHead(jwtSecurityProperties.getTokenHead());
         this.jwtTokenService.setExpiration(jwtSecurityProperties.getExpiration());
@@ -63,11 +67,7 @@ public class JwtSecurityConfig extends WebSecurityConfigurerAdapter {
         this.jwtTokenService.setSecret(jwtSecurityProperties.getSecret());
         this.jwtTokenService.setRefreshTime(jwtSecurityProperties.getRefreshTime());
     }
-    @Autowired(required = false)
-    public JwtTokenService jwtTokenService(JwtTokenService jwtTokenService){
-        this.jwtTokenService = jwtTokenService;
-        return this.jwtTokenService;
-    }
+
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry registry = httpSecurity
@@ -107,6 +107,10 @@ public class JwtSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     public AuthenticationTokenFilter jwtAuthenticationTokenFilter(){
+        if (this.jwtTokenService == null){
+            this.jwtTokenService = getDefaultJwtTokenService();
+            SpringUtil.registerBean("jwtTokenService", this.jwtTokenService);
+        }
         if (this.authenticationTokenFilter == null) {
             this.authenticationTokenFilter = new AuthenticationTokenFilter(userDetailsService(),
                     this.jwtSecurityProperties,
