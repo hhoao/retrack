@@ -1,6 +1,8 @@
 package com.rare_earth_track.admin.service;
 
+import com.rare_earth_track.admin.bean.RetProductParam;
 import com.rare_earth_track.mgb.model.RetProduct;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -27,6 +29,47 @@ public interface RetProductService {
      * @return the products
      */
     List<RetProduct> getProducts(RetProduct product);
+
+    /**
+     * 添加产品
+     *
+     * @param productParam 产品参数
+     */
+    @Transactional
+    void addProduct(RetProductParam productParam);
+
+    /**
+     * 修改产品
+     *
+     * @param productName the product name
+     * @param productParam 产品参数
+     */
+    @Transactional
+    void updateProduct(String productName, RetProductParam productParam);
+
+    /**
+     * 删除产品
+     *
+     * @param name 产品id
+     */
+    @Transactional
+    int deleteProductByName(String name);
+
+    /**
+     * Gets product by product name
+     *
+     * @param name
+     * @return the product by product name
+     */
+    RetProduct getProductByProductName(String name);
+
+    /**
+     * Gets product by product id
+     *
+     * @param id
+     * @return the product by product id
+     */
+    RetProduct getProductByProductId(Long id);
 
     /**
      * Delete products.

@@ -1,15 +1,14 @@
 package com.rare_earth_track.admin.controller;
 
 
+import com.rare_earth_track.admin.bean.RetProductParam;
 import com.rare_earth_track.admin.service.RetProductService;
 import com.rare_earth_track.common.api.CommonResult;
 import com.rare_earth_track.mgb.model.RetProduct;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -28,4 +27,27 @@ public class RetProductController {
         List<RetProduct> products = productService.list(pageNum, pageSize);
         return CommonResult.success(products);
     }
+
+    @Operation(description = "添加产品", summary = "添加产品")
+    @PostMapping("/products")
+    public CommonResult<String> addProduct(@RequestBody RetProductParam retProductParam) {
+        productService.addProduct(retProductParam);
+        return CommonResult.success(null);
+    }
+
+    @Operation(summary = "删除产品")
+    @DeleteMapping("/products/{productName}")
+    public CommonResult<String> deleteProduct(@PathVariable(value = "productName") String productName) {
+        productService.deleteProductByName(productName);
+        return CommonResult.success(null);
+    }
+
+    @Operation(summary = "更新产品")
+    @GetMapping("/products/search")
+    public CommonResult<String> updateProduct(@PathVariable("productName") String productName,
+                                              @RequestBody RetProductParam productParam) {
+        productService.updateProduct(productName, productParam);
+        return CommonResult.success(null);
+    }
+
 }
