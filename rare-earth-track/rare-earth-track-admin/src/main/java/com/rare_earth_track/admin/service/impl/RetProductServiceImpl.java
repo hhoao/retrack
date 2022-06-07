@@ -30,13 +30,15 @@ public class RetProductServiceImpl implements RetProductService {
     }
 
     @Override
-    public void addProduct(RetProductParam productParam) {
+    public Long addProduct(Long factoryId, RetProductParam productParam) {
         RetProduct product = new RetProduct();
         BeanUtil.copyProperties(productParam, product);
+        product.setFactoryId(factoryId);
         int insert = productMapper.insert(product);
         if (insert == 0) {
             Asserts.fail("新增产品失败");
         }
+        return product.getId();
     }
 
     @Override

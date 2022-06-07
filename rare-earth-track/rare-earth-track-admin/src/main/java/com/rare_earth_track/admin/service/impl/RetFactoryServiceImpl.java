@@ -5,6 +5,7 @@ import com.github.pagehelper.PageHelper;
 import com.rare_earth_track.admin.bean.MailType;
 import com.rare_earth_track.admin.bean.RetFactoryParam;
 import com.rare_earth_track.admin.bean.RetMemberParam;
+import com.rare_earth_track.admin.bean.RetProductParam;
 import com.rare_earth_track.admin.service.*;
 import com.rare_earth_track.common.exception.Asserts;
 import com.rare_earth_track.mgb.mapper.RetFactoryMapper;
@@ -200,5 +201,11 @@ public class RetFactoryServiceImpl implements RetFactoryService {
         RetFactory factoryByFactoryName = getFactoryByFactoryName(factoryName);
         product.setFactoryId(factoryByFactoryName.getId());
         return productService.getProducts(product);
+    }
+
+    @Override
+    public void addProduct(String factoryName, RetProductParam retProductParam) {
+        RetFactory factoryByFactoryName = getFactoryByFactoryName(factoryName);
+        productService.addProduct(factoryByFactoryName.getId(), retProductParam);
     }
 }

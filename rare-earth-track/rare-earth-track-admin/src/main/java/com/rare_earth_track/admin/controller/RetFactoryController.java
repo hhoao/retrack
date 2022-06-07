@@ -2,6 +2,7 @@ package com.rare_earth_track.admin.controller;
 
 import com.rare_earth_track.admin.bean.RetFactoryParam;
 import com.rare_earth_track.admin.bean.RetMemberParam;
+import com.rare_earth_track.admin.bean.RetProductParam;
 import com.rare_earth_track.admin.service.RetFactoryService;
 import com.rare_earth_track.common.api.CommonResult;
 import com.rare_earth_track.mgb.model.RetFactory;
@@ -108,4 +109,15 @@ public class RetFactoryController {
         List<RetProduct> products = factoryService.listProducts(factoryName);
         return CommonResult.success(products);
     }
+
+
+
+    @Operation(description = "添加产品", summary = "添加产品")
+    @PostMapping("/factories/{factoryName}/products")
+    public CommonResult<String> addProduct(@PathVariable(value = "factoryName") String factoryName,
+                                           @RequestBody RetProductParam retProductParam) {
+        factoryService.addProduct(factoryName, retProductParam);
+        return CommonResult.success(null);
+    }
+
 }

@@ -28,12 +28,7 @@ public class RetProductController {
         return CommonResult.success(products);
     }
 
-    @Operation(description = "添加产品", summary = "添加产品")
-    @PostMapping("/products")
-    public CommonResult<String> addProduct(@RequestBody RetProductParam retProductParam) {
-        productService.addProduct(retProductParam);
-        return CommonResult.success(null);
-    }
+
 
     @Operation(summary = "删除产品")
     @DeleteMapping("/products/{productName}")
