@@ -83,4 +83,5 @@ public interface RetMemberJobService {
      * @return the job
      */
     RetMemberJob getJob(Long memberJobId);
+
 }

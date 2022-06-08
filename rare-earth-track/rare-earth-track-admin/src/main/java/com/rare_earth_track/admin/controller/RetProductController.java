@@ -7,6 +7,8 @@ import com.rare_earth_track.common.api.CommonResult;
 import com.rare_earth_track.mgb.model.RetProduct;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.tags.Tags;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,6 +19,7 @@ import java.util.List;
  */
 @RestController
 @RequiredArgsConstructor
+@Tags({@Tag(name="产品管理", description = "RetProductController")})
 public class RetProductController {
     private final RetProductService productService;
 
