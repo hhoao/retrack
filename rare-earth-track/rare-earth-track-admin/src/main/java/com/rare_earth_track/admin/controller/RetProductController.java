@@ -31,7 +31,12 @@ public class RetProductController {
         return CommonResult.success(products);
     }
 
-
+    @Operation(summary = "增加产品")
+    @PostMapping("/products")
+    public CommonResult<String> addProduct(@RequestBody RetProductParam productParam) {
+        productService.addProduct(productParam);
+        return CommonResult.success(null);
+    }
 
     @Operation(summary = "删除产品")
     @DeleteMapping("/products/{productName}")
@@ -41,7 +46,7 @@ public class RetProductController {
     }
 
     @Operation(summary = "更新产品")
-    @GetMapping("/products/search")
+    @PatchMapping("/products/{productName}")
     public CommonResult<String> updateProduct(@PathVariable("productName") String productName,
                                               @RequestBody RetProductParam productParam) {
         productService.updateProduct(productName, productParam);

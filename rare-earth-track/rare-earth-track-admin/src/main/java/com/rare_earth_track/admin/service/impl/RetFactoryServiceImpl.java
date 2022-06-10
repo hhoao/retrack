@@ -202,10 +202,4 @@ public class RetFactoryServiceImpl implements RetFactoryService {
         product.setFactoryId(factoryByFactoryName.getId());
         return productService.getProducts(product);
     }
-
-    @Override
-    public void addProduct(String factoryName, RetProductParam retProductParam) {
-        RetFactory factoryByFactoryName = getFactoryByFactoryName(factoryName);
-        productService.addProduct(factoryByFactoryName.getId(), retProductParam);
-    }
 }

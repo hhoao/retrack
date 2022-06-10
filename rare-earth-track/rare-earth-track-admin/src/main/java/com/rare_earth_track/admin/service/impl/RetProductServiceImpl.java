@@ -9,6 +9,7 @@ import com.rare_earth_track.mgb.mapper.RetProductMapper;
 import com.rare_earth_track.mgb.model.RetProduct;
 import com.rare_earth_track.mgb.model.RetProductExample;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -30,22 +31,20 @@ public class RetProductServiceImpl implements RetProductService {
     }
 
     @Override
-    public Long addProduct(Long factoryId, RetProductParam productParam) {
+    public void addProduct(RetProductParam productParam) {
         RetProduct product = new RetProduct();
         BeanUtil.copyProperties(productParam, product);
-        product.setFactoryId(factoryId);
         int insert = productMapper.insert(product);
         if (insert == 0) {
             Asserts.fail("新增产品失败");
         }
-        return product.getId();
     }
 
     @Override
     public void updateProduct(String productName, RetProductParam productParam) {
         RetProduct productByProductName = getProductByProductName(productName);
         RetProduct newProduct = new RetProduct();
-        BeanUtil.copyProperties(productParam, newProduct);
+        BeanUtils.copyProperties(productParam, newProduct);
         newProduct.setId(productByProductName.getId());
         int i = productMapper.updateByPrimaryKeySelective(newProduct);
         if (i == 0) {

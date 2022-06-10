@@ -112,12 +112,4 @@ public class RetFactoryController {
 
 
 
-    @Operation(description = "添加产品", summary = "添加产品")
-    @PostMapping("/factories/{factoryName}/products")
-    public CommonResult<String> addProduct(@PathVariable(value = "factoryName") String factoryName,
-                                           @RequestBody RetProductParam retProductParam) {
-        factoryService.addProduct(factoryName, retProductParam);
-        return CommonResult.success(null);
-    }
-
 }

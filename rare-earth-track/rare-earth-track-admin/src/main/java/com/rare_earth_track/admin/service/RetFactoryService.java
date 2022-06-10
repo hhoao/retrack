@@ -149,11 +149,4 @@ public interface RetFactoryService {
      */
     List<RetProduct> listProducts(String factoryName);
 
-    /**
-     * Add product
-     *
-     * @param factoryName
-     * @param retProductParam
-     */
-    void addProduct(String factoryName, RetProductParam retProductParam);
 }

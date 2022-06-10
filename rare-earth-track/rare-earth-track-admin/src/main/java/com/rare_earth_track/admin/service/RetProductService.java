@@ -33,12 +33,11 @@ public interface RetProductService {
     /**
      * 添加产品
      *
-     * @param factoryId
      * @param productParam 产品参数
      * @return
      */
     @Transactional
-    Long addProduct(Long factoryId, RetProductParam productParam);
+    void addProduct(RetProductParam productParam);
 
     /**
      * 修改产品
