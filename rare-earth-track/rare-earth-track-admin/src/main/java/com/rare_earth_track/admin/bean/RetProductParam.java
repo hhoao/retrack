@@ -3,6 +3,8 @@ package com.rare_earth_track.admin.bean;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
+import java.util.Date;
+
 /**
  * @ClassName RetProductParam
  * @Description: TODO
@@ -13,6 +15,10 @@ import lombok.Data;
 @Data
 @Schema(description = "RetProductParam", name = "产品参数")
 public class RetProductParam {
+
+    @Schema(description = "工厂编号", required = true)
+    private Integer factoryId;
+
     @Schema(description = "产品名称", required = true)
     private String name;
 
@@ -23,7 +29,7 @@ public class RetProductParam {
     private String description;
 
     @Schema(description = "出货日期", required = true)
-    private String dispatchTime;
+    private Date dispatchTime;
 
     @Schema(description = "防潮标识", required = true)
     private String moistureProofLogo;
