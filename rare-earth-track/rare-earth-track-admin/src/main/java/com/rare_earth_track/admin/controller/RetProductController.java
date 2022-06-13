@@ -53,10 +53,17 @@ public class RetProductController {
         return CommonResult.success(null);
     }
 
-    @Operation(summary = "通过产品Id查询产品")
+    /*@Operation(summary = "通过产品Id查询产品")
     @GetMapping("/products/{productId}")
     public CommonResult<RetProduct> getProductByProductId(@PathVariable("productId") Long productId) {
         RetProduct product = productService.getProductByProductId(productId);
+        return CommonResult.success(product);
+    }*/
+
+    @Operation(summary = "通过产品名称查询产品")
+    @GetMapping("/products/{productName}")
+    public CommonResult<RetProduct> getProductByProductName(@PathVariable("productName") String productName) {
+        RetProduct product = productService.getProductByProductName(productName);
         return CommonResult.success(product);
     }
 
