@@ -3,17 +3,13 @@ package com.rare_earth_track.admin.service.impl;
 import cn.hutool.core.bean.BeanUtil;
 import com.github.pagehelper.PageHelper;
 import com.rare_earth_track.admin.bean.RetRoleParam;
-import com.rare_earth_track.admin.service.RetRoleResourceCacheService;
-import com.rare_earth_track.admin.service.RetRoleResourceRelationService;
-import com.rare_earth_track.admin.service.RetRoleService;
-import com.rare_earth_track.admin.service.RetUserService;
+import com.rare_earth_track.admin.service.*;
 import com.rare_earth_track.common.exception.Asserts;
 import com.rare_earth_track.mgb.mapper.RetRoleMapper;
-import com.rare_earth_track.mgb.model.RetResource;
-import com.rare_earth_track.mgb.model.RetRole;
-import com.rare_earth_track.mgb.model.RetRoleExample;
-import com.rare_earth_track.mgb.model.RetUser;
+import com.rare_earth_track.mgb.model.*;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Lazy;
@@ -26,22 +22,36 @@ import java.util.List;
  * @date 2022/5/15
  **/
 @Service
+@RequiredArgsConstructor
 public class RetRoleServiceImpl implements RetRoleService, ApplicationRunner {
     private final RetRoleMapper roleMapper;
-    private final RetRoleResourceRelationService roleResourceRelationService;
-    private final RetRoleResourceCacheService resourceCacheService;
-    private final RetUserService userService;
+    private RetRoleResourceRelationService roleResourceRelationService;
+    private RetRoleResourceCacheService resourceCacheService;
+    private RetUserService userService;
+    private RetRoleMenuRelationService roleMenuRelationService;
+
     @Lazy
-    public RetRoleServiceImpl(RetRoleMapper roleMapper,
-                              RetRoleResourceRelationService roleResourceRelationService,
-                              RetRoleResourceCacheService resourceCacheService,
-                              RetUserService userService) {
-        this.roleMapper = roleMapper;
-        this.resourceCacheService = resourceCacheService;
+    @Autowired
+    public void setRoleResourceRelationService(RetRoleResourceRelationService roleResourceRelationService) {
         this.roleResourceRelationService = roleResourceRelationService;
+    }
+    @Autowired
+    @Lazy
+    public void setResourceCacheService(RetRoleResourceCacheService resourceCacheService) {
+        this.resourceCacheService = resourceCacheService;
+    }
+
+    @Autowired
+    @Lazy
+    public void setUserService(RetUserService userService) {
         this.userService = userService;
     }
 
+    @Autowired
+    @Lazy
+    public void setRoleMenuRelationService(RetRoleMenuRelationService roleMenuRelationService) {
+        this.roleMenuRelationService = roleMenuRelationService;
+    }
 
     @Override
     public void refreshCache(Long roleId){
@@ -140,6 +150,11 @@ public class RetRoleServiceImpl implements RetRoleService, ApplicationRunner {
         if (i == 0){
             Asserts.fail("删除角色失败");
         }
+    }
+
+    @Override
+    public List<RetMenu> getMenus(Long roleId) {
+        return roleMenuRelationService.getMenus(roleId);
     }
 
     @Override

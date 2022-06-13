@@ -7,7 +7,7 @@ import java.util.Date;
 /**
  * 产品信
  * @author hhoa 
- * @date 2022-05-30
+ * @date 2022-06-13
  */
 @Schema(name = "产品信")
 public class RetProduct implements Serializable {
@@ -19,6 +19,7 @@ public class RetProduct implements Serializable {
     @Schema(description = "名称")
     private String name;
 
+    @Schema(description = "批次")
     private String batchId;
 
     @Schema(description = "出货日期")
@@ -42,6 +43,12 @@ public class RetProduct implements Serializable {
     @Schema(description = "图片")
     private String pic;
 
+    @Schema(description = "质量证明书")
+    private String qualityCertificate;
+
+    @Schema(description = "标准编号")
+    private String standardNumber;
+
     @Schema(description = "纯度")
     private String purity;
 
@@ -56,6 +63,9 @@ public class RetProduct implements Serializable {
 
     @Schema(description = "画册图片，连产品图片限制为5张，以逗号分割")
     private String albumPics;
+
+    @Schema(description = "化学成分")
+    private String chemicalComposition;
 
     @Schema(description = "描述")
     private String description;
@@ -111,16 +121,16 @@ public class RetProduct implements Serializable {
     }
 
     /**
-     * 
-     * @return batch_id 
+     * 批次
+     * @return batch_id 批次
      */
     public String getBatchId() {
         return batchId;
     }
 
     /**
-     * 
-     * @param batchId 
+     * 批次
+     * @param batchId 批次
      */
     public void setBatchId(String batchId) {
         this.batchId = batchId;
@@ -239,6 +249,38 @@ public class RetProduct implements Serializable {
     }
 
     /**
+     * 质量证明书
+     * @return quality_certificate 质量证明书
+     */
+    public String getQualityCertificate() {
+        return qualityCertificate;
+    }
+
+    /**
+     * 质量证明书
+     * @param qualityCertificate 质量证明书
+     */
+    public void setQualityCertificate(String qualityCertificate) {
+        this.qualityCertificate = qualityCertificate;
+    }
+
+    /**
+     * 标准编号
+     * @return standard_number 标准编号
+     */
+    public String getStandardNumber() {
+        return standardNumber;
+    }
+
+    /**
+     * 标准编号
+     * @param standardNumber 标准编号
+     */
+    public void setStandardNumber(String standardNumber) {
+        this.standardNumber = standardNumber;
+    }
+
+    /**
      * 纯度
      * @return purity 纯度
      */
@@ -319,6 +361,22 @@ public class RetProduct implements Serializable {
     }
 
     /**
+     * 化学成分
+     * @return chemical_composition 化学成分
+     */
+    public String getChemicalComposition() {
+        return chemicalComposition;
+    }
+
+    /**
+     * 化学成分
+     * @param chemicalComposition 化学成分
+     */
+    public void setChemicalComposition(String chemicalComposition) {
+        this.chemicalComposition = chemicalComposition;
+    }
+
+    /**
      * 描述
      * @return description 描述
      */
@@ -355,11 +413,14 @@ public class RetProduct implements Serializable {
         sb.append(", netWeight=").append(netWeight);
         sb.append(", transportLog=").append(transportLog);
         sb.append(", pic=").append(pic);
+        sb.append(", qualityCertificate=").append(qualityCertificate);
+        sb.append(", standardNumber=").append(standardNumber);
         sb.append(", purity=").append(purity);
         sb.append(", productionEquipment=").append(productionEquipment);
         sb.append(", materialRatio=").append(materialRatio);
         sb.append(", extractionUnit=").append(extractionUnit);
         sb.append(", albumPics=").append(albumPics);
+        sb.append(", chemicalComposition=").append(chemicalComposition);
         sb.append(", description=").append(description);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");

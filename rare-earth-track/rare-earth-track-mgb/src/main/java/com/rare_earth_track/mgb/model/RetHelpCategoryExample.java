@@ -112,7 +112,7 @@ public class RetHelpCategoryExample {
 
     /**
      * ret_help_category
-     * @author hhoa 2022-05-30
+     * @author hhoa 2022-06-13
      */
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
@@ -494,7 +494,7 @@ public class RetHelpCategoryExample {
 
     /**
      * ret_help_category
-     * @author hhoa 2022-05-30
+     * @author hhoa 2022-06-13
      */
     public static class Criterion {
         private String condition;

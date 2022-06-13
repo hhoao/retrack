@@ -3,6 +3,7 @@ package com.rare_earth_track.admin.service;
 
 import com.rare_earth_track.admin.bean.*;
 import com.rare_earth_track.common.exception.ApiException;
+import com.rare_earth_track.mgb.model.RetMenu;
 import com.rare_earth_track.mgb.model.RetResource;
 import com.rare_earth_track.mgb.model.RetUser;
 import com.rare_earth_track.mgb.model.RetUserAuth;
@@ -154,6 +155,12 @@ public interface RetUserService {
      */
     List<RetFactoryJob> getFactoryJobsByUserName(String username);
 
+    /**
+     * Gets user.
+     *
+     * @param userId the user id
+     * @return the user
+     */
     RetUser getUser(Long userId);
 
     /**
@@ -164,6 +171,11 @@ public interface RetUserService {
     @Transactional
     void deleteUserByUserId(Long userId);
 
+    /**
+     * Delete users.
+     *
+     * @param user the user
+     */
     void deleteUsers(RetUser user);
 
     /**
@@ -238,4 +250,12 @@ public interface RetUserService {
      * @return the user by authorization
      */
     RetUser getUserByAuthorization(String authorization);
+
+    /**
+     * Gets menus by authorization.
+     *
+     * @param authorization the authorization
+     * @return the menus by authorization
+     */
+    List<RetMenu> getMenusByAuthorization(String authorization);
 }

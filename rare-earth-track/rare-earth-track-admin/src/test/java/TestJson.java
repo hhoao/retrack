@@ -26,4 +26,9 @@ public class TestJson {
         Object person = redisService.get("person");
         System.out.println(person);
     }
+    @Test
+    public void testStartWith(){
+        String str = "AAAAA";
+        System.out.println(str.startsWith("aaa"));
+    }
 }

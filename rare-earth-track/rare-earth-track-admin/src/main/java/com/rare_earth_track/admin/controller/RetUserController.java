@@ -4,7 +4,9 @@ package com.rare_earth_track.admin.controller;
 import com.rare_earth_track.admin.service.RetUserService;
 import com.rare_earth_track.common.api.CommonPage;
 import com.rare_earth_track.common.api.CommonResult;
+import com.rare_earth_track.mgb.model.RetMenu;
 import com.rare_earth_track.mgb.model.RetUser;
+import com.rare_earth_track.security.config.JwtSecurityProperties;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -24,6 +26,7 @@ import java.util.Map;
 @Tags({@Tag(name="用户管理", description = "RetUserController")})
 public class RetUserController {
     private final RetUserService userService;
+    private final JwtSecurityProperties securityProperties;
 
     @Operation(summary = "分页获取用户列表")
     @GetMapping("/users")
@@ -31,7 +34,13 @@ public class RetUserController {
                                                   @Parameter(description = "页面大小") @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize){
         return CommonResult.success(CommonPage.restPage(userService.list(pageNum, pageSize)));
     }
-
+    @Operation(summary = "获取已认证用户角色菜单")
+    @GetMapping("/user/role/menus")
+    public CommonResult<List<RetMenu>> getUserRoleMenus(@RequestHeader Map<String, String> headers){
+        List<RetMenu> menus = userService.getMenusByAuthorization(
+                headers.get(securityProperties.getTokenHeader().toLowerCase()));
+        return CommonResult.success(menus);
+    }
     @Operation(summary = "通过认证标识获取用户")
     @GetMapping("/users/{identifier}")
     public CommonResult<RetUser> getUser(@PathVariable("identifier") String identifier){
@@ -41,7 +50,8 @@ public class RetUserController {
     @Operation(summary = "获取已认证用户信息")
     @GetMapping("/user")
     public CommonResult<RetUser> getUser(@RequestHeader Map<String, String> headers){
-        RetUser user =  userService.getUserByAuthorization(headers.get("Authorization"));
+        RetUser user =  userService.getUserByAuthorization(
+                headers.get(securityProperties.getTokenHeader().toLowerCase()));
         return CommonResult.success(user);
     }
     @Operation(summary = "通过用户参数获取用户信息")
@@ -55,7 +65,7 @@ public class RetUserController {
     @PatchMapping("/user")
     public CommonResult<String> updateUser(@RequestBody RetUser user,
                                            @RequestHeader Map<String, String> headers){
-        String authorization = headers.get("Authorization");
+        String authorization = headers.get(securityProperties.getTokenHeader().toLowerCase());
         userService.updateUser(user, authorization);
         return CommonResult.success(null);
     }

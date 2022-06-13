@@ -1,6 +1,7 @@
 package com.rare_earth_track.admin.service;
 
 import com.rare_earth_track.admin.bean.RetRoleParam;
+import com.rare_earth_track.mgb.model.RetMenu;
 import com.rare_earth_track.mgb.model.RetResource;
 import com.rare_earth_track.mgb.model.RetRole;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +22,11 @@ public interface RetRoleService {
      */
     void refreshCache(Long roleId);
 
+    /**
+     * Refresh cache.
+     *
+     * @param role the role
+     */
     void refreshCache(RetRole role);
 
     /**
@@ -99,4 +105,12 @@ public interface RetRoleService {
      */
     @Transactional
     void deleteRole(String roleName);
+
+    /**
+     * Gets menus.
+     *
+     * @param roleId the role id
+     * @return the menus
+     */
+    List<RetMenu> getMenus(Long roleId);
 }

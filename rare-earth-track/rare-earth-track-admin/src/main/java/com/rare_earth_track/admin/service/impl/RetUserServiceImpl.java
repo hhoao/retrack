@@ -395,5 +395,11 @@ public class RetUserServiceImpl implements RetUserService {
         String username = jwtTokenService.getSubjectFromAuthorization(authorization);
         return getUserByName(username);
     }
+    @Override
+    public List<RetMenu> getMenusByAuthorization(String authorization) {
+        String username = jwtTokenService.getSubjectFromAuthorization(authorization);
+        RetUser userByName = getUserByName(username);
+        return roleService.getMenus(userByName.getRoleId());
+    }
 
 }
