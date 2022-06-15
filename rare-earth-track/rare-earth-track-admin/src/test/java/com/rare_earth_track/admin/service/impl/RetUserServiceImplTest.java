@@ -68,19 +68,19 @@ class RetUserServiceImplTest extends TransactionTest {
         Assertions.assertThrows(ApiException.class, ()-> userService.getUserDetails(testErrorIdentifier));
     }
 
-    @Test
-    Long register() {
-        String authCode = mailService.sendUserRegisterMail(testRegisterMail);
-        mailService.validateMessage(testRegisterMail, authCode, MailType.USER_REGISTER);
-        RetUserRegisterParam userRegisterParam =new RetUserRegisterParam();
-        userRegisterParam.setIdentifier(testRegisterMail);
-        userRegisterParam.setAuthCode(authCode);
-        userRegisterParam.setIdentifyType(IdentifyType.email);
-        Long userId = userService.register(userRegisterParam);
-        Assertions.assertEquals(userAuthService.getUserAuth(userId, IdentifyType.email).
-                getIdentifier(), testRegisterMail);
-        return userId;
-    }
+//    @Test
+//    Long register() {
+//        String authCode = mailService.sendUserRegisterMail(testRegisterMail);
+//        mailService.validateMessage(testRegisterMail, authCode, MailType.USER_REGISTER);
+//        RetUserRegisterParam userRegisterParam =new RetUserRegisterParam();
+//        userRegisterParam.setIdentifier(testRegisterMail);
+//        userRegisterParam.setAuthCode(authCode);
+//        userRegisterParam.setIdentifyType(IdentifyType.email);
+//        Long userId = userService.register(userRegisterParam);
+//        Assertions.assertEquals(userAuthService.getUserAuth(userId, IdentifyType.email).
+//                getIdentifier(), testRegisterMail);
+//        return userId;
+//    }
 
     public String getAuthorization(){
         RetLoginParam retLoginParam = new RetLoginParam();
@@ -117,12 +117,12 @@ class RetUserServiceImplTest extends TransactionTest {
         userService.updateUser(user);
     }
 
-    @Test
-    void sendUserRegisterMail() {
+//    @Test
+//    void sendUserRegisterMail() {
 //        userService.sendUserRegisterMail(testRegisterMail);
 //        boolean b = mailService.existMessage(testRegisterMail, MailType.USER_REGISTER);
 //        Assertions.assertTrue(b);
-    }
+//    }
 
     @Test
     void getFactoryJobsByUserName() {

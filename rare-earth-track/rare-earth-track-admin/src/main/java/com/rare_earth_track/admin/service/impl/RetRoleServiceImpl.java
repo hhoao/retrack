@@ -143,6 +143,7 @@ public class RetRoleServiceImpl implements RetRoleService, ApplicationRunner {
     @Override
     public void deleteRole(String roleName) {
         RetRole role = getRole(roleName);
+        roleMenuRelationService.deleteRoleMenus(role.getId());
         roleResourceRelationService.deleteRoleResources(role.getId());
         deleteReference(role.getId());
 

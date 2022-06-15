@@ -14,17 +14,19 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>rare-earth-track-common</module>
-        <module>rare-earth-track-portal</module>
-        <module>rare-earth-search</module>
+        <module>rare-earth-track-mgb</module>
         <module>rare-earth-track-security</module>
         <module>rare-earth-track-admin</module>
-        <module>rare-earth-track-mgb</module>
+        <module>rare-earth-track-portal</module>
+        <module>rare-earth-search</module>
     </modules>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
-        <hutool-all.version>5.8.0</hutool-all.version>
+        <hutool-all.version>5.8.2</hutool-all.version>
+        <docker.host>https://localhost:2375</docker.host>
+        <docker.maven.plugin.version>1.2.2</docker.maven.plugin.version>
         <pagehelper-spring-boot-starter.version>1.4.2</pagehelper-spring-boot-starter.version>
         <rare-earth-track-common.version>1.0-SNAPSHOT</rare-earth-track-common.version>
         <rare-earth-track-portal.version>1.0-SNAPSHOT</rare-earth-track-portal.version>
@@ -97,11 +99,32 @@
         </dependencies>
     </dependencyManagement>
     <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                </plugin>
+                <plugin>
+                    <groupId>com.spotify</groupId>
+                    <artifactId>docker-maven-plugin</artifactId>
+                    <version>${docker.maven.plugin.version}</version>
+                    <configuration>
+                        <imageName>rare-earth-track/${project.artifactId}:${project.version}</imageName>
+<!--                        <dockerHost>${docker.host}</dockerHost>-->
+                        <baseImage>openjdk:17</baseImage>
+                        <entryPoint>["java", "-jar", "-Dspring.profiles.active=prod","/${project.build.finalName}.jar"]
+                        </entryPoint>
+                        <resources>
+                            <resource>
+                                <targetPath>/</targetPath>
+                                <directory>${project.build.directory}</directory>
+                                <include>${project.build.finalName}.jar</include>
+                            </resource>
+                        </resources>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
     </build>
 </project>

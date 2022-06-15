@@ -18,4 +18,11 @@ public interface RetRoleMenuRelationService {
      * @return the menus
      */
     List<RetMenu> getMenus(Long roleId);
+
+    /**
+     * Delete role menus.
+     *
+     * @param id the id
+     */
+    void deleteRoleMenus(Long id);
 }

@@ -42,4 +42,11 @@ public class RetRoleMenuRelationServiceImpl implements RetRoleMenuRelationServic
         }
         return menus;
     }
+
+    @Override
+    public void deleteRoleMenus(Long roleId) {
+        RetRoleMenuRelationExample roleMenuRelationExample = new RetRoleMenuRelationExample();
+        roleMenuRelationExample.createCriteria().andRoleIdEqualTo(roleId);
+        roleMenuRelationMapper.deleteByExample(roleMenuRelationExample);
+    }
 }

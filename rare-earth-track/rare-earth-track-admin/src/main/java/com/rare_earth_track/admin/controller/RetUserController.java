@@ -50,8 +50,9 @@ public class RetUserController {
     @Operation(summary = "获取已认证用户信息")
     @GetMapping("/user")
     public CommonResult<RetUser> getUser(@RequestHeader Map<String, String> headers){
+        String authorization =securityProperties.getTokenHeader().toLowerCase();
         RetUser user =  userService.getUserByAuthorization(
-                headers.get(securityProperties.getTokenHeader().toLowerCase()));
+                headers.get(authorization));
         return CommonResult.success(user);
     }
     @Operation(summary = "通过用户参数获取用户信息")

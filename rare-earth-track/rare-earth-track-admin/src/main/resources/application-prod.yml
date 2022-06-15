@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8888
 spring:
   # 配置邮箱
   mail:
@@ -21,9 +21,10 @@ spring:
     database: 0
     port: 6379
     password:
+    host: redis
   # 配置mysql数据库
   datasource:
-    url: jdbc:mysql://localhost:3306/rare_earth_track
+    url: jdbc:mysql://mysql:3306/rare_earth_track
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: m45937494.
@@ -31,3 +32,7 @@ spring:
   cache:
     redis:
       time-to-live: 1d
+# 项目配置
+ret:
+  mail:
+    from: haunghao@foxmail.com
