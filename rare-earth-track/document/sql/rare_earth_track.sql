@@ -2,6 +2,32 @@ DROP DATABASE IF EXISTS rare_earth_track;
 CREATE DATABASE IF NOT EXISTS rare_earth_track;
 USE rare_earth_track;
 
+# 菜单表
+DROP TABLE IF EXISTS `ret_menu`;
+CREATE TABLE `ret_menu` (
+                            `id` bigint(20) NOT NULL AUTO_INCREMENT,
+                            `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+                            `title` varchar(100) DEFAULT NULL COMMENT '菜单名称',
+                            `level` int(4) DEFAULT NULL COMMENT '菜单级数',
+                            `sort` int(4) DEFAULT NULL COMMENT '菜单排序',
+                            `name` varchar(100) DEFAULT NULL COMMENT '前端名称',
+                            `icon` varchar(200) DEFAULT NULL COMMENT '前端图标',
+                            `hidden` int(1) DEFAULT NULL COMMENT '前端隐藏',
+                            PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8 COMMENT='后台菜单表';
+
+INSERT INTO `ret_menu` VALUES ('1', '2020-02-02 14:51:50', '首页', '0', '0', 'home', 'home', '0');
+INSERT INTO `ret_menu` VALUES ('2', '2020-02-02 14:51:50', '商品', '0', '0', 'pms', 'product', '0');
+INSERT INTO `ret_menu` VALUES ('3', '2020-02-02 14:51:50', '商品列表', '1', '0', 'product', 'product-list', '0');
+INSERT INTO `ret_menu` VALUES ('4', '2020-02-02 14:52:44', '添加商品', '1', '0', 'addProduct', 'product-add', '0');
+INSERT INTO `ret_menu` VALUES ('5', '2020-02-02 14:53:51', '商品分类', '1', '0', 'productCate', 'product-cate', '0');
+INSERT INTO `ret_menu` VALUES ('6', '2020-02-02 14:54:51', '商品类型', '1', '0', 'productAttr', 'product-attr', '0');
+INSERT INTO `ret_menu` VALUES ('7', '2020-02-07 16:29:13', '权限', '0', '0', 'ums', 'ums', '0');
+INSERT INTO `ret_menu` VALUES ('8', '2020-02-07 16:29:51', '用户列表', '1', '0', 'admin', 'ums-admin', '0');
+INSERT INTO `ret_menu` VALUES ('9', '2020-02-07 16:30:13', '角色列表', '1', '0', 'role', 'ums-role', '0');
+INSERT INTO `ret_menu` VALUES ('10', '2020-02-07 16:30:53', '菜单列表', '1', '0', 'menu', 'ums-menu', '0');
+INSERT INTO `ret_menu` VALUES ('11', '2020-02-07 16:31:13', '资源列表', '1', '0', 'resource', 'ums-resource', '0');
+
 -- 资源表
 DROP TABLE IF EXISTS ret_resource;
 CREATE TABLE IF NOT EXISTS ret_resource
@@ -58,6 +84,40 @@ VALUES (3, 'ROLE_USER');
 INSERT INTO ret_role(id, name)
 VALUES (4, 'ROLE_CUSTOM');
 
+
+-- 角色菜单关系表
+DROP TABLE IF EXISTS ret_role_menu_relation;
+CREATE TABLE IF NOT EXISTS ret_role_menu_relation
+(
+    id          bigint AUTO_INCREMENT PRIMARY KEY,
+    role_id     bigint,
+    menu_id bigint,
+    UNIQUE (menu_id, role_id),
+    FOREIGN KEY (menu_id) REFERENCES ret_menu (`id`),
+    FOREIGN KEY (`role_id`) REFERENCES ret_role (`id`)
+) COMMENT '资源角色关系表';
+INSERT INTO ret_role_menu_relation(role_id, menu_id)
+VALUES ('1', '1');
+INSERT INTO ret_role_menu_relation(role_id, menu_id)
+VALUES ('1', '2');
+INSERT INTO ret_role_menu_relation(role_id, menu_id)
+VALUES ('1', '3');
+INSERT INTO ret_role_menu_relation(role_id, menu_id)
+VALUES ('1', '4');
+INSERT INTO ret_role_menu_relation(role_id, menu_id)
+VALUES ('1', '5');
+INSERT INTO ret_role_menu_relation(role_id, menu_id)
+VALUES ('1', '6');
+INSERT INTO ret_role_menu_relation(role_id, menu_id)
+VALUES ('1', '7');
+INSERT INTO ret_role_menu_relation(role_id, menu_id)
+VALUES ('1', '8');
+INSERT INTO ret_role_menu_relation(role_id, menu_id)
+VALUES ('1', '9');
+INSERT INTO ret_role_menu_relation(role_id, menu_id)
+VALUES ('1', '10');
+INSERT INTO ret_role_menu_relation(role_id, menu_id)
+VALUES ('1', '11');
 
 -- 资源角色关系表
 DROP TABLE IF EXISTS ret_role_resource_relation;
@@ -329,7 +389,7 @@ CREATE TABLE `ret_product`
     `id`                   bigint       NOT NULL AUTO_INCREMENT,
     `factory_id`           bigint       NOT NULL COMMENT '工厂id',
     `name`                 varchar(100) NOT NULL COMMENT '名称',
-    `batch_id`             varchar(100) NOT NULL,
+    `batch_id`             varchar(100) NOT NULL COMMENT '批次',
     `description`          text         DEFAULT NULL COMMENT '描述',
     `dispatch_time`        datetime     DEFAULT NULL COMMENT '出货日期',
     `moisture_proof_logo`  varchar(256) DEFAULT NULL COMMENT '防潮标识',
@@ -338,11 +398,14 @@ CREATE TABLE `ret_product`
     `net_weight`           varchar(50)  DEFAULT NULL COMMENt '净重',
     `transport_log`        varchar(256) DEFAULT NULL COMMENT '运输标志',
     `pic`                  varchar(256) DEFAULT NULL COMMENT '图片',
+    `quality_certificate` varchar(256) NULL COMMENT '质量证明书',
+    `standard_number` varchar(256) NULL COMMENT '标准编号',
     `purity`               varchar(20)  DEFAULT NULL COMMENT '纯度',
     `production_equipment` varchar(100) DEFAULT NULL COMMENT '生产设备',
     `material_ratio`       varchar(50)  DEFAULT NULL COMMENT '物料配比',
     `extraction_unit`      varchar(50)  DEFAULT NULL COMMENT '提取单位',
     `album_pics`           varchar(255) DEFAULT NULL COMMENT '画册图片，连产品图片限制为5张，以逗号分割',
+    `chemical_composition` varchar(255) NULL COMMENT '化学成分',
     CONSTRAINT PK_PRODUCT PRIMARY KEY (`id`),
     FOREIGN KEY (`factory_id`) REFERENCES `ret_factory` (`id`)
 ) ENGINE = InnoDB
