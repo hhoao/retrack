@@ -45,10 +45,11 @@ public class RetProductServiceImpl implements RetProductService {
         RetProduct productByProductName = getProductByProductName(productName);
         RetProduct newProduct = new RetProduct();
         BeanUtils.copyProperties(productParam, newProduct);
+        newProduct.setFactoryId(productByProductName.getFactoryId());
         newProduct.setId(productByProductName.getId());
         int i = productMapper.updateByPrimaryKeySelective(newProduct);
         if (i == 0) {
-            Asserts.fail("更新失败");
+            Asserts.fail("更新产品失败");
         }
     }
 
@@ -63,12 +64,14 @@ public class RetProductServiceImpl implements RetProductService {
     }
 
     @Override
-    public RetProduct getProductByProductName(String name) {
+    public RetProduct getProductByProductName(String productName) {
         RetProductExample productExample = new RetProductExample();
-        productExample.createCriteria().andNameEqualTo(name);
+        productExample.createCriteria().andNameEqualTo(productName);
         List<RetProduct> retProducts = productMapper.selectByExample(productExample);
         if (retProducts != null && retProducts.size() > 0) {
             return retProducts.get(0);
+        }else if (retProducts.size() == 0){
+            Asserts.fail("没有该产品");
         }
         return null;
     }
@@ -121,6 +124,8 @@ public class RetProductServiceImpl implements RetProductService {
         }
         return productExample;
     }
+
+
 
     @Override
     public List<RetProduct> getProducts(RetProduct product) {
