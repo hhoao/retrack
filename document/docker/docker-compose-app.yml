@@ -1,0 +1,8 @@
+version: '2.2'
+
+services:
+  rare-earth-track-admin:
+    image: rare-earth-track/rare-earth-track-admin:${RARE_EARTH_TRACK_ADMIN_VERSION}
+    external_links:
+      - rare-earth-track-mysql
+      - rare-earth-track-redis
