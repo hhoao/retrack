@@ -88,6 +88,9 @@ public class RetFactoryServiceImpl implements RetFactoryService {
         if (retFactories != null && retFactories.size() > 0){
             return retFactories.get(0);
         }
+        if (retFactories.size() == 0) {
+            Asserts.fail("没有该工厂");
+        }
         return null;
     }
 

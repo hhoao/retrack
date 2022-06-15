@@ -67,5 +67,11 @@ public class RetProductController {
         return CommonResult.success(product);
     }
 
+    @Operation(summary = "根据条件查询产品信息")
+    @GetMapping("/products/search")
+    public CommonResult<List<RetProduct>> getProduct(RetProduct product) {
+        List<RetProduct> products = productService.getProducts(product);
+        return CommonResult.success(products);
+    }
 
 }

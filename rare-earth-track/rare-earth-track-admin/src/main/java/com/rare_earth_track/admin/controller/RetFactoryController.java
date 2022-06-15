@@ -110,6 +110,12 @@ public class RetFactoryController {
         return CommonResult.success(products);
     }
 
+    @Operation(summary = "通过工厂名称查询工厂信息")
+    @GetMapping("/factories/{factoryName}")
+    public CommonResult<RetFactory> getFactoryByFactoryName(@PathVariable("factoryName") String factoryName) {
+        RetFactory factory = factoryService.getFactoryByFactoryName(factoryName);
+        return CommonResult.success(factory);
+    }
 
 
 }
