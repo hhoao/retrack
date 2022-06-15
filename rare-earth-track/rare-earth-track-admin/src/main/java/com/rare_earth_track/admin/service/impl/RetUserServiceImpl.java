@@ -401,5 +401,4 @@ public class RetUserServiceImpl implements RetUserService {
         RetUser userByName = getUserByName(username);
         return roleService.getMenus(userByName.getRoleId());
     }
-
 }

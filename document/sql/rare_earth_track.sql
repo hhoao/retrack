@@ -16,16 +16,17 @@ CREATE TABLE `ret_menu` (
                             PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8 COMMENT='后台菜单表';
 
-INSERT INTO `ret_menu` VALUES ('1', '2020-02-02 14:51:50', '商品', '0', '0', 'pms', 'product', '0');
-INSERT INTO `ret_menu` VALUES ('2', '2020-02-02 14:51:50', '商品列表', '1', '0', 'product', 'product-list', '0');
-INSERT INTO `ret_menu` VALUES ('3', '2020-02-02 14:52:44', '添加商品', '1', '0', 'addProduct', 'product-add', '0');
-INSERT INTO `ret_menu` VALUES ('4', '2020-02-02 14:53:51', '商品分类', '1', '0', 'productCate', 'product-cate', '0');
-INSERT INTO `ret_menu` VALUES ('5', '2020-02-02 14:54:51', '商品类型', '1', '0', 'productAttr', 'product-attr', '0');
-INSERT INTO `ret_menu` VALUES ('6', '2020-02-07 16:29:13', '权限', '0', '0', 'ums', 'ums', '0');
-INSERT INTO `ret_menu` VALUES ('7', '2020-02-07 16:29:51', '用户列表', '1', '0', 'admin', 'ums-admin', '0');
-INSERT INTO `ret_menu` VALUES ('8', '2020-02-07 16:30:13', '角色列表', '1', '0', 'role', 'ums-role', '0');
-INSERT INTO `ret_menu` VALUES ('9', '2020-02-07 16:30:53', '菜单列表', '1', '0', 'menu', 'ums-menu', '0');
-INSERT INTO `ret_menu` VALUES ('10', '2020-02-07 16:31:13', '资源列表', '1', '0', 'resource', 'ums-resource', '0');
+INSERT INTO `ret_menu` VALUES ('1', '2020-02-02 14:51:50', '首页', '0', '0', 'home', 'home', '0');
+INSERT INTO `ret_menu` VALUES ('2', '2020-02-02 14:51:50', '商品', '0', '0', 'pms', 'product', '0');
+INSERT INTO `ret_menu` VALUES ('3', '2020-02-02 14:51:50', '商品列表', '1', '0', 'product', 'product-list', '0');
+INSERT INTO `ret_menu` VALUES ('4', '2020-02-02 14:52:44', '添加商品', '1', '0', 'addProduct', 'product-add', '0');
+INSERT INTO `ret_menu` VALUES ('5', '2020-02-02 14:53:51', '商品分类', '1', '0', 'productCate', 'product-cate', '0');
+INSERT INTO `ret_menu` VALUES ('6', '2020-02-02 14:54:51', '商品类型', '1', '0', 'productAttr', 'product-attr', '0');
+INSERT INTO `ret_menu` VALUES ('7', '2020-02-07 16:29:13', '权限', '0', '0', 'ums', 'ums', '0');
+INSERT INTO `ret_menu` VALUES ('8', '2020-02-07 16:29:51', '用户列表', '1', '0', 'admin', 'ums-admin', '0');
+INSERT INTO `ret_menu` VALUES ('9', '2020-02-07 16:30:13', '角色列表', '1', '0', 'role', 'ums-role', '0');
+INSERT INTO `ret_menu` VALUES ('10', '2020-02-07 16:30:53', '菜单列表', '1', '0', 'menu', 'ums-menu', '0');
+INSERT INTO `ret_menu` VALUES ('11', '2020-02-07 16:31:13', '资源列表', '1', '0', 'resource', 'ums-resource', '0');
 
 -- 资源表
 DROP TABLE IF EXISTS ret_resource;
@@ -115,6 +116,8 @@ INSERT INTO ret_role_menu_relation(role_id, menu_id)
 VALUES ('1', '9');
 INSERT INTO ret_role_menu_relation(role_id, menu_id)
 VALUES ('1', '10');
+INSERT INTO ret_role_menu_relation(role_id, menu_id)
+VALUES ('1', '11');
 
 -- 资源角色关系表
 DROP TABLE IF EXISTS ret_role_resource_relation;
