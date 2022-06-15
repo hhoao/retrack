@@ -4,17 +4,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.Serializable;
 
 /**
- * 职位权限关系
+ * 资源角色关系
  * @author hhoa 
  * @date 2022-06-13
  */
-@Schema(name = "职位权限关系")
-public class RetMemberJobPermissionRelation implements Serializable {
+@Schema(name = "资源角色关系")
+public class RetRoleMenuRelation implements Serializable {
     private Long id;
 
-    private Long memberJobId;
+    private Long roleId;
 
-    private Long permissionId;
+    private Long menuId;
 
     private static final long serialVersionUID = 1L;
 
@@ -36,34 +36,34 @@ public class RetMemberJobPermissionRelation implements Serializable {
 
     /**
      * 
-     * @return member_job_id 
+     * @return role_id 
      */
-    public Long getMemberJobId() {
-        return memberJobId;
+    public Long getRoleId() {
+        return roleId;
     }
 
     /**
      * 
-     * @param memberJobId 
+     * @param roleId 
      */
-    public void setMemberJobId(Long memberJobId) {
-        this.memberJobId = memberJobId;
+    public void setRoleId(Long roleId) {
+        this.roleId = roleId;
     }
 
     /**
      * 
-     * @return permission_id 
+     * @return menu_id 
      */
-    public Long getPermissionId() {
-        return permissionId;
+    public Long getMenuId() {
+        return menuId;
     }
 
     /**
      * 
-     * @param permissionId 
+     * @param menuId 
      */
-    public void setPermissionId(Long permissionId) {
-        this.permissionId = permissionId;
+    public void setMenuId(Long menuId) {
+        this.menuId = menuId;
     }
 
     /**
@@ -77,8 +77,8 @@ public class RetMemberJobPermissionRelation implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
-        sb.append(", memberJobId=").append(memberJobId);
-        sb.append(", permissionId=").append(permissionId);
+        sb.append(", roleId=").append(roleId);
+        sb.append(", menuId=").append(menuId);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

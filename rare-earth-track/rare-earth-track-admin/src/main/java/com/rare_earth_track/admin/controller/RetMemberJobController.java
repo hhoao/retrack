@@ -16,7 +16,6 @@ import java.util.List;
  * @author hhoa
  * @date 2022/5/25
  **/
-
 @RequiredArgsConstructor
 @Tag(name = "职位管理", description = "RetMemberJobController")
 public class RetMemberJobController {

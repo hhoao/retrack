@@ -37,14 +37,14 @@ public class RetAdminController {
     @DeleteMapping("/user/auths/{authType}")
     public CommonResult<String> unbindUserAuth(@PathVariable("authType") IdentifyType authType,
                                                @RequestHeader Map<String, String> headers){
-        userService.unbindUserAuth(authType, headers.get(properties.getTokenHeader()));
+        userService.unbindUserAuth(authType, headers.get(properties.getTokenHeader().toLowerCase()));
         return CommonResult.success(null);
     }
     @Operation(summary = "更新已经认证用户的认证方式")
     @PatchMapping("/user/auths/username")
     public CommonResult<String> updateUsername(@RequestHeader Map<String, String> headers,
                                                @RequestParam("newUsername") String newUsername){
-        userService.updateUsername(newUsername, headers.get(properties.getTokenHeader()));
+        userService.updateUsername(newUsername, headers.get(properties.getTokenHeader().toLowerCase()));
         return CommonResult.success(null);
     }
     @Operation(summary = "更改用户密码")

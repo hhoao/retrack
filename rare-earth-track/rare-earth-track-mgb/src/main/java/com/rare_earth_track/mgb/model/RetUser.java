@@ -7,7 +7,7 @@ import java.util.Date;
 /**
  * 用户
  * @author hhoa 
- * @date 2022-05-30
+ * @date 2022-06-13
  */
 @Schema(name = "用户")
 public class RetUser implements Serializable {
@@ -50,6 +50,7 @@ public class RetUser implements Serializable {
     private Long roleId;
 
     private static final long serialVersionUID = 1L;
+
     /**
      * 
      * @return id 

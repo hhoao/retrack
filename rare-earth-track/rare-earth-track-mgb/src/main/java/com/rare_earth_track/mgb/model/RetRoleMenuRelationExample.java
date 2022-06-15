@@ -3,7 +3,7 @@ package com.rare_earth_track.mgb.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RetProductSubjectRelationExample {
+public class RetRoleMenuRelationExample {
     protected String orderByClause;
 
     protected boolean distinct;
@@ -11,10 +11,10 @@ public class RetProductSubjectRelationExample {
     protected List<Criteria> oredCriteria;
 
     /**
-     * RetProductSubjectRelationExample
+     * RetRoleMenuRelationExample
 
      */
-    public RetProductSubjectRelationExample() {
+    public RetRoleMenuRelationExample() {
         oredCriteria = new ArrayList<>();
     }
 
@@ -111,7 +111,7 @@ public class RetProductSubjectRelationExample {
     }
 
     /**
-     * ret_product_subject_relation
+     * ret_role_menu_relation
      * @author hhoa 2022-06-13
      */
     protected abstract static class GeneratedCriteria {
@@ -215,123 +215,123 @@ public class RetProductSubjectRelationExample {
             return (Criteria) this;
         }
 
-        public Criteria andProductIdIsNull() {
-            addCriterion("product_id is null");
+        public Criteria andRoleIdIsNull() {
+            addCriterion("role_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andProductIdIsNotNull() {
-            addCriterion("product_id is not null");
+        public Criteria andRoleIdIsNotNull() {
+            addCriterion("role_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andProductIdEqualTo(Long value) {
-            addCriterion("product_id =", value, "productId");
+        public Criteria andRoleIdEqualTo(Long value) {
+            addCriterion("role_id =", value, "roleId");
             return (Criteria) this;
         }
 
-        public Criteria andProductIdNotEqualTo(Long value) {
-            addCriterion("product_id <>", value, "productId");
+        public Criteria andRoleIdNotEqualTo(Long value) {
+            addCriterion("role_id <>", value, "roleId");
             return (Criteria) this;
         }
 
-        public Criteria andProductIdGreaterThan(Long value) {
-            addCriterion("product_id >", value, "productId");
+        public Criteria andRoleIdGreaterThan(Long value) {
+            addCriterion("role_id >", value, "roleId");
             return (Criteria) this;
         }
 
-        public Criteria andProductIdGreaterThanOrEqualTo(Long value) {
-            addCriterion("product_id >=", value, "productId");
+        public Criteria andRoleIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("role_id >=", value, "roleId");
             return (Criteria) this;
         }
 
-        public Criteria andProductIdLessThan(Long value) {
-            addCriterion("product_id <", value, "productId");
+        public Criteria andRoleIdLessThan(Long value) {
+            addCriterion("role_id <", value, "roleId");
             return (Criteria) this;
         }
 
-        public Criteria andProductIdLessThanOrEqualTo(Long value) {
-            addCriterion("product_id <=", value, "productId");
+        public Criteria andRoleIdLessThanOrEqualTo(Long value) {
+            addCriterion("role_id <=", value, "roleId");
             return (Criteria) this;
         }
 
-        public Criteria andProductIdIn(List<Long> values) {
-            addCriterion("product_id in", values, "productId");
+        public Criteria andRoleIdIn(List<Long> values) {
+            addCriterion("role_id in", values, "roleId");
             return (Criteria) this;
         }
 
-        public Criteria andProductIdNotIn(List<Long> values) {
-            addCriterion("product_id not in", values, "productId");
+        public Criteria andRoleIdNotIn(List<Long> values) {
+            addCriterion("role_id not in", values, "roleId");
             return (Criteria) this;
         }
 
-        public Criteria andProductIdBetween(Long value1, Long value2) {
-            addCriterion("product_id between", value1, value2, "productId");
+        public Criteria andRoleIdBetween(Long value1, Long value2) {
+            addCriterion("role_id between", value1, value2, "roleId");
             return (Criteria) this;
         }
 
-        public Criteria andProductIdNotBetween(Long value1, Long value2) {
-            addCriterion("product_id not between", value1, value2, "productId");
+        public Criteria andRoleIdNotBetween(Long value1, Long value2) {
+            addCriterion("role_id not between", value1, value2, "roleId");
             return (Criteria) this;
         }
 
-        public Criteria andSubjectIdIsNull() {
-            addCriterion("subject_id is null");
+        public Criteria andMenuIdIsNull() {
+            addCriterion("menu_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andSubjectIdIsNotNull() {
-            addCriterion("subject_id is not null");
+        public Criteria andMenuIdIsNotNull() {
+            addCriterion("menu_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andSubjectIdEqualTo(Long value) {
-            addCriterion("subject_id =", value, "subjectId");
+        public Criteria andMenuIdEqualTo(Long value) {
+            addCriterion("menu_id =", value, "menuId");
             return (Criteria) this;
         }
 
-        public Criteria andSubjectIdNotEqualTo(Long value) {
-            addCriterion("subject_id <>", value, "subjectId");
+        public Criteria andMenuIdNotEqualTo(Long value) {
+            addCriterion("menu_id <>", value, "menuId");
             return (Criteria) this;
         }
 
-        public Criteria andSubjectIdGreaterThan(Long value) {
-            addCriterion("subject_id >", value, "subjectId");
+        public Criteria andMenuIdGreaterThan(Long value) {
+            addCriterion("menu_id >", value, "menuId");
             return (Criteria) this;
         }
 
-        public Criteria andSubjectIdGreaterThanOrEqualTo(Long value) {
-            addCriterion("subject_id >=", value, "subjectId");
+        public Criteria andMenuIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("menu_id >=", value, "menuId");
             return (Criteria) this;
         }
 
-        public Criteria andSubjectIdLessThan(Long value) {
-            addCriterion("subject_id <", value, "subjectId");
+        public Criteria andMenuIdLessThan(Long value) {
+            addCriterion("menu_id <", value, "menuId");
             return (Criteria) this;
         }
 
-        public Criteria andSubjectIdLessThanOrEqualTo(Long value) {
-            addCriterion("subject_id <=", value, "subjectId");
+        public Criteria andMenuIdLessThanOrEqualTo(Long value) {
+            addCriterion("menu_id <=", value, "menuId");
             return (Criteria) this;
         }
 
-        public Criteria andSubjectIdIn(List<Long> values) {
-            addCriterion("subject_id in", values, "subjectId");
+        public Criteria andMenuIdIn(List<Long> values) {
+            addCriterion("menu_id in", values, "menuId");
             return (Criteria) this;
         }
 
-        public Criteria andSubjectIdNotIn(List<Long> values) {
-            addCriterion("subject_id not in", values, "subjectId");
+        public Criteria andMenuIdNotIn(List<Long> values) {
+            addCriterion("menu_id not in", values, "menuId");
             return (Criteria) this;
         }
 
-        public Criteria andSubjectIdBetween(Long value1, Long value2) {
-            addCriterion("subject_id between", value1, value2, "subjectId");
+        public Criteria andMenuIdBetween(Long value1, Long value2) {
+            addCriterion("menu_id between", value1, value2, "menuId");
             return (Criteria) this;
         }
 
-        public Criteria andSubjectIdNotBetween(Long value1, Long value2) {
-            addCriterion("subject_id not between", value1, value2, "subjectId");
+        public Criteria andMenuIdNotBetween(Long value1, Long value2) {
+            addCriterion("menu_id not between", value1, value2, "menuId");
             return (Criteria) this;
         }
     }
@@ -343,7 +343,7 @@ public class RetProductSubjectRelationExample {
     }
 
     /**
-     * ret_product_subject_relation
+     * ret_role_menu_relation
      * @author hhoa 2022-06-13
      */
     public static class Criterion {

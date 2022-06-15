@@ -13,11 +13,14 @@
     <result column="net_weight" jdbcType="VARCHAR" property="netWeight" />
     <result column="transport_log" jdbcType="VARCHAR" property="transportLog" />
     <result column="pic" jdbcType="VARCHAR" property="pic" />
+    <result column="quality_certificate" jdbcType="VARCHAR" property="qualityCertificate" />
+    <result column="standard_number" jdbcType="VARCHAR" property="standardNumber" />
     <result column="purity" jdbcType="VARCHAR" property="purity" />
     <result column="production_equipment" jdbcType="VARCHAR" property="productionEquipment" />
     <result column="material_ratio" jdbcType="VARCHAR" property="materialRatio" />
     <result column="extraction_unit" jdbcType="VARCHAR" property="extractionUnit" />
     <result column="album_pics" jdbcType="VARCHAR" property="albumPics" />
+    <result column="chemical_composition" jdbcType="VARCHAR" property="chemicalComposition" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.rare_earth_track.mgb.model.RetProduct">
     <result column="description" jdbcType="LONGVARCHAR" property="description" />
@@ -82,8 +85,8 @@
   </sql>
   <sql id="Base_Column_List">
     id, factory_id, name, batch_id, dispatch_time, moisture_proof_logo, specification, 
-    packing_type, net_weight, transport_log, pic, purity, production_equipment, material_ratio, 
-    extraction_unit, album_pics
+    packing_type, net_weight, transport_log, pic, quality_certificate, standard_number, 
+    purity, production_equipment, material_ratio, extraction_unit, album_pics, chemical_composition
   </sql>
   <sql id="Blob_Column_List">
     description
@@ -143,14 +146,16 @@
     insert into ret_product (factory_id, name, batch_id, 
       dispatch_time, moisture_proof_logo, specification, 
       packing_type, net_weight, transport_log, 
-      pic, purity, production_equipment, 
-      material_ratio, extraction_unit, album_pics, 
+      pic, quality_certificate, standard_number, 
+      purity, production_equipment, material_ratio, 
+      extraction_unit, album_pics, chemical_composition, 
       description)
     values (#{factoryId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{batchId,jdbcType=VARCHAR}, 
       #{dispatchTime,jdbcType=TIMESTAMP}, #{moistureProofLogo,jdbcType=VARCHAR}, #{specification,jdbcType=VARCHAR}, 
       #{packingType,jdbcType=VARCHAR}, #{netWeight,jdbcType=VARCHAR}, #{transportLog,jdbcType=VARCHAR}, 
-      #{pic,jdbcType=VARCHAR}, #{purity,jdbcType=VARCHAR}, #{productionEquipment,jdbcType=VARCHAR}, 
-      #{materialRatio,jdbcType=VARCHAR}, #{extractionUnit,jdbcType=VARCHAR}, #{albumPics,jdbcType=VARCHAR}, 
+      #{pic,jdbcType=VARCHAR}, #{qualityCertificate,jdbcType=VARCHAR}, #{standardNumber,jdbcType=VARCHAR}, 
+      #{purity,jdbcType=VARCHAR}, #{productionEquipment,jdbcType=VARCHAR}, #{materialRatio,jdbcType=VARCHAR}, 
+      #{extractionUnit,jdbcType=VARCHAR}, #{albumPics,jdbcType=VARCHAR}, #{chemicalComposition,jdbcType=VARCHAR}, 
       #{description,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.rare_earth_track.mgb.model.RetProduct">
@@ -189,6 +194,12 @@
       <if test="pic != null">
         pic,
       </if>
+      <if test="qualityCertificate != null">
+        quality_certificate,
+      </if>
+      <if test="standardNumber != null">
+        standard_number,
+      </if>
       <if test="purity != null">
         purity,
       </if>
@@ -203,6 +214,9 @@
       </if>
       <if test="albumPics != null">
         album_pics,
+      </if>
+      <if test="chemicalComposition != null">
+        chemical_composition,
       </if>
       <if test="description != null">
         description,
@@ -239,6 +253,12 @@
       <if test="pic != null">
         #{pic,jdbcType=VARCHAR},
       </if>
+      <if test="qualityCertificate != null">
+        #{qualityCertificate,jdbcType=VARCHAR},
+      </if>
+      <if test="standardNumber != null">
+        #{standardNumber,jdbcType=VARCHAR},
+      </if>
       <if test="purity != null">
         #{purity,jdbcType=VARCHAR},
       </if>
@@ -253,6 +273,9 @@
       </if>
       <if test="albumPics != null">
         #{albumPics,jdbcType=VARCHAR},
+      </if>
+      <if test="chemicalComposition != null">
+        #{chemicalComposition,jdbcType=VARCHAR},
       </if>
       <if test="description != null">
         #{description,jdbcType=LONGVARCHAR},
@@ -301,6 +324,12 @@
       <if test="row.pic != null">
         pic = #{row.pic,jdbcType=VARCHAR},
       </if>
+      <if test="row.qualityCertificate != null">
+        quality_certificate = #{row.qualityCertificate,jdbcType=VARCHAR},
+      </if>
+      <if test="row.standardNumber != null">
+        standard_number = #{row.standardNumber,jdbcType=VARCHAR},
+      </if>
       <if test="row.purity != null">
         purity = #{row.purity,jdbcType=VARCHAR},
       </if>
@@ -315,6 +344,9 @@
       </if>
       <if test="row.albumPics != null">
         album_pics = #{row.albumPics,jdbcType=VARCHAR},
+      </if>
+      <if test="row.chemicalComposition != null">
+        chemical_composition = #{row.chemicalComposition,jdbcType=VARCHAR},
       </if>
       <if test="row.description != null">
         description = #{row.description,jdbcType=LONGVARCHAR},
@@ -337,11 +369,14 @@
       net_weight = #{row.netWeight,jdbcType=VARCHAR},
       transport_log = #{row.transportLog,jdbcType=VARCHAR},
       pic = #{row.pic,jdbcType=VARCHAR},
+      quality_certificate = #{row.qualityCertificate,jdbcType=VARCHAR},
+      standard_number = #{row.standardNumber,jdbcType=VARCHAR},
       purity = #{row.purity,jdbcType=VARCHAR},
       production_equipment = #{row.productionEquipment,jdbcType=VARCHAR},
       material_ratio = #{row.materialRatio,jdbcType=VARCHAR},
       extraction_unit = #{row.extractionUnit,jdbcType=VARCHAR},
       album_pics = #{row.albumPics,jdbcType=VARCHAR},
+      chemical_composition = #{row.chemicalComposition,jdbcType=VARCHAR},
       description = #{row.description,jdbcType=LONGVARCHAR}
     <if test="example != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -360,11 +395,14 @@
       net_weight = #{row.netWeight,jdbcType=VARCHAR},
       transport_log = #{row.transportLog,jdbcType=VARCHAR},
       pic = #{row.pic,jdbcType=VARCHAR},
+      quality_certificate = #{row.qualityCertificate,jdbcType=VARCHAR},
+      standard_number = #{row.standardNumber,jdbcType=VARCHAR},
       purity = #{row.purity,jdbcType=VARCHAR},
       production_equipment = #{row.productionEquipment,jdbcType=VARCHAR},
       material_ratio = #{row.materialRatio,jdbcType=VARCHAR},
       extraction_unit = #{row.extractionUnit,jdbcType=VARCHAR},
-      album_pics = #{row.albumPics,jdbcType=VARCHAR}
+      album_pics = #{row.albumPics,jdbcType=VARCHAR},
+      chemical_composition = #{row.chemicalComposition,jdbcType=VARCHAR}
     <if test="example != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -402,6 +440,12 @@
       <if test="pic != null">
         pic = #{pic,jdbcType=VARCHAR},
       </if>
+      <if test="qualityCertificate != null">
+        quality_certificate = #{qualityCertificate,jdbcType=VARCHAR},
+      </if>
+      <if test="standardNumber != null">
+        standard_number = #{standardNumber,jdbcType=VARCHAR},
+      </if>
       <if test="purity != null">
         purity = #{purity,jdbcType=VARCHAR},
       </if>
@@ -416,6 +460,9 @@
       </if>
       <if test="albumPics != null">
         album_pics = #{albumPics,jdbcType=VARCHAR},
+      </if>
+      <if test="chemicalComposition != null">
+        chemical_composition = #{chemicalComposition,jdbcType=VARCHAR},
       </if>
       <if test="description != null">
         description = #{description,jdbcType=LONGVARCHAR},
@@ -435,11 +482,14 @@
       net_weight = #{netWeight,jdbcType=VARCHAR},
       transport_log = #{transportLog,jdbcType=VARCHAR},
       pic = #{pic,jdbcType=VARCHAR},
+      quality_certificate = #{qualityCertificate,jdbcType=VARCHAR},
+      standard_number = #{standardNumber,jdbcType=VARCHAR},
       purity = #{purity,jdbcType=VARCHAR},
       production_equipment = #{productionEquipment,jdbcType=VARCHAR},
       material_ratio = #{materialRatio,jdbcType=VARCHAR},
       extraction_unit = #{extractionUnit,jdbcType=VARCHAR},
       album_pics = #{albumPics,jdbcType=VARCHAR},
+      chemical_composition = #{chemicalComposition,jdbcType=VARCHAR},
       description = #{description,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -455,11 +505,14 @@
       net_weight = #{netWeight,jdbcType=VARCHAR},
       transport_log = #{transportLog,jdbcType=VARCHAR},
       pic = #{pic,jdbcType=VARCHAR},
+      quality_certificate = #{qualityCertificate,jdbcType=VARCHAR},
+      standard_number = #{standardNumber,jdbcType=VARCHAR},
       purity = #{purity,jdbcType=VARCHAR},
       production_equipment = #{productionEquipment,jdbcType=VARCHAR},
       material_ratio = #{materialRatio,jdbcType=VARCHAR},
       extraction_unit = #{extractionUnit,jdbcType=VARCHAR},
-      album_pics = #{albumPics,jdbcType=VARCHAR}
+      album_pics = #{albumPics,jdbcType=VARCHAR},
+      chemical_composition = #{chemicalComposition,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

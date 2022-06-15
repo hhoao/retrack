@@ -2,6 +2,31 @@ DROP DATABASE IF EXISTS rare_earth_track;
 CREATE DATABASE IF NOT EXISTS rare_earth_track;
 USE rare_earth_track;
 
+# 菜单表
+DROP TABLE IF EXISTS `ret_menu`;
+CREATE TABLE `ret_menu` (
+                            `id` bigint(20) NOT NULL AUTO_INCREMENT,
+                            `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+                            `title` varchar(100) DEFAULT NULL COMMENT '菜单名称',
+                            `level` int(4) DEFAULT NULL COMMENT '菜单级数',
+                            `sort` int(4) DEFAULT NULL COMMENT '菜单排序',
+                            `name` varchar(100) DEFAULT NULL COMMENT '前端名称',
+                            `icon` varchar(200) DEFAULT NULL COMMENT '前端图标',
+                            `hidden` int(1) DEFAULT NULL COMMENT '前端隐藏',
+                            PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8 COMMENT='后台菜单表';
+
+INSERT INTO `ret_menu` VALUES ('1', '2020-02-02 14:51:50', '商品', '0', '0', 'pms', 'product', '0');
+INSERT INTO `ret_menu` VALUES ('2', '2020-02-02 14:51:50', '商品列表', '1', '0', 'product', 'product-list', '0');
+INSERT INTO `ret_menu` VALUES ('3', '2020-02-02 14:52:44', '添加商品', '1', '0', 'addProduct', 'product-add', '0');
+INSERT INTO `ret_menu` VALUES ('4', '2020-02-02 14:53:51', '商品分类', '1', '0', 'productCate', 'product-cate', '0');
+INSERT INTO `ret_menu` VALUES ('5', '2020-02-02 14:54:51', '商品类型', '1', '0', 'productAttr', 'product-attr', '0');
+INSERT INTO `ret_menu` VALUES ('6', '2020-02-07 16:29:13', '权限', '0', '0', 'ums', 'ums', '0');
+INSERT INTO `ret_menu` VALUES ('7', '2020-02-07 16:29:51', '用户列表', '1', '0', 'admin', 'ums-admin', '0');
+INSERT INTO `ret_menu` VALUES ('8', '2020-02-07 16:30:13', '角色列表', '1', '0', 'role', 'ums-role', '0');
+INSERT INTO `ret_menu` VALUES ('9', '2020-02-07 16:30:53', '菜单列表', '1', '0', 'menu', 'ums-menu', '0');
+INSERT INTO `ret_menu` VALUES ('10', '2020-02-07 16:31:13', '资源列表', '1', '0', 'resource', 'ums-resource', '0');
+
 -- 资源表
 DROP TABLE IF EXISTS ret_resource;
 CREATE TABLE IF NOT EXISTS ret_resource
@@ -58,6 +83,38 @@ VALUES (3, 'ROLE_USER');
 INSERT INTO ret_role(id, name)
 VALUES (4, 'ROLE_CUSTOM');
 
+
+-- 角色菜单关系表
+DROP TABLE IF EXISTS ret_role_menu_relation;
+CREATE TABLE IF NOT EXISTS ret_role_menu_relation
+(
+    id          bigint AUTO_INCREMENT PRIMARY KEY,
+    role_id     bigint,
+    menu_id bigint,
+    UNIQUE (menu_id, role_id),
+    FOREIGN KEY (menu_id) REFERENCES ret_menu (`id`),
+    FOREIGN KEY (`role_id`) REFERENCES ret_role (`id`)
+) COMMENT '资源角色关系表';
+INSERT INTO ret_role_menu_relation(role_id, menu_id)
+VALUES ('1', '1');
+INSERT INTO ret_role_menu_relation(role_id, menu_id)
+VALUES ('1', '2');
+INSERT INTO ret_role_menu_relation(role_id, menu_id)
+VALUES ('1', '3');
+INSERT INTO ret_role_menu_relation(role_id, menu_id)
+VALUES ('1', '4');
+INSERT INTO ret_role_menu_relation(role_id, menu_id)
+VALUES ('1', '5');
+INSERT INTO ret_role_menu_relation(role_id, menu_id)
+VALUES ('1', '6');
+INSERT INTO ret_role_menu_relation(role_id, menu_id)
+VALUES ('1', '7');
+INSERT INTO ret_role_menu_relation(role_id, menu_id)
+VALUES ('1', '8');
+INSERT INTO ret_role_menu_relation(role_id, menu_id)
+VALUES ('1', '9');
+INSERT INTO ret_role_menu_relation(role_id, menu_id)
+VALUES ('1', '10');
 
 -- 资源角色关系表
 DROP TABLE IF EXISTS ret_role_resource_relation;

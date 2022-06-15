@@ -15,7 +15,7 @@ import java.util.List;
 public class JwtSecurityProperties {
     private String secret;
     private Long expiration = 604800L;
-    private String tokenHeader = "Authorization";
+    public String tokenHeader = "Authorization";
     private String tokenHead = "Bearer";
     private Integer refreshTime = 30;
     private IgnoreUrlsConfig ignored =new IgnoreUrlsConfig();

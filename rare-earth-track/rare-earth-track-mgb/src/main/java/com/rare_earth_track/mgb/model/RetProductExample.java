@@ -113,7 +113,7 @@ public class RetProductExample {
 
     /**
      * ret_product
-     * @author hhoa 2022-05-30
+     * @author hhoa 2022-06-13
      */
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
@@ -896,6 +896,146 @@ public class RetProductExample {
             return (Criteria) this;
         }
 
+        public Criteria andQualityCertificateIsNull() {
+            addCriterion("quality_certificate is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andQualityCertificateIsNotNull() {
+            addCriterion("quality_certificate is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andQualityCertificateEqualTo(String value) {
+            addCriterion("quality_certificate =", value, "qualityCertificate");
+            return (Criteria) this;
+        }
+
+        public Criteria andQualityCertificateNotEqualTo(String value) {
+            addCriterion("quality_certificate <>", value, "qualityCertificate");
+            return (Criteria) this;
+        }
+
+        public Criteria andQualityCertificateGreaterThan(String value) {
+            addCriterion("quality_certificate >", value, "qualityCertificate");
+            return (Criteria) this;
+        }
+
+        public Criteria andQualityCertificateGreaterThanOrEqualTo(String value) {
+            addCriterion("quality_certificate >=", value, "qualityCertificate");
+            return (Criteria) this;
+        }
+
+        public Criteria andQualityCertificateLessThan(String value) {
+            addCriterion("quality_certificate <", value, "qualityCertificate");
+            return (Criteria) this;
+        }
+
+        public Criteria andQualityCertificateLessThanOrEqualTo(String value) {
+            addCriterion("quality_certificate <=", value, "qualityCertificate");
+            return (Criteria) this;
+        }
+
+        public Criteria andQualityCertificateLike(String value) {
+            addCriterion("quality_certificate like", value, "qualityCertificate");
+            return (Criteria) this;
+        }
+
+        public Criteria andQualityCertificateNotLike(String value) {
+            addCriterion("quality_certificate not like", value, "qualityCertificate");
+            return (Criteria) this;
+        }
+
+        public Criteria andQualityCertificateIn(List<String> values) {
+            addCriterion("quality_certificate in", values, "qualityCertificate");
+            return (Criteria) this;
+        }
+
+        public Criteria andQualityCertificateNotIn(List<String> values) {
+            addCriterion("quality_certificate not in", values, "qualityCertificate");
+            return (Criteria) this;
+        }
+
+        public Criteria andQualityCertificateBetween(String value1, String value2) {
+            addCriterion("quality_certificate between", value1, value2, "qualityCertificate");
+            return (Criteria) this;
+        }
+
+        public Criteria andQualityCertificateNotBetween(String value1, String value2) {
+            addCriterion("quality_certificate not between", value1, value2, "qualityCertificate");
+            return (Criteria) this;
+        }
+
+        public Criteria andStandardNumberIsNull() {
+            addCriterion("standard_number is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStandardNumberIsNotNull() {
+            addCriterion("standard_number is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStandardNumberEqualTo(String value) {
+            addCriterion("standard_number =", value, "standardNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andStandardNumberNotEqualTo(String value) {
+            addCriterion("standard_number <>", value, "standardNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andStandardNumberGreaterThan(String value) {
+            addCriterion("standard_number >", value, "standardNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andStandardNumberGreaterThanOrEqualTo(String value) {
+            addCriterion("standard_number >=", value, "standardNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andStandardNumberLessThan(String value) {
+            addCriterion("standard_number <", value, "standardNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andStandardNumberLessThanOrEqualTo(String value) {
+            addCriterion("standard_number <=", value, "standardNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andStandardNumberLike(String value) {
+            addCriterion("standard_number like", value, "standardNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andStandardNumberNotLike(String value) {
+            addCriterion("standard_number not like", value, "standardNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andStandardNumberIn(List<String> values) {
+            addCriterion("standard_number in", values, "standardNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andStandardNumberNotIn(List<String> values) {
+            addCriterion("standard_number not in", values, "standardNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andStandardNumberBetween(String value1, String value2) {
+            addCriterion("standard_number between", value1, value2, "standardNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andStandardNumberNotBetween(String value1, String value2) {
+            addCriterion("standard_number not between", value1, value2, "standardNumber");
+            return (Criteria) this;
+        }
+
         public Criteria andPurityIsNull() {
             addCriterion("purity is null");
             return (Criteria) this;
@@ -1245,6 +1385,76 @@ public class RetProductExample {
             addCriterion("album_pics not between", value1, value2, "albumPics");
             return (Criteria) this;
         }
+
+        public Criteria andChemicalCompositionIsNull() {
+            addCriterion("chemical_composition is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andChemicalCompositionIsNotNull() {
+            addCriterion("chemical_composition is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andChemicalCompositionEqualTo(String value) {
+            addCriterion("chemical_composition =", value, "chemicalComposition");
+            return (Criteria) this;
+        }
+
+        public Criteria andChemicalCompositionNotEqualTo(String value) {
+            addCriterion("chemical_composition <>", value, "chemicalComposition");
+            return (Criteria) this;
+        }
+
+        public Criteria andChemicalCompositionGreaterThan(String value) {
+            addCriterion("chemical_composition >", value, "chemicalComposition");
+            return (Criteria) this;
+        }
+
+        public Criteria andChemicalCompositionGreaterThanOrEqualTo(String value) {
+            addCriterion("chemical_composition >=", value, "chemicalComposition");
+            return (Criteria) this;
+        }
+
+        public Criteria andChemicalCompositionLessThan(String value) {
+            addCriterion("chemical_composition <", value, "chemicalComposition");
+            return (Criteria) this;
+        }
+
+        public Criteria andChemicalCompositionLessThanOrEqualTo(String value) {
+            addCriterion("chemical_composition <=", value, "chemicalComposition");
+            return (Criteria) this;
+        }
+
+        public Criteria andChemicalCompositionLike(String value) {
+            addCriterion("chemical_composition like", value, "chemicalComposition");
+            return (Criteria) this;
+        }
+
+        public Criteria andChemicalCompositionNotLike(String value) {
+            addCriterion("chemical_composition not like", value, "chemicalComposition");
+            return (Criteria) this;
+        }
+
+        public Criteria andChemicalCompositionIn(List<String> values) {
+            addCriterion("chemical_composition in", values, "chemicalComposition");
+            return (Criteria) this;
+        }
+
+        public Criteria andChemicalCompositionNotIn(List<String> values) {
+            addCriterion("chemical_composition not in", values, "chemicalComposition");
+            return (Criteria) this;
+        }
+
+        public Criteria andChemicalCompositionBetween(String value1, String value2) {
+            addCriterion("chemical_composition between", value1, value2, "chemicalComposition");
+            return (Criteria) this;
+        }
+
+        public Criteria andChemicalCompositionNotBetween(String value1, String value2) {
+            addCriterion("chemical_composition not between", value1, value2, "chemicalComposition");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {
@@ -1255,7 +1465,7 @@ public class RetProductExample {
 
     /**
      * ret_product
-     * @author hhoa 2022-05-30
+     * @author hhoa 2022-06-13
      */
     public static class Criterion {
         private String condition;
