@@ -12,7 +12,7 @@ import java.util.List;
  * 分页数据封装类
  * @author hhoa
  */
-@Schema(name = "分页数据")
+@Schema(description = "分页数据")
 public class CommonPage<T> {
     /**
      * 当前页码
