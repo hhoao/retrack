@@ -1,5 +1,6 @@
 package com.rare_earth_track.admin.service;
 
+import com.rare_earth_track.admin.bean.PageInfo;
 import com.rare_earth_track.admin.bean.RetFactoryJob;
 import com.rare_earth_track.admin.bean.RetMemberParam;
 import com.rare_earth_track.mgb.model.RetMember;
@@ -18,11 +19,9 @@ public interface RetMemberService {
     /**
      * 分页获取成员列表
      *
-     * @param pageNum  the pageNum
-     * @param pageSize the pageSize
-     * @return 分页成员 list
+     * @param pageInfo@return 分页成员 list
      */
-    List<RetMember> list(Integer pageNum, Integer pageSize);
+    List<RetMember> list(PageInfo pageInfo);
 
     /**
      * Add member int.

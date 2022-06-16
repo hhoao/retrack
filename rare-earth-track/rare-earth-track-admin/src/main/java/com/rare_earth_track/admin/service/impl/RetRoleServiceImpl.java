@@ -2,6 +2,7 @@ package com.rare_earth_track.admin.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.github.pagehelper.PageHelper;
+import com.rare_earth_track.admin.bean.PageInfo;
 import com.rare_earth_track.admin.bean.RetRoleParam;
 import com.rare_earth_track.admin.service.*;
 import com.rare_earth_track.common.exception.Asserts;
@@ -125,8 +126,8 @@ public class RetRoleServiceImpl implements RetRoleService, ApplicationRunner {
     }
 
     @Override
-    public List<RetRole> list(Integer pageNum, Integer pageSize) {
-        PageHelper.startPage(pageNum, pageSize);
+    public List<RetRole> list(PageInfo pageInfo) {
+        PageHelper.startPage(pageInfo);
         return getAllRoles();
     }
 

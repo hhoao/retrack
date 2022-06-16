@@ -1,5 +1,6 @@
 package com.rare_earth_track.admin.service;
 
+import com.rare_earth_track.admin.bean.PageInfo;
 import com.rare_earth_track.mgb.model.RetMemberJob;
 import com.rare_earth_track.mgb.model.RetPermission;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,21 +18,18 @@ public interface RetMemberJobService {
     /**
      * 分页获取成员列表
      *
-     * @param pageNum  the pageNum
-     * @param pageSize the pageSize
-     * @return 分页成员 list
+     * @param pageInfo@return 分页成员 list
      */
-    List<RetMemberJob> list(Integer pageNum, Integer pageSize);
+    List<RetMemberJob> list(PageInfo pageInfo);
 
     /**
      * List job resources list.
      *
-     * @param pageNum  the pageNum
-     * @param pageSize the pageSize
+     * @param pageInfo
      * @param jobId    the job id
      * @return the list
      */
-    List<RetPermission> listJobPermissions(Integer pageNum, Integer pageSize, Long jobId);
+    List<RetPermission> listJobPermissions(PageInfo pageInfo, Long jobId);
 
 
     /**

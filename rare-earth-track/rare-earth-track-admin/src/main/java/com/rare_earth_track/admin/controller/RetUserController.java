@@ -1,6 +1,7 @@
 package com.rare_earth_track.admin.controller;
 
 
+import com.rare_earth_track.admin.bean.PageInfo;
 import com.rare_earth_track.admin.service.RetUserService;
 import com.rare_earth_track.common.api.CommonPage;
 import com.rare_earth_track.common.api.CommonResult;
@@ -8,7 +9,6 @@ import com.rare_earth_track.mgb.model.RetMenu;
 import com.rare_earth_track.mgb.model.RetUser;
 import com.rare_earth_track.security.config.JwtSecurityProperties;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.tags.Tags;
 import lombok.RequiredArgsConstructor;
@@ -30,9 +30,8 @@ public class RetUserController {
 
     @Operation(summary = "分页获取用户列表")
     @GetMapping("/users")
-    public CommonResult<CommonPage<RetUser>> list(@Parameter(description = "页码") @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
-                                                  @Parameter(description = "页面大小") @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize){
-        return CommonResult.success(CommonPage.restPage(userService.list(pageNum, pageSize)));
+    public CommonResult<CommonPage<RetUser>> list(PageInfo pageInfo){
+        return CommonResult.success(CommonPage.restPage(userService.list(pageInfo)));
     }
     @Operation(summary = "获取已认证用户角色菜单")
     @GetMapping("/user/role/menus")
@@ -57,9 +56,10 @@ public class RetUserController {
     }
     @Operation(summary = "通过用户参数获取用户信息")
     @GetMapping("/users/search")
-    public CommonResult<List<RetUser>> getUserByUserParam(RetUser user){
-        List<RetUser> users = userService.getUser(user);
-        return CommonResult.success(users);
+    public CommonResult<CommonPage<RetUser>> getUserByUserParam(RetUser user,
+                                                          PageInfo pageInfo){
+        List<RetUser> users = userService.queryUsers(user, pageInfo);
+        return CommonResult.success(CommonPage.restPage(users));
     }
 
     @Operation(summary = "更新当前用户资料")

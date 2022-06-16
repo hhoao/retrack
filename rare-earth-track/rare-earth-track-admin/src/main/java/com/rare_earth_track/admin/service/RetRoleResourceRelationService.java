@@ -1,5 +1,6 @@
 package com.rare_earth_track.admin.service;
 
+import com.rare_earth_track.admin.bean.PageInfo;
 import com.rare_earth_track.mgb.model.RetResource;
 import com.rare_earth_track.mgb.model.RetRole;
 import org.springframework.transaction.annotation.Transactional;
@@ -68,11 +69,10 @@ public interface RetRoleResourceRelationService {
      * 分页获取角色资源列表
      *
      * @param name     角色名
-     * @param pageNum  页码
-     * @param pageSize 页面大小
+     * @param pageInfo
      * @return 角色资源列表页 list
      */
-    List<RetResource> listRoleResources(String name, Integer pageNum, Integer pageSize);
+    List<RetResource> listRoleResources(String name, PageInfo pageInfo);
 
     /**
      * 删除资源

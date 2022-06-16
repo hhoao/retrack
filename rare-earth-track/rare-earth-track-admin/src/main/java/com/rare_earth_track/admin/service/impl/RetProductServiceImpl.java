@@ -1,6 +1,7 @@
 package com.rare_earth_track.admin.service.impl;
 
 import com.github.pagehelper.PageHelper;
+import com.rare_earth_track.admin.bean.PageInfo;
 import com.rare_earth_track.admin.service.RetProductService;
 import com.rare_earth_track.common.exception.Asserts;
 import com.rare_earth_track.mgb.mapper.RetProductMapper;
@@ -21,8 +22,8 @@ import java.util.List;
 public class RetProductServiceImpl implements RetProductService {
     private final RetProductMapper productMapper;
     @Override
-    public List<RetProduct> list(Integer pageNum, Integer pageSize) {
-        PageHelper.startPage(pageNum, pageSize);
+    public List<RetProduct> list(PageInfo pageInfo) {
+        PageHelper.startPage(pageInfo.getPageNum(), pageInfo.getPageSize());
         RetProductExample productExample = new RetProductExample();
         return productMapper.selectByExample(productExample);
     }

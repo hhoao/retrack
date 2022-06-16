@@ -3,6 +3,7 @@ target/
 rare-earth-track/**/target
 rare-earth-track/**/.idea
 rare-earth-track/**/**.iml
+rare-earth-track/**/application-dev.yml
 
 
 

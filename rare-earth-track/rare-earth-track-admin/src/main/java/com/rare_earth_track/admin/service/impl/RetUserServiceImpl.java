@@ -317,8 +317,8 @@ public class RetUserServiceImpl implements RetUserService {
     }
 
     @Override
-    public List<RetUser> list(Integer pageNum, Integer pageSize) {
-        PageHelper.startPage(pageNum, pageSize);
+    public List<RetUser> list(PageInfo pageInfo) {
+        PageHelper.startPage(pageInfo.getPageNum(), pageInfo.getPageSize());
         return getAllUsers();
     }
 
@@ -400,5 +400,11 @@ public class RetUserServiceImpl implements RetUserService {
         String username = jwtTokenService.getSubjectFromAuthorization(authorization);
         RetUser userByName = getUserByName(username);
         return roleService.getMenus(userByName.getRoleId());
+    }
+
+    @Override
+    public List<RetUser> queryUsers(RetUser user, PageInfo pageInfo) {
+        PageHelper.startPage(pageInfo.getPageNum(), pageInfo.getPageSize());
+        return getUser(user);
     }
 }

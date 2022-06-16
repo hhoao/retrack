@@ -1,6 +1,7 @@
 package com.rare_earth_track.admin.service.impl;
 
 import com.rare_earth_track.admin.TransactionTest;
+import com.rare_earth_track.admin.bean.PageInfo;
 import com.rare_earth_track.admin.bean.RetFactoryJob;
 import com.rare_earth_track.admin.bean.RetMemberParam;
 import com.rare_earth_track.admin.service.RetMemberService;
@@ -23,8 +24,8 @@ class RetMemberServiceImplTest extends TransactionTest {
 
     @Test
     void list() {
-        List<RetMember> list = memberService.list(1, 5);
-        System.out.println(list);
+        List<RetMember> list = memberService.list(new PageInfo(1, 5));
+        Assertions.assertTrue(list.size() <= 5);
     }
 
     @Test

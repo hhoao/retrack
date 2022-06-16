@@ -1,6 +1,7 @@
 package com.rare_earth_track.admin.service.impl;
 
 import com.github.pagehelper.PageHelper;
+import com.rare_earth_track.admin.bean.PageInfo;
 import com.rare_earth_track.admin.bean.RetFactoryJob;
 import com.rare_earth_track.admin.bean.RetMemberParam;
 import com.rare_earth_track.admin.service.RetFactoryService;
@@ -38,8 +39,8 @@ public class RetMemberServiceImpl implements RetMemberService {
     private final RetMemberJobService memberJobService;
 
     @Override
-    public List<RetMember> list(Integer pageNum, Integer pageSize) {
-        PageHelper.startPage(pageNum, pageSize);
+    public List<RetMember> list(PageInfo pageInfo) {
+        PageHelper.startPage(pageInfo.getPageNum(), pageInfo.getPageSize());
         return memberMapper.selectByExample(new RetMemberExample());
     }
 
