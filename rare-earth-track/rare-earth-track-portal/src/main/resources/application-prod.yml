@@ -1,0 +1,38 @@
+server:
+  port: 8888
+spring:
+  # 配置邮箱
+  mail:
+    host: smtp.qq.com
+    port: 587
+    username: haunghao@foxmail.com
+    # 授权码
+    password: dkebgphvnbbpfjfd
+    properties:
+      mail:
+        smtp:
+          socketFactory:
+            class=javax:
+              net:
+                ssl:
+                  SSLSocketFactory:
+  # 配置redis
+  redis:
+    database: 0
+    port: 6379
+    password:
+    host: redis
+  # 配置mysql数据库
+  datasource:
+    url: jdbc:mysql://mysql:3306/rare_earth_track
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 1234
+  # 配置缓存
+  cache:
+    redis:
+      time-to-live: 1d
+# 项目配置
+ret:
+  mail:
+    from: haunghao@foxmail.com
