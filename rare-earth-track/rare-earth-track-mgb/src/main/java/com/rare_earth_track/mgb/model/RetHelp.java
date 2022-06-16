@@ -7,9 +7,9 @@ import java.util.Date;
 /**
  * 帮助
  * @author hhoa 
- * @date 2022-06-13
+ * @date 2022-06-16
  */
-@Schema(name = "帮助")
+@Schema(description = "帮助")
 public class RetHelp implements Serializable {
     private Long id;
 

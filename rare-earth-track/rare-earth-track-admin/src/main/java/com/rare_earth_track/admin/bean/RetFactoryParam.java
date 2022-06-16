@@ -7,7 +7,7 @@ import lombok.Data;
  * @author hhoa
  * @date 2022/5/31
  **/
-@Schema(name = "工厂参数")
+@Schema(description= "工厂参数")
 @Data
 public class RetFactoryParam {
     @Schema(description = "工厂名")

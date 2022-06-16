@@ -8,7 +8,7 @@ import lombok.Data;
  * @author hhoa
  * @date 2022/5/13
  **/
-@Schema(name = "用户通过验证码密码参数", description = "RetUserUpdatePasswordParam")
+@Schema(description= "用户通过验证码密码参数")
 @Data
 public class RetUpdateUserPasswordParam {
     @Schema(description = "验证方式, 如果使用username方式，则必填identifier、oldPassword和newPassword," +

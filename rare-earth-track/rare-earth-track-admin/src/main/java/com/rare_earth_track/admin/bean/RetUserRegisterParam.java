@@ -9,7 +9,7 @@ import lombok.Data;
  * @date 2022/5/12
  **/
 @Data
-@Schema(name = "用户注册参数", description = "RetUserRegisterParam")
+@Schema(description= "用户注册参数")
 public class RetUserRegisterParam {
     @Schema(description = "认证类型")
     private IdentifyType identifyType;

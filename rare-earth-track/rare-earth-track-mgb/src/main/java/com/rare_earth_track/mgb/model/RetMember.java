@@ -6,9 +6,9 @@ import java.io.Serializable;
 /**
  * 工厂成员
  * @author hhoa 
- * @date 2022-06-13
+ * @date 2022-06-16
  */
-@Schema(name = "工厂成员")
+@Schema(description = "工厂成员")
 public class RetMember implements Serializable {
     private Long id;
 

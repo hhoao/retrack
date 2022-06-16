@@ -8,7 +8,7 @@ import lombok.Data;
  * @date 2022/5/16
  **/
 @Data
-@Schema(description = "RetResourceRoleRelationParam", name = "资源角色关系参数")
+@Schema(description= "资源角色关系参数")
 public class RetResourceRoleRelationParam {
     @Schema(description = "资源Id")
     private Long resourceId;

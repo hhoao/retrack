@@ -7,9 +7,9 @@ import java.util.Date;
 /**
  * 反馈
  * @author hhoa 
- * @date 2022-06-13
+ * @date 2022-06-16
  */
-@Schema(name = "反馈")
+@Schema(description = "反馈")
 public class RetFeedback implements Serializable {
     private Long id;
 

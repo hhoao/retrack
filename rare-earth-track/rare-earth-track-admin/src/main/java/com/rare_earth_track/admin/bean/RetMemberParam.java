@@ -8,7 +8,7 @@ import lombok.Data;
  * @date 2022/5/31
  **/
 
-@Schema(name = "成员参数")
+@Schema(description= "成员参数")
 @Data
 public class RetMemberParam {
     @Schema(description = "联系方式")
