@@ -1,9 +1,9 @@
 target/
 !.mvn/wrapper/maven-wrapper.jar
+rare-earth-track/**/application-dev.yml
 rare-earth-track/**/target
 rare-earth-track/**/.idea
 rare-earth-track/**/**.iml
-rare-earth-track/**/application-dev.yml
 
 
 
