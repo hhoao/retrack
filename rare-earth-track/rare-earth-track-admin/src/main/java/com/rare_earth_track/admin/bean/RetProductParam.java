@@ -13,7 +13,7 @@ import java.util.Date;
  * @Version V1.0
  */
 @Data
-@Schema(description = "RetProductParam", name = "产品参数")
+@Schema(description = "产品参数")
 public class RetProductParam {
 
     @Schema(description = "工厂编号", required = true)
