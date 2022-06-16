@@ -2,6 +2,7 @@ package com.rare_earth_track.admin.service.impl;
 
 import com.rare_earth_track.admin.TransactionTest;
 import com.rare_earth_track.admin.bean.MailType;
+import com.rare_earth_track.admin.bean.PageInfo;
 import com.rare_earth_track.admin.bean.RetFactoryParam;
 import com.rare_earth_track.admin.bean.RetMemberParam;
 import com.rare_earth_track.admin.service.RetFactoryService;
@@ -40,8 +41,8 @@ class RetFactoryServiceImplTest extends TransactionTest {
 
     @Test
     void list() {
-        List<RetFactory> list = factoryService.list(1, 5);
-        Assertions.assertNotNull(list);
+        List<RetFactory> list = factoryService.list(new PageInfo(1, 5));
+        Assertions.assertTrue(list.size() <= 5);
     }
 
     @Test
@@ -115,14 +116,14 @@ class RetFactoryServiceImplTest extends TransactionTest {
 
     @Test
     void listFactoryMembers() {
-        List<RetMember> members = factoryService.listFactoryMembers(1, 5, testName);
+        List<RetMember> members = factoryService.listFactoryMembers(new PageInfo(1, 5), testName);
     }
 
     @Test
     void getFactory() {
         RetFactory factory1 = new RetFactory();
         factory1.setName("五矿%");
-        List<RetFactory> factory2 = factoryService.getFactory(factory1);
+        List<RetFactory> factory2 = factoryService.getFactory(new PageInfo(1, 5), factory1);
         Assertions.assertEquals(factory2.size(), 1);
         Assertions.assertEquals(factory2.get(0).getName(), "五矿稀土");
     }

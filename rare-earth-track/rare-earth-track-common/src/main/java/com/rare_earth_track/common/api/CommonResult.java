@@ -6,7 +6,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
  * 通用返回对象
  * @author hhoa
  */
-@Schema(name = "通用返回对象")
+@Schema(description = "通用返回对象")
 public class CommonResult<T>{
     /**
      * 状态码
@@ -20,7 +20,7 @@ public class CommonResult<T>{
     private String message;
     /**
      * 数据封装
-     */
+//     */
     @Schema(description = "数据")
     private T data;
     protected CommonResult(){

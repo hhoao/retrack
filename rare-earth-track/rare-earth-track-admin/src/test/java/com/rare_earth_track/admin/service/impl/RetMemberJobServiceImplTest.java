@@ -1,6 +1,7 @@
 package com.rare_earth_track.admin.service.impl;
 
 import com.rare_earth_track.admin.TransactionTest;
+import com.rare_earth_track.admin.bean.PageInfo;
 import com.rare_earth_track.admin.bean.RetPermissionParam;
 import com.rare_earth_track.admin.service.RetMemberJobPermissionRelationService;
 import com.rare_earth_track.admin.service.RetMemberJobService;
@@ -12,8 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author hhoa
@@ -30,13 +30,13 @@ class RetMemberJobServiceImplTest extends TransactionTest {
 
     @Test
     void list() {
-        List<RetMemberJob> list = jobService.list(1, 2);
-        assertEquals(list.size(), 2);
+        List<RetMemberJob> list = jobService.list(new PageInfo(1, 5));
+        assertTrue(list.size() <=5);
     }
 
     @Test
     void listJobPermissions() {
-        List<RetPermission> permissions = jobService.listJobPermissions(1, 2, 1L);
+        List<RetPermission> permissions = jobService.listJobPermissions(new PageInfo(1, 5), 1L);
         assertEquals(permissions.size(), 2);
     }
 

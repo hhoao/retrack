@@ -8,7 +8,7 @@ import lombok.Data;
  * @date 2022/5/16
  **/
 @Data
-@Schema(description = "RetPermissionParam", name = "权限参数")
+@Schema(description = "权限参数")
 public class RetPermissionParam {
     @Schema(description = "权限名称", required = true)
     private String name;

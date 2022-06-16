@@ -1,5 +1,6 @@
 package com.rare_earth_track.admin.controller;
 
+import com.rare_earth_track.admin.bean.PageInfo;
 import com.rare_earth_track.admin.bean.RetFactoryParam;
 import com.rare_earth_track.admin.bean.RetMemberParam;
 import com.rare_earth_track.admin.bean.RetProductParam;
@@ -9,7 +10,6 @@ import com.rare_earth_track.mgb.model.RetFactory;
 import com.rare_earth_track.mgb.model.RetMember;
 import com.rare_earth_track.mgb.model.RetProduct;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -28,9 +28,8 @@ public class RetFactoryController {
 
     @Operation(summary = "分页获取工厂")
     @GetMapping("/factories")
-    public CommonResult<List<RetFactory>> list(@Parameter(description = "页码") @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
-                                               @Parameter(description = "页面大小") @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize){
-        List<RetFactory> list = factoryService.list(pageNum, pageSize);
+    public CommonResult<List<RetFactory>> list(PageInfo pageInfo){
+        List<RetFactory> list = factoryService.list(pageInfo);
         return CommonResult.success(list);
     }
     @Operation(summary = "创建工厂")
@@ -67,16 +66,15 @@ public class RetFactoryController {
 
     @Operation(summary = "根据条件查询工厂信息")
     @GetMapping("/factories/search")
-    public CommonResult<List<RetFactory>> getFactory(RetFactory factory){
-        List<RetFactory> factories = factoryService.getFactory(factory);
+    public CommonResult<List<RetFactory>> getFactory(PageInfo pageInfo, RetFactory factory){
+        List<RetFactory> factories = factoryService.getFactory(pageInfo, factory);
         return CommonResult.success(factories);
     }
     @Operation(summary = "获取工厂所有成员")
     @GetMapping("/factories/{factoryName}/members")
-    public CommonResult<List<RetMember>> listMembers(@RequestParam(value = "from", defaultValue = "1") Integer from,
-                                                     @RequestParam(value = "size", defaultValue = "5") Integer size,
+    public CommonResult<List<RetMember>> listMembers(PageInfo pageInfo,
                                                      @PathVariable(value="factoryName") String factoryName){
-        List<RetMember> members = factoryService.listFactoryMembers(from, size, factoryName);
+        List<RetMember> members = factoryService.listFactoryMembers(pageInfo, factoryName);
         return CommonResult.success(members);
     }
 

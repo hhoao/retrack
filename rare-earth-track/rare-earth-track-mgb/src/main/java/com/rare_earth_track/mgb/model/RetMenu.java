@@ -7,9 +7,9 @@ import java.util.Date;
 /**
  * 后台菜单
  * @author hhoa 
- * @date 2022-06-13
+ * @date 2022-06-16
  */
-@Schema(name = "后台菜单")
+@Schema(description = "后台菜单")
 public class RetMenu implements Serializable {
     private Long id;
 

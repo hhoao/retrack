@@ -1,6 +1,7 @@
 package com.rare_earth_track.admin.service;
 
 import com.rare_earth_track.admin.bean.RetProductParam;
+import com.rare_earth_track.admin.bean.PageInfo;
 import com.rare_earth_track.mgb.model.RetProduct;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,11 +17,9 @@ public interface RetProductService {
     /**
      * List list.
      *
-     * @param pageNum  the page num
-     * @param pageSize the page size
-     * @return the list
+     * @param pageInfo@return the list
      */
-    List<RetProduct> list(Integer pageNum, Integer pageSize);
+    List<RetProduct> list(PageInfo pageInfo);
 
     /**
      * Gets products.

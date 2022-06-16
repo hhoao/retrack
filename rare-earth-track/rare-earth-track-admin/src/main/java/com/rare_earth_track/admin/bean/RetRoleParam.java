@@ -8,7 +8,7 @@ import lombok.Data;
  * @date 2022/5/16
  **/
 @Data
-@Schema(description = "RetRoleParam", name = "角色参数")
+@Schema(description= "角色参数")
 public class RetRoleParam {
     @Schema(description = "名称")
     private String name;

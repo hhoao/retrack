@@ -89,7 +89,7 @@ public class CommentGenerator extends DefaultCommentGenerator {
                 remarks = remarks.replace("\"", "'");
             }
             //给model的字段添加swagger注解
-            topLevelClass.addJavaDocLine("@Schema(name = \"" + remarks + "\")");
+            topLevelClass.addJavaDocLine("@Schema(description = \"" + remarks + "\")");
         }
     }
 

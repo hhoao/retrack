@@ -1,6 +1,7 @@
 package com.rare_earth_track.admin.service.impl;
 
 import com.github.pagehelper.PageHelper;
+import com.rare_earth_track.admin.bean.PageInfo;
 import com.rare_earth_track.admin.service.RetMemberJobPermissionRelationService;
 import com.rare_earth_track.admin.service.RetMemberJobService;
 import com.rare_earth_track.common.exception.Asserts;
@@ -30,14 +31,14 @@ public class RetMemberJobServiceImpl implements RetMemberJobService {
     }
 
     @Override
-    public List<RetMemberJob> list(Integer pageNum, Integer pageSize) {
-        PageHelper.startPage(pageNum, pageSize);
+    public List<RetMemberJob> list(PageInfo pageInfo) {
+        PageHelper.startPage(pageInfo.getPageNum(), pageInfo.getPageSize());
         return jobMapper.selectByExample(new RetMemberJobExample());
     }
 
     @Override
-    public List<RetPermission> listJobPermissions(Integer pageNum, Integer pageSize, Long jobId) {
-        PageHelper.startPage(pageNum, pageSize);
+    public List<RetPermission> listJobPermissions(PageInfo pageInfo, Long jobId) {
+        PageHelper.startPage(pageInfo.getPageNum(), pageInfo.getPageSize());
         return memberJobPermissionRelationService.getJobPermissions(jobId);
     }
 

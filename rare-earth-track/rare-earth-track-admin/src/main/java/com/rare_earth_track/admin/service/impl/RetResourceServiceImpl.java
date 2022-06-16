@@ -3,6 +3,7 @@ package com.rare_earth_track.admin.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.github.pagehelper.PageHelper;
+import com.rare_earth_track.admin.bean.PageInfo;
 import com.rare_earth_track.admin.bean.RetResourceParam;
 import com.rare_earth_track.admin.service.RetResourceService;
 import com.rare_earth_track.admin.service.RetRoleResourceRelationService;
@@ -54,8 +55,8 @@ public class RetResourceServiceImpl implements RetResourceService {
     }
 
     @Override
-    public List<RetResource> list(Integer pageNum, Integer pageSize) {
-        PageHelper.startPage(pageNum, pageSize);
+    public List<RetResource> list(PageInfo pageInfo) {
+        PageHelper.startPage(pageInfo.getPageNum(), pageInfo.getPageSize());
         return getAllResources();
     }
 

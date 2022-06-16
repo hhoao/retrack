@@ -21,7 +21,7 @@ import java.time.LocalDate;
 @Data
 @AllArgsConstructor
 @ToString
-@Schema(description = "RetUserParam", name="用户参数")
+@Schema(description="用户参数")
 public class RetUserParam {
     @Schema(description = "姓名")
     private String name;

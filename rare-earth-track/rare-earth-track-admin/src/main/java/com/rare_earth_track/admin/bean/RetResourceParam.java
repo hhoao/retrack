@@ -8,7 +8,7 @@ import lombok.Data;
  * @date 2022/5/16
  **/
 @Data
-@Schema(description = "RetResourceParam", name = "资源参数")
+@Schema(description = "资源参数")
 public class RetResourceParam {
     @Schema(description = "资源名称", required = true)
     private String name;

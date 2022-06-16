@@ -155,8 +155,8 @@ class RetUserServiceImplTest extends TransactionTest {
 
     @Test
     void list() {
-        List<RetUser> list = userService.list(1, 2);
-        Assertions.assertEquals(list.size(), 2);
+        List<RetUser> list = userService.list(new PageInfo(1, 5));
+        Assertions.assertTrue(list.size()<= 5);
     }
 
     @Test

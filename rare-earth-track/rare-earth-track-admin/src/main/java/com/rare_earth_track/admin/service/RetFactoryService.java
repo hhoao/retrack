@@ -1,5 +1,6 @@
 package com.rare_earth_track.admin.service;
 
+import com.rare_earth_track.admin.bean.PageInfo;
 import com.rare_earth_track.admin.bean.RetFactoryParam;
 import com.rare_earth_track.admin.bean.RetMemberParam;
 import com.rare_earth_track.admin.bean.RetProductParam;
@@ -20,11 +21,9 @@ public interface RetFactoryService {
     /**
      * 分页获取工厂列表
      *
-     * @param pageNum  the pageNum
-     * @param pageSize the pageSize
-     * @return 分页角色 list
+     * @param pageInfo@return 分页角色 list
      */
-    List<RetFactory> list(Integer pageNum, Integer pageSize);
+    List<RetFactory> list(PageInfo pageInfo);
 
     /**
      * 增加工厂
@@ -126,20 +125,20 @@ public interface RetFactoryService {
     /**
      * List factory members list.
      *
-     * @param from        the from
-     * @param size        the size
+     * @param pageInfo
      * @param factoryName the factory id
      * @return the list
      */
-    List<RetMember> listFactoryMembers(Integer from, Integer size, String factoryName);
+    List<RetMember> listFactoryMembers(PageInfo pageInfo, String factoryName);
 
     /**
      * Gets factory.
      *
-     * @param factory the factory param
+     * @param pageInfo
+     * @param factory  the factory param
      * @return the factory
      */
-    List<RetFactory> getFactory(RetFactory factory);
+    List<RetFactory> getFactory(PageInfo pageInfo, RetFactory factory);
 
     /**
      * List products list.

@@ -1,5 +1,6 @@
 package com.rare_earth_track.admin.controller;
 
+import com.rare_earth_track.admin.bean.PageInfo;
 import com.rare_earth_track.admin.bean.RetRoleParam;
 import com.rare_earth_track.admin.service.RetRoleResourceRelationService;
 import com.rare_earth_track.admin.service.RetRoleService;
@@ -38,9 +39,8 @@ public class RetRoleController {
     @Operation(summary = "分页获取角色所有资源")
     @GetMapping("/roles/{roleName}/resources")
     public CommonResult<CommonPage<RetResource>> listRoleResources(@Parameter(description = "角色名字") @PathVariable("roleName") String roleName,
-                                                                   @Parameter(description = "页码") @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
-                                                                   @Parameter(description = "页面大小") @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize){
-        List<RetResource> resources = resourceRoleRelationService.listRoleResources(roleName, pageNum, pageSize);
+                                                                   PageInfo pageInfo){
+        List<RetResource> resources = resourceRoleRelationService.listRoleResources(roleName, pageInfo);
         return CommonResult.success(CommonPage.restPage(resources));
     }
 
@@ -61,9 +61,8 @@ public class RetRoleController {
 
     @Operation(summary = "分页获取角色列表")
     @GetMapping("/roles")
-    public CommonResult<CommonPage<RetRole>> list(@Parameter(description = "页码") @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
-                                                  @Parameter(description = "页面大小") @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize){
-        List<RetRole> list = roleService.list(pageNum, pageSize);
+    public CommonResult<CommonPage<RetRole>> list(PageInfo pageInfo){
+        List<RetRole> list = roleService.list(pageInfo);
         return CommonResult.success(CommonPage.restPage(list));
     }
     @Operation(summary = "删除角色")

@@ -6,9 +6,9 @@ import java.io.Serializable;
 /**
  * 材料分类
  * @author hhoa 
- * @date 2022-06-13
+ * @date 2022-06-16
  */
-@Schema(name = "材料分类")
+@Schema(description = "材料分类")
 public class RetMaterialCategory implements Serializable {
     private Long id;
 

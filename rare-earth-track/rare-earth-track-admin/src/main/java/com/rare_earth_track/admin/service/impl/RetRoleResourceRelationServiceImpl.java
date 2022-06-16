@@ -1,6 +1,7 @@
 package com.rare_earth_track.admin.service.impl;
 
 import com.github.pagehelper.PageHelper;
+import com.rare_earth_track.admin.bean.PageInfo;
 import com.rare_earth_track.admin.service.RetResourceService;
 import com.rare_earth_track.admin.service.RetRoleResourceCacheService;
 import com.rare_earth_track.admin.service.RetRoleResourceRelationService;
@@ -114,8 +115,8 @@ public class RetRoleResourceRelationServiceImpl implements RetRoleResourceRelati
         roleService.refreshCache(roleId);
     }
     @Override
-    public List<RetResource> listRoleResources(String name, Integer pageNum, Integer pageSize) {
-        PageHelper.startPage(pageNum, pageSize);
+    public List<RetResource> listRoleResources(String name, PageInfo pageInfo) {
+        PageHelper.startPage(pageInfo.getPageNum(), pageInfo.getPageSize());
         RetRole roleByRoleName = roleService.getRole(name);
         if (roleByRoleName == null){
             Asserts.fail("没有该角色");

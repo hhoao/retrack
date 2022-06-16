@@ -1,6 +1,7 @@
 package com.rare_earth_track.admin.service;
 
 
+import com.rare_earth_track.admin.bean.PageInfo;
 import com.rare_earth_track.admin.bean.RetResourceParam;
 import com.rare_earth_track.mgb.model.RetResource;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,11 +33,9 @@ public interface RetResourceService {
     /**
      * 分页获取资源列表
      *
-     * @param pageNum  the pageNum
-     * @param pageSize the size
-     * @return 分页资源 list
+     * @param pageInfo@return 分页资源 list
      */
-    List<RetResource> list(Integer pageNum, Integer pageSize);
+    List<RetResource> list(PageInfo pageInfo);
 
     /**
      * 通过ResourceId获取Resource

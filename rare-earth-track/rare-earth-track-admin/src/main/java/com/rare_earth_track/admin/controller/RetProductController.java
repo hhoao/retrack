@@ -1,16 +1,15 @@
 package com.rare_earth_track.admin.controller;
 
 
-import com.rare_earth_track.admin.bean.RetProductParam;
 import com.rare_earth_track.admin.service.RetProductService;
 import com.rare_earth_track.common.api.CommonResult;
 import com.rare_earth_track.mgb.model.RetProduct;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.tags.Tag;
-import io.swagger.v3.oas.annotations.tags.Tags;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -19,7 +18,6 @@ import java.util.List;
  */
 @RestController
 @RequiredArgsConstructor
-@Tags({@Tag(name="产品管理", description = "RetProductController")})
 public class RetProductController {
     private final RetProductService productService;
 

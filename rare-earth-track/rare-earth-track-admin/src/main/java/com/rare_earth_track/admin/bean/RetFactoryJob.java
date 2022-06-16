@@ -14,7 +14,7 @@ import java.io.Serializable;
  * @date 2022 /5/27
  */
 @Data
-@Schema(description = "RetFactoryJob", name = "工厂职位")
+@Schema(description = "工厂职位")
 @AllArgsConstructor
 @NoArgsConstructor
 public class RetFactoryJob implements Serializable {

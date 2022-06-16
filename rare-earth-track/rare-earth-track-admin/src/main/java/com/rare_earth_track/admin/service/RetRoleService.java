@@ -1,5 +1,6 @@
 package com.rare_earth_track.admin.service;
 
+import com.rare_earth_track.admin.bean.PageInfo;
 import com.rare_earth_track.admin.bean.RetRoleParam;
 import com.rare_earth_track.mgb.model.RetMenu;
 import com.rare_earth_track.mgb.model.RetResource;
@@ -92,11 +93,9 @@ public interface RetRoleService {
     /**
      * 分页获取角色列表
      *
-     * @param pageNum  the pageNum
-     * @param pageSize the pageSize
-     * @return 分页角色 list
+     * @param pageInfo@return 分页角色 list
      */
-    List<RetRole> list(Integer pageNum, Integer pageSize);
+    List<RetRole> list(PageInfo pageInfo);
 
     /**
      * 删除角色

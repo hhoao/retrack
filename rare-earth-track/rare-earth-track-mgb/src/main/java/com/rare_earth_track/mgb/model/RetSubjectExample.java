@@ -113,7 +113,7 @@ public class RetSubjectExample {
 
     /**
      * ret_subject
-     * @author hhoa 2022-06-13
+     * @author hhoa 2022-06-16
      */
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
@@ -605,7 +605,7 @@ public class RetSubjectExample {
 
     /**
      * ret_subject
-     * @author hhoa 2022-06-13
+     * @author hhoa 2022-06-16
      */
     public static class Criterion {
         private String condition;

@@ -3,6 +3,7 @@ package com.rare_earth_track.admin.service.impl;
 import cn.hutool.core.bean.BeanUtil;
 import com.github.pagehelper.PageHelper;
 import com.rare_earth_track.admin.bean.MailType;
+import com.rare_earth_track.admin.bean.PageInfo;
 import com.rare_earth_track.admin.bean.RetFactoryParam;
 import com.rare_earth_track.admin.bean.RetMemberParam;
 import com.rare_earth_track.admin.bean.RetProductParam;
@@ -33,8 +34,8 @@ public class RetFactoryServiceImpl implements RetFactoryService {
     private final RetFactoryUserRelationService factoryUserRelationService;
 
     @Override
-    public List<RetFactory> list(Integer pageNum, Integer pageSize) {
-        PageHelper.startPage(pageNum, pageSize);
+    public List<RetFactory> list(PageInfo pageInfo) {
+        PageHelper.startPage(pageInfo.getPageNum(), pageInfo.getPageSize());
         return factoryMapper.selectByExample(new RetFactoryExample());
     }
 
@@ -158,8 +159,8 @@ public class RetFactoryServiceImpl implements RetFactoryService {
     }
 
     @Override
-    public List<RetMember> listFactoryMembers(Integer from, Integer size, String factoryName) {
-        PageHelper.startPage(from, size);
+    public List<RetMember> listFactoryMembers(PageInfo pageInfo, String factoryName) {
+        PageHelper.startPage(pageInfo.getPageNum(), pageInfo.getPageSize());
         RetFactory factoryByFactoryName = getFactoryByFactoryName(factoryName);
         return memberService.getFactoryMembers(factoryByFactoryName.getId());
     }
@@ -193,7 +194,8 @@ public class RetFactoryServiceImpl implements RetFactoryService {
     }
 
     @Override
-    public List<RetFactory> getFactory(RetFactory factory) {
+    public List<RetFactory> getFactory(PageInfo pageInfo, RetFactory factory) {
+        PageHelper.startPage(pageInfo.getPageNum(), pageInfo.getPageSize());
         RetFactoryExample factoryExample = getFactoryExample(factory);
         return factoryMapper.selectByExample(factoryExample);
     }
