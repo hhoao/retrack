@@ -9,6 +9,6 @@ import org.springframework.context.annotation.Configuration;
  * @date 2022/5/5
  **/
 @Configuration
-@MapperScan(basePackages = {"com.demo.rare_earth_track.portal.dao"})
+@MapperScan(basePackages = {"com.rare_earth_track.portal.dao", "com.rare_earth_track.mgb.mapper"})
 public class PortalMyBatisConfig {
 }
