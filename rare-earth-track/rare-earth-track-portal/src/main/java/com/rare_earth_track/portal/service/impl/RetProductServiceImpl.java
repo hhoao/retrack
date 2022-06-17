@@ -2,11 +2,12 @@ package com.rare_earth_track.portal.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.github.pagehelper.PageHelper;
+import com.rare_earth_track.admin.bean.PageInfo;
+import com.rare_earth_track.admin.bean.RetProductParam;
 import com.rare_earth_track.common.exception.Asserts;
 import com.rare_earth_track.mgb.mapper.RetProductMapper;
 import com.rare_earth_track.mgb.model.RetProduct;
 import com.rare_earth_track.mgb.model.RetProductExample;
-import com.rare_earth_track.portal.bean.RetProductParam;
 import com.rare_earth_track.portal.service.RetProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
@@ -24,8 +25,8 @@ import java.util.List;
 public class RetProductServiceImpl implements RetProductService {
     private final RetProductMapper productMapper;
     @Override
-    public List<RetProduct> list(Integer pageNum, Integer pageSize) {
-        PageHelper.startPage(pageNum, pageSize);
+    public List<RetProduct> list(PageInfo pageInfo) {
+        PageHelper.startPage(pageInfo.getPageNum(), pageInfo.getPageSize());
         RetProductExample productExample = new RetProductExample();
         return productMapper.selectByExample(productExample);
     }
@@ -141,19 +142,4 @@ public class RetProductServiceImpl implements RetProductService {
             Asserts.fail("删除失败");
         }
     }
-
-    @Override
-    public RetProduct getProductByBatchId(String batchId) {
-        RetProductExample productExample = new RetProductExample();
-        productExample.createCriteria().andBatchIdEqualTo(batchId);
-        List<RetProduct> retProducts = productMapper.selectByExample(productExample);
-        if (retProducts != null && retProducts.size() > 0) {
-            return retProducts.get(0);
-        }else if (retProducts.size() == 0){
-            Asserts.fail("没有该产品");
-        }
-        return null;
-    }
-
-
 }

@@ -1,8 +1,7 @@
 package com.rare_earth_track.portal.service.impl;
 
-
+import com.rare_earth_track.admin.bean.RetUserDetails;
 import com.rare_earth_track.common.service.RedisService;
-import com.rare_earth_track.portal.bean.RetUserDetails;
 import com.rare_earth_track.portal.service.RetTokenCacheService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;

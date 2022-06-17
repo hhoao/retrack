@@ -1,8 +1,8 @@
 package com.rare_earth_track.portal.service;
 
+import com.rare_earth_track.admin.bean.IdentifyType;
+import com.rare_earth_track.admin.bean.RetUserAuthParam;
 import com.rare_earth_track.mgb.model.RetUserAuth;
-import com.rare_earth_track.portal.bean.IdentifyType;
-import com.rare_earth_track.portal.bean.RetUserAuthParam;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;

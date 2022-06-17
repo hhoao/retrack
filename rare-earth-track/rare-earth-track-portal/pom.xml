@@ -28,6 +28,10 @@
             <version>${mail}</version>
         </dependency>
         <dependency>
+            <groupId>org.demo</groupId>
+            <artifactId>rare-earth-track-admin</artifactId>
+        </dependency>
+        <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
         </dependency>

@@ -1,6 +1,7 @@
 package com.rare_earth_track.portal.service.impl;
 
 import com.github.pagehelper.PageHelper;
+import com.rare_earth_track.admin.bean.PageInfo;
 import com.rare_earth_track.common.exception.Asserts;
 import com.rare_earth_track.mgb.mapper.RetRoleResourceRelationMapper;
 import com.rare_earth_track.mgb.model.RetResource;
@@ -11,6 +12,8 @@ import com.rare_earth_track.portal.service.RetResourceService;
 import com.rare_earth_track.portal.service.RetRoleResourceCacheService;
 import com.rare_earth_track.portal.service.RetRoleResourceRelationService;
 import com.rare_earth_track.portal.service.RetRoleService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
@@ -22,31 +25,31 @@ import java.util.List;
  * @date 2022/5/15
  **/
 @Service
+@RequiredArgsConstructor
 public class RetRoleResourceRelationServiceImpl implements RetRoleResourceRelationService {
-//    @Lazy
-//    @Autowired
-    private RetRoleResourceRelationMapper roleResourceRelationMapper;
-//    @Lazy
-//    @Autowired
+    private final RetRoleResourceRelationMapper roleResourceRelationMapper;
     private RetResourceService resourceService;
-//    @Lazy
-//    @Autowired
     private RetRoleService roleService;
-//    @Lazy
-//    @Autowired
     private RetRoleResourceCacheService roleResourceCacheService;
 
+    @Autowired
     @Lazy
-    public RetRoleResourceRelationServiceImpl(RetRoleResourceRelationMapper roleResourceRelationMapper,
-                                              RetResourceService resourceService,
-                                              RetRoleService roleService,
-                                              RetRoleResourceCacheService roleResourceCacheService) {
-        this.roleResourceRelationMapper = roleResourceRelationMapper;
+    public void setResourceService(RetResourceService resourceService) {
         this.resourceService = resourceService;
-        this.roleService = roleService;
-        this.roleResourceCacheService =  roleResourceCacheService;
-
     }
+
+    @Autowired
+    @Lazy
+    public void setRoleService(RetRoleService roleService) {
+        this.roleService = roleService;
+    }
+
+    @Autowired
+    @Lazy
+    public void setRoleResourceCacheService(RetRoleResourceCacheService roleResourceCacheService) {
+        this.roleResourceCacheService = roleResourceCacheService;
+    }
+
     @Override
     public List<RetRole> getRoles(Long resourceId) {
         RetRoleResourceRelationExample roleRelationExample = new RetRoleResourceRelationExample();
@@ -114,8 +117,8 @@ public class RetRoleResourceRelationServiceImpl implements RetRoleResourceRelati
         roleService.refreshCache(roleId);
     }
     @Override
-    public List<RetResource> listRoleResources(String name, Integer pageNum, Integer pageSize) {
-        PageHelper.startPage(pageNum, pageSize);
+    public List<RetResource> listRoleResources(String name, PageInfo pageInfo) {
+        PageHelper.startPage(pageInfo.getPageNum(), pageInfo.getPageSize());
         RetRole roleByRoleName = roleService.getRole(name);
         if (roleByRoleName == null){
             Asserts.fail("没有该角色");
@@ -151,4 +154,5 @@ public class RetRoleResourceRelationServiceImpl implements RetRoleResourceRelati
         RetRole role = roleService.getRole(roleName);
         addRoleResource(role.getId(), resource.getId());
     }
+
 }

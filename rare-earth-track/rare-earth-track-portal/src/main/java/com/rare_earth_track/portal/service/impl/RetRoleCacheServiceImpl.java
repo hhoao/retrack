@@ -1,6 +1,5 @@
 package com.rare_earth_track.portal.service.impl;
 
-
 import com.rare_earth_track.common.service.RedisService;
 import com.rare_earth_track.mgb.model.RetRole;
 import com.rare_earth_track.portal.service.RetRoleCacheService;

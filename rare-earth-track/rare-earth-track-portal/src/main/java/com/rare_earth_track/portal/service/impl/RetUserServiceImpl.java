@@ -1,10 +1,10 @@
 package com.rare_earth_track.portal.service.impl;
 
 import com.github.pagehelper.PageHelper;
+import com.rare_earth_track.admin.bean.*;
 import com.rare_earth_track.common.exception.Asserts;
 import com.rare_earth_track.mgb.mapper.RetUserMapper;
 import com.rare_earth_track.mgb.model.*;
-import com.rare_earth_track.portal.bean.*;
 import com.rare_earth_track.portal.service.*;
 import com.rare_earth_track.security.util.JwtTokenService;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +17,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * The type Ret user service.
@@ -317,8 +319,8 @@ public class RetUserServiceImpl implements RetUserService {
     }
 
     @Override
-    public List<RetUser> list(Integer pageNum, Integer pageSize) {
-        PageHelper.startPage(pageNum, pageSize);
+    public List<RetUser> list(PageInfo pageInfo) {
+        PageHelper.startPage(pageInfo.getPageNum(), pageInfo.getPageSize());
         return getAllUsers();
     }
 
@@ -400,5 +402,28 @@ public class RetUserServiceImpl implements RetUserService {
         String username = jwtTokenService.getSubjectFromAuthorization(authorization);
         RetUser userByName = getUserByName(username);
         return roleService.getMenus(userByName.getRoleId());
+    }
+
+    @Override
+    public List<RetUser> queryUsers(RetUser user, PageInfo pageInfo) {
+        PageHelper.startPage(pageInfo.getPageNum(), pageInfo.getPageSize());
+        return getUser(user);
+    }
+
+    @Override
+    public Map<String, String> getUserAuths(Long userId) {
+        List<RetUserAuth> userAuths = userAuthService.getUserAuth(userId);
+        Map<String, String> authMap = new HashMap<>();
+        for (RetUserAuth userAuth : userAuths){
+            authMap.put(userAuth.getIdentityType(), userAuth.getIdentifier());
+        }
+        return authMap;
+    }
+
+    @Override
+    public void deleteUserAuth(Long userId, IdentifyType identifyType) {
+        RetUserAuth userAuth = userAuthService.getUserAuth(userId, IdentifyType.username);
+        userAuthService.deleteUserAuth(userId, identifyType);
+        clearUserStatus(userAuth.getIdentifier());
     }
 }

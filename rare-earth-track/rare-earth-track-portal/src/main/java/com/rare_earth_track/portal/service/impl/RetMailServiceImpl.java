@@ -1,9 +1,8 @@
 package com.rare_earth_track.portal.service.impl;
 
-
+import com.rare_earth_track.admin.bean.MailType;
 import com.rare_earth_track.common.exception.Asserts;
 import com.rare_earth_track.mgb.model.RetFactory;
-import com.rare_earth_track.portal.bean.MailType;
 import com.rare_earth_track.portal.service.RetMailCacheService;
 import com.rare_earth_track.portal.service.RetMailService;
 import lombok.Data;

@@ -1,14 +1,15 @@
 package com.rare_earth_track.portal.service.impl;
 
 import com.github.pagehelper.PageHelper;
+import com.rare_earth_track.admin.bean.PageInfo;
+import com.rare_earth_track.admin.bean.RetFactoryJob;
+import com.rare_earth_track.admin.bean.RetMemberParam;
 import com.rare_earth_track.common.exception.Asserts;
 import com.rare_earth_track.mgb.mapper.RetMemberMapper;
 import com.rare_earth_track.mgb.model.RetFactory;
 import com.rare_earth_track.mgb.model.RetMember;
 import com.rare_earth_track.mgb.model.RetMemberExample;
 import com.rare_earth_track.mgb.model.RetMemberJob;
-import com.rare_earth_track.portal.bean.RetFactoryJob;
-import com.rare_earth_track.portal.bean.RetMemberParam;
 import com.rare_earth_track.portal.service.RetFactoryService;
 import com.rare_earth_track.portal.service.RetMemberJobService;
 import com.rare_earth_track.portal.service.RetMemberService;
@@ -38,8 +39,8 @@ public class RetMemberServiceImpl implements RetMemberService {
     private final RetMemberJobService memberJobService;
 
     @Override
-    public List<RetMember> list(Integer pageNum, Integer pageSize) {
-        PageHelper.startPage(pageNum, pageSize);
+    public List<RetMember> list(PageInfo pageInfo) {
+        PageHelper.startPage(pageInfo.getPageNum(), pageInfo.getPageSize());
         return memberMapper.selectByExample(new RetMemberExample());
     }
 

@@ -1,8 +1,8 @@
 package com.rare_earth_track.portal.service;
 
-
+import com.rare_earth_track.admin.bean.PageInfo;
+import com.rare_earth_track.admin.bean.RetProductParam;
 import com.rare_earth_track.mgb.model.RetProduct;
-import com.rare_earth_track.portal.bean.RetProductParam;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -17,11 +17,9 @@ public interface RetProductService {
     /**
      * List list.
      *
-     * @param pageNum  the page num
-     * @param pageSize the page size
-     * @return the list
+     * @param pageInfo@return the list
      */
-    List<RetProduct> list(Integer pageNum, Integer pageSize);
+    List<RetProduct> list(PageInfo pageInfo);
 
     /**
      * Gets products.
@@ -79,11 +77,4 @@ public interface RetProductService {
      * @param product the product
      */
     void deleteProducts(RetProduct product);
-
-    /**
-     * 通过产品批次溯源产品
-     * @param batchId
-     * @return
-     */
-   RetProduct getProductByBatchId(String batchId);
 }

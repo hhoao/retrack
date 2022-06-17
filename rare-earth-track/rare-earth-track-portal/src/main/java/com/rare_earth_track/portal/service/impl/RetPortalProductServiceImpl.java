@@ -11,10 +11,10 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * @ClassName RetProductServiceImpl
- * @Description: TODO
+ * @ClassName RetPortalProductServiceImpl
+ * @Description: 前台productService接口实现类
  * @Author 匡龙
- * @Date 2022/6/16 15:05
+ * @Date 2022/6/17 10:26
  * @Version V1.0
  */
 @Service
@@ -35,4 +35,5 @@ public class RetPortalProductServiceImpl implements RetPortalProductService {
         }
         return null;
     }
+
 }

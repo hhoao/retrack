@@ -2,10 +2,11 @@ package com.rare_earth_track.portal.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.github.pagehelper.PageHelper;
+import com.rare_earth_track.admin.bean.PageInfo;
+import com.rare_earth_track.admin.bean.RetRoleParam;
 import com.rare_earth_track.common.exception.Asserts;
 import com.rare_earth_track.mgb.mapper.RetRoleMapper;
 import com.rare_earth_track.mgb.model.*;
-import com.rare_earth_track.portal.bean.RetRoleParam;
 import com.rare_earth_track.portal.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
@@ -14,6 +15,7 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 /**
@@ -124,8 +126,8 @@ public class RetRoleServiceImpl implements RetRoleService, ApplicationRunner {
     }
 
     @Override
-    public List<RetRole> list(Integer pageNum, Integer pageSize) {
-        PageHelper.startPage(pageNum, pageSize);
+    public List<RetRole> list(PageInfo pageInfo) {
+        PageHelper.startPage(pageInfo);
         return getAllRoles();
     }
 
@@ -155,6 +157,20 @@ public class RetRoleServiceImpl implements RetRoleService, ApplicationRunner {
     @Override
     public List<RetMenu> getMenus(Long roleId) {
         return roleMenuRelationService.getMenus(roleId);
+    }
+
+    @Override
+    public void deleteRoleMenu(String roleName, Long menuId) {
+        RetRole role = getRole(roleName);
+        roleMenuRelationService.deleteRoleMenu(role.getId(), menuId);
+        refreshCache(role.getId());
+    }
+
+    @Override
+    public void addRoleMenu(String roleName, Long menuId) {
+        RetRole role = getRole(roleName);
+        roleMenuRelationService.addRoleMenu(role.getId(), menuId);
+        refreshCache(role.getId());
     }
 
     @Override

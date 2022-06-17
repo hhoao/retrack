@@ -1,7 +1,6 @@
 package com.rare_earth_track.portal.service;
 
-
-import com.rare_earth_track.portal.bean.RetUserDetails;
+import com.rare_earth_track.admin.bean.RetUserDetails;
 
 /**
  * @author hhoa

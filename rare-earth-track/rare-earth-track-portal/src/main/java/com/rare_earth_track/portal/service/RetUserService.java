@@ -1,16 +1,17 @@
 package com.rare_earth_track.portal.service;
 
 
+import com.rare_earth_track.admin.bean.*;
 import com.rare_earth_track.common.exception.ApiException;
 import com.rare_earth_track.mgb.model.RetMenu;
 import com.rare_earth_track.mgb.model.RetResource;
 import com.rare_earth_track.mgb.model.RetUser;
 import com.rare_earth_track.mgb.model.RetUserAuth;
-import com.rare_earth_track.portal.bean.*;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * The interface Ret user service.
@@ -85,11 +86,10 @@ public interface RetUserService {
     /**
      * 获取部分用户
      *
-     * @param pageNum  页面数量
-     * @param pageSize 单页大小
-     * @return 部分用户 list
+     * @param pageInfo @return 部分用户 list
+     * @return the list
      */
-    List<RetUser> list(Integer pageNum, Integer pageSize);
+    List<RetUser> list(PageInfo pageInfo);
 
     /**
      * 通过用户名获取用户
@@ -258,4 +258,30 @@ public interface RetUserService {
      * @return the menus by authorization
      */
     List<RetMenu> getMenusByAuthorization(String authorization);
+
+    /**
+     * Query users list.
+     *
+     * @param user     the user
+     * @param pageInfo the page info
+     * @return the list
+     */
+    List<RetUser> queryUsers(RetUser user, PageInfo pageInfo);
+
+    /**
+     * Gets user auths.
+     *
+     * @param userId the user id
+     * @return the user auths
+     */
+    Map<String, String> getUserAuths(Long userId);
+
+    /**
+     * Delete user auth.
+     *
+     * @param userId       the user id
+     * @param identifyType the auth id
+     */
+    @Transactional
+    void deleteUserAuth(Long userId, IdentifyType identifyType);
 }

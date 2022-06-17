@@ -1,7 +1,7 @@
 package com.rare_earth_track.portal.service;
 
+import com.rare_earth_track.admin.bean.RetPermissionParam;
 import com.rare_earth_track.mgb.model.RetPermission;
-import com.rare_earth_track.portal.bean.RetPermissionParam;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;

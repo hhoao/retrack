@@ -2,11 +2,11 @@ package com.rare_earth_track.portal.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.github.pagehelper.PageHelper;
+import com.rare_earth_track.admin.bean.RetPermissionParam;
 import com.rare_earth_track.common.exception.Asserts;
 import com.rare_earth_track.mgb.mapper.RetPermissionMapper;
 import com.rare_earth_track.mgb.model.RetPermission;
 import com.rare_earth_track.mgb.model.RetPermissionExample;
-import com.rare_earth_track.portal.bean.RetPermissionParam;
 import com.rare_earth_track.portal.service.RetMemberJobPermissionRelationService;
 import com.rare_earth_track.portal.service.RetPermissionService;
 import lombok.RequiredArgsConstructor;

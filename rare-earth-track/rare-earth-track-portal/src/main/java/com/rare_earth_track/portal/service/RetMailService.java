@@ -1,8 +1,7 @@
 package com.rare_earth_track.portal.service;
 
-
+import com.rare_earth_track.admin.bean.MailType;
 import com.rare_earth_track.mgb.model.RetFactory;
-import com.rare_earth_track.portal.bean.MailType;
 
 /**
  * The interface Ret mail service.

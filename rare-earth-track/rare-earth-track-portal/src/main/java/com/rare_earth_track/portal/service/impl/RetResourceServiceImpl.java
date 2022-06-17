@@ -3,16 +3,19 @@ package com.rare_earth_track.portal.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.github.pagehelper.PageHelper;
+import com.rare_earth_track.admin.bean.PageInfo;
+import com.rare_earth_track.admin.bean.RetResourceParam;
 import com.rare_earth_track.common.exception.Asserts;
 import com.rare_earth_track.mgb.mapper.RetResourceMapper;
 import com.rare_earth_track.mgb.model.RetResource;
 import com.rare_earth_track.mgb.model.RetResourceExample;
 import com.rare_earth_track.mgb.model.RetRole;
-import com.rare_earth_track.portal.bean.RetResourceParam;
 import com.rare_earth_track.portal.service.RetResourceService;
 import com.rare_earth_track.portal.service.RetRoleResourceRelationService;
 import com.rare_earth_track.portal.service.RetRoleService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
@@ -23,19 +26,23 @@ import java.util.List;
  * @date 2022/5/5
  **/
 @Service
+@RequiredArgsConstructor
 public class RetResourceServiceImpl implements RetResourceService {
     private final RetResourceMapper resourceMapper;
-    private final RetRoleResourceRelationService roleResourceRelationService;
-    private final RetRoleService roleService;
+    private RetRoleResourceRelationService roleResourceRelationService;
+    private RetRoleService roleService;
+
+    @Autowired
     @Lazy
-    public RetResourceServiceImpl(RetResourceMapper resourceMapper,
-                                  RetRoleResourceRelationService roleResourceRelationService,
-                                  RetRoleService roleService) {
-        this.resourceMapper = resourceMapper;
+    public void setRoleResourceRelationService(RetRoleResourceRelationService roleResourceRelationService) {
         this.roleResourceRelationService = roleResourceRelationService;
-        this.roleService = roleService;
     }
 
+    @Autowired
+    @Lazy
+    public void setRoleService(RetRoleService roleService) {
+        this.roleService = roleService;
+    }
 
     @Override
     public RetResource getResource(String resourceName) {
@@ -54,8 +61,8 @@ public class RetResourceServiceImpl implements RetResourceService {
     }
 
     @Override
-    public List<RetResource> list(Integer pageNum, Integer pageSize) {
-        PageHelper.startPage(pageNum, pageSize);
+    public List<RetResource> list(PageInfo pageInfo) {
+        PageHelper.startPage(pageInfo.getPageNum(), pageInfo.getPageSize());
         return getAllResources();
     }
 
@@ -113,9 +120,9 @@ public class RetResourceServiceImpl implements RetResourceService {
     public void deleteResource(String resourceName) {
         //获取影响的角色
         List<RetRole> roles = roleResourceRelationService.getRoles(resourceName);
-
-        RetResourceExample resourceExample = new RetResourceExample();
-        int i = resourceMapper.deleteByExample(resourceExample);
+        RetResource resource = getResource(resourceName);
+        roleResourceRelationService.deleteRoleResource(resource.getId());
+        int i = resourceMapper.deleteByPrimaryKey(resource.getId());
         if (i == 0){
             Asserts.fail("删除资源失败");
         }

@@ -1,10 +1,11 @@
 package com.rare_earth_track.portal.controller;
 
+
+import com.rare_earth_track.admin.bean.IdentifyType;
+import com.rare_earth_track.admin.bean.RetLoginParam;
+import com.rare_earth_track.admin.bean.RetUpdateUserPasswordParam;
+import com.rare_earth_track.admin.bean.RetUserRegisterParam;
 import com.rare_earth_track.common.api.CommonResult;
-import com.rare_earth_track.portal.bean.IdentifyType;
-import com.rare_earth_track.portal.bean.RetLoginParam;
-import com.rare_earth_track.portal.bean.RetUpdateUserPasswordParam;
-import com.rare_earth_track.portal.bean.RetUserRegisterParam;
 import com.rare_earth_track.portal.service.RetUserService;
 import com.rare_earth_track.security.config.JwtSecurityProperties;
 import io.swagger.v3.oas.annotations.Operation;
@@ -14,7 +15,6 @@ import io.swagger.v3.oas.annotations.tags.Tags;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.web.bind.annotation.*;
-
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;

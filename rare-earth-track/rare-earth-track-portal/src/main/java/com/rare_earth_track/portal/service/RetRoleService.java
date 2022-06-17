@@ -1,9 +1,10 @@
 package com.rare_earth_track.portal.service;
 
+import com.rare_earth_track.admin.bean.PageInfo;
+import com.rare_earth_track.admin.bean.RetRoleParam;
 import com.rare_earth_track.mgb.model.RetMenu;
 import com.rare_earth_track.mgb.model.RetResource;
 import com.rare_earth_track.mgb.model.RetRole;
-import com.rare_earth_track.portal.bean.RetRoleParam;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -92,11 +93,10 @@ public interface RetRoleService {
     /**
      * 分页获取角色列表
      *
-     * @param pageNum  the pageNum
-     * @param pageSize the pageSize
-     * @return 分页角色 list
+     * @param pageInfo @return 分页角色 list
+     * @return the list
      */
-    List<RetRole> list(Integer pageNum, Integer pageSize);
+    List<RetRole> list(PageInfo pageInfo);
 
     /**
      * 删除角色
@@ -113,4 +113,16 @@ public interface RetRoleService {
      * @return the menus
      */
     List<RetMenu> getMenus(Long roleId);
+
+    /**
+     * Delete role menu.
+     *
+     * @param roleName the role name
+     * @param menuId   the menu id
+     */
+    @Transactional
+    void deleteRoleMenu(String roleName, Long menuId);
+
+    @Transactional
+    void addRoleMenu(String roleName, Long menuId);
 }
