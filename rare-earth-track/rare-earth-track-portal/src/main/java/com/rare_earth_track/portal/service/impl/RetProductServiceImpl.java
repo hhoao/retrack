@@ -86,6 +86,19 @@ public class RetProductServiceImpl implements RetProductService {
         return retProduct;
     }
 
+    @Override
+    public RetProduct getProductByBatchId(String batchId) {
+        RetProductExample productExample = new RetProductExample();
+        productExample.createCriteria().andBatchIdEqualTo(batchId);
+        List<RetProduct> retProducts = productMapper.selectByExample(productExample);
+        if (retProducts != null && retProducts.size() > 0) {
+            return retProducts.get(0);
+        }else if (retProducts.size() == 0){
+            Asserts.fail("没有该产品");
+        }
+        return null;
+    }
+
     private RetProductExample  getProductExample(RetProduct product){
         RetProductExample productExample = new RetProductExample();
         RetProductExample.Criteria criteria = productExample.createCriteria();

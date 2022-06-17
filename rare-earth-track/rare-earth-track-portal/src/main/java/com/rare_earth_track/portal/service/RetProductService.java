@@ -72,6 +72,13 @@ public interface RetProductService {
     RetProduct getProductByProductId(Long id);
 
     /**
+     * 通过产品批次溯源产品
+     * @param batchId
+     * @return
+     */
+    RetProduct getProductByBatchId(String batchId);
+
+    /**
      * Delete products.
      *
      * @param product the product
