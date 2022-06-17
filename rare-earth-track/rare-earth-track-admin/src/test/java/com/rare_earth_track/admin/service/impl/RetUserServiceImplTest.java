@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author hhoa
@@ -219,5 +220,11 @@ class RetUserServiceImplTest extends TransactionTest {
         userService.deleteUsers(user);
         List<RetUser> user1 = userService.getUser(user);
         Assertions.assertEquals(user1.size(), 0);
+    }
+
+    @Test
+    void getUserAuths() {
+        Map<String, String> userAuths = userService.getUserAuths(tUserId);
+        Assertions.assertNotNull(userAuths);
     }
 }

@@ -7,6 +7,8 @@ import com.rare_earth_track.admin.service.RetResourceService;
 import com.rare_earth_track.mgb.model.RetResource;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.security.access.ConfigAttribute;
@@ -69,13 +71,24 @@ class RetResourceServiceImplTest extends TransactionTest {
         assertNotNull(dataSource.get(new AntPathRequestMatcher(resource.getUrl(), resource.getMethod())));
     }
 
-    @Test
-    void deleteResource() {
+    @ParameterizedTest
+    @ValueSource(longs = {1L})
+    void deleteResource(Long resourceId) {
         AdminJwtSecurityConfig.AdminDynamicSecurityServiceConfig adminDynamicSecurityServiceConfig = applicationContext.getBean(AdminJwtSecurityConfig.AdminDynamicSecurityServiceConfig.class);
         Map<AntPathRequestMatcher, ConfigAttribute> dataSource = adminDynamicSecurityServiceConfig.getDataSource();
-        RetResource resource = resourceService.getResource(1L);
+        RetResource resource = resourceService.getResource(resourceId);
         Assertions.assertNotNull(dataSource.get(new AntPathRequestMatcher(resource.getUrl(), resource.getMethod())));
-        resourceService.deleteResource(1L);
+        resourceService.deleteResource(resourceId);
+        Assertions.assertNull(dataSource.get(new AntPathRequestMatcher(resource.getUrl(), resource.getMethod())));
+    }
+    @ParameterizedTest
+    @ValueSource(strings = {"所有GET资源"})
+    void deleteResource(String resourceName){
+        AdminJwtSecurityConfig.AdminDynamicSecurityServiceConfig adminDynamicSecurityServiceConfig = applicationContext.getBean(AdminJwtSecurityConfig.AdminDynamicSecurityServiceConfig.class);
+        Map<AntPathRequestMatcher, ConfigAttribute> dataSource = adminDynamicSecurityServiceConfig.getDataSource();
+        RetResource resource = resourceService.getResource(resourceName);
+        Assertions.assertNotNull(dataSource.get(new AntPathRequestMatcher(resource.getUrl(), resource.getMethod())));
+        resourceService.deleteResource(resourceName);
         Assertions.assertNull(dataSource.get(new AntPathRequestMatcher(resource.getUrl(), resource.getMethod())));
     }
 }

@@ -27,7 +27,7 @@ spring:
     url: jdbc:mysql://mysql:3306/rare_earth_track
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
-    password: 1234
+    password: m45937494.
   # 配置缓存
   cache:
     redis:

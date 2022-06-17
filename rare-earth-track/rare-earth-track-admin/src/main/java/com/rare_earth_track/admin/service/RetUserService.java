@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * The interface Ret user service.
@@ -85,7 +86,8 @@ public interface RetUserService {
     /**
      * 获取部分用户
      *
-     * @param pageInfo@return 部分用户 list
+     * @param pageInfo @return 部分用户 list
+     * @return the list
      */
     List<RetUser> list(PageInfo pageInfo);
 
@@ -265,4 +267,21 @@ public interface RetUserService {
      * @return the list
      */
     List<RetUser> queryUsers(RetUser user, PageInfo pageInfo);
+
+    /**
+     * Gets user auths.
+     *
+     * @param userId the user id
+     * @return the user auths
+     */
+    Map<String, String> getUserAuths(Long userId);
+
+    /**
+     * Delete user auth.
+     *
+     * @param userId       the user id
+     * @param identifyType the auth id
+     */
+    @Transactional
+    void deleteUserAuth(Long userId, IdentifyType identifyType);
 }

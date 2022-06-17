@@ -1,6 +1,7 @@
 package com.rare_earth_track.admin.controller;
 
 
+import com.rare_earth_track.admin.bean.IdentifyType;
 import com.rare_earth_track.admin.bean.PageInfo;
 import com.rare_earth_track.admin.service.RetUserService;
 import com.rare_earth_track.common.api.CommonPage;
@@ -82,6 +83,20 @@ public class RetUserController {
     public CommonResult<RetUser> updateUserRole(@PathVariable("userId") Long userId,
                                                 @RequestParam("roleId") Long roleId){
         userService.updateUserRole(userId, roleId);
+        return CommonResult.success(null);
+    }
+
+    @Operation(summary = "获取用户认证")
+    @GetMapping("/users/{userId}/auths")
+    public CommonResult<Map<String, String>> getUserAuths(@PathVariable("userId") Long userId){
+        Map<String, String> userAuth = userService.getUserAuths(userId);
+        return CommonResult.success(userAuth);
+    }
+    @Operation(summary = "删除用户认证")
+    @DeleteMapping("/users/{userId}/auths/{authType}")
+    public CommonResult<String> deleteUserAuth(@PathVariable("userId") Long userId,
+                                               @PathVariable("authType") IdentifyType identifyType){
+        userService.deleteUserAuth(userId, identifyType);
         return CommonResult.success(null);
     }
 

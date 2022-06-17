@@ -69,7 +69,7 @@ public interface RetRoleResourceRelationService {
      * 分页获取角色资源列表
      *
      * @param name     角色名
-     * @param pageInfo
+     * @param pageInfo the page info
      * @return 角色资源列表页 list
      */
     List<RetResource> listRoleResources(String name, PageInfo pageInfo);

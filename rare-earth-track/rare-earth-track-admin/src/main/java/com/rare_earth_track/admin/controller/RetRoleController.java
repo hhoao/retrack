@@ -51,6 +51,20 @@ public class RetRoleController {
         resourceRoleRelationService.deleteRoleResource(roleName, resourceName);
         return CommonResult.success(null);
     }
+    @Operation(summary = "删除角色菜单")
+    @DeleteMapping("/roles/{roleName}/menus/{menuId}")
+    public CommonResult<String> deleteRoleMenu(@PathVariable("roleName") String roleName,
+                                                   @PathVariable("menuId") Long menuId){
+        roleService.deleteRoleMenu(roleName, menuId);
+        return CommonResult.success(null);
+    }
+    @Operation(summary = "添加角色菜单")
+    @PostMapping("/roles/{roleName}/menus/{menuId}")
+    public CommonResult<String> addRoleMenu(@PathVariable("roleName") String roleName,
+                                                   @PathVariable("menuId") Long menuId){
+        roleService.addRoleMenu(roleName, menuId);
+        return CommonResult.success(null);
+    }
 
     @Operation(summary = "增加角色")
     @PostMapping("/roles")

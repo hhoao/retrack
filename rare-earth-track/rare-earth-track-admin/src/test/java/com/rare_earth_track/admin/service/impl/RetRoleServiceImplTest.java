@@ -4,6 +4,7 @@ import com.rare_earth_track.admin.TransactionTest;
 import com.rare_earth_track.admin.bean.RetRoleParam;
 import com.rare_earth_track.admin.service.RetRoleService;
 import com.rare_earth_track.common.exception.ApiException;
+import com.rare_earth_track.mgb.model.RetMenu;
 import com.rare_earth_track.mgb.model.RetResource;
 import com.rare_earth_track.mgb.model.RetRole;
 import org.junit.jupiter.api.Assertions;
@@ -53,5 +54,35 @@ class RetRoleServiceImplTest extends TransactionTest {
     void deleteRole() {
         roleService.deleteRole("ROLE_ADMIN");
         Assertions.assertThrows(ApiException.class, ()-> roleService.getRole("ROLE_ADMIN"));
+    }
+
+    @Test
+    void deleteRoleMenu() {
+        roleService.deleteRoleMenu(testRoleName, 1L);
+        RetRole role_user = roleService.getRole(testRoleName);
+        List<RetMenu> menus = roleService.getMenus(role_user.getId());
+        boolean b = false;
+        for (RetMenu menu : menus) {
+            if (menu.getId() == 1L) {
+                b = true;
+                break;
+            }
+        }
+        Assertions.assertFalse(b);
+    }
+
+    @Test
+    void addRoleMenu() {
+        roleService.addRoleMenu("ROLE_USER", 1L);
+        RetRole role_user = roleService.getRole("ROLE_USER");
+        List<RetMenu> menus = roleService.getMenus(role_user.getId());
+        boolean b = false;
+        for (RetMenu menu : menus) {
+            if (menu.getId() == 1L) {
+                b = true;
+                break;
+            }
+        }
+        Assertions.assertTrue(b);
     }
 }

@@ -17,7 +17,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * The type Ret user service.
@@ -406,5 +408,22 @@ public class RetUserServiceImpl implements RetUserService {
     public List<RetUser> queryUsers(RetUser user, PageInfo pageInfo) {
         PageHelper.startPage(pageInfo.getPageNum(), pageInfo.getPageSize());
         return getUser(user);
+    }
+
+    @Override
+    public Map<String, String> getUserAuths(Long userId) {
+        List<RetUserAuth> userAuths = userAuthService.getUserAuth(userId);
+        Map<String, String> authMap = new HashMap<>();
+        for (RetUserAuth userAuth : userAuths){
+            authMap.put(userAuth.getIdentityType(), userAuth.getIdentifier());
+        }
+        return authMap;
+    }
+
+    @Override
+    public void deleteUserAuth(Long userId, IdentifyType identifyType) {
+        RetUserAuth userAuth = userAuthService.getUserAuth(userId, IdentifyType.username);
+        userAuthService.deleteUserAuth(userId, identifyType);
+        clearUserStatus(userAuth.getIdentifier());
     }
 }

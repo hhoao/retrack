@@ -13,7 +13,9 @@ import com.rare_earth_track.mgb.mapper.RetResourceMapper;
 import com.rare_earth_track.mgb.model.RetResource;
 import com.rare_earth_track.mgb.model.RetResourceExample;
 import com.rare_earth_track.mgb.model.RetRole;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
@@ -24,19 +26,23 @@ import java.util.List;
  * @date 2022/5/5
  **/
 @Service
+@RequiredArgsConstructor
 public class RetResourceServiceImpl implements RetResourceService {
     private final RetResourceMapper resourceMapper;
-    private final RetRoleResourceRelationService roleResourceRelationService;
-    private final RetRoleService roleService;
+    private RetRoleResourceRelationService roleResourceRelationService;
+    private RetRoleService roleService;
+
+    @Autowired
     @Lazy
-    public RetResourceServiceImpl(RetResourceMapper resourceMapper,
-                                  RetRoleResourceRelationService roleResourceRelationService,
-                                  RetRoleService roleService) {
-        this.resourceMapper = resourceMapper;
+    public void setRoleResourceRelationService(RetRoleResourceRelationService roleResourceRelationService) {
         this.roleResourceRelationService = roleResourceRelationService;
-        this.roleService = roleService;
     }
 
+    @Autowired
+    @Lazy
+    public void setRoleService(RetRoleService roleService) {
+        this.roleService = roleService;
+    }
 
     @Override
     public RetResource getResource(String resourceName) {
@@ -114,9 +120,9 @@ public class RetResourceServiceImpl implements RetResourceService {
     public void deleteResource(String resourceName) {
         //获取影响的角色
         List<RetRole> roles = roleResourceRelationService.getRoles(resourceName);
-
-        RetResourceExample resourceExample = new RetResourceExample();
-        int i = resourceMapper.deleteByExample(resourceExample);
+        RetResource resource = getResource(resourceName);
+        roleResourceRelationService.deleteRoleResource(resource.getId());
+        int i = resourceMapper.deleteByPrimaryKey(resource.getId());
         if (i == 0){
             Asserts.fail("删除资源失败");
         }

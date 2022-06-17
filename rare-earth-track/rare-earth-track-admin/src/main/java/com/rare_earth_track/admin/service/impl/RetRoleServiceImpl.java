@@ -160,6 +160,20 @@ public class RetRoleServiceImpl implements RetRoleService, ApplicationRunner {
     }
 
     @Override
+    public void deleteRoleMenu(String roleName, Long menuId) {
+        RetRole role = getRole(roleName);
+        roleMenuRelationService.deleteRoleMenu(role.getId(), menuId);
+        refreshCache(role.getId());
+    }
+
+    @Override
+    public void addRoleMenu(String roleName, Long menuId) {
+        RetRole role = getRole(roleName);
+        roleMenuRelationService.addRoleMenu(role.getId(), menuId);
+        refreshCache(role.getId());
+    }
+
+    @Override
     public void run(ApplicationArguments args) {
         //初始化 将所有角色对应资源加载进缓存中
         refreshCache();
