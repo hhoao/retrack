@@ -1,34 +1,209 @@
 package com.rare_earth_track.portal.config;
 
-import cn.hutool.jwt.JWT;
 
-import com.rare_earth_track.portal.service.RetTokenCacheService;
+import cn.hutool.core.collection.CollUtil;
+import cn.hutool.jwt.JWT;
+import com.rare_earth_track.portal.service.*;
+import com.rare_earth_track.mgb.model.RetMemberJob;
+import com.rare_earth_track.mgb.model.RetPermission;
+import com.rare_earth_track.security.component.DynamicSecurityService;
 import com.rare_earth_track.security.config.JwtSecurityProperties;
 import com.rare_earth_track.security.util.DefaultJwtTokenServiceImpl;
 import com.rare_earth_track.security.util.JwtTokenService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
+import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.beans.BeanUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.access.AccessDecisionVoter;
+import org.springframework.security.access.ConfigAttribute;
+import org.springframework.security.access.SecurityConfig;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import org.springframework.security.web.FilterInvocation;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.util.StringUtils;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
- * @ClassName AdminJwtSecurityConfig
- * @Description: 安全配置
- * @Author 匡龙
- * @Date 2022/6/16 9:39
- * @Version V1.0
- */
+ * 安全配置
+ * @author hhoa
+ * @date 2022/5/5
+ **/
 @Configuration
 @RequiredArgsConstructor
 public class PortalJwtSecurityConfig {
+    /**
+     * 自定义UserDetailsService用来自定义获取用户、更新用户等操作
+     * @return userDetailsService
+     */
+    @Bean
+    public static UserDetailsService userDetailsService(RetUserService userService) {
+        return userService::getUserDetails;
+    }
+
+    /**
+     * Job权限访问投票者, 用于认证职位认证请求
+     * @return 选举者
+     */
+    @Bean
+    public AccessDecisionVoter<FilterInvocation> permissionAccessDecisionVoter(){
+        return new AccessDecisionVoter<>() {
+            @Override
+            public boolean supports(ConfigAttribute attribute) {
+                return true;
+            }
+
+            @Override
+            public boolean supports(Class clazz) {
+                return true;
+            }
+
+            @Override
+            public int vote(Authentication authentication, FilterInvocation invocation, Collection collection) {
+                String requestUrl = invocation.getRequestUrl();
+                for (Object configAttribute : collection) {
+                    String[] jobs = ((ConfigAttribute) configAttribute).getAttribute().split(";");
+                    //将需要的jobId和表达式模式提取出来
+                    String reg = "factories/(.*)/(.*)";
+                    //建立正则表达式, 用来匹配请求的url, 例如/factories/(.*)/(.*)匹配/factories/factoryName/member并获取其中的factoryName。
+                    Pattern pattern = Pattern.compile(reg);
+                    Matcher matcher = pattern.matcher(requestUrl);
+                    //请求url匹配访问所需要的url, 匹配成功则判断用户是否有该权限
+                    if (matcher.find()) {
+                        String factoryName = matcher.group(1);
+                        for (String jobName : jobs) {
+                            //访问公司需要"factoryName:jobName"权限
+                            String needAuthority = factoryName + ":" + jobName;
+                            for (GrantedAuthority grantedAuthority : authentication.getAuthorities()) {
+                                if (needAuthority.trim().equals(grantedAuthority.getAuthority())) {
+                                    return AccessDecisionVoter.ACCESS_GRANTED;
+                                }
+                            }
+                        }
+                    }
+                }
+                return ACCESS_DENIED;
+            }
+        };
+    }
+
+    /**
+     * 资源认证选举者, 用于认证资源访问请求
+     * @return 选举者
+     */
+    @Bean
+    @SuppressWarnings("all")
+    public AccessDecisionVoter resourceAccessDecisionVoter(){
+        return new AccessDecisionVoter() {
+            @Override
+            public boolean supports(ConfigAttribute attribute) {
+                return true;
+            }
+
+            @Override
+            public boolean supports(Class clazz) {
+                return true;
+            }
+
+            @Override
+            @SuppressWarnings("unchecked")
+            public int vote(Authentication authentication, Object object, Collection collection) {
+                // 当接口未被配置资源时直接放行
+                if (CollUtil.isEmpty(collection)) {
+                    return AccessDecisionVoter.ACCESS_ABSTAIN;
+                }
+                for (ConfigAttribute configAttribute : (Collection<ConfigAttribute>) collection) {
+                    //将访问所需资源或用户拥有资源进行比对
+                    String needAuthority = configAttribute.getAttribute();
+                    for (GrantedAuthority grantedAuthority : authentication.getAuthorities()) {
+                        if (needAuthority.trim().equals(grantedAuthority.getAuthority())) {
+                            return AccessDecisionVoter.ACCESS_GRANTED;
+                        }
+                    }
+                }
+                return AccessDecisionVoter.ACCESS_DENIED;
+            }
+        };
+    }
+
+    /**
+     * 动态权限服务配置
+     */
+    @Configuration
+    @Aspect
+    @RequiredArgsConstructor
+    public static class AdminDynamicSecurityServiceConfig{
+        private final RetResourceService resourceService;
+        private final RetPermissionService permissionService;
+        private final RetMemberJobPermissionRelationService memberJobPermissionRelationService;
+        private Map<AntPathRequestMatcher, ConfigAttribute> dataSource;
+
+        public Map<AntPathRequestMatcher, ConfigAttribute> getDataSource() {
+            refreshDataSource();
+            return dataSource;
+        }
+
+        /**
+         * 资源权限变动动态刷新DataSource
+         */
+        @Pointcut("execution(* com.rare_earth_track.admin.service.impl.RetResourceServiceImpl.delete*(..)) ||" +
+                "execution(* com.rare_earth_track.admin.service.impl.RetResourceServiceImpl.update*(..)) ||" +
+                "execution(* com.rare_earth_track.admin.service.impl.RetResourceServiceImpl.add*(..)) ||" +
+                "execution(* com.rare_earth_track.admin.service.impl.RetPermissionServiceImpl.delete*(..)) ||" +
+                "execution(* com.rare_earth_track.admin.service.impl.RetPermissionServiceImpl.add*(..)) ||" +
+                "execution(* com.rare_earth_track.admin.service.impl.RetPermissionServiceImpl.update*(..))")
+        public void alterDataSource(){
+        }
+
+        /**
+         * 刷新DataSource
+         */
+        @AfterReturning("alterDataSource()")
+        public void refreshDataSource(){
+            if (this.dataSource == null) {
+                this.dataSource = new ConcurrentHashMap<>();
+            }
+            this.dataSource.clear();
+            refreshPermissionsDataSource();
+        }
+
+
+        /**
+         * 刷新公司员工权限
+         */
+        private void refreshPermissionsDataSource() {
+            List<RetPermission> permissions = permissionService.getAllPermissions();
+
+            for (RetPermission permission : permissions){
+                List<RetMemberJob> jobs = memberJobPermissionRelationService.getJobs(permission.getId());
+                StringBuilder jobsStr = new StringBuilder();
+                for (RetMemberJob memberJob : jobs) {
+                    jobsStr.append(memberJob.getName()).append(";");
+                }
+                if (!StringUtils.hasLength(jobsStr)){
+                    jobsStr.append("NIL");
+                }
+                this.dataSource.put(new AntPathRequestMatcher(permission.getUrl(), permission.getMethod()),
+                        new SecurityConfig(jobsStr.toString()));
+            }
+        }
+
+        @Bean
+        public DynamicSecurityService dynamicSecurityService(){
+            return this::getDataSource;
+        }
+    }
 
     /**
      * 编码器配置
