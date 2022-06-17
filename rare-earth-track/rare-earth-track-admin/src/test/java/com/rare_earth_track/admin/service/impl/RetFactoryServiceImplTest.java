@@ -96,8 +96,6 @@ class RetFactoryServiceImplTest extends TransactionTest {
         Assertions.assertThrows(ApiException.class, ()-> memberService.getMember(testId, tUserId));
     }
 
-
-
     @Test
     void handleInvitation() {
     }
