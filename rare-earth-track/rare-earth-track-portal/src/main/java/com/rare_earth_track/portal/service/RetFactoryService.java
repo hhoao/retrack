@@ -33,6 +33,14 @@ public interface RetFactoryService {
     Long addFactory(RetFactoryParam factoryParam);
 
     /**
+     * 申请入驻工厂
+     *
+     * @param factoryParam
+     * @return long
+     */
+    Long applySettledFactory(RetFactoryParam factoryParam);
+
+    /**
      * Update factory int.
      *
      * @param factoryName  the factory name

@@ -43,8 +43,8 @@ public class RetCompanyController {
 
     @Operation(summary = "申请厂家入驻")
     @PostMapping("/factories")
-    public CommonResult<String> applySettledCompany(@RequestBody RetFactoryParam factoryParam) {
-
+    public CommonResult<String> applySettledFactory(@RequestBody RetFactoryParam factoryParam) {
+        factoryService.applySettledFactory(factoryParam);
         return CommonResult.success(null);
     }
 

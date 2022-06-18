@@ -2,6 +2,20 @@ DROP DATABASE IF EXISTS rare_earth_track;
 CREATE DATABASE IF NOT EXISTS rare_earth_track;
 USE rare_earth_track;
 
+#厂家入驻申请表
+DROP TABLE IF EXISTS `ret_apply_factory`;
+CREATE TABLE `ret_apply_factory`
+(
+    `id`          bigint(20) NOT NULL AUTO_INCREMENT,
+    `name`        varchar(64)  NULL COMMENT '工厂名',
+    `phone`       varchar(64)  NULL COMMENT '联系电话',
+    `email`       varchar(100) NULL COMMENT '邮箱',
+    `address`     varchar(100) NULL COMMENT '地址',
+    `description` varchar(50) NULL COMMENT '描述',
+    `apply_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '申请时间',
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='厂家入驻申请表';
+
 # 菜单表
 DROP TABLE IF EXISTS `ret_menu`;
 CREATE TABLE `ret_menu` (

@@ -7,6 +7,7 @@ import com.rare_earth_track.admin.bean.PageInfo;
 import com.rare_earth_track.admin.bean.RetFactoryParam;
 import com.rare_earth_track.admin.bean.RetMemberParam;
 import com.rare_earth_track.common.exception.Asserts;
+import com.rare_earth_track.mgb.mapper.RetApplyFactoryMapper;
 import com.rare_earth_track.mgb.mapper.RetFactoryMapper;
 import com.rare_earth_track.mgb.model.*;
 import com.rare_earth_track.portal.service.*;
@@ -24,6 +25,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class RetFactoryServiceImpl implements RetFactoryService {
     private final RetFactoryMapper factoryMapper;
+    private final RetApplyFactoryMapper applyFactoryMapper;
     private final JwtTokenService tokenService;
     private final RetMailService mailService;
     private final RetTokenCacheService tokenCacheService;
@@ -47,6 +49,17 @@ public class RetFactoryServiceImpl implements RetFactoryService {
             Asserts.fail("插入失败");
         }
         return newFactory.getId();
+    }
+
+    @Override
+    public Long applySettledFactory(RetFactoryParam factoryParam) {
+        RetFactory applyFactory = new RetFactory();
+        BeanUtil.copyProperties(factoryParam, applyFactory);
+        int insert = applyFactoryMapper.insert(applyFactory);
+        if (insert == 0){
+            Asserts.fail("插入失败");
+        }
+        return applyFactory.getId();
     }
 
     @Override
