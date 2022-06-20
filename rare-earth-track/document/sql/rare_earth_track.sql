@@ -413,7 +413,7 @@ CREATE TABLE `ret_product`
     `transport_log`        varchar(256) DEFAULT NULL COMMENT '运输标志',
     `pic`                  varchar(256) DEFAULT NULL COMMENT '图片',
     `quality_certificate` varchar(256) NULL COMMENT '质量证明书',
-    `standard_number` varchar(256) NULL COMMENT '标准编号',
+    `standard_number` varchar(256) NULL COMMENT '牌号',
     `purity`               varchar(20)  DEFAULT NULL COMMENT '纯度',
     `production_equipment` varchar(100) DEFAULT NULL COMMENT '生产设备',
     `material_ratio`       varchar(50)  DEFAULT NULL COMMENT '物料配比',
