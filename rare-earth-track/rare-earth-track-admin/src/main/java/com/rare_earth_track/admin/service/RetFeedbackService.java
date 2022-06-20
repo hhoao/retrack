@@ -1,4 +1,4 @@
-package com.rare_earth_track.portal.service;
+package com.rare_earth_track.admin.service;
 
 import com.rare_earth_track.admin.bean.PageInfo;
 import com.rare_earth_track.admin.bean.RetFeedbackParam;
@@ -10,7 +10,7 @@ import java.util.List;
  * @ClassName RetFeedbackService
  * @Description: 反馈Service
  * @Author 匡龙
- * @Date 2022/6/20 17:07
+ * @Date 2022/6/20 20:17
  * @Version V1.0
  */
 public interface RetFeedbackService {
