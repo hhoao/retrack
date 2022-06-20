@@ -6,11 +6,16 @@ import com.rare_earth_track.admin.bean.PageInfo;
 import com.rare_earth_track.admin.bean.RetProductParam;
 import com.rare_earth_track.common.exception.Asserts;
 import com.rare_earth_track.mgb.mapper.RetProductMapper;
+import com.rare_earth_track.mgb.model.RetFactory;
+import com.rare_earth_track.mgb.model.RetFactoryExample;
 import com.rare_earth_track.mgb.model.RetProduct;
 import com.rare_earth_track.mgb.model.RetProductExample;
+import com.rare_earth_track.portal.service.RetFactoryService;
 import com.rare_earth_track.portal.service.RetProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,6 +29,13 @@ import java.util.List;
 @RequiredArgsConstructor
 public class RetProductServiceImpl implements RetProductService {
     private final RetProductMapper productMapper;
+    private RetFactoryService factoryService;
+
+    @Autowired
+    @Lazy
+    public void setFactoryService(RetFactoryService factoryService) {
+        this.factoryService = factoryService;
+    }
     @Override
     public List<RetProduct> list(PageInfo pageInfo) {
         PageHelper.startPage(pageInfo.getPageNum(), pageInfo.getPageSize());
@@ -35,9 +47,9 @@ public class RetProductServiceImpl implements RetProductService {
     public List<RetProduct> listProductByFactory(PageInfo pageInfo, String factoryName) {
         PageHelper.startPage(pageInfo.getPageNum(), pageInfo.getPageSize());
         RetProductExample productExample = new RetProductExample();
-        productExample.createCriteria().andNameEqualTo(factoryName);
-        List<RetProduct> retProducts = productMapper.selectByExample(productExample);
-        return retProducts;
+        RetFactory factoryByFactoryName = factoryService.getFactoryByFactoryName(factoryName);
+        productExample.createCriteria().andFactoryIdEqualTo(factoryByFactoryName.getId());
+        return productMapper.selectByExample(productExample);
     }
 
     @Override
