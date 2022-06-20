@@ -2,15 +2,15 @@ package com.rare_earth_track.portal.controller;
 
 import com.rare_earth_track.admin.bean.PageInfo;
 import com.rare_earth_track.admin.bean.RetFactoryParam;
+import com.rare_earth_track.portal.service.RetProductService;
+import com.rare_earth_track.mgb.model.RetProduct;
 import com.rare_earth_track.portal.service.RetFactoryService;
 import com.rare_earth_track.common.api.CommonResult;
 import com.rare_earth_track.mgb.model.RetFactory;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import io.swagger.v3.oas.annotations.tags.Tags;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 /**
@@ -26,6 +26,7 @@ import java.util.List;
 public class RetCompanyController {
 
     private final RetFactoryService factoryService;
+    private final RetProductService productService;
 
     @Operation(summary = "分页获取工厂")
     @GetMapping("/factories")
@@ -46,6 +47,13 @@ public class RetCompanyController {
     public CommonResult<String> applySettledFactory(@RequestBody RetFactoryParam factoryParam) {
         factoryService.applySettledFactory(factoryParam);
         return CommonResult.success(null);
+    }
+
+    @Operation(summary = "分页获取某工厂的产品")
+    @GetMapping("/factories/products/{factoryName}")
+    public CommonResult<List<RetProduct>> listProductByFactory(PageInfo pageInfo, @PathVariable("factoryName") String factoryName) {
+        List<RetProduct> products = productService.listProductByFactory(pageInfo, factoryName);
+        return CommonResult.success(products);
     }
 
 }

@@ -32,6 +32,15 @@ public class RetProductServiceImpl implements RetProductService {
     }
 
     @Override
+    public List<RetProduct> listProductByFactory(PageInfo pageInfo, String factoryName) {
+        PageHelper.startPage(pageInfo.getPageNum(), pageInfo.getPageSize());
+        RetProductExample productExample = new RetProductExample();
+        productExample.createCriteria().andNameEqualTo(factoryName);
+        List<RetProduct> retProducts = productMapper.selectByExample(productExample);
+        return retProducts;
+    }
+
+    @Override
     public void addProduct(RetProductParam productParam) {
         RetProduct product = new RetProduct();
         BeanUtil.copyProperties(productParam, product);

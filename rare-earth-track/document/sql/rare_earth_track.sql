@@ -426,37 +426,37 @@ CREATE TABLE `ret_product`
   AUTO_INCREMENT = 37
   DEFAULT CHARSET = UTF8MB4 COMMENT ='产品信息';
 INSERT `ret_product`(id, factory_id, name, batch_id)
-VALUES (1, 1, '烧结钕铁硼', 'A-10');
+VALUES (1, 1, '烧结钕铁硼', 'A-01');
 INSERT `ret_product`(id, factory_id, name, batch_id)
-VALUES (2, 1, '粘结钕铁硼', 'A-10');
+VALUES (2, 1, '粘结钕铁硼', 'A-02');
 INSERT `ret_product`(id, factory_id, name, batch_id)
-VALUES (3, 1, '注塑钕铁硼', 'A-10');
+VALUES (3, 1, '注塑钕铁硼', 'A-03');
 INSERT `ret_product`(id, factory_id, name, batch_id)
-VALUES (4, 1, '钐钴5型', 'A-10');
+VALUES (4, 1, '钐钴5型', 'A-04');
 INSERT `ret_product`(id, factory_id, name, batch_id)
-VALUES (5, 1, '钐钴17型', 'A-10');
+VALUES (5, 1, '钐钴17型', 'A-05');
 INSERT `ret_product`(id, factory_id, name, batch_id)
-VALUES (6, 1, '烧结铝镍钴', 'A-10');
+VALUES (6, 1, '烧结铝镍钴', 'A-06');
 INSERT `ret_product`(id, factory_id, name, batch_id)
-VALUES (7, 1, '铸造铝镍钴', 'A-10');
+VALUES (7, 1, '铸造铝镍钴', 'A-07');
 INSERT `ret_product`(id, factory_id, name, batch_id)
-VALUES (8, 1, '永磁铁氧体', 'A-10');
+VALUES (8, 1, '永磁铁氧体', 'A-08');
 INSERT `ret_product`(id, factory_id, name, batch_id)
-VALUES (9, 1, '软磁铁氧体', 'A-10');
+VALUES (9, 1, '软磁铁氧体', 'A-09');
 INSERT `ret_product`(id, factory_id, name, batch_id)
 VALUES (10, 1, '旋磁铁氧体', 'A-10');
 INSERT `ret_product`(id, factory_id, name, batch_id)
-VALUES (11, 1, '同性橡胶磁', 'A-10');
+VALUES (11, 1, '同性橡胶磁', 'A-11');
 INSERT `ret_product`(id, factory_id, name, batch_id)
-VALUES (12, 1, '异性橡胶磁', 'A-10');
+VALUES (12, 1, '异性橡胶磁', 'A-12');
 INSERT `ret_product`(id, factory_id, name, batch_id)
-VALUES (13, 1, '单面磁', 'A-10');
+VALUES (13, 1, '单面磁', 'A-13');
 INSERT `ret_product`(id, factory_id, name, batch_id)
-VALUES (14, 1, '双面磁', 'A-10');
+VALUES (14, 1, '双面磁', 'A-14');
 INSERT `ret_product`(id, factory_id, name, batch_id)
-VALUES (15, 1, '背胶', 'A-10');
+VALUES (15, 1, '背胶', 'A-15');
 INSERT `ret_product`(id, factory_id, name, batch_id)
-VALUES (16, 1, '不背胶', 'A-10');
+VALUES (16, 1, '不背胶', 'A-16');
 
 
 -- 产品文档表

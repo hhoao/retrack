@@ -22,6 +22,14 @@ public interface RetProductService {
     List<RetProduct> list(PageInfo pageInfo);
 
     /**
+     * 分页查询某工厂的产品
+     * @param pageInfo
+     * @param factoryName
+     * @return list
+     */
+    List<RetProduct> listProductByFactory(PageInfo pageInfo, String factoryName);
+
+    /**
      * Gets products.
      *
      * @param product the product
