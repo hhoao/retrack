@@ -6,13 +6,15 @@ import com.rare_earth_track.admin.bean.PageInfo;
 import com.rare_earth_track.admin.bean.RetProductParam;
 import com.rare_earth_track.common.exception.Asserts;
 import com.rare_earth_track.mgb.mapper.RetProductMapper;
+import com.rare_earth_track.mgb.model.RetFactory;
 import com.rare_earth_track.mgb.model.RetProduct;
 import com.rare_earth_track.mgb.model.RetProductExample;
+import com.rare_earth_track.portal.service.RetFactoryService;
 import com.rare_earth_track.portal.service.RetProductService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 /**
@@ -24,10 +26,26 @@ import java.util.List;
 @RequiredArgsConstructor
 public class RetProductServiceImpl implements RetProductService {
     private final RetProductMapper productMapper;
+    private RetFactoryService factoryService;
+
+    @Autowired
+    @Lazy
+    public void setFactoryService(RetFactoryService factoryService) {
+        this.factoryService = factoryService;
+    }
     @Override
     public List<RetProduct> list(PageInfo pageInfo) {
         PageHelper.startPage(pageInfo.getPageNum(), pageInfo.getPageSize());
         RetProductExample productExample = new RetProductExample();
+        return productMapper.selectByExample(productExample);
+    }
+
+    @Override
+    public List<RetProduct> listProductByFactory(PageInfo pageInfo, String factoryName) {
+        PageHelper.startPage(pageInfo.getPageNum(), pageInfo.getPageSize());
+        RetProductExample productExample = new RetProductExample();
+        RetFactory factoryByFactoryName = factoryService.getFactoryByFactoryName(factoryName);
+        productExample.createCriteria().andFactoryIdEqualTo(factoryByFactoryName.getId());
         return productMapper.selectByExample(productExample);
     }
 
@@ -45,7 +63,7 @@ public class RetProductServiceImpl implements RetProductService {
     public void updateProduct(String productName, RetProductParam productParam) {
         RetProduct productByProductName = getProductByProductName(productName);
         RetProduct newProduct = new RetProduct();
-        BeanUtils.copyProperties(productParam, newProduct);
+        BeanUtil.copyProperties(productParam, newProduct);
         newProduct.setFactoryId(productByProductName.getFactoryId());
         newProduct.setId(productByProductName.getId());
         int i = productMapper.updateByPrimaryKeySelective(newProduct);
@@ -84,6 +102,19 @@ public class RetProductServiceImpl implements RetProductService {
             Asserts.fail("没有该产品");
         }
         return retProduct;
+    }
+
+    @Override
+    public RetProduct getProductByBatchId(String batchId) {
+        RetProductExample productExample = new RetProductExample();
+        productExample.createCriteria().andBatchIdEqualTo(batchId);
+        List<RetProduct> retProducts = productMapper.selectByExample(productExample);
+        if (retProducts != null && retProducts.size() > 0) {
+            return retProducts.get(0);
+        }else if (retProducts.size() == 0){
+            Asserts.fail("没有该产品");
+        }
+        return null;
     }
 
     private RetProductExample  getProductExample(RetProduct product){

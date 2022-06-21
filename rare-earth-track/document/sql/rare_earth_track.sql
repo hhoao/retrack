@@ -2,6 +2,20 @@ DROP DATABASE IF EXISTS rare_earth_track;
 CREATE DATABASE IF NOT EXISTS rare_earth_track;
 USE rare_earth_track;
 
+#厂家入驻申请表
+DROP TABLE IF EXISTS `ret_apply_factory`;
+CREATE TABLE `ret_apply_factory`
+(
+    `id`          bigint(20) NOT NULL AUTO_INCREMENT,
+    `name`        varchar(64)  NULL COMMENT '工厂名',
+    `phone`       varchar(64)  NULL COMMENT '联系电话',
+    `email`       varchar(100) NULL COMMENT '邮箱',
+    `address`     varchar(100) NULL COMMENT '地址',
+    `description` varchar(50) NULL COMMENT '描述',
+    `apply_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '申请时间',
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='厂家入驻申请表';
+
 # 菜单表
 DROP TABLE IF EXISTS `ret_menu`;
 CREATE TABLE `ret_menu` (
@@ -399,7 +413,7 @@ CREATE TABLE `ret_product`
     `transport_log`        varchar(256) DEFAULT NULL COMMENT '运输标志',
     `pic`                  varchar(256) DEFAULT NULL COMMENT '图片',
     `quality_certificate` varchar(256) NULL COMMENT '质量证明书',
-    `standard_number` varchar(256) NULL COMMENT '标准编号',
+    `standard_number` varchar(256) NULL COMMENT '牌号',
     `purity`               varchar(20)  DEFAULT NULL COMMENT '纯度',
     `production_equipment` varchar(100) DEFAULT NULL COMMENT '生产设备',
     `material_ratio`       varchar(50)  DEFAULT NULL COMMENT '物料配比',
@@ -412,37 +426,37 @@ CREATE TABLE `ret_product`
   AUTO_INCREMENT = 37
   DEFAULT CHARSET = UTF8MB4 COMMENT ='产品信息';
 INSERT `ret_product`(id, factory_id, name, batch_id)
-VALUES (1, 1, '烧结钕铁硼', 'A-10');
+VALUES (1, 1, '烧结钕铁硼', 'A-01');
 INSERT `ret_product`(id, factory_id, name, batch_id)
-VALUES (2, 1, '粘结钕铁硼', 'A-10');
+VALUES (2, 1, '粘结钕铁硼', 'A-02');
 INSERT `ret_product`(id, factory_id, name, batch_id)
-VALUES (3, 1, '注塑钕铁硼', 'A-10');
+VALUES (3, 1, '注塑钕铁硼', 'A-03');
 INSERT `ret_product`(id, factory_id, name, batch_id)
-VALUES (4, 1, '钐钴5型', 'A-10');
+VALUES (4, 1, '钐钴5型', 'A-04');
 INSERT `ret_product`(id, factory_id, name, batch_id)
-VALUES (5, 1, '钐钴17型', 'A-10');
+VALUES (5, 1, '钐钴17型', 'A-05');
 INSERT `ret_product`(id, factory_id, name, batch_id)
-VALUES (6, 1, '烧结铝镍钴', 'A-10');
+VALUES (6, 1, '烧结铝镍钴', 'A-06');
 INSERT `ret_product`(id, factory_id, name, batch_id)
-VALUES (7, 1, '铸造铝镍钴', 'A-10');
+VALUES (7, 1, '铸造铝镍钴', 'A-07');
 INSERT `ret_product`(id, factory_id, name, batch_id)
-VALUES (8, 1, '永磁铁氧体', 'A-10');
+VALUES (8, 1, '永磁铁氧体', 'A-08');
 INSERT `ret_product`(id, factory_id, name, batch_id)
-VALUES (9, 1, '软磁铁氧体', 'A-10');
+VALUES (9, 1, '软磁铁氧体', 'A-09');
 INSERT `ret_product`(id, factory_id, name, batch_id)
 VALUES (10, 1, '旋磁铁氧体', 'A-10');
 INSERT `ret_product`(id, factory_id, name, batch_id)
-VALUES (11, 1, '同性橡胶磁', 'A-10');
+VALUES (11, 1, '同性橡胶磁', 'A-11');
 INSERT `ret_product`(id, factory_id, name, batch_id)
-VALUES (12, 1, '异性橡胶磁', 'A-10');
+VALUES (12, 1, '异性橡胶磁', 'A-12');
 INSERT `ret_product`(id, factory_id, name, batch_id)
-VALUES (13, 1, '单面磁', 'A-10');
+VALUES (13, 1, '单面磁', 'A-13');
 INSERT `ret_product`(id, factory_id, name, batch_id)
-VALUES (14, 1, '双面磁', 'A-10');
+VALUES (14, 1, '双面磁', 'A-14');
 INSERT `ret_product`(id, factory_id, name, batch_id)
-VALUES (15, 1, '背胶', 'A-10');
+VALUES (15, 1, '背胶', 'A-15');
 INSERT `ret_product`(id, factory_id, name, batch_id)
-VALUES (16, 1, '不背胶', 'A-10');
+VALUES (16, 1, '不背胶', 'A-16');
 
 
 -- 产品文档表

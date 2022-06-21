@@ -22,6 +22,14 @@ public interface RetProductService {
     List<RetProduct> list(PageInfo pageInfo);
 
     /**
+     * 分页查询某工厂的产品
+     * @param pageInfo
+     * @param factoryName
+     * @return list
+     */
+    List<RetProduct> listProductByFactory(PageInfo pageInfo, String factoryName);
+
+    /**
      * Gets products.
      *
      * @param product the product
@@ -70,6 +78,13 @@ public interface RetProductService {
      * @return the product by product id
      */
     RetProduct getProductByProductId(Long id);
+
+    /**
+     * 通过产品批次溯源产品
+     * @param batchId
+     * @return
+     */
+    RetProduct getProductByBatchId(String batchId);
 
     /**
      * Delete products.

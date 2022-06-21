@@ -11,7 +11,6 @@ import com.rare_earth_track.security.config.JwtSecurityProperties;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import io.swagger.v3.oas.annotations.tags.Tags;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.web.bind.annotation.*;
@@ -27,7 +26,7 @@ import java.util.Map;
  * @Version V1.0
  */
 @AllArgsConstructor
-@Tags({@Tag(name = "用户登录注销管理", description = "RetUserController")})
+@Tag(name = "用户登录注销管理")
 @RestController
 @Data
 public class RetUserController {
