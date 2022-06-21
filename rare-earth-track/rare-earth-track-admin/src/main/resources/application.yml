@@ -54,6 +54,7 @@ jwt:
       - /**/*.ico
       - /users/auth/token
       - /users
+      - /upload/file
 logging:
   level:
     root: info
