@@ -63,8 +63,7 @@ class RetFactoryServiceImplTest extends TransactionTest {
     @Test
     void deleteFactoryByName() {
         factoryService.deleteFactoryByName("五矿稀土");
-        RetFactory factory = factoryService.getFactoryByFactoryName("五矿稀土");
-        Assertions.assertNull(factory);
+        Assertions.assertThrows(ApiException.class, ()->factoryService.getFactoryByFactoryName("五矿稀土"));
     }
 
     @Test

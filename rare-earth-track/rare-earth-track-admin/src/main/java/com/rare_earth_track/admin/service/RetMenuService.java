@@ -39,9 +39,10 @@ public interface RetMenuService {
     /**
      * 分页获取资源列表
      *
-     * @param pageInfo@return 分页资源 list
+     * @param pageInfo   @return 分页资源 list
+     * @param menuParams
      */
-    List<RetMenu> list(PageInfo pageInfo);
+    List<RetMenu> list(PageInfo pageInfo, RetMenu menuParams);
     /**
      * 添加资源
      *

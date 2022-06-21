@@ -4,7 +4,6 @@ import com.rare_earth_track.admin.TransactionTest;
 import com.rare_earth_track.admin.bean.IdentifyType;
 import com.rare_earth_track.admin.bean.RetUserAuthParam;
 import com.rare_earth_track.admin.service.RetUserAuthService;
-import com.rare_earth_track.common.exception.ApiException;
 import com.rare_earth_track.mgb.model.RetUserAuth;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -34,6 +33,10 @@ class RetUserAuthServiceImplTest extends TransactionTest {
         Assertions.assertNotNull(userAuth2);
         RetUserAuth userAuth3 = userAuthService.getUserAuth(tUserId, IdentifyType.username);
         Assertions.assertNotNull(userAuth3);
+        RetUserAuth userAuth4 = userAuthService.getUserAuth("17679358123");
+        Assertions.assertNotNull(userAuth4);
+        RetUserAuth userAuth5 = userAuthService.getUserAuth("test");
+        Assertions.assertNotNull(userAuth5);
     }
 
     @Test
@@ -58,7 +61,7 @@ class RetUserAuthServiceImplTest extends TransactionTest {
     @Test
     void deleteAllUserAuth() {
         userAuthService.deleteAllUserAuth(tUserId);
-        Assertions.assertThrows(ApiException.class, ()-> userAuthService.getUserAuth(tUserId));
+        Assertions.assertEquals(userAuthService.getUserAuth(tUserId).size(), 0);
     }
     @Test
     void updateUserAuth() {

@@ -12,9 +12,12 @@ import com.rare_earth_track.mgb.model.RetUserAuth;
 import com.rare_earth_track.security.util.JwtTokenService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -162,7 +165,7 @@ class RetUserServiceImplTest extends TransactionTest {
 
     @Test
     void getUserByName() {
-        RetUser userByName = userService.getUserByName(testUsername);
+        RetUser userByName = userService.getUserByUsername(testUsername);
         Assertions.assertEquals(userByName.getId(), 1L);
     }
 
@@ -226,5 +229,32 @@ class RetUserServiceImplTest extends TransactionTest {
     void getUserAuths() {
         Map<String, String> userAuths = userService.getUserAuths(tUserId);
         Assertions.assertNotNull(userAuths);
+    }
+
+    static List<Object[]> queryUsersParamsProvider(){
+        PageInfo pageInfo = new PageInfo(1, 5);
+        //1
+       RetUserParam userParam = new RetUserParam();
+       userParam.setSex(1);
+       List<Object[]> oL = new ArrayList<>();
+       oL.add(new Object[]{userParam, pageInfo});
+       //2
+        userParam = new RetUserParam();
+        userParam.setName("test");
+        oL.add(new Object[]{userParam, pageInfo});
+        //3
+        userParam = new RetUserParam();
+        userParam.setId("1");
+        oL.add(new Object[]{userParam, pageInfo});
+        //4
+        userParam = new RetUserParam();
+        oL.add(new Object[]{userParam, pageInfo});
+       return oL;
+    }
+    @ParameterizedTest
+    @MethodSource("queryUsersParamsProvider")
+    void queryUsers(RetUserParam userParam, PageInfo pageInfo) {
+        List<RetUser> users = userService.queryUsers(userParam, pageInfo);
+        Assertions.assertTrue(users.size()>0);
     }
 }

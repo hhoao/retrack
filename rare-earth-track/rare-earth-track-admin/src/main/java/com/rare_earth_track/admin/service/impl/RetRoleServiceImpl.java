@@ -127,7 +127,7 @@ public class RetRoleServiceImpl implements RetRoleService, ApplicationRunner {
 
     @Override
     public List<RetRole> list(PageInfo pageInfo) {
-        PageHelper.startPage(pageInfo);
+        PageHelper.startPage(pageInfo.getPageNum(), pageInfo.getPageSize());
         return getAllRoles();
     }
 

@@ -3,6 +3,7 @@ package com.rare_earth_track.admin.controller;
 
 import com.rare_earth_track.admin.bean.IdentifyType;
 import com.rare_earth_track.admin.bean.PageInfo;
+import com.rare_earth_track.admin.bean.RetUserParam;
 import com.rare_earth_track.admin.service.RetUserService;
 import com.rare_earth_track.common.api.CommonPage;
 import com.rare_earth_track.common.api.CommonResult;
@@ -53,8 +54,8 @@ public class RetUserController {
     }
     @Operation(summary = "通过用户参数获取用户信息")
     @GetMapping("/users")
-    public CommonResult<CommonPage<RetUser>> getUserByUserParam(RetUser user,
-                                                          PageInfo pageInfo){
+    public CommonResult<CommonPage<RetUser>> getUserByUserParam(RetUserParam user,
+                                                                PageInfo pageInfo){
         List<RetUser> users = userService.queryUsers(user, pageInfo);
         return CommonResult.success(CommonPage.restPage(users));
     }

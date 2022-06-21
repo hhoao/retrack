@@ -1,12 +1,16 @@
 package com.rare_earth_track.admin.service.impl;
 
 import com.rare_earth_track.admin.TransactionTest;
+import com.rare_earth_track.admin.bean.PageInfo;
 import com.rare_earth_track.admin.bean.RetProductParam;
 import com.rare_earth_track.admin.service.RetProductService;
+import com.rare_earth_track.common.exception.ApiException;
 import com.rare_earth_track.mgb.model.RetProduct;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
 
 /**
  * @ClassName RetProductServiceImplTest
@@ -40,8 +44,13 @@ public class RetProductServiceImplTest extends TransactionTest {
     @Test
     void deleteProductByName() {
         productService.deleteProductByName("烧结钕铁硼");
-        RetProduct product = productService.getProductByProductName("烧结钕铁硼");
-        Assertions.assertNull(product);
+        Assertions.assertThrows(ApiException.class, ()->productService.getProductByProductName("烧结钕铁硼"));
     }
 
+    @Test
+    void list() {
+        PageInfo pageInfo = new PageInfo(1, 5);
+        List<RetProduct> list = productService.list(pageInfo);
+        System.out.println(list.size());
+    }
 }

@@ -25,10 +25,12 @@ public class RetMenuController {
     private final RetMenuService menuService;
     @Operation(description = "分页获取菜单列表", summary = "分页获取菜单列表")
     @GetMapping("/menus")
-    public CommonResult<CommonPage<RetMenu>> list(PageInfo pageInfo){
-        List<RetMenu> allMenus = menuService.list(pageInfo);
+    public CommonResult<CommonPage<RetMenu>> list(PageInfo pageInfo,
+                                                  RetMenu menuParams){
+        List<RetMenu> allMenus = menuService.list(pageInfo, menuParams);
         return CommonResult.success(CommonPage.restPage(allMenus));
     }
+
     @Operation(description = "添加菜单", summary = "添加菜单")
     @PostMapping("/menus")
     public CommonResult<String> addMenu(@RequestBody RetMenuParam menuParam){

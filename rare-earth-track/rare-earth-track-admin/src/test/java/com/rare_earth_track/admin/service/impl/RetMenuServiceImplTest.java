@@ -1,6 +1,7 @@
 package com.rare_earth_track.admin.service.impl;
 
 import com.rare_earth_track.admin.TransactionTest;
+import com.rare_earth_track.admin.bean.PageInfo;
 import com.rare_earth_track.admin.bean.RetMenuParam;
 import com.rare_earth_track.admin.service.RetMenuService;
 import com.rare_earth_track.common.exception.ApiException;
@@ -8,9 +9,11 @@ import com.rare_earth_track.mgb.model.RetMenu;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -70,5 +73,28 @@ class RetMenuServiceImplTest extends TransactionTest {
     void deleteMenu(String menuName) {
         menuService.deleteMenu(menuName);
         assertThrows(ApiException.class, ()-> menuService.getMenu(menuName));
+    }
+
+    static List<Object[]> listParamsProvider(){
+        List<Object[]> params = new ArrayList<>();
+        RetMenu menu1 = new RetMenu();
+        menu1.setHidden(0);
+        params.add(new Object[]{new PageInfo(1, 5), menu1});
+
+        RetMenu menu2 = new RetMenu();
+        menu2.setId(1L);
+        params.add(new Object[]{new PageInfo(1, 5), menu2});
+
+        RetMenu menu3 = new RetMenu();
+        menu3.setName("home");
+        params.add(new Object[]{new PageInfo(1, 5), menu3});
+        return params;
+    }
+
+    @ParameterizedTest
+    @MethodSource("listParamsProvider")
+    void list(PageInfo pageInfo, RetMenu menu) {
+        List<RetMenu> list = menuService.list(pageInfo, menu);
+        Assertions.assertTrue(list.size() > 0);
     }
 }

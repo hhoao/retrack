@@ -23,6 +23,11 @@ import java.time.LocalDate;
 @ToString
 @Schema(description="用户参数")
 public class RetUserParam {
+    @Schema(description = "id")
+    private String id;
+    @Schema(description = "角色id")
+    private String roleId;
+
     @Schema(description = "姓名")
     private String name;
 
@@ -55,6 +60,9 @@ public class RetUserParam {
     @Schema(description = "邮箱")
     private String email;
 
-    @Schema(description = "密码")
-    private String password;
+    @Schema(description = "手机号")
+    private String phone;
+
+    @Schema(description = "启用状态 1->启用, 0->禁用")
+    private String status;
 }

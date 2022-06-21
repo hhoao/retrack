@@ -61,10 +61,28 @@ public class RetMenuServiceImpl implements RetMenuService {
         return menuMapper.selectByExample(new RetMenuExample());
     }
 
+    private RetMenuExample getMenuExample(RetMenu menu){
+        RetMenuExample menuExample = new RetMenuExample();
+        if (menu.getName() != null) {
+            menuExample.createCriteria().andNameEqualTo(menu.getName());
+        }
+        if (menu.getId() != null) {
+            menuExample.createCriteria().andIdEqualTo(menu.getId());
+        }
+        if (menu.getHidden() != null){
+            menuExample.createCriteria().andHiddenEqualTo(menu.getHidden());
+        }
+        if (menu.getTitle() != null){
+            menuExample.createCriteria().andTitleLike(menu.getTitle());
+        }
+        return menuExample;
+    }
+
     @Override
-    public List<RetMenu> list(PageInfo pageInfo) {
+    public List<RetMenu> list(PageInfo pageInfo, RetMenu menuParams) {
         PageHelper.startPage(pageInfo.getPageNum(), pageInfo.getPageSize());
-        return getAllMenus();
+        RetMenuExample menuExample = getMenuExample(menuParams);
+        return menuMapper.selectByExample(menuExample);
     }
 
 

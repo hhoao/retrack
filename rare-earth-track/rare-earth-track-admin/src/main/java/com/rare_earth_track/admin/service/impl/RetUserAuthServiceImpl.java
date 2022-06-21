@@ -29,11 +29,7 @@ public class RetUserAuthServiceImpl implements RetUserAuthService {
         RetUserAuthExample userAuthExample = new RetUserAuthExample();
         userAuthExample.createCriteria().
                 andUserIdEqualTo(userId);
-        List<RetUserAuth> retUserAuths = userAuthMapper.selectByExample(userAuthExample);
-        if (retUserAuths == null || retUserAuths.size() == 0){
-            Asserts.fail("没有该验证方式");
-        }
-        return retUserAuths;
+        return userAuthMapper.selectByExample(userAuthExample);
     }
     @Override
     public RetUserAuth getUserAuth(Long userId, IdentifyType identifyType) {
