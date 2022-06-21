@@ -3,7 +3,6 @@ package com.rare_earth_track.admin.service;
 import com.rare_earth_track.admin.bean.PageInfo;
 import com.rare_earth_track.admin.bean.RetFactoryParam;
 import com.rare_earth_track.admin.bean.RetMemberParam;
-import com.rare_earth_track.admin.bean.RetProductParam;
 import com.rare_earth_track.mgb.model.RetFactory;
 import com.rare_earth_track.mgb.model.RetMember;
 import com.rare_earth_track.mgb.model.RetProduct;
@@ -144,8 +143,10 @@ public interface RetFactoryService {
      * List products list.
      *
      * @param factoryName the factory name
+     * @param product
+     * @param pageInfo
      * @return the list
      */
-    List<RetProduct> listProducts(String factoryName);
+    List<RetProduct> listProducts(String factoryName, RetProduct product, PageInfo pageInfo);
 
 }

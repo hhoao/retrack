@@ -29,11 +29,7 @@ public class RetUserController {
     private final RetUserService userService;
     private final JwtSecurityProperties securityProperties;
 
-    @Operation(summary = "分页获取用户列表")
-    @GetMapping("/users")
-    public CommonResult<CommonPage<RetUser>> list(PageInfo pageInfo){
-        return CommonResult.success(CommonPage.restPage(userService.list(pageInfo)));
-    }
+
     @Operation(summary = "获取已认证用户角色菜单")
     @GetMapping("/user/role/menus")
     public CommonResult<List<RetMenu>> getUserRoleMenus(@RequestHeader Map<String, String> headers){
@@ -56,7 +52,7 @@ public class RetUserController {
         return CommonResult.success(user);
     }
     @Operation(summary = "通过用户参数获取用户信息")
-    @GetMapping("/users/search")
+    @GetMapping("/users")
     public CommonResult<CommonPage<RetUser>> getUserByUserParam(RetUser user,
                                                           PageInfo pageInfo){
         List<RetUser> users = userService.queryUsers(user, pageInfo);

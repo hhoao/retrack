@@ -3,7 +3,6 @@ package com.rare_earth_track.admin.controller;
 import com.rare_earth_track.admin.bean.PageInfo;
 import com.rare_earth_track.admin.bean.RetFactoryParam;
 import com.rare_earth_track.admin.bean.RetMemberParam;
-import com.rare_earth_track.admin.bean.RetProductParam;
 import com.rare_earth_track.admin.service.RetFactoryService;
 import com.rare_earth_track.common.api.CommonResult;
 import com.rare_earth_track.mgb.model.RetFactory;
@@ -26,12 +25,6 @@ import java.util.List;
 public class RetFactoryController {
     private final RetFactoryService factoryService;
 
-    @Operation(summary = "分页获取工厂")
-    @GetMapping("/factories")
-    public CommonResult<List<RetFactory>> list(PageInfo pageInfo){
-        List<RetFactory> list = factoryService.list(pageInfo);
-        return CommonResult.success(list);
-    }
     @Operation(summary = "创建工厂")
     @PostMapping("/factories")
     public CommonResult<String> addFactory(@RequestBody RetFactoryParam factoryParam){
@@ -65,7 +58,7 @@ public class RetFactoryController {
     }
 
     @Operation(summary = "根据条件查询工厂信息")
-    @GetMapping("/factories/search")
+    @GetMapping("/factories")
     public CommonResult<List<RetFactory>> getFactory(PageInfo pageInfo, RetFactory factory){
         List<RetFactory> factories = factoryService.getFactory(pageInfo, factory);
         return CommonResult.success(factories);
@@ -103,8 +96,10 @@ public class RetFactoryController {
 
     @Operation(summary = "分页获取工厂产品")
     @GetMapping("/factories/{factoryName}/products")
-    public CommonResult<List<RetProduct>> listProducts(@PathVariable(value = "factoryName") String factoryName){
-        List<RetProduct> products = factoryService.listProducts(factoryName);
+    public CommonResult<List<RetProduct>> listProducts(@PathVariable(value = "factoryName") String factoryName,
+                                                       PageInfo pageInfo,
+                                                       RetProduct product){
+        List<RetProduct> products = factoryService.listProducts(factoryName, product, pageInfo);
         return CommonResult.success(products);
     }
 

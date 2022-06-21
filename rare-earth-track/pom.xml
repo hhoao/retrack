@@ -25,7 +25,7 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <hutool-all.version>5.8.2</hutool-all.version>
-        <docker.host>https://localhost:2375</docker.host>
+        <docker.host>https://192.168.1.103:2375</docker.host>
         <docker.maven.plugin.version>1.2.2</docker.maven.plugin.version>
         <pagehelper-spring-boot-starter.version>1.4.2</pagehelper-spring-boot-starter.version>
         <rare-earth-track-common.version>1.0-SNAPSHOT</rare-earth-track-common.version>
@@ -111,7 +111,8 @@
                     <version>${docker.maven.plugin.version}</version>
                     <configuration>
                         <imageName>rare-earth-track/${project.artifactId}:${project.version}</imageName>
-<!--                        <dockerHost>${docker.host}</dockerHost>-->
+<!--                        <registryUrl>http://192.168.1.106:5000</registryUrl>-->
+                        <dockerHost>http://192.168.1.106:2375</dockerHost>
                         <baseImage>openjdk:17</baseImage>
                         <entryPoint>["java", "-jar", "-Dspring.profiles.active=prod","/${project.build.finalName}.jar"]
                         </entryPoint>

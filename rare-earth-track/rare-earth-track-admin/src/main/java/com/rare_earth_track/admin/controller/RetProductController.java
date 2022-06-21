@@ -22,12 +22,6 @@ import java.util.List;
 public class RetProductController {
     private final RetProductService productService;
 
-    @Operation(summary = "分页获取所有产品")
-    @GetMapping("/products")
-    public CommonResult<List<RetProduct>> list(PageInfo pageInfo){
-        List<RetProduct> products = productService.list(pageInfo);
-        return CommonResult.success(products);
-    }
 
     @Operation(summary = "增加产品")
     @PostMapping("/products")
@@ -66,9 +60,9 @@ public class RetProductController {
     }
 
     @Operation(summary = "根据条件查询产品信息")
-    @GetMapping("/products/search")
-    public CommonResult<List<RetProduct>> getProduct(RetProduct product) {
-        List<RetProduct> products = productService.getProducts(product);
+    @GetMapping("/products")
+    public CommonResult<List<RetProduct>> getProduct(RetProduct product, PageInfo pageInfo) {
+        List<RetProduct> products = productService.getProducts(product, pageInfo);
         return CommonResult.success(products);
     }
 

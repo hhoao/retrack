@@ -24,10 +24,11 @@ public interface RetProductService {
     /**
      * Gets products.
      *
-     * @param product the product
+     * @param product  the product
+     * @param pageInfo
      * @return the products
      */
-    List<RetProduct> getProducts(RetProduct product);
+    List<RetProduct> getProducts(RetProduct product, PageInfo pageInfo);
 
     /**
      * 添加产品

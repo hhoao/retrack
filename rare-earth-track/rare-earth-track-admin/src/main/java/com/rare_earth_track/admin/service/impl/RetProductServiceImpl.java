@@ -129,7 +129,8 @@ public class RetProductServiceImpl implements RetProductService {
 
 
     @Override
-    public List<RetProduct> getProducts(RetProduct product) {
+    public List<RetProduct> getProducts(RetProduct product, PageInfo pageInfo) {
+        PageHelper.startPage(pageInfo.getPageNum(), pageInfo.getPageSize());
         RetProductExample productExample = getProductExample(product);
         return productMapper.selectByExample(productExample);
     }
