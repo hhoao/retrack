@@ -34,7 +34,8 @@ public class RetFeedbackServiceImpl implements RetFeedbackService {
     }
 
     @Override
-    public List<RetFeedback> getFeedbacks(RetFeedback feedback) {
+    public List<RetFeedback> getFeedbacks(RetFeedback feedback, PageInfo pageInfo) {
+        PageHelper.startPage(pageInfo.getPageNum(), pageInfo.getPageSize());
         RetFeedbackExample feedbackExample = getFeedbackExample(feedback);
         return feedbackMapper.selectByExample(feedbackExample);
     }

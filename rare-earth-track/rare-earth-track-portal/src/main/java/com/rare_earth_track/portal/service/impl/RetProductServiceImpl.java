@@ -41,11 +41,11 @@ public class RetProductServiceImpl implements RetProductService {
     }
 
     @Override
-    public List<RetProduct> listProductByFactory(PageInfo pageInfo, String factoryName) {
-        PageHelper.startPage(pageInfo.getPageNum(), pageInfo.getPageSize());
+    public List<RetProduct> listProductByFactory(String factoryName, PageInfo pageInfo) {
         RetProductExample productExample = new RetProductExample();
         RetFactory factoryByFactoryName = factoryService.getFactoryByFactoryName(factoryName);
         productExample.createCriteria().andFactoryIdEqualTo(factoryByFactoryName.getId());
+        PageHelper.startPage(pageInfo.getPageNum(), pageInfo.getPageSize());
         return productMapper.selectByExample(productExample);
     }
 
@@ -160,7 +160,8 @@ public class RetProductServiceImpl implements RetProductService {
 
 
     @Override
-    public List<RetProduct> getProducts(RetProduct product) {
+    public List<RetProduct> getProducts(RetProduct product, PageInfo pageInfo) {
+        PageHelper.startPage(pageInfo.getPageNum(), pageInfo.getPageSize());
         RetProductExample productExample = getProductExample(product);
         return productMapper.selectByExample(productExample);
     }

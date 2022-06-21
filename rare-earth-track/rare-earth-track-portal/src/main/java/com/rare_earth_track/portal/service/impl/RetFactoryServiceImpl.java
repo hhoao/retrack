@@ -213,10 +213,9 @@ public class RetFactoryServiceImpl implements RetFactoryService {
     }
 
     @Override
-    public List<RetProduct> listProducts(String factoryName) {
-        RetProduct product = new RetProduct();
+    public List<RetProduct> listProducts(String factoryName, RetProduct product, PageInfo pageInfo) {
         RetFactory factoryByFactoryName = getFactoryByFactoryName(factoryName);
         product.setFactoryId(factoryByFactoryName.getId());
-        return productService.getProducts(product);
+        return productService.getProducts(product, pageInfo);
     }
 }

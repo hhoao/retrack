@@ -24,13 +24,6 @@ public class RetTrackController {
 
     private final RetProductService productService;
 
-    @Operation(summary = "分页获取所有产品")
-    @GetMapping("/products")
-    public CommonResult<List<RetProduct>> list(PageInfo pageInfo){
-        List<RetProduct> products = productService.list(pageInfo);
-        return CommonResult.success(products);
-    }
-
     @Operation(summary = "通过产品溯源码查询产品")
     @GetMapping("/products/{batchId}")
     public CommonResult<RetProduct> getProductByTrackCode(@PathVariable("batchId") String batchId) {
@@ -39,9 +32,9 @@ public class RetTrackController {
     }
 
     @Operation(summary = "根据条件查询产品信息")
-    @GetMapping("/products/search")
-    public CommonResult<List<RetProduct>> getProduct(RetProduct product) {
-        List<RetProduct> products = productService.getProducts(product);
+    @GetMapping("/products")
+    public CommonResult<List<RetProduct>> getProduct(RetProduct product, PageInfo pageInfo) {
+        List<RetProduct> products = productService.getProducts(product, pageInfo);
         return CommonResult.success(products);
     }
 }

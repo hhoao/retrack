@@ -51,8 +51,8 @@ public class RetCompanyController {
 
     @Operation(summary = "分页获取某工厂的产品")
     @GetMapping("/factories/{factoryName}/products")
-    public CommonResult<List<RetProduct>> listProductByFactory(PageInfo pageInfo, @PathVariable("factoryName") String factoryName) {
-        List<RetProduct> products = productService.listProductByFactory(pageInfo, factoryName);
+    public CommonResult<List<RetProduct>> listProductByFactory(@PathVariable("factoryName") String factoryName, PageInfo pageInfo) {
+        List<RetProduct> products = productService.listProductByFactory(factoryName, pageInfo);
         return CommonResult.success(products);
     }
 

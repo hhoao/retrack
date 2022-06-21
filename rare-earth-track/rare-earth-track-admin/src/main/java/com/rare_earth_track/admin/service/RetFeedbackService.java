@@ -25,9 +25,10 @@ public interface RetFeedbackService {
     /**
      * 获取反馈信息
      * @param feedback
+     * @param pageInfo
      * @return feedbacks
      */
-    List<RetFeedback> getFeedbacks(RetFeedback feedback);
+    List<RetFeedback> getFeedbacks(RetFeedback feedback, PageInfo pageInfo);
 
     /**
      * 添加反馈信息

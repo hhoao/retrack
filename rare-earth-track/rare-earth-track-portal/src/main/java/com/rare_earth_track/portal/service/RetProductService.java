@@ -27,7 +27,7 @@ public interface RetProductService {
      * @param factoryName
      * @return list
      */
-    List<RetProduct> listProductByFactory(PageInfo pageInfo, String factoryName);
+    List<RetProduct> listProductByFactory(String factoryName, PageInfo pageInfo);
 
     /**
      * Gets products.
@@ -35,7 +35,7 @@ public interface RetProductService {
      * @param product the product
      * @return the products
      */
-    List<RetProduct> getProducts(RetProduct product);
+    List<RetProduct> getProducts(RetProduct product, PageInfo pageInfo);
 
     /**
      * 添加产品

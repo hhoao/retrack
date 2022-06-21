@@ -26,10 +26,10 @@ public class RetFeedbackController {
 
     private final RetFeedbackService feedbackService;
 
-    @Operation(summary = "分页获取所有反馈信息")
+    @Operation(summary = "根据条件查询反馈信息")
     @GetMapping("/feedbacks")
-    public CommonResult<List<RetFeedback>> list(PageInfo pageInfo) {
-        List<RetFeedback> feedbacks = feedbackService.list(pageInfo);
+    public CommonResult<List<RetFeedback>> getFeedback(RetFeedback feedback, PageInfo pageInfo) {
+        List<RetFeedback> feedbacks = feedbackService.getFeedbacks(feedback, pageInfo);
         return CommonResult.success(feedbacks);
     }
 

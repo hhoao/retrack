@@ -153,6 +153,6 @@ public interface RetFactoryService {
      * @param factoryName the factory name
      * @return the list
      */
-    List<RetProduct> listProducts(String factoryName);
+    List<RetProduct> listProducts(String factoryName, RetProduct product, PageInfo pageInfo);
 
 }
