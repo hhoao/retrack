@@ -2,6 +2,24 @@ DROP DATABASE IF EXISTS rare_earth_track;
 CREATE DATABASE IF NOT EXISTS rare_earth_track;
 USE rare_earth_track;
 
+
+#文件表
+DROP TABLE IF EXISTS `ret_files`;
+CREATE TABLE `ret_files`  (
+                          `id` int NOT NULL AUTO_INCREMENT COMMENT '文件id',
+                          `files_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '文件名称',
+                          `type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '文件类型',
+                          `size` double(32, 2) NULL DEFAULT NULL COMMENT '文件大小（KB）',
+                          `url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '下载链接',
+                          `md5` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '文件md5',
+                          `enable` tinyint NULL DEFAULT 1 COMMENT '链接是否可用（1：是 0：否）',
+                          `is_delete` tinyint NOT NULL DEFAULT 0 COMMENT '是否删除（1：是 0：否）',
+                          `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
+                          `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                          PRIMARY KEY (`id`) USING BTREE,
+                          INDEX `name`(`files_name`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '文件表' ROW_FORMAT = Dynamic;
+
 #厂家入驻申请表
 DROP TABLE IF EXISTS `ret_apply_factory`;
 CREATE TABLE `ret_apply_factory`

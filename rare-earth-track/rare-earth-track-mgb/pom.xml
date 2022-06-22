@@ -41,6 +41,14 @@
             <artifactId>mybatis-generator-core</artifactId>
             <version>1.4.1</version>
         </dependency>
+
+        <!-- mybatis-plus-boot-starter -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>3.5.1</version>
+        </dependency>
+
     </dependencies>
 
 </project>
