@@ -14,7 +14,7 @@ CREATE TABLE `ret_files`  (
                           `md5` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '文件md5',
                           `enable` tinyint NULL DEFAULT 1 COMMENT '链接是否可用（1：是 0：否）',
                           `is_delete` tinyint NOT NULL DEFAULT 0 COMMENT '是否删除（1：是 0：否）',
-                          `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
+                          `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP  COMMENT '创建时间',
                           `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
                           PRIMARY KEY (`id`) USING BTREE,
                           INDEX `name`(`files_name`) USING BTREE

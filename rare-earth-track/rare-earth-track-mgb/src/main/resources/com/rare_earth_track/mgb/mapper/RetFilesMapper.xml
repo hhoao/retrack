@@ -2,4 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.rare_earth_track.mgb.mapper.RetFilesMapper">
 
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, files_name, type, size, url, md5, enable, is_delete, create_time, update_time
+    </sql>
+    <select id="selectFileList" resultType="com.rare_earth_track.mgb.model.RetFiles">
+        select id, files_name, type, size, url, md5, enable
+        from ret_files
+        where is_delete = false
+        order by create_time asc
+    </select>
+    <select id="fileIsExist" resultType="java.lang.Boolean">
+        select count(id) > 0
+        from ret_files
+        where is_delete = false
+    </select>
 </mapper>

@@ -4,9 +4,13 @@ import cn.hutool.core.date.DateTime;
 import cn.hutool.core.lang.UUID;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.github.pagehelper.PageHelper;
+import com.rare_earth_track.admin.bean.PageInfo;
 import com.rare_earth_track.admin.service.RetFilesService;
+import com.rare_earth_track.common.api.CommonResult;
 import com.rare_earth_track.mgb.mapper.RetFilesMapper;
 import com.rare_earth_track.mgb.model.RetFiles;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
@@ -25,10 +29,26 @@ import java.util.List;
  * @Date 2022/6/22 14:42
  * @Version V1.0
  */
+@Slf4j
 @Service
 public class RetFilesServiceImpl extends ServiceImpl<RetFilesMapper, RetFiles> implements RetFilesService {
+
+    private final RetFilesMapper filesMapper;
+
     @Value("${file.upload.path}")
     private String filesUploadPath;//获取文件路径
+
+    public RetFilesServiceImpl(RetFilesMapper filesMapper) {
+        this.filesMapper = filesMapper;
+    }
+
+    @Override
+    public CommonResult<List<RetFiles>> getFileList(PageInfo pageInfo) {
+        PageHelper.startPage(pageInfo.getPageNum(), pageInfo.getPageSize());
+        List<RetFiles> result = filesMapper.selectFileList();
+        com.github.pagehelper.PageInfo<RetFiles> filesPageInfo = new com.github.pagehelper.PageInfo<>(result);
+        return CommonResult.success(filesPageInfo.getList());
+    }
 
     @Override
     public String upload(MultipartFile file) {
@@ -64,7 +84,7 @@ public class RetFilesServiceImpl extends ServiceImpl<RetFilesMapper, RetFiles> i
                 url = dbRetFiles.getUrl();
             } else {//如果数据库不存在相同文件，先存储到本地磁盘，再设置文件url
                 file.transferTo(uploadFile);//把获取到的文件存储带磁盘目录
-                url = "http://localhost:8800/files/" + fileUuid;//设置文件url
+                url = "http://localhost:8080/files/" + fileUuid;//设置文件url
             }
 
             //将文件存储到数据库
@@ -119,7 +139,13 @@ public class RetFilesServiceImpl extends ServiceImpl<RetFilesMapper, RetFiles> i
             os.close();
         } catch (IOException e) {
             e.printStackTrace();
+            log.error("文件下载出错", e);
         }
+    }
+
+    @Override
+    public void deleteFileById(Long id) {
+        filesMapper.deleteById(id);
     }
 
     //通过文件MD5查询文件
