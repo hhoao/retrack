@@ -125,10 +125,30 @@ public class RetRoleServiceImpl implements RetRoleService, ApplicationRunner {
         return roleMapper.selectByExample(new RetRoleExample());
     }
 
+    private RetRoleExample getRoleExample(RetRole role){
+        RetRoleExample roleExample = new RetRoleExample();
+        if (role != null){
+            RetRoleExample.Criteria criteria = roleExample.createCriteria();
+            if (role.getId() != null){
+                criteria.andIdEqualTo(role.getId());
+            }
+            if (role.getName() != null){
+                criteria.andNameEqualTo(role.getName());
+            }
+            if (role.getDescription() != null){
+                criteria.andDescriptionLike(role.getDescription());
+            }
+            if (role.getStatus() != null){
+                criteria.andStatusEqualTo(role.getStatus());
+            }
+        }
+        return roleExample;
+    }
+
     @Override
-    public List<RetRole> list(PageInfo pageInfo) {
+    public List<RetRole> list(PageInfo pageInfo, RetRole role) {
         PageHelper.startPage(pageInfo.getPageNum(), pageInfo.getPageSize());
-        return getAllRoles();
+        return roleMapper.selectByExample(getRoleExample(role));
     }
 
     /**

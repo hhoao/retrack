@@ -18,9 +18,10 @@ public interface RetMemberJobService {
     /**
      * 分页获取成员列表
      *
-     * @param pageInfo@return 分页成员 list
+     * @param pageInfo  @return 分页成员 list
+     * @param memberJob
      */
-    List<RetMemberJob> list(PageInfo pageInfo);
+    List<RetMemberJob> list(PageInfo pageInfo, RetMemberJob memberJob);
 
     /**
      * List job resources list.

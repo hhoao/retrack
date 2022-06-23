@@ -30,10 +30,26 @@ public class RetMemberJobServiceImpl implements RetMemberJobService {
         this.memberJobPermissionRelationService = memberJobPermissionRelationService;
     }
 
+    private RetMemberJobExample getMemberJobExample(RetMemberJob memberJob){
+        RetMemberJobExample memberJobExample = new RetMemberJobExample();
+        if (memberJob != null){
+            RetMemberJobExample.Criteria criteria = memberJobExample.createCriteria();
+            if (memberJob.getId() != null){
+                criteria.andIdEqualTo(memberJob.getId());
+            }
+            if (memberJob.getName() != null){
+                criteria.andNameEqualTo(memberJob.getName());
+            }
+            if (memberJob.getDescription() != null){
+                criteria.andDescriptionLike(memberJob.getDescription());
+            }
+        }
+        return memberJobExample;
+    }
     @Override
-    public List<RetMemberJob> list(PageInfo pageInfo) {
+    public List<RetMemberJob> list(PageInfo pageInfo, RetMemberJob memberJob) {
         PageHelper.startPage(pageInfo.getPageNum(), pageInfo.getPageSize());
-        return jobMapper.selectByExample(new RetMemberJobExample());
+        return jobMapper.selectByExample(getMemberJobExample(memberJob));
     }
 
     @Override
