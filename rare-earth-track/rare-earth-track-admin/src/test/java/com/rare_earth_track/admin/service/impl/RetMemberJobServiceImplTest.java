@@ -8,12 +8,18 @@ import com.rare_earth_track.admin.service.RetMemberJobService;
 import com.rare_earth_track.admin.service.RetPermissionService;
 import com.rare_earth_track.mgb.model.RetMemberJob;
 import com.rare_earth_track.mgb.model.RetPermission;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  * @author hhoa
@@ -27,12 +33,6 @@ class RetMemberJobServiceImplTest extends TransactionTest {
     RetPermissionService permissionService;
     @Autowired
     RetMemberJobPermissionRelationService memberJobPermissionRelationService;
-
-    @Test
-    void list() {
-        List<RetMemberJob> list = jobService.list(new PageInfo(1, 5));
-        assertTrue(list.size() <=5);
-    }
 
     @Test
     void listJobPermissions() {
@@ -65,5 +65,26 @@ class RetMemberJobServiceImplTest extends TransactionTest {
     void getJob() {
         assertNotNull(jobService.getJob("管理员"));
         assertNotNull(jobService.getJob(1L));
+    }
+
+    static List<Object[]> listParamsProvider(){
+        List<Object[]> params = new ArrayList<>();
+
+        RetMemberJob memberJob;
+
+        memberJob = new RetMemberJob();
+        memberJob.setId(1L);
+        params.add(new Object[]{new PageInfo(1, 5), memberJob, (Consumer<List<Object>>) o -> Assertions.assertTrue(o.size() > 0)});
+
+        params.add(new Object[]{new PageInfo(1, 1), null, (Consumer<List<Object>>) o -> assertEquals(1, o.size())});
+
+        return params;
+    }
+
+    @ParameterizedTest
+    @MethodSource("listParamsProvider")
+    void list(PageInfo pageInfo, RetMemberJob memberJob, Consumer<Object> consumer) {
+        List<RetMemberJob> list = jobService.list(pageInfo, memberJob);
+        consumer.accept(list);
     }
 }

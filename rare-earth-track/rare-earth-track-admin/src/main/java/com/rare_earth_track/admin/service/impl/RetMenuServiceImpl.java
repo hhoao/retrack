@@ -63,17 +63,19 @@ public class RetMenuServiceImpl implements RetMenuService {
 
     private RetMenuExample getMenuExample(RetMenu menu){
         RetMenuExample menuExample = new RetMenuExample();
-        if (menu.getName() != null) {
-            menuExample.createCriteria().andNameEqualTo(menu.getName());
-        }
-        if (menu.getId() != null) {
-            menuExample.createCriteria().andIdEqualTo(menu.getId());
-        }
-        if (menu.getHidden() != null){
-            menuExample.createCriteria().andHiddenEqualTo(menu.getHidden());
-        }
-        if (menu.getTitle() != null){
-            menuExample.createCriteria().andTitleLike(menu.getTitle());
+        if (menu != null) {
+            if (menu.getName() != null) {
+                menuExample.createCriteria().andNameEqualTo(menu.getName());
+            }
+            if (menu.getId() != null) {
+                menuExample.createCriteria().andIdEqualTo(menu.getId());
+            }
+            if (menu.getHidden() != null) {
+                menuExample.createCriteria().andHiddenEqualTo(menu.getHidden());
+            }
+            if (menu.getTitle() != null) {
+                menuExample.createCriteria().andTitleLike(menu.getTitle());
+            }
         }
         return menuExample;
     }

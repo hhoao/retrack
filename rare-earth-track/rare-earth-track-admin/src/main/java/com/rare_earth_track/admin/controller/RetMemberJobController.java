@@ -23,8 +23,8 @@ public class RetMemberJobController {
 
     @Operation(summary = "分页获取职位")
     @GetMapping("/jobs")
-    public CommonResult<List<RetMemberJob>> list(PageInfo pageInfo){
-        List<RetMemberJob> list = memberJobService.list(pageInfo);
+    public CommonResult<List<RetMemberJob>> list(PageInfo pageInfo, RetMemberJob memberJob){
+        List<RetMemberJob> list = memberJobService.list(pageInfo, memberJob);
         return CommonResult.success(list);
     }
 
