@@ -94,9 +94,10 @@ public interface RetRoleService {
      * 分页获取角色列表
      *
      * @param pageInfo @return 分页角色 list
+     * @param role
      * @return the list
      */
-    List<RetRole> list(PageInfo pageInfo);
+    List<RetRole> list(PageInfo pageInfo, RetRole role);
 
     /**
      * 删除角色

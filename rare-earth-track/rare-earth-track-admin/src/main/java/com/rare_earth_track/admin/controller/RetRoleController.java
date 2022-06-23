@@ -75,8 +75,8 @@ public class RetRoleController {
 
     @Operation(summary = "分页获取角色列表")
     @GetMapping("/roles")
-    public CommonResult<CommonPage<RetRole>> list(PageInfo pageInfo){
-        List<RetRole> list = roleService.list(pageInfo);
+    public CommonResult<CommonPage<RetRole>> list(PageInfo pageInfo, RetRole role){
+        List<RetRole> list = roleService.list(pageInfo, role);
         return CommonResult.success(CommonPage.restPage(list));
     }
     @Operation(summary = "删除角色")
