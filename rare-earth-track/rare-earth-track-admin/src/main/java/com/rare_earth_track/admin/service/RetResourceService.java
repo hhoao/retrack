@@ -33,9 +33,10 @@ public interface RetResourceService {
     /**
      * 分页获取资源列表
      *
-     * @param pageInfo@return 分页资源 list
+     * @param pageInfo @return 分页资源 list
+     * @param resource
      */
-    List<RetResource> list(PageInfo pageInfo);
+    List<RetResource> list(PageInfo pageInfo, RetResource resource);
 
     /**
      * 通过ResourceId获取Resource

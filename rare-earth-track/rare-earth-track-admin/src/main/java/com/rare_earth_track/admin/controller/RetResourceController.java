@@ -26,8 +26,9 @@ public class RetResourceController {
 
     @Operation(description = "分页获取资源列表", summary = "分页获取资源列表")
     @GetMapping("/resources")
-    public CommonResult<CommonPage<RetResource>> list(PageInfo pageInfo){
-        List<RetResource> allResources = resourceService.list(pageInfo);
+    public CommonResult<CommonPage<RetResource>> list(PageInfo pageInfo,
+                                                      RetResource resource){
+        List<RetResource> allResources = resourceService.list(pageInfo, resource);
         return CommonResult.success(CommonPage.restPage(allResources));
     }
     @Operation(description = "添加资源", summary = "添加资源")

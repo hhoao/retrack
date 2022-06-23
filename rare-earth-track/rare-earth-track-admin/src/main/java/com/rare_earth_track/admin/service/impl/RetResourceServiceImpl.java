@@ -60,10 +60,35 @@ public class RetResourceServiceImpl implements RetResourceService {
         return resourceMapper.selectByExample(new RetResourceExample());
     }
 
+
+    private RetResourceExample getResourceExample(RetResource resource){
+        RetResourceExample resourceExample = new RetResourceExample();
+        if (resource != null) {
+            RetResourceExample.Criteria criteria = resourceExample.createCriteria();
+            if (resource.getId() != null) {
+                criteria.andIdEqualTo(resource.getId());
+            }
+            if (resource.getName() != null) {
+                criteria.andNameEqualTo(resource.getName());
+            }
+            if (resource.getDescription() != null) {
+                criteria.andDescriptionLike(resource.getDescription());
+            }
+            if (resource.getMethod() != null) {
+                criteria.andMethodEqualTo(resource.getMethod());
+            }
+            if (resource.getUrl() != null) {
+                criteria.andUrlEqualTo(resource.getUrl());
+            }
+        }
+        return resourceExample;
+    }
+
     @Override
-    public List<RetResource> list(PageInfo pageInfo) {
+    public List<RetResource> list(PageInfo pageInfo, RetResource resource) {
         PageHelper.startPage(pageInfo.getPageNum(), pageInfo.getPageSize());
-        return getAllResources();
+        RetResourceExample resourceExample = getResourceExample(resource);
+        return resourceMapper.selectByExample(resourceExample);
     }
 
     @Override
