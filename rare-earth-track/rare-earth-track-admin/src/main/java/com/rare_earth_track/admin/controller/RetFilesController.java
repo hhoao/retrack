@@ -9,7 +9,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
@@ -43,9 +42,9 @@ public class RetFilesController {
 
     @Operation(summary = "下载文件")
     @GetMapping("/files/{filesUUID}")
-    public CommonResult<String> download(@PathVariable String filesUUID, HttpServletResponse response) {
+    public HttpServletResponse download(@PathVariable String filesUUID, HttpServletResponse response) {
         filesService.download(filesUUID, response);
-        return CommonResult.success(null);
+        return null;
     }
 
     @Operation(summary = "根据id删除文件信息")
