@@ -64,12 +64,12 @@ public class RetFactoryController {
         List<RetFactory> factories = factoryService.getFactory(pageInfo, factory);
         return CommonResult.success(CommonPage.restPage(factories));
     }
-    @Operation(summary = "获取工厂所有成员")
+    @Operation(summary = "分页获取工厂所有成员")
     @GetMapping("/factories/{factoryName}/members")
-    public CommonResult<List<RetMember>> listMembers(PageInfo pageInfo,
+    public CommonResult<CommonPage<RetMember>> listMembers(PageInfo pageInfo,
                                                      @PathVariable(value="factoryName") String factoryName){
         List<RetMember> members = factoryService.listFactoryMembers(pageInfo, factoryName);
-        return CommonResult.success(members);
+        return CommonResult.success(CommonPage.restPage(members));
     }
 
     @Operation(summary = "通过用户名删除工厂成员")
@@ -97,11 +97,11 @@ public class RetFactoryController {
 
     @Operation(summary = "分页获取工厂产品")
     @GetMapping("/factories/{factoryName}/products")
-    public CommonResult<List<RetProduct>> listProducts(@PathVariable(value = "factoryName") String factoryName,
+    public CommonResult<CommonPage<RetProduct>> listProducts(@PathVariable(value = "factoryName") String factoryName,
                                                        PageInfo pageInfo,
                                                        RetProduct product){
         List<RetProduct> products = factoryService.listProducts(factoryName, product, pageInfo);
-        return CommonResult.success(products);
+        return CommonResult.success(CommonPage.restPage(products));
     }
 
     @Operation(summary = "通过工厂名称查询工厂信息")
@@ -110,6 +110,4 @@ public class RetFactoryController {
         RetFactory factory = factoryService.getFactoryByFactoryName(factoryName);
         return CommonResult.success(factory);
     }
-
-
 }
