@@ -151,7 +151,7 @@ public class RetFilesServiceImpl extends ServiceImpl<RetFilesMapper, RetFiles> i
 
     //通过文件MD5查询文件
     private RetFiles getFileByMD5(String md5) {
-        //查找数据库是否已经存在一样的图片
+        //查找数据库是否已经存在一样的
         QueryWrapper<RetFiles> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("md5", md5);
         List<RetFiles> retFilesList = list(queryWrapper);
