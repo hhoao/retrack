@@ -31,12 +31,12 @@ public class RetUserController {
     private final JwtSecurityProperties securityProperties;
 
 
-    @Operation(summary = "获取已认证用户角色菜单")
+    @Operation(summary = "分页获取已认证用户角色菜单")
     @GetMapping("/user/role/menus")
-    public CommonResult<List<RetMenu>> getUserRoleMenus(@RequestHeader Map<String, String> headers){
+    public CommonResult<CommonPage<RetMenu>> getUserRoleMenus(@RequestHeader Map<String, String> headers){
         List<RetMenu> menus = userService.getMenusByAuthorization(
                 headers.get(securityProperties.getTokenHeader().toLowerCase()));
-        return CommonResult.success(menus);
+        return CommonResult.success(CommonPage.restPage(menus));
     }
     @Operation(summary = "通过认证标识获取用户")
     @GetMapping("/users/{identifier}")
