@@ -4,6 +4,7 @@ package com.rare_earth_track.admin.controller;
 import com.rare_earth_track.admin.bean.PageInfo;
 import com.rare_earth_track.admin.bean.RetProductParam;
 import com.rare_earth_track.admin.service.RetProductService;
+import com.rare_earth_track.common.api.CommonPage;
 import com.rare_earth_track.common.api.CommonResult;
 import com.rare_earth_track.mgb.model.RetProduct;
 import io.swagger.v3.oas.annotations.Operation;
@@ -55,9 +56,9 @@ public class RetProductController {
 
     @Operation(summary = "根据条件查询产品信息")
     @GetMapping("/products")
-    public CommonResult<List<RetProduct>> getProduct(PageInfo pageInfo, RetProduct product) {
+    public CommonResult<CommonPage<RetProduct>> getProduct(PageInfo pageInfo, RetProduct product) {
         List<RetProduct> products = productService.getProducts(product, pageInfo);
-        return CommonResult.success(products);
+        return CommonResult.success(CommonPage.restPage(products));
     }
 
 }
