@@ -2,6 +2,7 @@ package com.rare_earth_track.admin.controller;
 
 import com.rare_earth_track.admin.bean.PageInfo;
 import com.rare_earth_track.admin.service.RetMemberJobService;
+import com.rare_earth_track.common.api.CommonPage;
 import com.rare_earth_track.common.api.CommonResult;
 import com.rare_earth_track.mgb.model.RetMemberJob;
 import com.rare_earth_track.mgb.model.RetPermission;
@@ -23,17 +24,17 @@ public class RetMemberJobController {
 
     @Operation(summary = "分页获取职位")
     @GetMapping("/jobs")
-    public CommonResult<List<RetMemberJob>> list(PageInfo pageInfo, RetMemberJob memberJob){
+    public CommonResult<CommonPage<RetMemberJob>> list(PageInfo pageInfo, RetMemberJob memberJob){
         List<RetMemberJob> list = memberJobService.list(pageInfo, memberJob);
-        return CommonResult.success(list);
+        return CommonResult.success(CommonPage.restPage(list));
     }
 
     @Operation(summary = "分页获取职位资源")
     @GetMapping("/jobs/{jobId}/resources")
-    public CommonResult<List<RetPermission>> listJobPermissions(PageInfo pageInfo,
+    public CommonResult<CommonPage<RetPermission>> listJobPermissions(PageInfo pageInfo,
                                                                 @PathVariable("jobId") Long jobId){
         List<RetPermission> resources = memberJobService.listJobPermissions(pageInfo, jobId);
-        return CommonResult.success(resources);
+        return CommonResult.success(CommonPage.restPage(resources));
     }
 
     @Operation(summary = "增加职位权限")
