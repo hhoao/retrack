@@ -835,6 +835,8 @@ CREATE TABLE `ret_feedback_category`
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 37
   DEFAULT CHARSET = UTF8MB4 COMMENT ='反馈分类表';
+INSERT INTO ret_feedback_category(id, name, description)
+VALUES (1, 'advice', '提出的建议');
 
 
 -- 反馈表
@@ -853,3 +855,5 @@ CREATE TABLE `ret_feedback`
     CONSTRAINT PK_FEET_BACK PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = UTF8MB4 COMMENT ='反馈表';
+INSERT INTO `ret_feedback`(feedback_category_id, title, type, content)
+VALUES (1, '对首页提出的建议', 'no_type', '希望添加...')

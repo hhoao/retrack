@@ -77,10 +77,7 @@ public class RetRoleResourceRelationServiceImpl implements RetRoleResourceRelati
     public void deleteRoleResources(Long roleId) {
         RetRoleResourceRelationExample relationExample = new RetRoleResourceRelationExample();
         relationExample.createCriteria().andRoleIdEqualTo(roleId);
-        int i = roleResourceRelationMapper.deleteByExample(relationExample);
-        if (i == 0){
-            Asserts.fail("删除角色失败");
-        }
+        roleResourceRelationMapper.deleteByExample(relationExample);
     }
 
     @Override
