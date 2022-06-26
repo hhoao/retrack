@@ -44,4 +44,10 @@ public interface RetHelpService {
      */
     void deleteHelp(RetHelp help);
 
+    /**
+     * 根据名称获取帮助信息
+     * @param helpName
+     * @return RetHelp
+     */
+    RetHelp getHelpByHelpName(String helpName);
 }
