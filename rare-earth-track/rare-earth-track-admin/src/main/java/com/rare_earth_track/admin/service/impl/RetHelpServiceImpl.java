@@ -59,7 +59,21 @@ public class RetHelpServiceImpl implements RetHelpService {
 
     @Override
     public void deleteHelp(RetHelp help) {
+        RetHelpExample helpExample = getHelpExample(help);
+        int i = helpMapper.deleteByExample(helpExample);
+        if (i == 0){
+            Asserts.fail("删除失败");
+        }
+    }
 
+    @Override
+    public int deleteHelpByName(String name) {
+        RetHelp helpByHelpName = getHelpByHelpName(name);
+        int i = helpMapper.deleteByPrimaryKey(helpByHelpName.getId());
+        if (i == 0){
+            Asserts.fail("删除失败");
+        }
+        return i;
     }
 
     @Override
@@ -73,5 +87,44 @@ public class RetHelpServiceImpl implements RetHelpService {
             Asserts.fail("没有该帮助信息");
         }
         return null;
+    }
+
+    @Override
+    public RetHelpExample getHelpExample(RetHelp help) {
+        RetHelpExample helpExample = new RetHelpExample();
+        RetHelpExample.Criteria criteria = helpExample.createCriteria();
+        if (help.getId() != null) {
+            criteria.andIdEqualTo(help.getId());
+            return helpExample;
+        }
+        if (help.getHelpCategoryId() != null) {
+            criteria.andHelpCategoryIdEqualTo(help.getHelpCategoryId());
+        }
+        if (help.getName() != null) {
+            criteria.andNameEqualTo(help.getName());
+        }
+        if (help.getContent() != null) {
+            //TODO 没有andContentEqualTo方法
+        }
+        if (help.getTitle() != null) {
+            criteria.andTitleEqualTo(help.getTitle());
+        }
+        if (help.getCreateTime() != null) {
+            criteria.andCreateTimeEqualTo(help.getCreateTime());
+        }
+        if (help.getReading() != null) {
+            criteria.andReadingEqualTo(help.getReading());
+        }
+        if (help.getSort() != null) {
+            criteria.andSortEqualTo(help.getSort());
+        }
+        return helpExample;
+    }
+
+    @Override
+    public List<RetHelp> getHelps(RetHelp help, PageInfo pageInfo) {
+        PageHelper.startPage(pageInfo.getPageNum(), pageInfo.getPageSize());
+        RetHelpExample helpExample = getHelpExample(help);
+        return helpMapper.selectByExample(helpExample);
     }
 }
