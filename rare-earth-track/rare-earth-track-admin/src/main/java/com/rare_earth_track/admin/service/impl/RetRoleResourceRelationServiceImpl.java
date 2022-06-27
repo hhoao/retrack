@@ -123,12 +123,11 @@ public class RetRoleResourceRelationServiceImpl implements RetRoleResourceRelati
         relationExample.createCriteria().andResourceIdEqualTo(id);
         List<RetRoleResourceRelation> retRoleResourceRelations = roleResourceRelationMapper.selectByExample(relationExample);
         int deleteRelationCount = roleResourceRelationMapper.deleteByExample(relationExample);
-        if (deleteRelationCount == 0){
-            Asserts.fail("删除角色资源失败");
-        }
-        //刷新缓存
-        for (RetRoleResourceRelation roleResourceRelation : retRoleResourceRelations){
-            roleService.refreshCache(roleResourceRelation.getRoleId());
+        if (deleteRelationCount != 0) {
+            //刷新缓存
+            for (RetRoleResourceRelation roleResourceRelation : retRoleResourceRelations) {
+                roleService.refreshCache(roleResourceRelation.getRoleId());
+            }
         }
     }
 
