@@ -46,7 +46,7 @@ public class RetRoleMenuRelationServiceImpl implements RetRoleMenuRelationServic
         menuRelationExample.createCriteria().andRoleIdEqualTo(roleId);
         List<RetRoleMenuRelation> retRoleMenuRelations = roleMenuRelationMapper.selectByExample(menuRelationExample);
         List<RetMenu> menus = new ArrayList<>();
-        for (RetRoleMenuRelation roleMenuRelation : retRoleMenuRelations){
+        for (RetRoleMenuRelation roleMenuRelation : retRoleMenuRelations) {
             menus.add(menuService.getMenu(roleMenuRelation.getMenuId()));
         }
         return menus;
@@ -66,7 +66,7 @@ public class RetRoleMenuRelationServiceImpl implements RetRoleMenuRelationServic
                 andRoleIdEqualTo(roleId).
                 andMenuIdEqualTo(menuId);
         int i = roleMenuRelationMapper.deleteByExample(roleMenuRelationExample);
-        if (i == 0){
+        if (i == 0) {
             Asserts.fail("该角色没有该菜单");
         }
     }
@@ -78,23 +78,25 @@ public class RetRoleMenuRelationServiceImpl implements RetRoleMenuRelationServic
         roleMenuRelation.setMenuId(menuId);
         roleMenuRelationMapper.insert(roleMenuRelation);
     }
+
     @Override
     public List<RetRole> getRoles(Long menuId) {
         RetRoleMenuRelationExample roleRelationExample = new RetRoleMenuRelationExample();
         roleRelationExample.createCriteria().andMenuIdEqualTo(menuId);
         List<RetRoleMenuRelation> roleMenuRelations = roleMenuRelationMapper.selectByExample(roleRelationExample);
         List<RetRole> roles = new ArrayList<>();
-        for (RetRoleMenuRelation menuRoleRelation : roleMenuRelations){
+        for (RetRoleMenuRelation menuRoleRelation : roleMenuRelations) {
             Long roleId = menuRoleRelation.getRoleId();
             RetRole role = roleService.getRole(roleId);
             roles.add(role);
         }
         return roles;
     }
+
     @Override
     public List<RetRole> getRoles(String menuName) {
         RetMenu menu = menuService.getMenu(menuName);
-        return  getRoles(menu.getId());
+        return getRoles(menu.getId());
     }
 
 
@@ -104,7 +106,7 @@ public class RetRoleMenuRelationServiceImpl implements RetRoleMenuRelationServic
         RetRoleMenuRelationExample roleMenuRelationExample = new RetRoleMenuRelationExample();
         roleMenuRelationExample.createCriteria().andRoleIdEqualTo(roleId);
         List<RetRoleMenuRelation> retRoleMenuRelations = roleMenuRelationMapper.selectByExample(roleMenuRelationExample);
-        for (RetRoleMenuRelation roleMenuRelation : retRoleMenuRelations){
+        for (RetRoleMenuRelation roleMenuRelation : retRoleMenuRelations) {
             byRoleName.add(menuService.getMenu(roleMenuRelation.getMenuId()));
         }
         return byRoleName;
@@ -114,7 +116,7 @@ public class RetRoleMenuRelationServiceImpl implements RetRoleMenuRelationServic
     public List<RetMenu> listRoleMenus(String name, PageInfo pageInfo) {
         PageHelper.startPage(pageInfo.getPageNum(), pageInfo.getPageSize());
         RetRole roleByRoleName = roleService.getRole(name);
-        if (roleByRoleName == null){
+        if (roleByRoleName == null) {
             Asserts.fail("没有该角色");
         }
         return getRoleMenus(roleByRoleName.getId());
@@ -126,12 +128,11 @@ public class RetRoleMenuRelationServiceImpl implements RetRoleMenuRelationServic
         relationExample.createCriteria().andMenuIdEqualTo(menuId);
         List<RetRoleMenuRelation> retRoleMenuRelations = roleMenuRelationMapper.selectByExample(relationExample);
         int deleteRelationCount = roleMenuRelationMapper.deleteByExample(relationExample);
-        if (deleteRelationCount == 0){
-            Asserts.fail("删除角色资源失败");
-        }
-        //刷新缓存
-        for (RetRoleMenuRelation roleMenuRelation : retRoleMenuRelations){
-            roleService.refreshCache(roleMenuRelation.getRoleId());
+        if (deleteRelationCount != 0) {
+            //刷新缓存
+            for (RetRoleMenuRelation roleMenuRelation : retRoleMenuRelations) {
+                roleService.refreshCache(roleMenuRelation.getRoleId());
+            }
         }
     }
 
