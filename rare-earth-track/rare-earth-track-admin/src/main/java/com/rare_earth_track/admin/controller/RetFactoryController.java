@@ -110,4 +110,11 @@ public class RetFactoryController {
         RetFactory factory = factoryService.getFactoryByFactoryName(factoryName);
         return CommonResult.success(factory);
     }
+
+    @Operation(summary = "分页获取申请入驻工厂信息")
+    @GetMapping("/factories/applyFactory")
+    public CommonResult<CommonPage<RetFactory>> listApplyFactory(PageInfo pageInfo, RetFactory factory) {
+        List<RetFactory> retFactories = factoryService.listApplyFactory(pageInfo);
+        return CommonResult.success(CommonPage.restPage(retFactories));
+    }
 }

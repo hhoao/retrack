@@ -8,6 +8,7 @@ import com.rare_earth_track.admin.bean.RetFactoryParam;
 import com.rare_earth_track.admin.bean.RetMemberParam;
 import com.rare_earth_track.admin.service.*;
 import com.rare_earth_track.common.exception.Asserts;
+import com.rare_earth_track.mgb.mapper.RetApplyFactoryMapper;
 import com.rare_earth_track.mgb.mapper.RetFactoryMapper;
 import com.rare_earth_track.mgb.model.*;
 import com.rare_earth_track.security.util.JwtTokenService;
@@ -24,6 +25,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class RetFactoryServiceImpl implements RetFactoryService {
     private final RetFactoryMapper factoryMapper;
+    private final RetApplyFactoryMapper applyFactoryMapper;
     private final JwtTokenService tokenService;
     private final RetMailService mailService;
     private final RetTokenCacheService tokenCacheService;
@@ -205,6 +207,12 @@ public class RetFactoryServiceImpl implements RetFactoryService {
         product.setFactoryId(factory.getId());
         List<RetProduct> products = productService.getProducts(product, pageInfo);
         return products;
+    }
+
+    @Override
+    public List<RetFactory> listApplyFactory(PageInfo pageInfo) {
+        PageHelper.startPage(pageInfo.getPageNum(), pageInfo.getPageSize());
+        return applyFactoryMapper.selectByExample(new RetFactoryExample());
     }
 
 

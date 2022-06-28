@@ -149,4 +149,12 @@ public interface RetFactoryService {
      */
     List<RetProduct> listProducts(String factoryName, RetProduct product, PageInfo pageInfo);
 
+    /**
+     * 分页获取申请入驻工厂列表
+     *
+     * @param pageInfo
+     * @return list
+     */
+    List<RetFactory> listApplyFactory(PageInfo pageInfo);
+
 }
