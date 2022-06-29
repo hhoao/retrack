@@ -63,4 +63,7 @@ public class RetProductParam {
 
     @Schema(description = "画册图片", required = true)
     private String albumPics;
+
+    @Schema(description = "化学成分", required = true)
+    private String chemicalComposition;
 }
