@@ -74,6 +74,14 @@ public class RetRoleController {
         return CommonResult.success(null);
     }
 
+    @Operation(summary = "设置角色资源")
+    @PostMapping("/roles/{roleName}/resources")
+    public CommonResult<String> allocResources(@PathVariable("roleName") String roleName,
+                                           @RequestBody List<Long> resourceIds){
+        roleService.allocResources(roleName, resourceIds);
+        return CommonResult.success(null);
+    }
+
     @Operation(summary = "设置角色菜单")
     @PostMapping("/roles/{roleName}/menus")
     public CommonResult<String> allocMenus(@PathVariable("roleName") String roleName,

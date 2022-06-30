@@ -51,13 +51,15 @@ public interface RetRoleService {
     @Transactional
     void updateRole(String roleName, RetRoleParam roleParam);
 
+    List<RetResource> getRoleResources(Long roleId);
+
     /**
      * Gets role resources.
      *
      * @param roleId the role id
      * @return the role resources
      */
-    List<RetResource> getRoleResources(Long roleId);
+    List<RetResource> getRoleResources(Long roleId, Boolean disableCache);
 
     /**
      * Gets role.
@@ -146,7 +148,15 @@ public interface RetRoleService {
      * Alloc menus.
      *
      * @param roleName the role name
-     * @param menuId
+     * @param menuId   the menu id
      */
     void allocMenus(String roleName, List<Long> menuId);
+
+    /**
+     * Alloc resources.
+     *
+     * @param roleName    the role name
+     * @param resourceIds the resource ids
+     */
+    void allocResources(String roleName, List<Long> resourceIds);
 }
