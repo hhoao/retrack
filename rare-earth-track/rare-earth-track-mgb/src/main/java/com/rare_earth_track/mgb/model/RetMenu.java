@@ -1,14 +1,13 @@
 package com.rare_earth_track.mgb.model;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-
 import java.io.Serializable;
 import java.util.Date;
 
 /**
  * 后台菜单
- * @author hhoa 
- * @date 2022-06-16
+ * @author 匡龙 
+ * @date 2022-06-30
  */
 @Schema(description = "后台菜单")
 public class RetMenu implements Serializable {

@@ -5,8 +5,8 @@ import java.io.Serializable;
 
 /**
  * 工厂
- * @author hhoa 
- * @date 2022-06-16
+ * @author 匡龙 
+ * @date 2022-06-30
  */
 @Schema(description = "工厂")
 public class RetFactory implements Serializable {

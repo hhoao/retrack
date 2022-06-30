@@ -112,7 +112,7 @@ public class RetUserAuthExample {
 
     /**
      * ret_user_auth
-     * @author hhoa 2022-06-16
+     * @author 匡龙 2022-06-30
      */
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
@@ -494,7 +494,7 @@ public class RetUserAuthExample {
 
     /**
      * ret_user_auth
-     * @author hhoa 2022-06-16
+     * @author 匡龙 2022-06-30
      */
     public static class Criterion {
         private String condition;

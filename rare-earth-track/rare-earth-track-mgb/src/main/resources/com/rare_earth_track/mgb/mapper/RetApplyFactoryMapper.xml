@@ -86,7 +86,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from ret_apply_factory
     where id = #{id,jdbcType=BIGINT}
@@ -105,10 +105,10 @@
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into ret_apply_factory (name, phone, email, 
-      address, description)
-    values (#{name,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
-      #{address,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR})
+    insert into ret_apply_factory (name, phone, email,
+    address, description)
+    values (#{name,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR},
+    #{address,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.rare_earth_track.mgb.model.RetFactory">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
@@ -185,11 +185,11 @@
   <update id="updateByExample" parameterType="map">
     update ret_apply_factory
     set id = #{row.id,jdbcType=BIGINT},
-      name = #{row.name,jdbcType=VARCHAR},
-      phone = #{row.phone,jdbcType=VARCHAR},
-      email = #{row.email,jdbcType=VARCHAR},
-      address = #{row.address,jdbcType=VARCHAR},
-      description = #{row.description,jdbcType=VARCHAR}
+    name = #{row.name,jdbcType=VARCHAR},
+    phone = #{row.phone,jdbcType=VARCHAR},
+    email = #{row.email,jdbcType=VARCHAR},
+    address = #{row.address,jdbcType=VARCHAR},
+    description = #{row.description,jdbcType=VARCHAR}
     <if test="example != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -218,10 +218,10 @@
   <update id="updateByPrimaryKey" parameterType="com.rare_earth_track.mgb.model.RetFactory">
     update ret_apply_factory
     set name = #{name,jdbcType=VARCHAR},
-      phone = #{phone,jdbcType=VARCHAR},
-      email = #{email,jdbcType=VARCHAR},
-      address = #{address,jdbcType=VARCHAR},
-      description = #{description,jdbcType=VARCHAR}
+        phone = #{phone,jdbcType=VARCHAR},
+        email = #{email,jdbcType=VARCHAR},
+        address = #{address,jdbcType=VARCHAR},
+        description = #{description,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

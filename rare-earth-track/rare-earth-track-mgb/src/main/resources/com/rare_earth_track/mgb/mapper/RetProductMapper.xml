@@ -20,7 +20,20 @@
     <result column="material_ratio" jdbcType="VARCHAR" property="materialRatio" />
     <result column="extraction_unit" jdbcType="VARCHAR" property="extractionUnit" />
     <result column="album_pics" jdbcType="VARCHAR" property="albumPics" />
-    <result column="chemical_composition" jdbcType="VARCHAR" property="chemicalComposition" />
+    <result column="Nd" jdbcType="VARCHAR" property="nd" />
+    <result column="Co" jdbcType="VARCHAR" property="co" />
+    <result column="B" jdbcType="VARCHAR" property="b" />
+    <result column="Dy_Tb_Pr" jdbcType="VARCHAR" property="dyTbPr" />
+    <result column="other" jdbcType="VARCHAR" property="other" />
+    <result column="RE" jdbcType="VARCHAR" property="re" />
+    <result column="Nd_RE" jdbcType="VARCHAR" property="ndRe" />
+    <result column="Dy_RE" jdbcType="VARCHAR" property="dyRe" />
+    <result column="REO" jdbcType="VARCHAR" property="reo" />
+    <result column="Nd2O3_REO" jdbcType="VARCHAR" property="nd2o3Reo" />
+    <result column="Nd2O3" jdbcType="VARCHAR" property="nd2o3" />
+    <result column="Dy2O3_REO" jdbcType="VARCHAR" property="dy2o3Reo" />
+    <result column="RE_impurities" jdbcType="VARCHAR" property="reImpurities" />
+    <result column="non_RE_impurities" jdbcType="VARCHAR" property="nonReImpurities" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.rare_earth_track.mgb.model.RetProduct">
     <result column="description" jdbcType="LONGVARCHAR" property="description" />
@@ -86,7 +99,9 @@
   <sql id="Base_Column_List">
     id, factory_id, name, batch_id, dispatch_time, moisture_proof_logo, specification, 
     packing_type, net_weight, transport_log, pic, quality_certificate, standard_number, 
-    purity, production_equipment, material_ratio, extraction_unit, album_pics, chemical_composition
+    purity, production_equipment, material_ratio, extraction_unit, album_pics, Nd, Co, 
+    B, Dy_Tb_Pr, other, RE, Nd_RE, Dy_RE, REO, Nd2O3_REO, Nd2O3, Dy2O3_REO, RE_impurities, 
+    non_RE_impurities
   </sql>
   <sql id="Blob_Column_List">
     description
@@ -148,15 +163,23 @@
       packing_type, net_weight, transport_log, 
       pic, quality_certificate, standard_number, 
       purity, production_equipment, material_ratio, 
-      extraction_unit, album_pics, chemical_composition, 
-      description)
+      extraction_unit, album_pics, Nd, 
+      Co, B, Dy_Tb_Pr, other, 
+      RE, Nd_RE, Dy_RE, REO, 
+      Nd2O3_REO, Nd2O3, Dy2O3_REO, 
+      RE_impurities, non_RE_impurities, description
+      )
     values (#{factoryId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{batchId,jdbcType=VARCHAR}, 
       #{dispatchTime,jdbcType=TIMESTAMP}, #{moistureProofLogo,jdbcType=VARCHAR}, #{specification,jdbcType=VARCHAR}, 
       #{packingType,jdbcType=VARCHAR}, #{netWeight,jdbcType=VARCHAR}, #{transportLog,jdbcType=VARCHAR}, 
       #{pic,jdbcType=VARCHAR}, #{qualityCertificate,jdbcType=VARCHAR}, #{standardNumber,jdbcType=VARCHAR}, 
       #{purity,jdbcType=VARCHAR}, #{productionEquipment,jdbcType=VARCHAR}, #{materialRatio,jdbcType=VARCHAR}, 
-      #{extractionUnit,jdbcType=VARCHAR}, #{albumPics,jdbcType=VARCHAR}, #{chemicalComposition,jdbcType=VARCHAR}, 
-      #{description,jdbcType=LONGVARCHAR})
+      #{extractionUnit,jdbcType=VARCHAR}, #{albumPics,jdbcType=VARCHAR}, #{nd,jdbcType=VARCHAR}, 
+      #{co,jdbcType=VARCHAR}, #{b,jdbcType=VARCHAR}, #{dyTbPr,jdbcType=VARCHAR}, #{other,jdbcType=VARCHAR}, 
+      #{re,jdbcType=VARCHAR}, #{ndRe,jdbcType=VARCHAR}, #{dyRe,jdbcType=VARCHAR}, #{reo,jdbcType=VARCHAR}, 
+      #{nd2o3Reo,jdbcType=VARCHAR}, #{nd2o3,jdbcType=VARCHAR}, #{dy2o3Reo,jdbcType=VARCHAR}, 
+      #{reImpurities,jdbcType=VARCHAR}, #{nonReImpurities,jdbcType=VARCHAR}, #{description,jdbcType=LONGVARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.rare_earth_track.mgb.model.RetProduct">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
@@ -215,8 +238,47 @@
       <if test="albumPics != null">
         album_pics,
       </if>
-      <if test="chemicalComposition != null">
-        chemical_composition,
+      <if test="nd != null">
+        Nd,
+      </if>
+      <if test="co != null">
+        Co,
+      </if>
+      <if test="b != null">
+        B,
+      </if>
+      <if test="dyTbPr != null">
+        Dy_Tb_Pr,
+      </if>
+      <if test="other != null">
+        other,
+      </if>
+      <if test="re != null">
+        RE,
+      </if>
+      <if test="ndRe != null">
+        Nd_RE,
+      </if>
+      <if test="dyRe != null">
+        Dy_RE,
+      </if>
+      <if test="reo != null">
+        REO,
+      </if>
+      <if test="nd2o3Reo != null">
+        Nd2O3_REO,
+      </if>
+      <if test="nd2o3 != null">
+        Nd2O3,
+      </if>
+      <if test="dy2o3Reo != null">
+        Dy2O3_REO,
+      </if>
+      <if test="reImpurities != null">
+        RE_impurities,
+      </if>
+      <if test="nonReImpurities != null">
+        non_RE_impurities,
       </if>
       <if test="description != null">
         description,
@@ -274,8 +336,47 @@
       <if test="albumPics != null">
         #{albumPics,jdbcType=VARCHAR},
       </if>
-      <if test="chemicalComposition != null">
-        #{chemicalComposition,jdbcType=VARCHAR},
+      <if test="nd != null">
+        #{nd,jdbcType=VARCHAR},
+      </if>
+      <if test="co != null">
+        #{co,jdbcType=VARCHAR},
+      </if>
+      <if test="b != null">
+        #{b,jdbcType=VARCHAR},
+      </if>
+      <if test="dyTbPr != null">
+        #{dyTbPr,jdbcType=VARCHAR},
+      </if>
+      <if test="other != null">
+        #{other,jdbcType=VARCHAR},
+      </if>
+      <if test="re != null">
+        #{re,jdbcType=VARCHAR},
+      </if>
+      <if test="ndRe != null">
+        #{ndRe,jdbcType=VARCHAR},
+      </if>
+      <if test="dyRe != null">
+        #{dyRe,jdbcType=VARCHAR},
+      </if>
+      <if test="reo != null">
+        #{reo,jdbcType=VARCHAR},
+      </if>
+      <if test="nd2o3Reo != null">
+        #{nd2o3Reo,jdbcType=VARCHAR},
+      </if>
+      <if test="nd2o3 != null">
+        #{nd2o3,jdbcType=VARCHAR},
+      </if>
+      <if test="dy2o3Reo != null">
+        #{dy2o3Reo,jdbcType=VARCHAR},
+      </if>
+      <if test="reImpurities != null">
+        #{reImpurities,jdbcType=VARCHAR},
+      </if>
+      <if test="nonReImpurities != null">
+        #{nonReImpurities,jdbcType=VARCHAR},
       </if>
       <if test="description != null">
         #{description,jdbcType=LONGVARCHAR},
@@ -345,8 +446,47 @@
       <if test="row.albumPics != null">
         album_pics = #{row.albumPics,jdbcType=VARCHAR},
       </if>
-      <if test="row.chemicalComposition != null">
-        chemical_composition = #{row.chemicalComposition,jdbcType=VARCHAR},
+      <if test="row.nd != null">
+        Nd = #{row.nd,jdbcType=VARCHAR},
+      </if>
+      <if test="row.co != null">
+        Co = #{row.co,jdbcType=VARCHAR},
+      </if>
+      <if test="row.b != null">
+        B = #{row.b,jdbcType=VARCHAR},
+      </if>
+      <if test="row.dyTbPr != null">
+        Dy_Tb_Pr = #{row.dyTbPr,jdbcType=VARCHAR},
+      </if>
+      <if test="row.other != null">
+        other = #{row.other,jdbcType=VARCHAR},
+      </if>
+      <if test="row.re != null">
+        RE = #{row.re,jdbcType=VARCHAR},
+      </if>
+      <if test="row.ndRe != null">
+        Nd_RE = #{row.ndRe,jdbcType=VARCHAR},
+      </if>
+      <if test="row.dyRe != null">
+        Dy_RE = #{row.dyRe,jdbcType=VARCHAR},
+      </if>
+      <if test="row.reo != null">
+        REO = #{row.reo,jdbcType=VARCHAR},
+      </if>
+      <if test="row.nd2o3Reo != null">
+        Nd2O3_REO = #{row.nd2o3Reo,jdbcType=VARCHAR},
+      </if>
+      <if test="row.nd2o3 != null">
+        Nd2O3 = #{row.nd2o3,jdbcType=VARCHAR},
+      </if>
+      <if test="row.dy2o3Reo != null">
+        Dy2O3_REO = #{row.dy2o3Reo,jdbcType=VARCHAR},
+      </if>
+      <if test="row.reImpurities != null">
+        RE_impurities = #{row.reImpurities,jdbcType=VARCHAR},
+      </if>
+      <if test="row.nonReImpurities != null">
+        non_RE_impurities = #{row.nonReImpurities,jdbcType=VARCHAR},
       </if>
       <if test="row.description != null">
         description = #{row.description,jdbcType=LONGVARCHAR},
@@ -376,7 +516,20 @@
       material_ratio = #{row.materialRatio,jdbcType=VARCHAR},
       extraction_unit = #{row.extractionUnit,jdbcType=VARCHAR},
       album_pics = #{row.albumPics,jdbcType=VARCHAR},
-      chemical_composition = #{row.chemicalComposition,jdbcType=VARCHAR},
+      Nd = #{row.nd,jdbcType=VARCHAR},
+      Co = #{row.co,jdbcType=VARCHAR},
+      B = #{row.b,jdbcType=VARCHAR},
+      Dy_Tb_Pr = #{row.dyTbPr,jdbcType=VARCHAR},
+      other = #{row.other,jdbcType=VARCHAR},
+      RE = #{row.re,jdbcType=VARCHAR},
+      Nd_RE = #{row.ndRe,jdbcType=VARCHAR},
+      Dy_RE = #{row.dyRe,jdbcType=VARCHAR},
+      REO = #{row.reo,jdbcType=VARCHAR},
+      Nd2O3_REO = #{row.nd2o3Reo,jdbcType=VARCHAR},
+      Nd2O3 = #{row.nd2o3,jdbcType=VARCHAR},
+      Dy2O3_REO = #{row.dy2o3Reo,jdbcType=VARCHAR},
+      RE_impurities = #{row.reImpurities,jdbcType=VARCHAR},
+      non_RE_impurities = #{row.nonReImpurities,jdbcType=VARCHAR},
       description = #{row.description,jdbcType=LONGVARCHAR}
     <if test="example != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -402,7 +555,20 @@
       material_ratio = #{row.materialRatio,jdbcType=VARCHAR},
       extraction_unit = #{row.extractionUnit,jdbcType=VARCHAR},
       album_pics = #{row.albumPics,jdbcType=VARCHAR},
-      chemical_composition = #{row.chemicalComposition,jdbcType=VARCHAR}
+      Nd = #{row.nd,jdbcType=VARCHAR},
+      Co = #{row.co,jdbcType=VARCHAR},
+      B = #{row.b,jdbcType=VARCHAR},
+      Dy_Tb_Pr = #{row.dyTbPr,jdbcType=VARCHAR},
+      other = #{row.other,jdbcType=VARCHAR},
+      RE = #{row.re,jdbcType=VARCHAR},
+      Nd_RE = #{row.ndRe,jdbcType=VARCHAR},
+      Dy_RE = #{row.dyRe,jdbcType=VARCHAR},
+      REO = #{row.reo,jdbcType=VARCHAR},
+      Nd2O3_REO = #{row.nd2o3Reo,jdbcType=VARCHAR},
+      Nd2O3 = #{row.nd2o3,jdbcType=VARCHAR},
+      Dy2O3_REO = #{row.dy2o3Reo,jdbcType=VARCHAR},
+      RE_impurities = #{row.reImpurities,jdbcType=VARCHAR},
+      non_RE_impurities = #{row.nonReImpurities,jdbcType=VARCHAR}
     <if test="example != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -461,8 +627,47 @@
       <if test="albumPics != null">
         album_pics = #{albumPics,jdbcType=VARCHAR},
       </if>
-      <if test="chemicalComposition != null">
-        chemical_composition = #{chemicalComposition,jdbcType=VARCHAR},
+      <if test="nd != null">
+        Nd = #{nd,jdbcType=VARCHAR},
+      </if>
+      <if test="co != null">
+        Co = #{co,jdbcType=VARCHAR},
+      </if>
+      <if test="b != null">
+        B = #{b,jdbcType=VARCHAR},
+      </if>
+      <if test="dyTbPr != null">
+        Dy_Tb_Pr = #{dyTbPr,jdbcType=VARCHAR},
+      </if>
+      <if test="other != null">
+        other = #{other,jdbcType=VARCHAR},
+      </if>
+      <if test="re != null">
+        RE = #{re,jdbcType=VARCHAR},
+      </if>
+      <if test="ndRe != null">
+        Nd_RE = #{ndRe,jdbcType=VARCHAR},
+      </if>
+      <if test="dyRe != null">
+        Dy_RE = #{dyRe,jdbcType=VARCHAR},
+      </if>
+      <if test="reo != null">
+        REO = #{reo,jdbcType=VARCHAR},
+      </if>
+      <if test="nd2o3Reo != null">
+        Nd2O3_REO = #{nd2o3Reo,jdbcType=VARCHAR},
+      </if>
+      <if test="nd2o3 != null">
+        Nd2O3 = #{nd2o3,jdbcType=VARCHAR},
+      </if>
+      <if test="dy2o3Reo != null">
+        Dy2O3_REO = #{dy2o3Reo,jdbcType=VARCHAR},
+      </if>
+      <if test="reImpurities != null">
+        RE_impurities = #{reImpurities,jdbcType=VARCHAR},
+      </if>
+      <if test="nonReImpurities != null">
+        non_RE_impurities = #{nonReImpurities,jdbcType=VARCHAR},
       </if>
       <if test="description != null">
         description = #{description,jdbcType=LONGVARCHAR},
@@ -489,7 +694,20 @@
       material_ratio = #{materialRatio,jdbcType=VARCHAR},
       extraction_unit = #{extractionUnit,jdbcType=VARCHAR},
       album_pics = #{albumPics,jdbcType=VARCHAR},
-      chemical_composition = #{chemicalComposition,jdbcType=VARCHAR},
+      Nd = #{nd,jdbcType=VARCHAR},
+      Co = #{co,jdbcType=VARCHAR},
+      B = #{b,jdbcType=VARCHAR},
+      Dy_Tb_Pr = #{dyTbPr,jdbcType=VARCHAR},
+      other = #{other,jdbcType=VARCHAR},
+      RE = #{re,jdbcType=VARCHAR},
+      Nd_RE = #{ndRe,jdbcType=VARCHAR},
+      Dy_RE = #{dyRe,jdbcType=VARCHAR},
+      REO = #{reo,jdbcType=VARCHAR},
+      Nd2O3_REO = #{nd2o3Reo,jdbcType=VARCHAR},
+      Nd2O3 = #{nd2o3,jdbcType=VARCHAR},
+      Dy2O3_REO = #{dy2o3Reo,jdbcType=VARCHAR},
+      RE_impurities = #{reImpurities,jdbcType=VARCHAR},
+      non_RE_impurities = #{nonReImpurities,jdbcType=VARCHAR},
       description = #{description,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -512,7 +730,20 @@
       material_ratio = #{materialRatio,jdbcType=VARCHAR},
       extraction_unit = #{extractionUnit,jdbcType=VARCHAR},
       album_pics = #{albumPics,jdbcType=VARCHAR},
-      chemical_composition = #{chemicalComposition,jdbcType=VARCHAR}
+      Nd = #{nd,jdbcType=VARCHAR},
+      Co = #{co,jdbcType=VARCHAR},
+      B = #{b,jdbcType=VARCHAR},
+      Dy_Tb_Pr = #{dyTbPr,jdbcType=VARCHAR},
+      other = #{other,jdbcType=VARCHAR},
+      RE = #{re,jdbcType=VARCHAR},
+      Nd_RE = #{ndRe,jdbcType=VARCHAR},
+      Dy_RE = #{dyRe,jdbcType=VARCHAR},
+      REO = #{reo,jdbcType=VARCHAR},
+      Nd2O3_REO = #{nd2o3Reo,jdbcType=VARCHAR},
+      Nd2O3 = #{nd2o3,jdbcType=VARCHAR},
+      Dy2O3_REO = #{dy2o3Reo,jdbcType=VARCHAR},
+      RE_impurities = #{reImpurities,jdbcType=VARCHAR},
+      non_RE_impurities = #{nonReImpurities,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

@@ -6,8 +6,8 @@ import java.util.Date;
 
 /**
  * 用户
- * @author hhoa 
- * @date 2022-06-16
+ * @author 匡龙 
+ * @date 2022-06-30
  */
 @Schema(description = "用户")
 public class RetUser implements Serializable {
