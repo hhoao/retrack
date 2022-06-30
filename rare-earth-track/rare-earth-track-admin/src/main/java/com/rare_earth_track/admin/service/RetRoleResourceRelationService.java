@@ -48,13 +48,15 @@ public interface RetRoleResourceRelationService {
     @Transactional
     void deleteRoleResources(Long roleId);
 
+    List<RetResource> getRoleResources(Long roleId);
+
     /**
      * 通过角色id获取资源
      *
      * @param roleId 角色id
      * @return 资源 resources by role id
      */
-    List<RetResource> getRoleResources(Long roleId);
+    List<RetResource> getRoleResources(Long roleId, Boolean disableCache);
 
     /**
      * 添加关系

@@ -50,17 +50,18 @@ public class RetRoleResourceRelationServiceImpl implements RetRoleResourceRelati
         roleRelationExample.createCriteria().andResourceIdEqualTo(resourceId);
         List<RetRoleResourceRelation> roleResourceRelations = roleResourceRelationMapper.selectByExample(roleRelationExample);
         List<RetRole> roles = new ArrayList<>();
-        for (RetRoleResourceRelation resourceRoleRelation : roleResourceRelations){
+        for (RetRoleResourceRelation resourceRoleRelation : roleResourceRelations) {
             Long roleId = resourceRoleRelation.getRoleId();
             RetRole role = roleService.getRole(roleId);
             roles.add(role);
         }
         return roles;
     }
+
     @Override
     public List<RetRole> getRoles(String resourceName) {
         RetResource resource = resourceService.getResource(resourceName);
-        return  getRoles(resource.getId());
+        return getRoles(resource.getId());
     }
 
     @Override
@@ -68,8 +69,11 @@ public class RetRoleResourceRelationServiceImpl implements RetRoleResourceRelati
         RetRoleResourceRelationExample roleResourceRelationExample = new RetRoleResourceRelationExample();
         roleResourceRelationExample.createCriteria().andRoleIdEqualTo(roleId).andResourceIdEqualTo(resourceId);
         int i = roleResourceRelationMapper.deleteByExample(roleResourceRelationExample);
-        if (i == 0){
+        if (i == 0) {
             Asserts.fail("删除角色资源失败");
+        } else {
+            //刷新缓存
+            roleService.refreshCache(roleId);
         }
     }
 
@@ -77,19 +81,29 @@ public class RetRoleResourceRelationServiceImpl implements RetRoleResourceRelati
     public void deleteRoleResources(Long roleId) {
         RetRoleResourceRelationExample relationExample = new RetRoleResourceRelationExample();
         relationExample.createCriteria().andRoleIdEqualTo(roleId);
-        roleResourceRelationMapper.deleteByExample(relationExample);
+        int i = roleResourceRelationMapper.deleteByExample(relationExample);
+        if (i != 0) {
+            //刷新缓存
+            roleService.refreshCache(roleId);
+        }
     }
-
     @Override
     public List<RetResource> getRoleResources(Long roleId) {
+        return getRoleResources(roleId, false);
+    }
+    @Override
+    public List<RetResource> getRoleResources(Long roleId, Boolean disableCache) {
         RetRole retRole = roleService.getRole(roleId);
-        List<RetResource> byRoleName = roleResourceCacheService.getByRoleName(retRole.getName());
-        if (byRoleName == null){
+        List<RetResource> byRoleName;
+        if (disableCache == null) {
+            byRoleName = roleResourceCacheService.getByRoleName(retRole.getName());
+        }
+        else {
             byRoleName = new ArrayList<>();
             RetRoleResourceRelationExample roleResourceRelationExample = new RetRoleResourceRelationExample();
             roleResourceRelationExample.createCriteria().andRoleIdEqualTo(roleId);
             List<RetRoleResourceRelation> retRoleResourceRelations = roleResourceRelationMapper.selectByExample(roleResourceRelationExample);
-            for (RetRoleResourceRelation roleResourceRelation : retRoleResourceRelations){
+            for (RetRoleResourceRelation roleResourceRelation : retRoleResourceRelations) {
                 byRoleName.add(resourceService.getResource(roleResourceRelation.getResourceId()));
             }
         }
@@ -102,16 +116,17 @@ public class RetRoleResourceRelationServiceImpl implements RetRoleResourceRelati
         roleResourceRelation.setRoleId(roleId);
         roleResourceRelation.setResourceId(resourceId);
         int insert = roleResourceRelationMapper.insert(roleResourceRelation);
-        if (insert == 0){
+        if (insert == 0) {
             Asserts.fail("增加角色失败");
         }
         roleService.refreshCache(roleId);
     }
+
     @Override
     public List<RetResource> listRoleResources(String name, PageInfo pageInfo) {
         PageHelper.startPage(pageInfo.getPageNum(), pageInfo.getPageSize());
         RetRole roleByRoleName = roleService.getRole(name);
-        if (roleByRoleName == null){
+        if (roleByRoleName == null) {
             Asserts.fail("没有该角色");
         }
         return getRoleResources(roleByRoleName.getId());

@@ -57,25 +57,25 @@ public class RetRoleServiceImpl implements RetRoleService, ApplicationRunner {
     @Override
     public void refreshCache(Long roleId){
         RetRole role = getRole(roleId);
-        List<RetResource> roleResources = getRoleResources(role.getId());
+        List<RetResource> roleResources = getRoleResources(role.getId(), false);
         resourceCacheService.setByRoleName(roleResources, role.getName());
     }
     @Override
     public void refreshCache(RetRole role){
-        List<RetResource> roleResources = getRoleResources(role.getId());
+        List<RetResource> roleResources = getRoleResources(role.getId(), false);
         resourceCacheService.setByRoleName(roleResources, role.getName());
     }
     @Override
     public void refreshCache(String roleName){
         RetRole role = getRole(roleName);
-        List<RetResource> roleResources = getRoleResources(role.getId());
+        List<RetResource> roleResources = getRoleResources(role.getId(), false);
         resourceCacheService.setByRoleName(roleResources, role.getName());
     }
     @Override
     public void refreshCache(){
         List<RetRole> roles = getAllRoles();
         for (RetRole role : roles) {
-            List<RetResource> roleResources = getRoleResources(role.getId());
+            List<RetResource> roleResources = getRoleResources(role.getId(), false);
             resourceCacheService.setByRoleName(roleResources, role.getName());
         }
     }
@@ -92,7 +92,11 @@ public class RetRoleServiceImpl implements RetRoleService, ApplicationRunner {
     }
     @Override
     public List<RetResource> getRoleResources(Long roleId){
-        return roleResourceRelationService.getRoleResources(roleId);
+        return roleResourceRelationService.getRoleResources(roleId, false);
+    }
+    @Override
+    public List<RetResource> getRoleResources(Long roleId, Boolean disableCache){
+        return roleResourceRelationService.getRoleResources(roleId, disableCache);
     }
     @Override
     public RetRole getRole(String roleName) {
@@ -206,6 +210,15 @@ public class RetRoleServiceImpl implements RetRoleService, ApplicationRunner {
         RetRole role = getRole(roleName);
         for (Long menuId : menuIds) {
             roleMenuRelationService.addRoleMenu(role.getId(), menuId);
+        }
+    }
+
+    @Override
+    public void allocResources(String roleName, List<Long> resourceIds) {
+        RetRole role = getRole(roleName);
+        roleResourceRelationService.deleteRoleResources(role.getId());
+        for (Long resourceId : resourceIds){
+            roleResourceRelationService.addRoleResource(role.getId(), resourceId);
         }
     }
 
