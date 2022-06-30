@@ -7,7 +7,7 @@ import java.util.Date;
 /**
  * 角色
  * @author hhoa 
- * @date 2022-06-16
+ * @date 2022-06-30
  */
 @Schema(description = "角色")
 public class RetRole implements Serializable {

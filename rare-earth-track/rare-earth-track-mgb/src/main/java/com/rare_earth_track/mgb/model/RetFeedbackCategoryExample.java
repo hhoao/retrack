@@ -112,7 +112,7 @@ public class RetFeedbackCategoryExample {
 
     /**
      * ret_feedback_category
-     * @author hhoa 2022-06-16
+     * @author hhoa 2022-06-30
      */
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
@@ -364,7 +364,7 @@ public class RetFeedbackCategoryExample {
 
     /**
      * ret_feedback_category
-     * @author hhoa 2022-06-16
+     * @author hhoa 2022-06-30
      */
     public static class Criterion {
         private String condition;

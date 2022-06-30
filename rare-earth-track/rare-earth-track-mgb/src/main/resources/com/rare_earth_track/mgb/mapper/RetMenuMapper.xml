@@ -3,6 +3,7 @@
 <mapper namespace="com.rare_earth_track.mgb.mapper.RetMenuMapper">
   <resultMap id="BaseResultMap" type="com.rare_earth_track.mgb.model.RetMenu">
     <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="parent_id" jdbcType="BIGINT" property="parentId" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="title" jdbcType="VARCHAR" property="title" />
     <result column="level" jdbcType="INTEGER" property="level" />
@@ -70,7 +71,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, create_time, title, level, sort, name, icon, hidden
+    id, parent_id, create_time, title, level, sort, name, icon, hidden
   </sql>
   <select id="selectByExample" parameterType="com.rare_earth_track.mgb.model.RetMenuExample" resultMap="BaseResultMap">
     select
@@ -106,12 +107,12 @@
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into ret_menu (create_time, title, level, 
-      sort, name, icon, hidden
-      )
-    values (#{createTime,jdbcType=TIMESTAMP}, #{title,jdbcType=VARCHAR}, #{level,jdbcType=INTEGER}, 
-      #{sort,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR}, #{hidden,jdbcType=INTEGER}
-      )
+    insert into ret_menu (parent_id, create_time, title, 
+      level, sort, name, 
+      icon, hidden)
+    values (#{parentId,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, #{title,jdbcType=VARCHAR}, 
+      #{level,jdbcType=INTEGER}, #{sort,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+      #{icon,jdbcType=VARCHAR}, #{hidden,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.rare_earth_track.mgb.model.RetMenu">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
@@ -119,6 +120,9 @@
     </selectKey>
     insert into ret_menu
     <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="parentId != null">
+        parent_id,
+      </if>
       <if test="createTime != null">
         create_time,
       </if>
@@ -142,6 +146,9 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="parentId != null">
+        #{parentId,jdbcType=BIGINT},
+      </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
       </if>
@@ -177,6 +184,9 @@
       <if test="row.id != null">
         id = #{row.id,jdbcType=BIGINT},
       </if>
+      <if test="row.parentId != null">
+        parent_id = #{row.parentId,jdbcType=BIGINT},
+      </if>
       <if test="row.createTime != null">
         create_time = #{row.createTime,jdbcType=TIMESTAMP},
       </if>
@@ -206,6 +216,7 @@
   <update id="updateByExample" parameterType="map">
     update ret_menu
     set id = #{row.id,jdbcType=BIGINT},
+      parent_id = #{row.parentId,jdbcType=BIGINT},
       create_time = #{row.createTime,jdbcType=TIMESTAMP},
       title = #{row.title,jdbcType=VARCHAR},
       level = #{row.level,jdbcType=INTEGER},
@@ -220,6 +231,9 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.rare_earth_track.mgb.model.RetMenu">
     update ret_menu
     <set>
+      <if test="parentId != null">
+        parent_id = #{parentId,jdbcType=BIGINT},
+      </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
@@ -246,7 +260,8 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.rare_earth_track.mgb.model.RetMenu">
     update ret_menu
-    set create_time = #{createTime,jdbcType=TIMESTAMP},
+    set parent_id = #{parentId,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
       title = #{title,jdbcType=VARCHAR},
       level = #{level,jdbcType=INTEGER},
       sort = #{sort,jdbcType=INTEGER},

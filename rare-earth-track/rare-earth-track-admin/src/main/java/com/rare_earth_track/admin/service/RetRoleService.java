@@ -94,7 +94,7 @@ public interface RetRoleService {
      * 分页获取角色列表
      *
      * @param pageInfo @return 分页角色 list
-     * @param role
+     * @param role     the role
      * @return the list
      */
     List<RetRole> list(PageInfo pageInfo, RetRole role);
@@ -124,6 +124,29 @@ public interface RetRoleService {
     @Transactional
     void deleteRoleMenu(String roleName, Long menuId);
 
+    /**
+     * Add role menu.
+     *
+     * @param roleName the role name
+     * @param menuId   the menu id
+     */
     @Transactional
     void addRoleMenu(String roleName, Long menuId);
+
+    /**
+     * List menus list.
+     *
+     * @param pageInfo the page info
+     * @param roleName the role name
+     * @return the list
+     */
+    List<RetMenu> listMenus(PageInfo pageInfo, String roleName);
+
+    /**
+     * Alloc menus.
+     *
+     * @param roleName the role name
+     * @param menuId
+     */
+    void allocMenus(String roleName, List<Long> menuId);
 }

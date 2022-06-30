@@ -194,6 +194,22 @@ public class RetRoleServiceImpl implements RetRoleService, ApplicationRunner {
     }
 
     @Override
+    public List<RetMenu> listMenus(PageInfo pageInfo, String roleName) {
+        PageHelper.startPage(pageInfo.getPageNum(), pageInfo.getPageSize());
+        RetRole role = getRole(roleName);
+        return getMenus(role.getId());
+    }
+
+    @Override
+    public void allocMenus(String roleName, List<Long> menuIds) {
+        roleMenuRelationService.deleteExistsMenu(roleName);
+        RetRole role = getRole(roleName);
+        for (Long menuId : menuIds) {
+            roleMenuRelationService.addRoleMenu(role.getId(), menuId);
+        }
+    }
+
+    @Override
     public void run(ApplicationArguments args) {
         //初始化 将所有角色对应资源加载进缓存中
         refreshCache();

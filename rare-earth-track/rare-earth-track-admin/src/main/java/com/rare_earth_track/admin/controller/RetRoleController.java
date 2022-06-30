@@ -6,6 +6,7 @@ import com.rare_earth_track.admin.service.RetRoleResourceRelationService;
 import com.rare_earth_track.admin.service.RetRoleService;
 import com.rare_earth_track.common.api.CommonPage;
 import com.rare_earth_track.common.api.CommonResult;
+import com.rare_earth_track.mgb.model.RetMenu;
 import com.rare_earth_track.mgb.model.RetResource;
 import com.rare_earth_track.mgb.model.RetRole;
 import io.swagger.v3.oas.annotations.Operation;
@@ -73,6 +74,21 @@ public class RetRoleController {
         return CommonResult.success(null);
     }
 
+    @Operation(summary = "设置角色菜单")
+    @PostMapping("/roles/{roleName}/menus")
+    public CommonResult<String> allocMenus(@PathVariable("roleName") String roleName,
+                                           @RequestBody List<Long> menuIds){
+        roleService.allocMenus(roleName, menuIds);
+        return CommonResult.success(null);
+    }
+
+    @Operation(summary = "分页获取角色菜单列表")
+    @GetMapping("/roles/{roleName}/menus")
+    public CommonResult<CommonPage<RetMenu>> list(PageInfo pageInfo,
+                                                  @PathVariable(value = "roleName") String roleName){
+        List<RetMenu> list = roleService.listMenus(pageInfo, roleName);
+        return CommonResult.success(CommonPage.restPage(list));
+    }
     @Operation(summary = "分页获取角色列表")
     @GetMapping("/roles")
     public CommonResult<CommonPage<RetRole>> list(PageInfo pageInfo, RetRole role){

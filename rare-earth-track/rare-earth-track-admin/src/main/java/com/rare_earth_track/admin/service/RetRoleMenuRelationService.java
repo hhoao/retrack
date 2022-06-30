@@ -99,4 +99,11 @@ public interface RetRoleMenuRelationService {
      * @param menuName the menu name
      */
     void addRoleMenu(String roleName, String menuName);
+
+    /**
+     * Delete exists menu.
+     *
+     * @param roleName the role name
+     */
+    void deleteExistsMenu(String roleName);
 }

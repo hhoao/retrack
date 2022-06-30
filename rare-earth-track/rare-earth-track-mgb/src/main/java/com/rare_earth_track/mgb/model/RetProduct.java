@@ -5,11 +5,11 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 产品信息
+ * 产品信
  * @author hhoa 
- * @date 2022-06-16
+ * @date 2022-06-30
  */
-@Schema(description = "产品信息")
+@Schema(description = "产品信")
 public class RetProduct implements Serializable {
     private Long id;
 
