@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rare_earth_track.mgb.mapper.RetGbReferenceMapper">
+  <resultMap id="BaseResultMap" type="com.rare_earth_track.mgb.model.RetGbReference">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="material" jdbcType="VARCHAR" property="material" />
+    <result column="mark" jdbcType="VARCHAR" property="mark" />
+    <result column="component1" jdbcType="VARCHAR" property="component1" />
+    <result column="content1" jdbcType="VARCHAR" property="content1" />
+    <result column="component2" jdbcType="VARCHAR" property="component2" />
+    <result column="content2" jdbcType="VARCHAR" property="content2" />
+    <result column="component3" jdbcType="VARCHAR" property="component3" />
+    <result column="content3" jdbcType="VARCHAR" property="content3" />
+    <result column="component4" jdbcType="VARCHAR" property="component4" />
+    <result column="content4" jdbcType="VARCHAR" property="content4" />
+    <result column="component5" jdbcType="VARCHAR" property="component5" />
+    <result column="content5" jdbcType="VARCHAR" property="content5" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, material, mark, component1, content1, component2, content2, component3, content3, 
+    component4, content4, component5, content5
+  </sql>
+  <select id="selectByExample" parameterType="com.rare_earth_track.mgb.model.RetGbReferenceExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ret_gb_reference
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ret_gb_reference
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from ret_gb_reference
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.rare_earth_track.mgb.model.RetGbReferenceExample">
+    delete from ret_gb_reference
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.rare_earth_track.mgb.model.RetGbReference">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into ret_gb_reference (material, mark, component1, 
+      content1, component2, content2, 
+      component3, content3, component4, 
+      content4, component5, content5
+      )
+    values (#{material,jdbcType=VARCHAR}, #{mark,jdbcType=VARCHAR}, #{component1,jdbcType=VARCHAR}, 
+      #{content1,jdbcType=VARCHAR}, #{component2,jdbcType=VARCHAR}, #{content2,jdbcType=VARCHAR}, 
+      #{component3,jdbcType=VARCHAR}, #{content3,jdbcType=VARCHAR}, #{component4,jdbcType=VARCHAR}, 
+      #{content4,jdbcType=VARCHAR}, #{component5,jdbcType=VARCHAR}, #{content5,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.rare_earth_track.mgb.model.RetGbReference">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into ret_gb_reference
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="material != null">
+        material,
+      </if>
+      <if test="mark != null">
+        mark,
+      </if>
+      <if test="component1 != null">
+        component1,
+      </if>
+      <if test="content1 != null">
+        content1,
+      </if>
+      <if test="component2 != null">
+        component2,
+      </if>
+      <if test="content2 != null">
+        content2,
+      </if>
+      <if test="component3 != null">
+        component3,
+      </if>
+      <if test="content3 != null">
+        content3,
+      </if>
+      <if test="component4 != null">
+        component4,
+      </if>
+      <if test="content4 != null">
+        content4,
+      </if>
+      <if test="component5 != null">
+        component5,
+      </if>
+      <if test="content5 != null">
+        content5,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="material != null">
+        #{material,jdbcType=VARCHAR},
+      </if>
+      <if test="mark != null">
+        #{mark,jdbcType=VARCHAR},
+      </if>
+      <if test="component1 != null">
+        #{component1,jdbcType=VARCHAR},
+      </if>
+      <if test="content1 != null">
+        #{content1,jdbcType=VARCHAR},
+      </if>
+      <if test="component2 != null">
+        #{component2,jdbcType=VARCHAR},
+      </if>
+      <if test="content2 != null">
+        #{content2,jdbcType=VARCHAR},
+      </if>
+      <if test="component3 != null">
+        #{component3,jdbcType=VARCHAR},
+      </if>
+      <if test="content3 != null">
+        #{content3,jdbcType=VARCHAR},
+      </if>
+      <if test="component4 != null">
+        #{component4,jdbcType=VARCHAR},
+      </if>
+      <if test="content4 != null">
+        #{content4,jdbcType=VARCHAR},
+      </if>
+      <if test="component5 != null">
+        #{component5,jdbcType=VARCHAR},
+      </if>
+      <if test="content5 != null">
+        #{content5,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.rare_earth_track.mgb.model.RetGbReferenceExample" resultType="java.lang.Long">
+    select count(*) from ret_gb_reference
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update ret_gb_reference
+    <set>
+      <if test="row.id != null">
+        id = #{row.id,jdbcType=BIGINT},
+      </if>
+      <if test="row.material != null">
+        material = #{row.material,jdbcType=VARCHAR},
+      </if>
+      <if test="row.mark != null">
+        mark = #{row.mark,jdbcType=VARCHAR},
+      </if>
+      <if test="row.component1 != null">
+        component1 = #{row.component1,jdbcType=VARCHAR},
+      </if>
+      <if test="row.content1 != null">
+        content1 = #{row.content1,jdbcType=VARCHAR},
+      </if>
+      <if test="row.component2 != null">
+        component2 = #{row.component2,jdbcType=VARCHAR},
+      </if>
+      <if test="row.content2 != null">
+        content2 = #{row.content2,jdbcType=VARCHAR},
+      </if>
+      <if test="row.component3 != null">
+        component3 = #{row.component3,jdbcType=VARCHAR},
+      </if>
+      <if test="row.content3 != null">
+        content3 = #{row.content3,jdbcType=VARCHAR},
+      </if>
+      <if test="row.component4 != null">
+        component4 = #{row.component4,jdbcType=VARCHAR},
+      </if>
+      <if test="row.content4 != null">
+        content4 = #{row.content4,jdbcType=VARCHAR},
+      </if>
+      <if test="row.component5 != null">
+        component5 = #{row.component5,jdbcType=VARCHAR},
+      </if>
+      <if test="row.content5 != null">
+        content5 = #{row.content5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="example != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update ret_gb_reference
+    set id = #{row.id,jdbcType=BIGINT},
+      material = #{row.material,jdbcType=VARCHAR},
+      mark = #{row.mark,jdbcType=VARCHAR},
+      component1 = #{row.component1,jdbcType=VARCHAR},
+      content1 = #{row.content1,jdbcType=VARCHAR},
+      component2 = #{row.component2,jdbcType=VARCHAR},
+      content2 = #{row.content2,jdbcType=VARCHAR},
+      component3 = #{row.component3,jdbcType=VARCHAR},
+      content3 = #{row.content3,jdbcType=VARCHAR},
+      component4 = #{row.component4,jdbcType=VARCHAR},
+      content4 = #{row.content4,jdbcType=VARCHAR},
+      component5 = #{row.component5,jdbcType=VARCHAR},
+      content5 = #{row.content5,jdbcType=VARCHAR}
+    <if test="example != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.rare_earth_track.mgb.model.RetGbReference">
+    update ret_gb_reference
+    <set>
+      <if test="material != null">
+        material = #{material,jdbcType=VARCHAR},
+      </if>
+      <if test="mark != null">
+        mark = #{mark,jdbcType=VARCHAR},
+      </if>
+      <if test="component1 != null">
+        component1 = #{component1,jdbcType=VARCHAR},
+      </if>
+      <if test="content1 != null">
+        content1 = #{content1,jdbcType=VARCHAR},
+      </if>
+      <if test="component2 != null">
+        component2 = #{component2,jdbcType=VARCHAR},
+      </if>
+      <if test="content2 != null">
+        content2 = #{content2,jdbcType=VARCHAR},
+      </if>
+      <if test="component3 != null">
+        component3 = #{component3,jdbcType=VARCHAR},
+      </if>
+      <if test="content3 != null">
+        content3 = #{content3,jdbcType=VARCHAR},
+      </if>
+      <if test="component4 != null">
+        component4 = #{component4,jdbcType=VARCHAR},
+      </if>
+      <if test="content4 != null">
+        content4 = #{content4,jdbcType=VARCHAR},
+      </if>
+      <if test="component5 != null">
+        component5 = #{component5,jdbcType=VARCHAR},
+      </if>
+      <if test="content5 != null">
+        content5 = #{content5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.rare_earth_track.mgb.model.RetGbReference">
+    update ret_gb_reference
+    set material = #{material,jdbcType=VARCHAR},
+      mark = #{mark,jdbcType=VARCHAR},
+      component1 = #{component1,jdbcType=VARCHAR},
+      content1 = #{content1,jdbcType=VARCHAR},
+      component2 = #{component2,jdbcType=VARCHAR},
+      content2 = #{content2,jdbcType=VARCHAR},
+      component3 = #{component3,jdbcType=VARCHAR},
+      content3 = #{content3,jdbcType=VARCHAR},
+      component4 = #{component4,jdbcType=VARCHAR},
+      content4 = #{content4,jdbcType=VARCHAR},
+      component5 = #{component5,jdbcType=VARCHAR},
+      content5 = #{content5,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
