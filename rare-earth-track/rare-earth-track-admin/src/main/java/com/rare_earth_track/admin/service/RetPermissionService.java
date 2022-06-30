@@ -1,5 +1,6 @@
 package com.rare_earth_track.admin.service;
 
+import com.rare_earth_track.admin.bean.PageInfo;
 import com.rare_earth_track.admin.bean.RetPermissionParam;
 import com.rare_earth_track.mgb.model.RetPermission;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,11 +32,11 @@ public interface RetPermissionService {
     /**
      * 分页获取权限列表
      *
-     * @param from the from
-     * @param size the size
+     * @param pageInfo   the page info
+     * @param permission the permission
      * @return 分页权限 list
      */
-    List<RetPermission> list(Integer from, Integer size);
+    List<RetPermission> list(PageInfo pageInfo, RetPermission permission);
 
     /**
      * 通过PermissionId获取Permission
@@ -58,7 +59,7 @@ public interface RetPermissionService {
     /**
      * 修改权限
      *
-     * @param permissionName
+     * @param permissionName the permission name
      * @param resourceParam  权限参数
      * @return 修改成功个数 int
      */
@@ -73,4 +74,11 @@ public interface RetPermissionService {
      */
     @Transactional
     int deletePermission(Long permissionId);
+
+    /**
+     * Delete permission.
+     *
+     * @param permissionName the permission name
+     */
+    void deletePermission(String permissionName);
 }

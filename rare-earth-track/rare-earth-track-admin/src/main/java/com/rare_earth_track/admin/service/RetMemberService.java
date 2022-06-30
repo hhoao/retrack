@@ -19,9 +19,10 @@ public interface RetMemberService {
     /**
      * 分页获取成员列表
      *
-     * @param pageInfo@return 分页成员 list
+     * @param pageInfo @return 分页成员 list
+     * @param member
      */
-    List<RetMember> list(PageInfo pageInfo);
+    List<RetMember> list(PageInfo pageInfo, RetMember member);
 
     /**
      * Add member int.

@@ -122,8 +122,10 @@ public class RetFactoryServiceImpl implements RetFactoryService {
     @Override
     public void deleteFactoryMemberByUsername(String factoryName, String username) {
         RetMember member = new RetMember();
+        RetFactory factoryByFactoryName = getFactoryByFactoryName(factoryName);
         Long userIdByUsername = factoryUserRelationService.getUserIdByUsername(username);
         member.setUserId(userIdByUsername);
+        member.setFactoryId(factoryByFactoryName.getId());
         memberService.deleteMembers(member);
     }
 

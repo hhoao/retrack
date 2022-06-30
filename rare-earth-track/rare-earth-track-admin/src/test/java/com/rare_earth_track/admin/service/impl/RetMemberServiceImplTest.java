@@ -9,9 +9,13 @@ import com.rare_earth_track.common.exception.ApiException;
 import com.rare_earth_track.mgb.model.RetMember;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 /**
  * @author hhoa
@@ -22,10 +26,18 @@ class RetMemberServiceImplTest extends TransactionTest {
     @Autowired
     RetMemberService memberService;
 
-    @Test
-    void list() {
-        List<RetMember> list = memberService.list(new PageInfo(1, 5));
-        Assertions.assertTrue(list.size() <= 5);
+    static private List<Object[]> listParams(){
+        List<Object[]> params = new ArrayList<>();
+        params.add(new Object[]{new PageInfo(1, 2), null, (Consumer<List<RetMember>>) list -> {
+            Assertions.assertEquals(list.size(), 2);
+        }});
+        return params;
+    }
+
+    @ParameterizedTest
+    @MethodSource("listParams")
+    void list(PageInfo pageInfo, RetMember member, Consumer<List<RetMember>> consumer) {
+        consumer.accept(memberService.list(pageInfo, member));
     }
 
     @Test

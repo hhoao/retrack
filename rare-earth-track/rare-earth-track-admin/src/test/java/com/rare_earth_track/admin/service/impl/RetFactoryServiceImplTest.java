@@ -91,7 +91,8 @@ class RetFactoryServiceImplTest extends TransactionTest {
 
     @Test
     void deleteFactoryMemberByUsername() {
-        factoryService.deleteFactoryMemberByUsername(testName, tUsername);
+        factoryService.addFactoryMember(1L, 1L);
+        factoryService.deleteFactoryMemberByUsername("五矿稀土", "test");
         Assertions.assertThrows(ApiException.class, ()-> memberService.getMember(testId, tUserId));
     }
 

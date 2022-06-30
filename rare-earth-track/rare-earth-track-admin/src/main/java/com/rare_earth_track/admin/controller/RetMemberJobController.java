@@ -18,6 +18,7 @@ import java.util.List;
  * @date 2022/5/25
  **/
 @RequiredArgsConstructor
+@RestController
 @Tag(name = "职位管理", description = "RetMemberJobController")
 public class RetMemberJobController {
     private final RetMemberJobService memberJobService;
@@ -29,27 +30,27 @@ public class RetMemberJobController {
         return CommonResult.success(CommonPage.restPage(list));
     }
 
-    @Operation(summary = "分页获取职位资源")
-    @GetMapping("/jobs/{jobId}/resources")
+    @Operation(summary = "分页获取职位权限")
+    @GetMapping("/jobs/{jobId}/permissions")
     public CommonResult<CommonPage<RetPermission>> listJobPermissions(PageInfo pageInfo,
                                                                 @PathVariable("jobId") Long jobId){
-        List<RetPermission> resources = memberJobService.listJobPermissions(pageInfo, jobId);
-        return CommonResult.success(CommonPage.restPage(resources));
+        List<RetPermission> permissions = memberJobService.listJobPermissions(pageInfo, jobId);
+        return CommonResult.success(CommonPage.restPage(permissions));
     }
 
     @Operation(summary = "增加职位权限")
     @PostMapping("/jobs/{jobName}/permissions/{permissionName}")
-    public CommonResult<String> addJobResource(@PathVariable("jobName") String jobName,
-                                               @PathVariable("permissionName") String resourceName){
-        memberJobService.addJobPermission(jobName, resourceName);
+    public CommonResult<String> addJobPermission(@PathVariable("jobName") String jobName,
+                                               @PathVariable("permissionName") String permissionName){
+        memberJobService.addJobPermission(jobName, permissionName);
         return CommonResult.success(null);
     }
 
     @Operation(summary = "删除job资源")
     @DeleteMapping("/jobs/{jobName}/permissions/{permissionName}")
-    public CommonResult<String> deleteJobResource(@PathVariable("jobName") String jobName,
-                                                  @PathVariable("permissionName") String resourceName){
-        memberJobService.deleteJobPermission(jobName, resourceName);
+    public CommonResult<String> deleteJobPermission(@PathVariable("jobName") String jobName,
+                                                  @PathVariable("permissionName") String permissionName){
+        memberJobService.deleteJobPermission(jobName, permissionName);
         return CommonResult.success(null);
     }
 }

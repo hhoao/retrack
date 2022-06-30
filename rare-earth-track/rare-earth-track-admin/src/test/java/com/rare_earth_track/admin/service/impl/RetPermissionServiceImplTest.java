@@ -1,19 +1,25 @@
 package com.rare_earth_track.admin.service.impl;
 
 import com.rare_earth_track.admin.TransactionTest;
+import com.rare_earth_track.admin.bean.PageInfo;
 import com.rare_earth_track.admin.bean.RetPermissionParam;
 import com.rare_earth_track.admin.config.AdminJwtSecurityConfig;
 import com.rare_earth_track.admin.service.RetPermissionService;
 import com.rare_earth_track.common.exception.ApiException;
 import com.rare_earth_track.mgb.model.RetPermission;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -40,10 +46,18 @@ class RetPermissionServiceImplTest extends TransactionTest {
         assertTrue(allPermissions.size() > 0);
     }
 
-    @Test
-    void list() {
-        List<RetPermission> list = permissionService.list(1, 2);
-        assertTrue( list.size() <= 5);
+    static private List<Object[]> listParams(){
+        List<Object[]> params = new ArrayList<>();
+        params.add(new Object[]{new PageInfo(1, 2), null, (Consumer<List<RetPermission>>) list -> {
+            Assertions.assertEquals(list.size(), 2);
+        }});
+        return params;
+    }
+
+    @ParameterizedTest
+    @MethodSource("listParams")
+    void list(PageInfo pageInfo, RetPermission permission, Consumer<List<RetPermission>> consumer) {
+        consumer.accept(permissionService.list(pageInfo, permission));
     }
 
     @Test

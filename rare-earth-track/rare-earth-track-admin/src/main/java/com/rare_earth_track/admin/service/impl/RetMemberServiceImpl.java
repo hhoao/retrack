@@ -38,10 +38,36 @@ public class RetMemberServiceImpl implements RetMemberService {
 
     private final RetMemberJobService memberJobService;
 
+    private RetMemberExample getMemberExample(RetMember member){
+        RetMemberExample memberExample = new RetMemberExample();
+        if (member != null) {
+            RetMemberExample.Criteria criteria = memberExample.createCriteria();
+            if (member.getPhone() != null){
+                criteria.andPhoneEqualTo(member.getPhone());
+            }
+            if (member.getId() != null){
+                criteria.andIdEqualTo(member.getId());
+            }
+            if (member.getNickname() != null){
+                criteria.andNicknameLike(member.getNickname());
+            }
+            if (member.getJobId() != null){
+                criteria.andJobIdEqualTo(member.getJobId());
+            }
+            if (member.getFactoryId() != null){
+                criteria.andFactoryIdEqualTo(member.getFactoryId());
+            }
+            if (member.getUserId() != null){
+                criteria.andUserIdEqualTo(member.getUserId());
+            }
+        }
+        return memberExample;
+    }
     @Override
-    public List<RetMember> list(PageInfo pageInfo) {
+    public List<RetMember> list(PageInfo pageInfo, RetMember member) {
         PageHelper.startPage(pageInfo.getPageNum(), pageInfo.getPageSize());
-        return memberMapper.selectByExample(new RetMemberExample());
+        RetMemberExample memberExample = getMemberExample(member);
+        return memberMapper.selectByExample(memberExample);
     }
 
     @Override
@@ -116,27 +142,6 @@ public class RetMemberServiceImpl implements RetMemberService {
                 Asserts.fail("删除失败");
             }
         }
-    }
-    private RetMemberExample getMemberExample(RetMember member){
-        RetMemberExample memberExample = new RetMemberExample();
-        RetMemberExample.Criteria criteria = memberExample.createCriteria();
-        if (member.getId() != null){
-            criteria.andIdEqualTo(member.getId());
-            return memberExample;
-        }
-        if (member.getFactoryId() != null){
-            criteria.andFactoryIdEqualTo(member.getFactoryId());
-        }
-        if (member.getJobId() != null){
-            criteria.andJobIdEqualTo(member.getJobId());
-        }
-        if (member.getNickname() != null){
-            criteria.andNicknameLike(member.getNickname());
-        }
-        if (member.getPhone() != null){
-            criteria.andPhoneEqualTo(member.getPhone());
-        }
-        return memberExample;
     }
 
     @Override

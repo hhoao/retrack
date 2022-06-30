@@ -46,7 +46,7 @@ public class RetResourceController {
     }
     @Operation(summary = "删除资源")
     @DeleteMapping("/resources/{resourceName}")
-    public CommonResult<String> delResource(@PathVariable String resourceName){
+    public CommonResult<String> delResource(@PathVariable("resourceName") String resourceName){
         resourceService.deleteResource(resourceName);
         return CommonResult.success(null);
     }

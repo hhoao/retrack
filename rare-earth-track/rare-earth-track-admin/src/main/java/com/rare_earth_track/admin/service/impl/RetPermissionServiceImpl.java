@@ -2,6 +2,7 @@ package com.rare_earth_track.admin.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.github.pagehelper.PageHelper;
+import com.rare_earth_track.admin.bean.PageInfo;
 import com.rare_earth_track.admin.bean.RetPermissionParam;
 import com.rare_earth_track.admin.service.RetMemberJobPermissionRelationService;
 import com.rare_earth_track.admin.service.RetPermissionService;
@@ -42,10 +43,33 @@ public class RetPermissionServiceImpl implements RetPermissionService {
         return permissionMapper.selectByExample(new RetPermissionExample());
     }
 
+    private RetPermissionExample getPermissionExample(RetPermission permission){
+        RetPermissionExample permissionExample = new RetPermissionExample();
+        if (permission != null){
+            RetPermissionExample.Criteria criteria = permissionExample.createCriteria();
+            if (permission.getId() != null){
+                criteria.andIdEqualTo(permission.getId());
+            }
+            if (permission.getDescription() != null){
+                criteria.andDescriptionLike(permission.getDescription());
+            }
+            if (permission.getName() != null){
+                criteria.andNameEqualTo(permission.getName());
+            }
+            if (permission.getMethod() != null){
+                criteria.andMethodEqualTo(permission.getMethod());
+            }
+            if (permission.getUrl() != null){
+                criteria.andUrlEqualTo(permission.getUrl());
+            }
+        }
+        return permissionExample;
+    }
     @Override
-    public List<RetPermission> list(Integer from, Integer size) {
-        PageHelper.startPage(from, size);
-        return getAllPermissions();
+    public List<RetPermission> list(PageInfo pageInfo, RetPermission permission) {
+        PageHelper.startPage(pageInfo.getPageNum(), pageInfo.getPageSize());
+        RetPermissionExample permissionExample = getPermissionExample(permission);
+        return permissionMapper.selectByExample(permissionExample);
     }
 
     @Override
@@ -93,5 +117,11 @@ public class RetPermissionServiceImpl implements RetPermissionService {
         }
         memberJobPermissionRelationService.deleteMemberPermission(permissionId);
         return permissionMapper.deleteByPrimaryKey(permissionId);
+    }
+
+    @Override
+    public void deletePermission(String permissionName) {
+        RetPermission permission = getPermission(permissionName);
+        deletePermission(permission.getId());
     }
 }
