@@ -6,12 +6,15 @@ import java.util.Date;
 
 /**
  * 后台菜单
- * @author 匡龙 
- * @date 2022-06-30
+ * @author hhoa 
+ * @date 2022-06-16
  */
 @Schema(description = "后台菜单")
 public class RetMenu implements Serializable {
     private Long id;
+
+    @Schema(description = "父级id")
+    private Long parentId;
 
     @Schema(description = "创建时间")
     private Date createTime;
@@ -50,6 +53,22 @@ public class RetMenu implements Serializable {
      */
     public void setId(Long id) {
         this.id = id;
+    }
+
+    /**
+     * 父级id
+     * @return parent_id 父级id
+     */
+    public Long getParentId() {
+        return parentId;
+    }
+
+    /**
+     * 父级id
+     * @param parentId 父级id
+     */
+    public void setParentId(Long parentId) {
+        this.parentId = parentId;
     }
 
     /**
@@ -175,6 +194,7 @@ public class RetMenu implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
+        sb.append(", parentId=").append(parentId);
         sb.append(", createTime=").append(createTime);
         sb.append(", title=").append(title);
         sb.append(", level=").append(level);

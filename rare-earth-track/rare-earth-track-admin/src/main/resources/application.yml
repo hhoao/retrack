@@ -68,3 +68,5 @@ file:
       - image/png
       - image/bmp
       - application/pdf
+pagehelper:
+  pageSizeZero: true

@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 /**
  * 用户授权信息
- * @author 匡龙 
+ * @author hhoa 
  * @date 2022-06-30
  */
 @Schema(description = "用户授权信息")

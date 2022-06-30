@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 /**
  * 专题分类
- * @author 匡龙 
+ * @author hhoa 
  * @date 2022-06-30
  */
 @Schema(description = "专题分类")

@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 /**
  * 材料分类
- * @author 匡龙 
+ * @author 匡龙
  * @date 2022-06-30
  */
 @Schema(description = "材料分类")

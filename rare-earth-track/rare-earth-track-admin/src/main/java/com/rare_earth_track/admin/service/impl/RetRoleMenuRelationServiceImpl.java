@@ -7,7 +7,10 @@ import com.rare_earth_track.admin.service.RetRoleMenuRelationService;
 import com.rare_earth_track.admin.service.RetRoleService;
 import com.rare_earth_track.common.exception.Asserts;
 import com.rare_earth_track.mgb.mapper.RetRoleMenuRelationMapper;
-import com.rare_earth_track.mgb.model.*;
+import com.rare_earth_track.mgb.model.RetMenu;
+import com.rare_earth_track.mgb.model.RetRole;
+import com.rare_earth_track.mgb.model.RetRoleMenuRelation;
+import com.rare_earth_track.mgb.model.RetRoleMenuRelationExample;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -148,5 +151,17 @@ public class RetRoleMenuRelationServiceImpl implements RetRoleMenuRelationServic
         RetMenu menu = menuService.getMenu(menuName);
         RetRole role = roleService.getRole(roleName);
         addRoleMenu(role.getId(), menu.getId());
+    }
+
+    @Override
+    public void deleteExistsMenu(String roleName) {
+        RetRole role = roleService.getRole(roleName);
+        RetRoleMenuRelationExample roleMenuRelationExample = new RetRoleMenuRelationExample();
+        roleMenuRelationExample.createCriteria().andRoleIdEqualTo(role.getId());
+        int i = roleMenuRelationMapper.deleteByExample(roleMenuRelationExample);
+        if (i != 0) {
+            //刷新缓存
+            roleService.refreshCache(role.getId());
+        }
     }
 }

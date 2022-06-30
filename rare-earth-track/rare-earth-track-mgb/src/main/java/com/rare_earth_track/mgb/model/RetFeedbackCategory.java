@@ -5,8 +5,8 @@ import java.io.Serializable;
 
 /**
  * 反馈分类
- * @author 匡龙 
- * @date 2022-06-30
+ * @author hhoa 
+ * @date 2022-06-16
  */
 @Schema(description = "反馈分类")
 public class RetFeedbackCategory implements Serializable {

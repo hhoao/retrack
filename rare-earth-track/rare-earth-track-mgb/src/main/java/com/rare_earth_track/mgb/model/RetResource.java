@@ -6,8 +6,8 @@ import java.util.Date;
 
 /**
  * 资源
- * @author 匡龙 
- * @date 2022-06-30
+ * @author hhoa 
+ * @date 2022-06-16
  */
 @Schema(description = "资源")
 public class RetResource implements Serializable {

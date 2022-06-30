@@ -114,4 +114,19 @@ class RetRoleServiceImplTest extends TransactionTest {
         List<RetRole> list = roleService.list(pageInfo, role);
         consumer.accept(list);
     }
+
+    static List<Object[]> allocMenusParams(){
+        List<Object[]> params = new ArrayList<>();
+        params.add( new Object[]{"ROLE_ADMIN", List.of(1L, 2L)});
+        return params;
+    }
+
+    @MethodSource("allocMenusParams")
+    @ParameterizedTest
+    void allocMenus(String roleName, List<Long> menusIds) {
+        roleService.allocMenus(roleName, menusIds);
+        RetRole role = roleService.getRole(roleName);
+        List<RetMenu> menus = roleService.getMenus(role.getId());
+        Assertions.assertEquals(menus.size(), menusIds.size());
+    }
 }

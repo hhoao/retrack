@@ -112,7 +112,7 @@ public class RetMaterialDoubleCategoryDocumentExample {
 
     /**
      * ret_material_double_category_document
-     * @author 匡龙 2022-06-30
+     * @author hhoa 2022-06-16
      */
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
@@ -354,7 +354,7 @@ public class RetMaterialDoubleCategoryDocumentExample {
 
     /**
      * ret_material_double_category_document
-     * @author 匡龙 2022-06-30
+     * @author hhoa 2022-06-16
      */
     public static class Criterion {
         private String condition;
