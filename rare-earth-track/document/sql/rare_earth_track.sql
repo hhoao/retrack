@@ -82,6 +82,7 @@ CREATE TABLE `ret_apply_factory`
 DROP TABLE IF EXISTS `ret_menu`;
 CREATE TABLE `ret_menu` (
                             `id` bigint(20) NOT NULL AUTO_INCREMENT,
+                            `parent_id` bigint NULL COMMENT '父级id',
                             `create_time` datetime DEFAULT NULL COMMENT '创建时间',
                             `title` varchar(100) DEFAULT NULL COMMENT '菜单名称',
                             `level` int(4) DEFAULT NULL COMMENT '菜单级数',
@@ -92,25 +93,26 @@ CREATE TABLE `ret_menu` (
                             PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='后台菜单表';
 
-INSERT INTO `ret_menu` VALUES ('1', '2020-02-02 14:51:50', '首页', '0', '0', 'home', 'home', '0');
-INSERT INTO `ret_menu` VALUES ('2', '2020-02-02 14:51:50', '产品', '0', '0', 'pms', 'product', '0');
-INSERT INTO `ret_menu` VALUES ('3', '2020-02-02 14:51:50', '产品列表', '1', '0', 'product', 'product-list', '0');
-INSERT INTO `ret_menu` VALUES ('4', '2020-02-02 14:52:44', '添加商品', '1', '0', 'addProduct', 'product-add', '0');
-INSERT INTO `ret_menu` VALUES ('5', '2020-02-02 14:53:51', '商品分类', '1', '0', 'productCate', 'product-cate', '0');
-INSERT INTO `ret_menu` VALUES ('6', '2020-02-02 14:54:51', '商品类型', '1', '0', 'productAttr', 'product-attr', '0');
-INSERT INTO `ret_menu` VALUES ('7', '2020-02-07 16:29:13', '权限', '0', '0', 'ums', 'ums', '0');
-INSERT INTO `ret_menu` VALUES ('8', '2020-02-07 16:29:51', '用户列表', '1', '0', 'admin', 'ums-admin', '0');
-INSERT INTO `ret_menu` VALUES ('9', '2020-02-07 16:30:13', '角色列表', '1', '0', 'role', 'ums-role', '0');
-INSERT INTO `ret_menu` VALUES ('10', '2020-02-07 16:30:53', '菜单列表', '1', '0', 'menu', 'ums-menu', '0');
-INSERT INTO `ret_menu` VALUES ('11', '2020-02-07 16:31:13', '资源列表', '1', '0', 'resource', 'ums-resource', '0');
-INSERT INTO `ret_menu` VALUES ('12', '2020-02-07 16:31:13', '营销', '0', '0', 'sms', 'sms', '0');
-INSERT INTO `ret_menu` VALUES ('13', '2020-02-07 16:31:13', '反馈列表', '1', '0', 'feedback', 'sms-feedback', '0');
-INSERT INTO `ret_menu` VALUES ('14', '2020-02-07 16:31:13', '工厂', '0', '0', 'fms', 'fms', '0');
-INSERT INTO `ret_menu` VALUES ('15', '2020-02-07 16:31:13', '工厂列表', '1', '0', 'factory', 'fms-factory', '0');
-INSERT INTO `ret_menu` VALUES ('16', '2020-02-07 16:31:13', '成员列表', '1', '0', 'member', 'fms-member', '0');
-INSERT INTO `ret_menu` VALUES ('17', '2020-02-07 16:31:13', '权限列表', '1', '0', 'permission', 'fms-permission', '0');
-INSERT INTO `ret_menu` VALUES ('18', '2020-02-07 16:31:13', '职位列表', '1', '0', 'job', 'fms-job', '0');
-INSERT INTO `ret_menu` VALUES ('19', '2020-02-07 16:31:13', '材料列表', '1', '0', 'material', 'pms-material', '0');
+INSERT INTO `ret_menu` VALUES ('1', 0, '2020-02-02 14:51:50', '首页', '0', '0', 'home', 'home', '0');
+INSERT INTO `ret_menu` VALUES ('2', 0, '2020-02-02 14:51:50', '产品', '0', '0', 'pms', 'product', '0');
+INSERT INTO `ret_menu` VALUES ('3', 2, '2020-02-02 14:51:50', '产品列表', '1', '0', 'product', 'product-list', '0');
+INSERT INTO `ret_menu` VALUES ('4', 2, '2020-02-02 14:52:44', '添加商品', '1', '0', 'addProduct', 'product-add', '0');
+INSERT INTO `ret_menu` VALUES ('5', 2, '2020-02-02 14:53:51', '商品分类', '1', '0', 'productCate', 'product-cate', '0');
+INSERT INTO `ret_menu` VALUES ('6', 2, '2020-02-02 14:54:51', '商品类型', '1', '0', 'productAttr', 'product-attr', '0');
+INSERT INTO `ret_menu` VALUES ('7', 0, '2020-02-07 16:29:13', '权限', '0', '0', 'ums', 'ums', '0');
+INSERT INTO `ret_menu` VALUES ('8', 7, '2020-02-07 16:29:51', '用户列表', '1', '0', 'admin', 'ums-admin', '0');
+INSERT INTO `ret_menu` VALUES ('9', 7, '2020-02-07 16:30:13', '角色列表', '1', '0', 'role', 'ums-role', '0');
+INSERT INTO `ret_menu` VALUES ('10', 7, '2020-02-07 16:30:53', '菜单列表', '1', '0', 'menu', 'ums-menu', '0');
+INSERT INTO `ret_menu` VALUES ('11', 7, '2020-02-07 16:31:13', '资源列表', '1', '0', 'resource', 'ums-resource', '0');
+INSERT INTO `ret_menu` VALUES ('12', 0, '2020-02-07 16:31:13', '营销', '0', '0', 'sms', 'sms', '0');
+INSERT INTO `ret_menu` VALUES ('13', 12, '2020-02-07 16:31:13', '反馈列表', '1', '0', 'feedback', 'sms-feedback', '0');
+INSERT INTO `ret_menu` VALUES ('14', 0, '2020-02-07 16:31:13', '工厂', '0', '0', 'fms', 'fms', '0');
+INSERT INTO `ret_menu` VALUES ('15', 14, '2020-02-07 16:31:13', '工厂列表', '1', '0', 'factory', 'fms-factory', '0');
+INSERT INTO `ret_menu` VALUES ('16', 14, '2020-02-07 16:31:13', '成员列表', '1', '0', 'member', 'fms-member', '0');
+INSERT INTO `ret_menu` VALUES ('17', 14, '2020-02-07 16:31:13', '权限列表', '1', '0', 'permission', 'fms-permission', '0');
+INSERT INTO `ret_menu` VALUES ('18', 14, '2020-02-07 16:31:13', '职位列表', '1', '0', 'job', 'fms-job', '0');
+INSERT INTO `ret_menu` VALUES ('19', 2, '2020-02-07 16:31:13', '材料列表', '1', '0', 'material', 'pms-material', '0');
+
 
 -- 资源表
 DROP TABLE IF EXISTS ret_resource;
@@ -556,6 +558,8 @@ INSERT `ret_product`(id, factory_id, name, batch_id)
 VALUES (15, 1, '背胶', 'A-15');
 INSERT `ret_product`(id, factory_id, name, batch_id)
 VALUES (16, 1, '不背胶', 'A-16');
+INSERT INTO `ret_product`
+VALUES ('17', '2', '烧结钕铁硼', '012022063001', '描述', '2022-06-30 13:55:49', '干燥', '10KG', '桶装', '8KG', '货车', null, null, 'S-NdFeB', null, null, null, null, null, '30%', '13%', '1%', '14%', '2.5%', null, null, null, null, null, null, null, null, null);
 
 
 -- 产品文档表
@@ -939,6 +943,8 @@ CREATE TABLE `ret_feedback_category`
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 37
   DEFAULT CHARSET = UTF8MB4 COMMENT ='反馈分类表';
+INSERT INTO ret_feedback_category(id, name, description)
+VALUES (1, 'advice', '提出的建议');
 
 
 -- 反馈表
@@ -957,3 +963,5 @@ CREATE TABLE `ret_feedback`
     CONSTRAINT PK_FEET_BACK PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = UTF8MB4 COMMENT ='反馈表';
+INSERT INTO `ret_feedback`(feedback_category_id, title, type, content)
+VALUES (1, '对首页提出的建议', 'no_type', '希望添加...')
