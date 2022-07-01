@@ -2,6 +2,82 @@ DROP DATABASE IF EXISTS rare_earth_track;
 CREATE DATABASE IF NOT EXISTS rare_earth_track;
 USE rare_earth_track;
 
+#国标参考表
+DROP TABLE IF EXISTS `ret_gb_reference`;
+CREATE TABLE `ret_gb_reference` (
+                                    `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键',
+                                    `material` varchar(255) DEFAULT NULL COMMENT '材料',
+                                    `mark` varchar(255) DEFAULT NULL COMMENT '牌号',
+                                    `component1` varchar(255) DEFAULT NULL COMMENT '成分1',
+                                    `content1` varchar(255) DEFAULT NULL COMMENT '含量1',
+                                    `component2` varchar(255) DEFAULT NULL COMMENT '成分2',
+                                    `content2` varchar(255) DEFAULT NULL COMMENT '含量2',
+                                    `component3` varchar(255) DEFAULT NULL COMMENT '成分3',
+                                    `content3` varchar(255) DEFAULT NULL COMMENT '含量3',
+                                    `component4` varchar(255) DEFAULT NULL COMMENT '成分4',
+                                    `content4` varchar(255) DEFAULT NULL COMMENT '含量4',
+                                    `component5` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '成分5',
+                                    `content5` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '含量5',
+                                    PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT = '国标参考表';
+
+-- ----------------------------
+-- Records of ret_gb_reference
+-- ----------------------------
+INSERT INTO `ret_gb_reference` VALUES ('1', '烧结钕铁硼永磁材料', 'S-NdFeB', '钕Nd', '20%~35%', '钴Co', '0~15%', '硼B', '0.8%~1.3%', 'Dy、Tb、Pr等 ', '0~15%', '其他元素', '0~3%');
+INSERT INTO `ret_gb_reference` VALUES ('2', '粘结钕铁硼永磁材料\r', 'B-NdFeB', '钕Nd', '20%~35%', '钴Co', '0~15%', '硼B', '0.8%~1.3%', 'Dy、Tb、Pr等 ', '0~15%', '其他元素', '0~3%');
+INSERT INTO `ret_gb_reference` VALUES ('3', '金属钕', '044030', 'RE', '≥99.5%', 'Nd/RE', '≥99.9%', '稀土杂质', '0.1%', '非稀土杂质', '0.24%', null, null);
+INSERT INTO `ret_gb_reference` VALUES ('4', '金属钕', '044025', 'RE', '≥99.0%', 'Nd/RE', '≥99.5%', '稀土杂质', '0.5%', '非稀土杂质', '0.68%', null, null);
+INSERT INTO `ret_gb_reference` VALUES ('5', '金属钕', '044020A', 'RE', '≥99.0%', 'Nd/RE', '≥99.0%', '稀土杂质', '1.0%', '非稀土杂质', '0.92%', '', '');
+INSERT INTO `ret_gb_reference` VALUES ('6', '金属钕', '044020B', 'RE', '≥99.5%', 'Nd/RE', '≥99.0%', '稀土杂质', '1.0%', '非稀土杂质', '1.45%', '', '');
+INSERT INTO `ret_gb_reference` VALUES ('7', '氧化钕', '041045', 'REO', '≥99.0%', 'Nd2O3/REO', '≥99.995%', 'Nd2O3', '余量', '稀土杂质', '0.006%', '非稀土杂质', '0.0665%');
+INSERT INTO `ret_gb_reference` VALUES ('8', '氧化钕', '041040', 'REO', '≥99.0%', 'Nd2O3/REO', '≥99.99%', 'Nd2O3', '余量', '稀土杂质', '0.01%', '非稀土杂质', '0.091%');
+INSERT INTO `ret_gb_reference` VALUES ('9', '氧化钕', '041035 ', 'REO', '≥99.0%', 'Nd2O3/REO', '≥99.95%', 'Nd2O3', '余量', '稀土杂质', '0.05%', '非稀土杂质', '0.145%');
+INSERT INTO `ret_gb_reference` VALUES ('10', '氧化钕', '041030 ', 'REO', '≥99.0%', 'Nd2O3/REO', '≥99.9%', 'Nd2O3', '余量', '稀土杂质', '0.1%', '非稀土杂质', '0.18%');
+INSERT INTO `ret_gb_reference` VALUES ('11', '氧化钕', '041025', 'REO', '≥99.0%', 'Nd2O3/REO', '≥99.5%', 'Nd2O3', '余量', '稀土杂质', '0.5%', '非稀土杂质', '0.21%');
+INSERT INTO `ret_gb_reference` VALUES ('12', '氧化钕', '041020', 'REO', '≥99.0%', 'Nd2O3/REO', '≥99.0%', 'Nd2O3', '余量', '稀土杂质', '1.0%', '非稀土杂质', '0.32%');
+INSERT INTO `ret_gb_reference` VALUES ('13', '金属镝', '104040', 'RE', '≥99.0%', 'Dy/RE', '≥99.99%', '稀土杂质', '0.01%', '非稀土杂质', '0.12%', null, null);
+INSERT INTO `ret_gb_reference` VALUES ('14', '金属镝', '104035', 'RE', '≥99.0%', 'Dy/RE', '≥99.95%', '稀土杂质', '0.05%', '非稀土杂质', '0.19%', '', '');
+INSERT INTO `ret_gb_reference` VALUES ('15', '金属镝', '104030', 'RE', '≥99.0%', 'Dy/RE', '≥99.9%', '稀土杂质', '0.1%', '非稀土杂质', '0.79%', '', '');
+INSERT INTO `ret_gb_reference` VALUES ('16', '金属镝', '104025', 'RE', '≥99.0%', 'Dy/RE', '≥99.5%', '稀土杂质', '0.5%', '非稀土杂质', '0.95%', '', '');
+INSERT INTO `ret_gb_reference` VALUES ('17', '金属镝', '104020', 'RE', '≥98.0%', 'Dy/RE', '≥99.0%', '稀土杂质', '1.0%', '非稀土杂质', '1.23%', '', '');
+INSERT INTO `ret_gb_reference` VALUES ('18', '氧化镝', '101040', 'REO', '≥99.0%', 'Dy2O3/RE', '≥99.99%', '稀土杂质', '0.01%', '非稀土杂质', '0.0305%', null, null);
+INSERT INTO `ret_gb_reference` VALUES ('19', '氧化镝', '101035', 'REO', '≥99.0%', 'Dy2O3/RE', '≥99.95%', '稀土杂质', '0.05%', '非稀土杂质', '0.051%', '', '');
+INSERT INTO `ret_gb_reference` VALUES ('20', '氧化镝', '101030', 'REO', '≥99.0%', 'Dy2O3/RE', '≥99.9%', '稀土杂质', '0.1%', '非稀土杂质', '0.072%', '', '');
+INSERT INTO `ret_gb_reference` VALUES ('21', '氧化镝', '101025', 'REO', '≥99.0%', 'Dy2O3/RE', '≥99.5%', '稀土杂质', '0.5%', '非稀土杂质', '0.113%', '', '');
+INSERT INTO `ret_gb_reference` VALUES ('22', '氧化镝', '101020', 'REO', '≥99.0%', 'Dy2O3/RE', '≥99.0%', '稀土杂质', '1.0%', '非稀土杂质', '0.155%', '', '');
+
+#文件表
+DROP TABLE IF EXISTS `ret_files`;
+CREATE TABLE `ret_files`  (
+                              `id` int NOT NULL AUTO_INCREMENT COMMENT '文件id',
+                              `files_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '文件名称',
+                              `type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '文件类型',
+                              `size` double(32, 2) NULL DEFAULT NULL COMMENT '文件大小（KB）',
+                              `url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '下载链接',
+                              `md5` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '文件md5',
+                              `enable` tinyint NULL DEFAULT 1 COMMENT '链接是否可用（1：是 0：否）',
+                              `is_delete` tinyint NOT NULL DEFAULT 0 COMMENT '是否删除（1：是 0：否）',
+                              `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP  COMMENT '创建时间',
+                              `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                              PRIMARY KEY (`id`) USING BTREE,
+                              INDEX `name`(`files_name`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '文件表' ROW_FORMAT = Dynamic;
+
+#厂家入驻申请表
+DROP TABLE IF EXISTS `ret_apply_factory`;
+CREATE TABLE `ret_apply_factory`
+(
+    `id`          bigint(20) NOT NULL AUTO_INCREMENT,
+    `name`        varchar(64)  NULL COMMENT '工厂名',
+    `phone`       varchar(64)  NULL COMMENT '联系电话',
+    `email`       varchar(100) NULL COMMENT '邮箱',
+    `address`     varchar(100) NULL COMMENT '地址',
+    `description` varchar(50) NULL COMMENT '描述',
+    `apply_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '申请时间',
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='厂家入驻申请表';
+
 # 菜单表
 DROP TABLE IF EXISTS `ret_menu`;
 CREATE TABLE `ret_menu` (
@@ -144,6 +220,7 @@ INSERT INTO ret_role_menu_relation(role_id, menu_id)
 VALUES ('1', '18');
 INSERT INTO ret_role_menu_relation(role_id, menu_id)
 VALUES ('1', '19');
+
 -- 资源角色关系表
 DROP TABLE IF EXISTS ret_role_resource_relation;
 CREATE TABLE IF NOT EXISTS ret_role_resource_relation
@@ -424,50 +501,65 @@ CREATE TABLE `ret_product`
     `transport_log`        varchar(256) DEFAULT NULL COMMENT '运输标志',
     `pic`                  varchar(256) DEFAULT NULL COMMENT '图片',
     `quality_certificate` varchar(256) NULL COMMENT '质量证明书',
-    `standard_number` varchar(256) NULL COMMENT '标准编号',
+    `standard_number` varchar(256) NULL COMMENT '牌号',
     `purity`               varchar(20)  DEFAULT NULL COMMENT '纯度',
     `production_equipment` varchar(100) DEFAULT NULL COMMENT '生产设备',
     `material_ratio`       varchar(50)  DEFAULT NULL COMMENT '物料配比',
     `extraction_unit`      varchar(50)  DEFAULT NULL COMMENT '提取单位',
     `album_pics`           varchar(255) DEFAULT NULL COMMENT '画册图片，连产品图片限制为5张，以逗号分割',
-    `chemical_composition` varchar(255) NULL COMMENT '化学成分',
+    `Nd` varchar(255) DEFAULT NULL COMMENT '钕成分',
+    `Co` varchar(255) DEFAULT NULL COMMENT '钴成分',
+    `B` varchar(255) DEFAULT NULL COMMENT '硼成分',
+    `Dy_Tb_Pr` varchar(255) DEFAULT NULL COMMENT '镝铽镨成分',
+    `other` varchar(255) DEFAULT NULL COMMENT '其他成分',
+    `RE` varchar(255) DEFAULT NULL COMMENT '稀土成分',
+    `Nd_RE` varchar(255) DEFAULT NULL COMMENT '钕稀土混合成分',
+    `Dy_RE` varchar(255) DEFAULT NULL COMMENT '镝稀土混合成分',
+    `REO` varchar(255) DEFAULT NULL COMMENT '稀土氧化成分',
+    `Nd2O3_REO` varchar(255) DEFAULT NULL COMMENT '氧化钕稀土混合成分',
+    `Nd2O3` varchar(255) DEFAULT NULL COMMENT '氧化钕成分',
+    `Dy2O3_REO` varchar(255) DEFAULT NULL COMMENT '氧化镝稀土混合成分',
+    `RE_impurities` varchar(255) DEFAULT NULL COMMENT '稀土杂质',
+    `non_RE_impurities` varchar(255) DEFAULT NULL COMMENT '非稀土杂质',
     CONSTRAINT PK_PRODUCT PRIMARY KEY (`id`),
     FOREIGN KEY (`factory_id`) REFERENCES `ret_factory` (`id`)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 37
   DEFAULT CHARSET = UTF8MB4 COMMENT ='产品信息';
 INSERT `ret_product`(id, factory_id, name, batch_id)
-VALUES (1, 1, '烧结钕铁硼', 'A-10');
+VALUES (1, 1, '烧结钕铁硼', 'A-01');
 INSERT `ret_product`(id, factory_id, name, batch_id)
-VALUES (2, 1, '粘结钕铁硼', 'A-10');
+VALUES (2, 1, '粘结钕铁硼', 'A-02');
 INSERT `ret_product`(id, factory_id, name, batch_id)
-VALUES (3, 1, '注塑钕铁硼', 'A-10');
+VALUES (3, 1, '注塑钕铁硼', 'A-03');
 INSERT `ret_product`(id, factory_id, name, batch_id)
-VALUES (4, 1, '钐钴5型', 'A-10');
+VALUES (4, 1, '钐钴5型', 'A-04');
 INSERT `ret_product`(id, factory_id, name, batch_id)
-VALUES (5, 1, '钐钴17型', 'A-10');
+VALUES (5, 1, '钐钴17型', 'A-05');
 INSERT `ret_product`(id, factory_id, name, batch_id)
-VALUES (6, 1, '烧结铝镍钴', 'A-10');
+VALUES (6, 1, '烧结铝镍钴', 'A-06');
 INSERT `ret_product`(id, factory_id, name, batch_id)
-VALUES (7, 1, '铸造铝镍钴', 'A-10');
+VALUES (7, 1, '铸造铝镍钴', 'A-07');
 INSERT `ret_product`(id, factory_id, name, batch_id)
-VALUES (8, 1, '永磁铁氧体', 'A-10');
+VALUES (8, 1, '永磁铁氧体', 'A-08');
 INSERT `ret_product`(id, factory_id, name, batch_id)
-VALUES (9, 1, '软磁铁氧体', 'A-10');
+VALUES (9, 1, '软磁铁氧体', 'A-09');
 INSERT `ret_product`(id, factory_id, name, batch_id)
 VALUES (10, 1, '旋磁铁氧体', 'A-10');
 INSERT `ret_product`(id, factory_id, name, batch_id)
-VALUES (11, 1, '同性橡胶磁', 'A-10');
+VALUES (11, 1, '同性橡胶磁', 'A-11');
 INSERT `ret_product`(id, factory_id, name, batch_id)
-VALUES (12, 1, '异性橡胶磁', 'A-10');
+VALUES (12, 1, '异性橡胶磁', 'A-12');
 INSERT `ret_product`(id, factory_id, name, batch_id)
-VALUES (13, 1, '单面磁', 'A-10');
+VALUES (13, 1, '单面磁', 'A-13');
 INSERT `ret_product`(id, factory_id, name, batch_id)
-VALUES (14, 1, '双面磁', 'A-10');
+VALUES (14, 1, '双面磁', 'A-14');
 INSERT `ret_product`(id, factory_id, name, batch_id)
-VALUES (15, 1, '背胶', 'A-10');
+VALUES (15, 1, '背胶', 'A-15');
 INSERT `ret_product`(id, factory_id, name, batch_id)
-VALUES (16, 1, '不背胶', 'A-10');
+VALUES (16, 1, '不背胶', 'A-16');
+INSERT INTO `ret_product`
+VALUES ('17', '2', '烧结钕铁硼', '012022063001', '描述', '2022-06-30 13:55:49', '干燥', '10KG', '桶装', '8KG', '货车', null, null, 'S-NdFeB', null, null, null, null, null, '30%', '13%', '1%', '14%', '2.5%', null, null, null, null, null, null, null, null, null);
 
 
 -- 产品文档表
