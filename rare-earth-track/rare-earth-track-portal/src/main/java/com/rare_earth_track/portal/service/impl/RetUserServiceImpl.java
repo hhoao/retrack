@@ -1,11 +1,12 @@
 package com.rare_earth_track.portal.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.github.pagehelper.PageHelper;
 import com.rare_earth_track.admin.bean.*;
+import com.rare_earth_track.portal.service.*;
 import com.rare_earth_track.common.exception.Asserts;
 import com.rare_earth_track.mgb.mapper.RetUserMapper;
 import com.rare_earth_track.mgb.model.*;
-import com.rare_earth_track.portal.service.*;
 import com.rare_earth_track.security.util.JwtTokenService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,9 +18,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * The type Ret user service.
@@ -190,7 +189,8 @@ public class RetUserServiceImpl implements RetUserService {
 
     @Override
     public RetUser getUserByIdentifier(String identifier) {
-        return getUserDetailByIdentifier(identifier).getRetUser();
+        RetUserAuth userAuth = userAuthService.getUserAuth(identifier);
+        return getUser(userAuth.getUserId());
     }
 
     @Override
@@ -199,18 +199,6 @@ public class RetUserServiceImpl implements RetUserService {
         return userDetails.getRetUser();
     }
 
-    @Override
-    public RetUserDetails getUserDetailByIdentifier(String identifier) {
-        RetUserAuth userAuth = userAuthService.getUserAuth(identifier);
-        RetUserAuth usernameAuth = userAuthService.getUserAuth(IdentifyType.username, userAuth.getIdentifier());
-        return getUserDetails(usernameAuth.getIdentifier());
-    }
-
-    @Override
-    public RetUser getUserByIndentifier(String identifier) {
-        RetUserDetails userDetailByIdentifier = getUserDetailByIdentifier(identifier);
-        return userDetailByIdentifier.getRetUser();
-    }
 
     @Override
     public void updateUser(RetUser newUser) {
@@ -325,13 +313,6 @@ public class RetUserServiceImpl implements RetUserService {
     }
 
     @Override
-    public RetUser getUserByName(String name) {
-        RetUserAuth userAuth = userAuthService.getUserAuth(IdentifyType.username, name);
-        Long userId = userAuth.getUserId();
-        return userMapper.selectByPrimaryKey(userId);
-    }
-
-    @Override
     public List<RetResource> getUserResources(Long userId) {
         RetUser user = userMapper.selectByPrimaryKey(userId);
         return roleService.getRoleResources(user.getRoleId());
@@ -395,19 +376,41 @@ public class RetUserServiceImpl implements RetUserService {
     @Override
     public RetUser getUserByAuthorization(String authorization) {
         String username = jwtTokenService.getSubjectFromAuthorization(authorization);
-        return getUserByName(username);
+        return this.getUserByUsername(username);
     }
     @Override
     public List<RetMenu> getMenusByAuthorization(String authorization) {
         String username = jwtTokenService.getSubjectFromAuthorization(authorization);
-        RetUser userByName = getUserByName(username);
+        RetUser userByName = this.getUserByUsername(username);
         return roleService.getMenus(userByName.getRoleId());
     }
 
     @Override
-    public List<RetUser> queryUsers(RetUser user, PageInfo pageInfo) {
+    public List<RetUser> queryUsers(RetUserParam userParam, PageInfo pageInfo) {
         PageHelper.startPage(pageInfo.getPageNum(), pageInfo.getPageSize());
-        return getUser(user);
+        RetUser user = new RetUser();
+        BeanUtil.copyProperties(userParam, user);
+        Long userId = null;
+        if (userParam.getEmail() != null) {
+            RetUserAuth userAuth = userAuthService.getUserAuth(userParam.getEmail());
+            userId = userAuth.getUserId();
+        }
+        if (userParam.getName() != null) {
+            RetUserAuth userAuth = userAuthService.getUserAuth(userParam.getName());
+            userId = userAuth.getUserId();
+        }
+        if (userParam.getPhone() != null) {
+            RetUserAuth userAuth = userAuthService.getUserAuth(userParam.getPhone());
+            userId = userAuth.getUserId();
+        }
+        List<RetUser> queryUsers = getUser(user);
+        if (userId == null){
+            return queryUsers;
+        }
+        Long finalUserId = userId;
+        return queryUsers.stream().
+                filter((queryUser)-> Objects.equals(queryUser.getId(), finalUserId)).
+                toList();
     }
 
     @Override

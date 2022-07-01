@@ -92,15 +92,6 @@ public interface RetUserService {
     List<RetUser> list(PageInfo pageInfo);
 
     /**
-     * 通过用户名获取用户
-     *
-     * @param name name
-     * @return user -用户
-     */
-    RetUser getUserByName(String name);
-
-
-    /**
      * Gets user by identifier.
      *
      * @param identifier the identifier
@@ -115,22 +106,6 @@ public interface RetUserService {
      * @return the user by username
      */
     RetUser getUserByUsername(String username);
-
-    /**
-     * Gets user detail by identifier.
-     *
-     * @param identifier the identifier
-     * @return the user detail by identifier
-     */
-    RetUserDetails getUserDetailByIdentifier(String identifier);
-
-    /**
-     * Gets user by indentifier.
-     *
-     * @param identifier the identifier
-     * @return the user by indentifier
-     */
-    RetUser getUserByIndentifier(String identifier);
 
     /**
      * 更新用户
@@ -262,11 +237,11 @@ public interface RetUserService {
     /**
      * Query users list.
      *
-     * @param user     the user
-     * @param pageInfo the page info
+     * @param userParam the user
+     * @param pageInfo  the page info
      * @return the list
      */
-    List<RetUser> queryUsers(RetUser user, PageInfo pageInfo);
+    List<RetUser> queryUsers(RetUserParam userParam, PageInfo pageInfo);
 
     /**
      * Gets user auths.
