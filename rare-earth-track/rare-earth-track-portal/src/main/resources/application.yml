@@ -58,3 +58,11 @@ logging:
   level:
     root: info
     com.rare_earth_track.: debug
+file:
+  upload:
+    path: F:\files\  #文件上传目标路径
+    allowTypes:             #文件上传允许的类型
+      - image/jpeg
+      - image/png
+      - image/bmp
+      - application/pdf
