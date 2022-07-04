@@ -113,7 +113,7 @@ public class RetProductExample {
 
     /**
      * ret_product
-     * @author 匡龙 2022-06-30
+     * @author 匡龙 2022-07-04
      */
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
@@ -2375,7 +2375,7 @@ public class RetProductExample {
 
     /**
      * ret_product
-     * @author 匡龙 2022-06-30
+     * @author 匡龙 2022-07-04
      */
     public static class Criterion {
         private String condition;

@@ -3,18 +3,22 @@
 <mapper namespace="com.rare_earth_track.mgb.mapper.RetGbReferenceMapper">
   <resultMap id="BaseResultMap" type="com.rare_earth_track.mgb.model.RetGbReference">
     <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="material" jdbcType="VARCHAR" property="material" />
-    <result column="mark" jdbcType="VARCHAR" property="mark" />
-    <result column="component1" jdbcType="VARCHAR" property="component1" />
-    <result column="content1" jdbcType="VARCHAR" property="content1" />
-    <result column="component2" jdbcType="VARCHAR" property="component2" />
-    <result column="content2" jdbcType="VARCHAR" property="content2" />
-    <result column="component3" jdbcType="VARCHAR" property="component3" />
-    <result column="content3" jdbcType="VARCHAR" property="content3" />
-    <result column="component4" jdbcType="VARCHAR" property="component4" />
-    <result column="content4" jdbcType="VARCHAR" property="content4" />
-    <result column="component5" jdbcType="VARCHAR" property="component5" />
-    <result column="content5" jdbcType="VARCHAR" property="content5" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="standard_number" jdbcType="VARCHAR" property="standardNumber" />
+    <result column="Nd" jdbcType="VARCHAR" property="nd" />
+    <result column="Co" jdbcType="VARCHAR" property="co" />
+    <result column="B" jdbcType="VARCHAR" property="b" />
+    <result column="Dy_Tb_Pr" jdbcType="VARCHAR" property="dyTbPr" />
+    <result column="other" jdbcType="VARCHAR" property="other" />
+    <result column="RE" jdbcType="VARCHAR" property="re" />
+    <result column="Nd_RE" jdbcType="VARCHAR" property="ndRe" />
+    <result column="Dy_RE" jdbcType="VARCHAR" property="dyRe" />
+    <result column="REO" jdbcType="VARCHAR" property="reo" />
+    <result column="Nd2O3_REO" jdbcType="VARCHAR" property="nd2o3Reo" />
+    <result column="Nd2O3" jdbcType="VARCHAR" property="nd2o3" />
+    <result column="Dy2O3_REO" jdbcType="VARCHAR" property="dy2o3Reo" />
+    <result column="RE_impurities" jdbcType="VARCHAR" property="reImpurities" />
+    <result column="non_RE_impurities" jdbcType="VARCHAR" property="nonReImpurities" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -75,8 +79,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, material, mark, component1, content1, component2, content2, component3, content3, 
-    component4, content4, component5, content5
+    id, name, standard_number, Nd, Co, B, Dy_Tb_Pr, other, RE, Nd_RE, Dy_RE, REO, Nd2O3_REO, 
+    Nd2O3, Dy2O3_REO, RE_impurities, non_RE_impurities
   </sql>
   <select id="selectByExample" parameterType="com.rare_earth_track.mgb.model.RetGbReferenceExample" resultMap="BaseResultMap">
     select
@@ -112,16 +116,16 @@
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into ret_gb_reference (material, mark, component1, 
-      content1, component2, content2, 
-      component3, content3, component4, 
-      content4, component5, content5
-      )
-    values (#{material,jdbcType=VARCHAR}, #{mark,jdbcType=VARCHAR}, #{component1,jdbcType=VARCHAR}, 
-      #{content1,jdbcType=VARCHAR}, #{component2,jdbcType=VARCHAR}, #{content2,jdbcType=VARCHAR}, 
-      #{component3,jdbcType=VARCHAR}, #{content3,jdbcType=VARCHAR}, #{component4,jdbcType=VARCHAR}, 
-      #{content4,jdbcType=VARCHAR}, #{component5,jdbcType=VARCHAR}, #{content5,jdbcType=VARCHAR}
-      )
+    insert into ret_gb_reference (name, standard_number, Nd, 
+      Co, B, Dy_Tb_Pr, other, 
+      RE, Nd_RE, Dy_RE, REO, 
+      Nd2O3_REO, Nd2O3, Dy2O3_REO, 
+      RE_impurities, non_RE_impurities)
+    values (#{name,jdbcType=VARCHAR}, #{standardNumber,jdbcType=VARCHAR}, #{nd,jdbcType=VARCHAR}, 
+      #{co,jdbcType=VARCHAR}, #{b,jdbcType=VARCHAR}, #{dyTbPr,jdbcType=VARCHAR}, #{other,jdbcType=VARCHAR}, 
+      #{re,jdbcType=VARCHAR}, #{ndRe,jdbcType=VARCHAR}, #{dyRe,jdbcType=VARCHAR}, #{reo,jdbcType=VARCHAR}, 
+      #{nd2o3Reo,jdbcType=VARCHAR}, #{nd2o3,jdbcType=VARCHAR}, #{dy2o3Reo,jdbcType=VARCHAR}, 
+      #{reImpurities,jdbcType=VARCHAR}, #{nonReImpurities,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.rare_earth_track.mgb.model.RetGbReference">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
@@ -129,79 +133,103 @@
     </selectKey>
     insert into ret_gb_reference
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="material != null">
-        material,
+      <if test="name != null">
+        name,
       </if>
-      <if test="mark != null">
-        mark,
+      <if test="standardNumber != null">
+        standard_number,
       </if>
-      <if test="component1 != null">
-        component1,
+      <if test="nd != null">
+        Nd,
       </if>
-      <if test="content1 != null">
-        content1,
+      <if test="co != null">
+        Co,
       </if>
-      <if test="component2 != null">
-        component2,
+      <if test="b != null">
+        B,
       </if>
-      <if test="content2 != null">
-        content2,
+      <if test="dyTbPr != null">
+        Dy_Tb_Pr,
       </if>
-      <if test="component3 != null">
-        component3,
+      <if test="other != null">
+        other,
       </if>
-      <if test="content3 != null">
-        content3,
+      <if test="re != null">
+        RE,
       </if>
-      <if test="component4 != null">
-        component4,
+      <if test="ndRe != null">
+        Nd_RE,
       </if>
-      <if test="content4 != null">
-        content4,
+      <if test="dyRe != null">
+        Dy_RE,
       </if>
-      <if test="component5 != null">
-        component5,
+      <if test="reo != null">
+        REO,
       </if>
-      <if test="content5 != null">
-        content5,
+      <if test="nd2o3Reo != null">
+        Nd2O3_REO,
+      </if>
+      <if test="nd2o3 != null">
+        Nd2O3,
+      </if>
+      <if test="dy2o3Reo != null">
+        Dy2O3_REO,
+      </if>
+      <if test="reImpurities != null">
+        RE_impurities,
+      </if>
+      <if test="nonReImpurities != null">
+        non_RE_impurities,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="material != null">
-        #{material,jdbcType=VARCHAR},
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
       </if>
-      <if test="mark != null">
-        #{mark,jdbcType=VARCHAR},
+      <if test="standardNumber != null">
+        #{standardNumber,jdbcType=VARCHAR},
       </if>
-      <if test="component1 != null">
-        #{component1,jdbcType=VARCHAR},
+      <if test="nd != null">
+        #{nd,jdbcType=VARCHAR},
       </if>
-      <if test="content1 != null">
-        #{content1,jdbcType=VARCHAR},
+      <if test="co != null">
+        #{co,jdbcType=VARCHAR},
       </if>
-      <if test="component2 != null">
-        #{component2,jdbcType=VARCHAR},
+      <if test="b != null">
+        #{b,jdbcType=VARCHAR},
       </if>
-      <if test="content2 != null">
-        #{content2,jdbcType=VARCHAR},
+      <if test="dyTbPr != null">
+        #{dyTbPr,jdbcType=VARCHAR},
       </if>
-      <if test="component3 != null">
-        #{component3,jdbcType=VARCHAR},
+      <if test="other != null">
+        #{other,jdbcType=VARCHAR},
       </if>
-      <if test="content3 != null">
-        #{content3,jdbcType=VARCHAR},
+      <if test="re != null">
+        #{re,jdbcType=VARCHAR},
       </if>
-      <if test="component4 != null">
-        #{component4,jdbcType=VARCHAR},
+      <if test="ndRe != null">
+        #{ndRe,jdbcType=VARCHAR},
       </if>
-      <if test="content4 != null">
-        #{content4,jdbcType=VARCHAR},
+      <if test="dyRe != null">
+        #{dyRe,jdbcType=VARCHAR},
       </if>
-      <if test="component5 != null">
-        #{component5,jdbcType=VARCHAR},
+      <if test="reo != null">
+        #{reo,jdbcType=VARCHAR},
       </if>
-      <if test="content5 != null">
-        #{content5,jdbcType=VARCHAR},
+      <if test="nd2o3Reo != null">
+        #{nd2o3Reo,jdbcType=VARCHAR},
+      </if>
+      <if test="nd2o3 != null">
+        #{nd2o3,jdbcType=VARCHAR},
+      </if>
+      <if test="dy2o3Reo != null">
+        #{dy2o3Reo,jdbcType=VARCHAR},
+      </if>
+      <if test="reImpurities != null">
+        #{reImpurities,jdbcType=VARCHAR},
+      </if>
+      <if test="nonReImpurities != null">
+        #{nonReImpurities,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -217,41 +245,53 @@
       <if test="row.id != null">
         id = #{row.id,jdbcType=BIGINT},
       </if>
-      <if test="row.material != null">
-        material = #{row.material,jdbcType=VARCHAR},
+      <if test="row.name != null">
+        name = #{row.name,jdbcType=VARCHAR},
       </if>
-      <if test="row.mark != null">
-        mark = #{row.mark,jdbcType=VARCHAR},
+      <if test="row.standardNumber != null">
+        standard_number = #{row.standardNumber,jdbcType=VARCHAR},
       </if>
-      <if test="row.component1 != null">
-        component1 = #{row.component1,jdbcType=VARCHAR},
+      <if test="row.nd != null">
+        Nd = #{row.nd,jdbcType=VARCHAR},
       </if>
-      <if test="row.content1 != null">
-        content1 = #{row.content1,jdbcType=VARCHAR},
+      <if test="row.co != null">
+        Co = #{row.co,jdbcType=VARCHAR},
       </if>
-      <if test="row.component2 != null">
-        component2 = #{row.component2,jdbcType=VARCHAR},
+      <if test="row.b != null">
+        B = #{row.b,jdbcType=VARCHAR},
       </if>
-      <if test="row.content2 != null">
-        content2 = #{row.content2,jdbcType=VARCHAR},
+      <if test="row.dyTbPr != null">
+        Dy_Tb_Pr = #{row.dyTbPr,jdbcType=VARCHAR},
       </if>
-      <if test="row.component3 != null">
-        component3 = #{row.component3,jdbcType=VARCHAR},
+      <if test="row.other != null">
+        other = #{row.other,jdbcType=VARCHAR},
       </if>
-      <if test="row.content3 != null">
-        content3 = #{row.content3,jdbcType=VARCHAR},
+      <if test="row.re != null">
+        RE = #{row.re,jdbcType=VARCHAR},
       </if>
-      <if test="row.component4 != null">
-        component4 = #{row.component4,jdbcType=VARCHAR},
+      <if test="row.ndRe != null">
+        Nd_RE = #{row.ndRe,jdbcType=VARCHAR},
       </if>
-      <if test="row.content4 != null">
-        content4 = #{row.content4,jdbcType=VARCHAR},
+      <if test="row.dyRe != null">
+        Dy_RE = #{row.dyRe,jdbcType=VARCHAR},
       </if>
-      <if test="row.component5 != null">
-        component5 = #{row.component5,jdbcType=VARCHAR},
+      <if test="row.reo != null">
+        REO = #{row.reo,jdbcType=VARCHAR},
       </if>
-      <if test="row.content5 != null">
-        content5 = #{row.content5,jdbcType=VARCHAR},
+      <if test="row.nd2o3Reo != null">
+        Nd2O3_REO = #{row.nd2o3Reo,jdbcType=VARCHAR},
+      </if>
+      <if test="row.nd2o3 != null">
+        Nd2O3 = #{row.nd2o3,jdbcType=VARCHAR},
+      </if>
+      <if test="row.dy2o3Reo != null">
+        Dy2O3_REO = #{row.dy2o3Reo,jdbcType=VARCHAR},
+      </if>
+      <if test="row.reImpurities != null">
+        RE_impurities = #{row.reImpurities,jdbcType=VARCHAR},
+      </if>
+      <if test="row.nonReImpurities != null">
+        non_RE_impurities = #{row.nonReImpurities,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="example != null">
@@ -261,18 +301,22 @@
   <update id="updateByExample" parameterType="map">
     update ret_gb_reference
     set id = #{row.id,jdbcType=BIGINT},
-      material = #{row.material,jdbcType=VARCHAR},
-      mark = #{row.mark,jdbcType=VARCHAR},
-      component1 = #{row.component1,jdbcType=VARCHAR},
-      content1 = #{row.content1,jdbcType=VARCHAR},
-      component2 = #{row.component2,jdbcType=VARCHAR},
-      content2 = #{row.content2,jdbcType=VARCHAR},
-      component3 = #{row.component3,jdbcType=VARCHAR},
-      content3 = #{row.content3,jdbcType=VARCHAR},
-      component4 = #{row.component4,jdbcType=VARCHAR},
-      content4 = #{row.content4,jdbcType=VARCHAR},
-      component5 = #{row.component5,jdbcType=VARCHAR},
-      content5 = #{row.content5,jdbcType=VARCHAR}
+      name = #{row.name,jdbcType=VARCHAR},
+      standard_number = #{row.standardNumber,jdbcType=VARCHAR},
+      Nd = #{row.nd,jdbcType=VARCHAR},
+      Co = #{row.co,jdbcType=VARCHAR},
+      B = #{row.b,jdbcType=VARCHAR},
+      Dy_Tb_Pr = #{row.dyTbPr,jdbcType=VARCHAR},
+      other = #{row.other,jdbcType=VARCHAR},
+      RE = #{row.re,jdbcType=VARCHAR},
+      Nd_RE = #{row.ndRe,jdbcType=VARCHAR},
+      Dy_RE = #{row.dyRe,jdbcType=VARCHAR},
+      REO = #{row.reo,jdbcType=VARCHAR},
+      Nd2O3_REO = #{row.nd2o3Reo,jdbcType=VARCHAR},
+      Nd2O3 = #{row.nd2o3,jdbcType=VARCHAR},
+      Dy2O3_REO = #{row.dy2o3Reo,jdbcType=VARCHAR},
+      RE_impurities = #{row.reImpurities,jdbcType=VARCHAR},
+      non_RE_impurities = #{row.nonReImpurities,jdbcType=VARCHAR}
     <if test="example != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -280,59 +324,75 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.rare_earth_track.mgb.model.RetGbReference">
     update ret_gb_reference
     <set>
-      <if test="material != null">
-        material = #{material,jdbcType=VARCHAR},
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="mark != null">
-        mark = #{mark,jdbcType=VARCHAR},
+      <if test="standardNumber != null">
+        standard_number = #{standardNumber,jdbcType=VARCHAR},
       </if>
-      <if test="component1 != null">
-        component1 = #{component1,jdbcType=VARCHAR},
+      <if test="nd != null">
+        Nd = #{nd,jdbcType=VARCHAR},
       </if>
-      <if test="content1 != null">
-        content1 = #{content1,jdbcType=VARCHAR},
+      <if test="co != null">
+        Co = #{co,jdbcType=VARCHAR},
       </if>
-      <if test="component2 != null">
-        component2 = #{component2,jdbcType=VARCHAR},
+      <if test="b != null">
+        B = #{b,jdbcType=VARCHAR},
       </if>
-      <if test="content2 != null">
-        content2 = #{content2,jdbcType=VARCHAR},
+      <if test="dyTbPr != null">
+        Dy_Tb_Pr = #{dyTbPr,jdbcType=VARCHAR},
       </if>
-      <if test="component3 != null">
-        component3 = #{component3,jdbcType=VARCHAR},
+      <if test="other != null">
+        other = #{other,jdbcType=VARCHAR},
       </if>
-      <if test="content3 != null">
-        content3 = #{content3,jdbcType=VARCHAR},
+      <if test="re != null">
+        RE = #{re,jdbcType=VARCHAR},
       </if>
-      <if test="component4 != null">
-        component4 = #{component4,jdbcType=VARCHAR},
+      <if test="ndRe != null">
+        Nd_RE = #{ndRe,jdbcType=VARCHAR},
       </if>
-      <if test="content4 != null">
-        content4 = #{content4,jdbcType=VARCHAR},
+      <if test="dyRe != null">
+        Dy_RE = #{dyRe,jdbcType=VARCHAR},
       </if>
-      <if test="component5 != null">
-        component5 = #{component5,jdbcType=VARCHAR},
+      <if test="reo != null">
+        REO = #{reo,jdbcType=VARCHAR},
       </if>
-      <if test="content5 != null">
-        content5 = #{content5,jdbcType=VARCHAR},
+      <if test="nd2o3Reo != null">
+        Nd2O3_REO = #{nd2o3Reo,jdbcType=VARCHAR},
+      </if>
+      <if test="nd2o3 != null">
+        Nd2O3 = #{nd2o3,jdbcType=VARCHAR},
+      </if>
+      <if test="dy2o3Reo != null">
+        Dy2O3_REO = #{dy2o3Reo,jdbcType=VARCHAR},
+      </if>
+      <if test="reImpurities != null">
+        RE_impurities = #{reImpurities,jdbcType=VARCHAR},
+      </if>
+      <if test="nonReImpurities != null">
+        non_RE_impurities = #{nonReImpurities,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.rare_earth_track.mgb.model.RetGbReference">
     update ret_gb_reference
-    set material = #{material,jdbcType=VARCHAR},
-      mark = #{mark,jdbcType=VARCHAR},
-      component1 = #{component1,jdbcType=VARCHAR},
-      content1 = #{content1,jdbcType=VARCHAR},
-      component2 = #{component2,jdbcType=VARCHAR},
-      content2 = #{content2,jdbcType=VARCHAR},
-      component3 = #{component3,jdbcType=VARCHAR},
-      content3 = #{content3,jdbcType=VARCHAR},
-      component4 = #{component4,jdbcType=VARCHAR},
-      content4 = #{content4,jdbcType=VARCHAR},
-      component5 = #{component5,jdbcType=VARCHAR},
-      content5 = #{content5,jdbcType=VARCHAR}
+    set name = #{name,jdbcType=VARCHAR},
+      standard_number = #{standardNumber,jdbcType=VARCHAR},
+      Nd = #{nd,jdbcType=VARCHAR},
+      Co = #{co,jdbcType=VARCHAR},
+      B = #{b,jdbcType=VARCHAR},
+      Dy_Tb_Pr = #{dyTbPr,jdbcType=VARCHAR},
+      other = #{other,jdbcType=VARCHAR},
+      RE = #{re,jdbcType=VARCHAR},
+      Nd_RE = #{ndRe,jdbcType=VARCHAR},
+      Dy_RE = #{dyRe,jdbcType=VARCHAR},
+      REO = #{reo,jdbcType=VARCHAR},
+      Nd2O3_REO = #{nd2o3Reo,jdbcType=VARCHAR},
+      Nd2O3 = #{nd2o3,jdbcType=VARCHAR},
+      Dy2O3_REO = #{dy2o3Reo,jdbcType=VARCHAR},
+      RE_impurities = #{reImpurities,jdbcType=VARCHAR},
+      non_RE_impurities = #{nonReImpurities,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

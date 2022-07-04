@@ -2,6 +2,7 @@ package com.rare_earth_track.portal.service;
 
 import com.rare_earth_track.admin.bean.PageInfo;
 import com.rare_earth_track.admin.bean.RetProductParam;
+import com.rare_earth_track.mgb.model.RetGbReference;
 import com.rare_earth_track.mgb.model.RetProduct;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -92,4 +93,18 @@ public interface RetProductService {
      * @param product the product
      */
     void deleteProducts(RetProduct product);
+
+    /**
+     * 通过牌号查询国标参考信息
+     * @param standardNumber
+     * @return RetGbReference
+     */
+    RetGbReference getGbReferenceByStandardNumber(String standardNumber);
+
+    /**
+     * 分页获取国标参考信息
+     * @param pageInfo
+     * @return list
+     */
+    List<RetGbReference> listGbReference(PageInfo pageInfo);
 }

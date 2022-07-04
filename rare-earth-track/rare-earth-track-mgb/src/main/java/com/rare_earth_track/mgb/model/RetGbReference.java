@@ -6,48 +6,60 @@ import java.io.Serializable;
 /**
  * 国标参考
  * @author 匡龙 
- * @date 2022-06-30
+ * @date 2022-07-04
  */
 @Schema(description = "国标参考")
 public class RetGbReference implements Serializable {
     @Schema(description = "主键")
     private Long id;
 
-    @Schema(description = "材料")
-    private String material;
+    @Schema(description = "材料名称")
+    private String name;
 
     @Schema(description = "牌号")
-    private String mark;
+    private String standardNumber;
 
-    @Schema(description = "成分1")
-    private String component1;
+    @Schema(description = "钕成分")
+    private String nd;
 
-    @Schema(description = "含量1")
-    private String content1;
+    @Schema(description = "钴成分")
+    private String co;
 
-    @Schema(description = "成分2")
-    private String component2;
+    @Schema(description = "硼成分")
+    private String b;
 
-    @Schema(description = "含量2")
-    private String content2;
+    @Schema(description = "镝铽镨成分")
+    private String dyTbPr;
 
-    @Schema(description = "成分3")
-    private String component3;
+    @Schema(description = "其他成分")
+    private String other;
 
-    @Schema(description = "含量3")
-    private String content3;
+    @Schema(description = "稀土成分")
+    private String re;
 
-    @Schema(description = "成分4")
-    private String component4;
+    @Schema(description = "钕稀土混合成分")
+    private String ndRe;
 
-    @Schema(description = "含量4")
-    private String content4;
+    @Schema(description = "镝稀土混合成分")
+    private String dyRe;
 
-    @Schema(description = "成分5")
-    private String component5;
+    @Schema(description = "稀土氧化成分")
+    private String reo;
 
-    @Schema(description = "含量5")
-    private String content5;
+    @Schema(description = "氧化钕稀土混合成分")
+    private String nd2o3Reo;
+
+    @Schema(description = "氧化钕成分")
+    private String nd2o3;
+
+    @Schema(description = "氧化镝稀土混合成分")
+    private String dy2o3Reo;
+
+    @Schema(description = "稀土杂质")
+    private String reImpurities;
+
+    @Schema(description = "非稀土杂质")
+    private String nonReImpurities;
 
     private static final long serialVersionUID = 1L;
 
@@ -68,195 +80,259 @@ public class RetGbReference implements Serializable {
     }
 
     /**
-     * 材料
-     * @return material 材料
+     * 材料名称
+     * @return name 材料名称
      */
-    public String getMaterial() {
-        return material;
+    public String getName() {
+        return name;
     }
 
     /**
-     * 材料
-     * @param material 材料
+     * 材料名称
+     * @param name 材料名称
      */
-    public void setMaterial(String material) {
-        this.material = material;
-    }
-
-    /**
-     * 牌号
-     * @return mark 牌号
-     */
-    public String getMark() {
-        return mark;
+    public void setName(String name) {
+        this.name = name;
     }
 
     /**
      * 牌号
-     * @param mark 牌号
+     * @return standard_number 牌号
      */
-    public void setMark(String mark) {
-        this.mark = mark;
+    public String getStandardNumber() {
+        return standardNumber;
     }
 
     /**
-     * 成分1
-     * @return component1 成分1
+     * 牌号
+     * @param standardNumber 牌号
      */
-    public String getComponent1() {
-        return component1;
+    public void setStandardNumber(String standardNumber) {
+        this.standardNumber = standardNumber;
     }
 
     /**
-     * 成分1
-     * @param component1 成分1
+     * 钕成分
+     * @return Nd 钕成分
      */
-    public void setComponent1(String component1) {
-        this.component1 = component1;
+    public String getNd() {
+        return nd;
     }
 
     /**
-     * 含量1
-     * @return content1 含量1
+     * 钕成分
+     * @param nd 钕成分
      */
-    public String getContent1() {
-        return content1;
+    public void setNd(String nd) {
+        this.nd = nd;
     }
 
     /**
-     * 含量1
-     * @param content1 含量1
+     * 钴成分
+     * @return Co 钴成分
      */
-    public void setContent1(String content1) {
-        this.content1 = content1;
+    public String getCo() {
+        return co;
     }
 
     /**
-     * 成分2
-     * @return component2 成分2
+     * 钴成分
+     * @param co 钴成分
      */
-    public String getComponent2() {
-        return component2;
+    public void setCo(String co) {
+        this.co = co;
     }
 
     /**
-     * 成分2
-     * @param component2 成分2
+     * 硼成分
+     * @return B 硼成分
      */
-    public void setComponent2(String component2) {
-        this.component2 = component2;
+    public String getB() {
+        return b;
     }
 
     /**
-     * 含量2
-     * @return content2 含量2
+     * 硼成分
+     * @param b 硼成分
      */
-    public String getContent2() {
-        return content2;
+    public void setB(String b) {
+        this.b = b;
     }
 
     /**
-     * 含量2
-     * @param content2 含量2
+     * 镝铽镨成分
+     * @return Dy_Tb_Pr 镝铽镨成分
      */
-    public void setContent2(String content2) {
-        this.content2 = content2;
+    public String getDyTbPr() {
+        return dyTbPr;
     }
 
     /**
-     * 成分3
-     * @return component3 成分3
+     * 镝铽镨成分
+     * @param dyTbPr 镝铽镨成分
      */
-    public String getComponent3() {
-        return component3;
+    public void setDyTbPr(String dyTbPr) {
+        this.dyTbPr = dyTbPr;
     }
 
     /**
-     * 成分3
-     * @param component3 成分3
+     * 其他成分
+     * @return other 其他成分
      */
-    public void setComponent3(String component3) {
-        this.component3 = component3;
+    public String getOther() {
+        return other;
     }
 
     /**
-     * 含量3
-     * @return content3 含量3
+     * 其他成分
+     * @param other 其他成分
      */
-    public String getContent3() {
-        return content3;
+    public void setOther(String other) {
+        this.other = other;
     }
 
     /**
-     * 含量3
-     * @param content3 含量3
+     * 稀土成分
+     * @return RE 稀土成分
      */
-    public void setContent3(String content3) {
-        this.content3 = content3;
+    public String getRe() {
+        return re;
     }
 
     /**
-     * 成分4
-     * @return component4 成分4
+     * 稀土成分
+     * @param re 稀土成分
      */
-    public String getComponent4() {
-        return component4;
+    public void setRe(String re) {
+        this.re = re;
     }
 
     /**
-     * 成分4
-     * @param component4 成分4
+     * 钕稀土混合成分
+     * @return Nd_RE 钕稀土混合成分
      */
-    public void setComponent4(String component4) {
-        this.component4 = component4;
+    public String getNdRe() {
+        return ndRe;
     }
 
     /**
-     * 含量4
-     * @return content4 含量4
+     * 钕稀土混合成分
+     * @param ndRe 钕稀土混合成分
      */
-    public String getContent4() {
-        return content4;
+    public void setNdRe(String ndRe) {
+        this.ndRe = ndRe;
     }
 
     /**
-     * 含量4
-     * @param content4 含量4
+     * 镝稀土混合成分
+     * @return Dy_RE 镝稀土混合成分
      */
-    public void setContent4(String content4) {
-        this.content4 = content4;
+    public String getDyRe() {
+        return dyRe;
     }
 
     /**
-     * 成分5
-     * @return component5 成分5
+     * 镝稀土混合成分
+     * @param dyRe 镝稀土混合成分
      */
-    public String getComponent5() {
-        return component5;
+    public void setDyRe(String dyRe) {
+        this.dyRe = dyRe;
     }
 
     /**
-     * 成分5
-     * @param component5 成分5
+     * 稀土氧化成分
+     * @return REO 稀土氧化成分
      */
-    public void setComponent5(String component5) {
-        this.component5 = component5;
+    public String getReo() {
+        return reo;
     }
 
     /**
-     * 含量5
-     * @return content5 含量5
+     * 稀土氧化成分
+     * @param reo 稀土氧化成分
      */
-    public String getContent5() {
-        return content5;
+    public void setReo(String reo) {
+        this.reo = reo;
     }
 
     /**
-     * 含量5
-     * @param content5 含量5
+     * 氧化钕稀土混合成分
+     * @return Nd2O3_REO 氧化钕稀土混合成分
      */
-    public void setContent5(String content5) {
-        this.content5 = content5;
+    public String getNd2o3Reo() {
+        return nd2o3Reo;
+    }
+
+    /**
+     * 氧化钕稀土混合成分
+     * @param nd2o3Reo 氧化钕稀土混合成分
+     */
+    public void setNd2o3Reo(String nd2o3Reo) {
+        this.nd2o3Reo = nd2o3Reo;
+    }
+
+    /**
+     * 氧化钕成分
+     * @return Nd2O3 氧化钕成分
+     */
+    public String getNd2o3() {
+        return nd2o3;
+    }
+
+    /**
+     * 氧化钕成分
+     * @param nd2o3 氧化钕成分
+     */
+    public void setNd2o3(String nd2o3) {
+        this.nd2o3 = nd2o3;
+    }
+
+    /**
+     * 氧化镝稀土混合成分
+     * @return Dy2O3_REO 氧化镝稀土混合成分
+     */
+    public String getDy2o3Reo() {
+        return dy2o3Reo;
+    }
+
+    /**
+     * 氧化镝稀土混合成分
+     * @param dy2o3Reo 氧化镝稀土混合成分
+     */
+    public void setDy2o3Reo(String dy2o3Reo) {
+        this.dy2o3Reo = dy2o3Reo;
+    }
+
+    /**
+     * 稀土杂质
+     * @return RE_impurities 稀土杂质
+     */
+    public String getReImpurities() {
+        return reImpurities;
+    }
+
+    /**
+     * 稀土杂质
+     * @param reImpurities 稀土杂质
+     */
+    public void setReImpurities(String reImpurities) {
+        this.reImpurities = reImpurities;
+    }
+
+    /**
+     * 非稀土杂质
+     * @return non_RE_impurities 非稀土杂质
+     */
+    public String getNonReImpurities() {
+        return nonReImpurities;
+    }
+
+    /**
+     * 非稀土杂质
+     * @param nonReImpurities 非稀土杂质
+     */
+    public void setNonReImpurities(String nonReImpurities) {
+        this.nonReImpurities = nonReImpurities;
     }
 
     /**
@@ -270,18 +346,22 @@ public class RetGbReference implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
-        sb.append(", material=").append(material);
-        sb.append(", mark=").append(mark);
-        sb.append(", component1=").append(component1);
-        sb.append(", content1=").append(content1);
-        sb.append(", component2=").append(component2);
-        sb.append(", content2=").append(content2);
-        sb.append(", component3=").append(component3);
-        sb.append(", content3=").append(content3);
-        sb.append(", component4=").append(component4);
-        sb.append(", content4=").append(content4);
-        sb.append(", component5=").append(component5);
-        sb.append(", content5=").append(content5);
+        sb.append(", name=").append(name);
+        sb.append(", standardNumber=").append(standardNumber);
+        sb.append(", nd=").append(nd);
+        sb.append(", co=").append(co);
+        sb.append(", b=").append(b);
+        sb.append(", dyTbPr=").append(dyTbPr);
+        sb.append(", other=").append(other);
+        sb.append(", re=").append(re);
+        sb.append(", ndRe=").append(ndRe);
+        sb.append(", dyRe=").append(dyRe);
+        sb.append(", reo=").append(reo);
+        sb.append(", nd2o3Reo=").append(nd2o3Reo);
+        sb.append(", nd2o3=").append(nd2o3);
+        sb.append(", dy2o3Reo=").append(dy2o3Reo);
+        sb.append(", reImpurities=").append(reImpurities);
+        sb.append(", nonReImpurities=").append(nonReImpurities);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
