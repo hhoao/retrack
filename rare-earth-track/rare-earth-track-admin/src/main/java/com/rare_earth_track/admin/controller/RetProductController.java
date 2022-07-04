@@ -6,6 +6,7 @@ import com.rare_earth_track.admin.bean.RetProductParam;
 import com.rare_earth_track.admin.service.RetProductService;
 import com.rare_earth_track.common.api.CommonPage;
 import com.rare_earth_track.common.api.CommonResult;
+import com.rare_earth_track.mgb.model.RetGbReference;
 import com.rare_earth_track.mgb.model.RetProduct;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -59,6 +60,20 @@ public class RetProductController {
     public CommonResult<CommonPage<RetProduct>> getProduct(PageInfo pageInfo, RetProduct product) {
         List<RetProduct> products = productService.getProducts(product, pageInfo);
         return CommonResult.success(CommonPage.restPage(products));
+    }
+
+    @Operation(summary = "分页获取国标参考信息")
+    @GetMapping("/gbReference")
+    public CommonResult<CommonPage<RetGbReference>> list(PageInfo pageInfo) {
+        List<RetGbReference> gbReferences = productService.listGbReference(pageInfo);
+        return CommonResult.success(CommonPage.restPage(gbReferences));
+    }
+
+    @Operation(summary = "根据牌号查询国标参考信息")
+    @GetMapping("/gbReference/{standardNumber}")
+    public CommonResult<RetGbReference> getGbReference(@PathVariable("standardNumber") String standardNumber) {
+        RetGbReference gbReferenceByStandardNumber = productService.getGbReferenceByStandardNumber(standardNumber);
+        return CommonResult.success(gbReferenceByStandardNumber);
     }
 
 }

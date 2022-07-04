@@ -1,7 +1,8 @@
 package com.rare_earth_track.admin.service;
 
-import com.rare_earth_track.admin.bean.RetProductParam;
 import com.rare_earth_track.admin.bean.PageInfo;
+import com.rare_earth_track.admin.bean.RetProductParam;
+import com.rare_earth_track.mgb.model.RetGbReference;
 import com.rare_earth_track.mgb.model.RetProduct;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,10 +23,17 @@ public interface RetProductService {
     List<RetProduct> list(PageInfo pageInfo);
 
     /**
+     * 分页查询某工厂的产品
+     * @param pageInfo
+     * @param factoryName
+     * @return list
+     */
+    List<RetProduct> listProductByFactory(String factoryName, PageInfo pageInfo);
+
+    /**
      * Gets products.
      *
-     * @param product  the product
-     * @param pageInfo
+     * @param product the product
      * @return the products
      */
     List<RetProduct> getProducts(RetProduct product, PageInfo pageInfo);
@@ -73,9 +81,30 @@ public interface RetProductService {
     RetProduct getProductByProductId(Long id);
 
     /**
+     * 通过产品批次溯源产品
+     * @param batchId
+     * @return
+     */
+    RetProduct getProductByBatchId(String batchId);
+
+    /**
      * Delete products.
      *
      * @param product the product
      */
     void deleteProducts(RetProduct product);
+
+    /**
+     * 通过牌号查询国标参考信息
+     * @param standardNumber
+     * @return RetGbReference
+     */
+    RetGbReference getGbReferenceByStandardNumber(String standardNumber);
+
+    /**
+     * 分页获取国标参考信息
+     * @param pageInfo
+     * @return list
+     */
+    List<RetGbReference> listGbReference(PageInfo pageInfo);
 }
