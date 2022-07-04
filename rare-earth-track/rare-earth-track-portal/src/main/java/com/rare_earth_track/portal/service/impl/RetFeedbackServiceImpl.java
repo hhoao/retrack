@@ -40,13 +40,14 @@ public class RetFeedbackServiceImpl implements RetFeedbackService {
     }
 
     @Override
-    public void addFeedback(RetFeedbackParam feedbackParam) {
+    public Long addFeedback(RetFeedbackParam feedbackParam) {
         RetFeedback feedback = new RetFeedback();
         BeanUtil.copyProperties(feedbackParam, feedback);
         int insert = feedbackMapper.insert(feedback);
         if (insert == 0) {
             Asserts.fail("添加反馈失败");
         }
+        return feedback.getId();
     }
 
     @Override

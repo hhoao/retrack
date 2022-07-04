@@ -34,7 +34,7 @@ public interface RetFeedbackService {
      * @param feedbackParam
      */
     @Transactional
-    void addFeedback(RetFeedbackParam feedbackParam);
+    Long addFeedback(RetFeedbackParam feedbackParam);
 
     /**
      * 修改反馈信息
