@@ -6,46 +6,50 @@ USE rare_earth_track;
 DROP TABLE IF EXISTS `ret_gb_reference`;
 CREATE TABLE `ret_gb_reference` (
                                     `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键',
-                                    `material` varchar(255) DEFAULT NULL COMMENT '材料',
-                                    `mark` varchar(255) DEFAULT NULL COMMENT '牌号',
-                                    `component1` varchar(255) DEFAULT NULL COMMENT '成分1',
-                                    `content1` varchar(255) DEFAULT NULL COMMENT '含量1',
-                                    `component2` varchar(255) DEFAULT NULL COMMENT '成分2',
-                                    `content2` varchar(255) DEFAULT NULL COMMENT '含量2',
-                                    `component3` varchar(255) DEFAULT NULL COMMENT '成分3',
-                                    `content3` varchar(255) DEFAULT NULL COMMENT '含量3',
-                                    `component4` varchar(255) DEFAULT NULL COMMENT '成分4',
-                                    `content4` varchar(255) DEFAULT NULL COMMENT '含量4',
-                                    `component5` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '成分5',
-                                    `content5` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '含量5',
+                                    `name` varchar(255) DEFAULT NULL COMMENT '材料名称',
+                                    `standard_number` varchar(255) DEFAULT NULL COMMENT '牌号',
+                                    `Nd` varchar(255) DEFAULT NULL COMMENT '钕成分',
+                                    `Co` varchar(255) DEFAULT NULL COMMENT '钴成分',
+                                    `B` varchar(255) DEFAULT NULL COMMENT '硼成分',
+                                    `Dy_Tb_Pr` varchar(255) DEFAULT NULL COMMENT '镝铽镨成分',
+                                    `other` varchar(255) DEFAULT NULL COMMENT '其他成分',
+                                    `RE` varchar(255) DEFAULT NULL COMMENT '稀土成分',
+                                    `Nd_RE` varchar(255) DEFAULT NULL COMMENT '钕稀土混合成分',
+                                    `Dy_RE` varchar(255) DEFAULT NULL COMMENT '镝稀土混合成分',
+                                    `REO` varchar(255) DEFAULT NULL COMMENT '稀土氧化成分',
+                                    `Nd2O3_REO` varchar(255) DEFAULT NULL COMMENT '氧化钕稀土混合成分',
+                                    `Nd2O3` varchar(255) DEFAULT NULL COMMENT '氧化钕成分',
+                                    `Dy2O3_REO` varchar(255) DEFAULT NULL COMMENT '氧化镝稀土混合成分',
+                                    `RE_impurities` varchar(255) DEFAULT NULL COMMENT '稀土杂质',
+                                    `non_RE_impurities` varchar(255) DEFAULT NULL COMMENT '非稀土杂质',
                                     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT = '国标参考表';
 
 -- ----------------------------
 -- Records of ret_gb_reference
 -- ----------------------------
-INSERT INTO `ret_gb_reference` VALUES ('1', '烧结钕铁硼永磁材料', 'S-NdFeB', '钕Nd', '20%~35%', '钴Co', '0~15%', '硼B', '0.8%~1.3%', 'Dy、Tb、Pr等 ', '0~15%', '其他元素', '0~3%');
-INSERT INTO `ret_gb_reference` VALUES ('2', '粘结钕铁硼永磁材料\r', 'B-NdFeB', '钕Nd', '20%~35%', '钴Co', '0~15%', '硼B', '0.8%~1.3%', 'Dy、Tb、Pr等 ', '0~15%', '其他元素', '0~3%');
-INSERT INTO `ret_gb_reference` VALUES ('3', '金属钕', '044030', 'RE', '≥99.5%', 'Nd/RE', '≥99.9%', '稀土杂质', '0.1%', '非稀土杂质', '0.24%', null, null);
-INSERT INTO `ret_gb_reference` VALUES ('4', '金属钕', '044025', 'RE', '≥99.0%', 'Nd/RE', '≥99.5%', '稀土杂质', '0.5%', '非稀土杂质', '0.68%', null, null);
-INSERT INTO `ret_gb_reference` VALUES ('5', '金属钕', '044020A', 'RE', '≥99.0%', 'Nd/RE', '≥99.0%', '稀土杂质', '1.0%', '非稀土杂质', '0.92%', '', '');
-INSERT INTO `ret_gb_reference` VALUES ('6', '金属钕', '044020B', 'RE', '≥99.5%', 'Nd/RE', '≥99.0%', '稀土杂质', '1.0%', '非稀土杂质', '1.45%', '', '');
-INSERT INTO `ret_gb_reference` VALUES ('7', '氧化钕', '041045', 'REO', '≥99.0%', 'Nd2O3/REO', '≥99.995%', 'Nd2O3', '余量', '稀土杂质', '0.006%', '非稀土杂质', '0.0665%');
-INSERT INTO `ret_gb_reference` VALUES ('8', '氧化钕', '041040', 'REO', '≥99.0%', 'Nd2O3/REO', '≥99.99%', 'Nd2O3', '余量', '稀土杂质', '0.01%', '非稀土杂质', '0.091%');
-INSERT INTO `ret_gb_reference` VALUES ('9', '氧化钕', '041035 ', 'REO', '≥99.0%', 'Nd2O3/REO', '≥99.95%', 'Nd2O3', '余量', '稀土杂质', '0.05%', '非稀土杂质', '0.145%');
-INSERT INTO `ret_gb_reference` VALUES ('10', '氧化钕', '041030 ', 'REO', '≥99.0%', 'Nd2O3/REO', '≥99.9%', 'Nd2O3', '余量', '稀土杂质', '0.1%', '非稀土杂质', '0.18%');
-INSERT INTO `ret_gb_reference` VALUES ('11', '氧化钕', '041025', 'REO', '≥99.0%', 'Nd2O3/REO', '≥99.5%', 'Nd2O3', '余量', '稀土杂质', '0.5%', '非稀土杂质', '0.21%');
-INSERT INTO `ret_gb_reference` VALUES ('12', '氧化钕', '041020', 'REO', '≥99.0%', 'Nd2O3/REO', '≥99.0%', 'Nd2O3', '余量', '稀土杂质', '1.0%', '非稀土杂质', '0.32%');
-INSERT INTO `ret_gb_reference` VALUES ('13', '金属镝', '104040', 'RE', '≥99.0%', 'Dy/RE', '≥99.99%', '稀土杂质', '0.01%', '非稀土杂质', '0.12%', null, null);
-INSERT INTO `ret_gb_reference` VALUES ('14', '金属镝', '104035', 'RE', '≥99.0%', 'Dy/RE', '≥99.95%', '稀土杂质', '0.05%', '非稀土杂质', '0.19%', '', '');
-INSERT INTO `ret_gb_reference` VALUES ('15', '金属镝', '104030', 'RE', '≥99.0%', 'Dy/RE', '≥99.9%', '稀土杂质', '0.1%', '非稀土杂质', '0.79%', '', '');
-INSERT INTO `ret_gb_reference` VALUES ('16', '金属镝', '104025', 'RE', '≥99.0%', 'Dy/RE', '≥99.5%', '稀土杂质', '0.5%', '非稀土杂质', '0.95%', '', '');
-INSERT INTO `ret_gb_reference` VALUES ('17', '金属镝', '104020', 'RE', '≥98.0%', 'Dy/RE', '≥99.0%', '稀土杂质', '1.0%', '非稀土杂质', '1.23%', '', '');
-INSERT INTO `ret_gb_reference` VALUES ('18', '氧化镝', '101040', 'REO', '≥99.0%', 'Dy2O3/RE', '≥99.99%', '稀土杂质', '0.01%', '非稀土杂质', '0.0305%', null, null);
-INSERT INTO `ret_gb_reference` VALUES ('19', '氧化镝', '101035', 'REO', '≥99.0%', 'Dy2O3/RE', '≥99.95%', '稀土杂质', '0.05%', '非稀土杂质', '0.051%', '', '');
-INSERT INTO `ret_gb_reference` VALUES ('20', '氧化镝', '101030', 'REO', '≥99.0%', 'Dy2O3/RE', '≥99.9%', '稀土杂质', '0.1%', '非稀土杂质', '0.072%', '', '');
-INSERT INTO `ret_gb_reference` VALUES ('21', '氧化镝', '101025', 'REO', '≥99.0%', 'Dy2O3/RE', '≥99.5%', '稀土杂质', '0.5%', '非稀土杂质', '0.113%', '', '');
-INSERT INTO `ret_gb_reference` VALUES ('22', '氧化镝', '101020', 'REO', '≥99.0%', 'Dy2O3/RE', '≥99.0%', '稀土杂质', '1.0%', '非稀土杂质', '0.155%', '', '');
+INSERT INTO `ret_gb_reference` VALUES ('1', '烧结钕铁硼永磁材料', 'S-NdFeB',  '20%~35%',  '0~15%',  '0.8%~1.3%',  '0~15%', '0~3%', null, null, null, null, null, null, null, null, null);
+INSERT INTO `ret_gb_reference` VALUES ('2', '粘结钕铁硼永磁材料', 'B-NdFeB',  '20%~35%',  '0~15%',  '0.8%~1.3%',  '0~15%',  '0~3%', null, null, null, null, null, null, null, null, null);
+INSERT INTO `ret_gb_reference` VALUES ('3', '金属钕', '044030', null, null, null, null, null, '≥99.5%', '≥99.9%', null, null, null, null, null, '0.1%', '0.24%');
+INSERT INTO `ret_gb_reference` VALUES ('4', '金属钕', '044025', null, null, null, null, null, '≥99.0%', '≥99.5%', null, null, null, null, null, '0.5%', '0.68%');
+INSERT INTO `ret_gb_reference` VALUES ('5', '金属钕', '044020A', null, null, null, null, null, '≥99.0%', '≥99.0%', null, null, null, null, null, '1.0%', '0.92%');
+INSERT INTO `ret_gb_reference` VALUES ('6', '金属钕', '044020B', null, null, null, null, null, '≥99.5%', '≥99.0%', null, null, null, null, null, '1.0%', '1.45%');
+INSERT INTO `ret_gb_reference` VALUES ('7', '氧化钕', '041045', null,null, null, null, null, null, null, null, '≥99.0%', '≥99.995%', '余量', null, '0.006%','0.0665%');
+INSERT INTO `ret_gb_reference` VALUES ('8', '氧化钕', '041040', null,null, null, null, null, null, null, null, '≥99.0%', '≥99.99%', '余量', null, '0.01%', '0.091%');
+INSERT INTO `ret_gb_reference` VALUES ('9', '氧化钕', '041035', null,null, null, null, null, null, null, null, '≥99.0%', '≥99.95%', '余量', null, '0.05%', '0.145%');
+INSERT INTO `ret_gb_reference` VALUES ('10', '氧化钕', '041030', null,null, null, null, null, null, null, null, '≥99.0%', '≥99.9%', '余量', null, '0.1%', '0.18%');
+INSERT INTO `ret_gb_reference` VALUES ('11', '氧化钕', '041025', null,null, null, null, null, null, null, null, '≥99.0%', '≥99.5%', '余量', null, '0.5%', '0.21%');
+INSERT INTO `ret_gb_reference` VALUES ('12', '氧化钕', '041020', null,null, null, null, null, null, null, null, '≥99.0%', '≥99.0%', '余量', null, '1.0%', '0.32%');
+INSERT INTO `ret_gb_reference` VALUES ('13', '金属镝', '104040', null, null, null, null, null, '≥99.0%', null, '≥99.99%', null, null, null, null, '0.01%','0.12%');
+INSERT INTO `ret_gb_reference` VALUES ('14', '金属镝', '104035', null, null, null, null, null, '≥99.0%', null, '≥99.95%', null, null, null, null, '0.05%', '0.19%');
+INSERT INTO `ret_gb_reference` VALUES ('15', '金属镝', '104030', null, null, null, null, null, '≥99.0%', null, '≥99.9%', null, null, null, null, '0.1%', '0.79%');
+INSERT INTO `ret_gb_reference` VALUES ('16', '金属镝', '104025', null, null, null, null, null, '≥99.0%', null, '≥99.5%', null, null, null, null, '0.5%', '0.95%');
+INSERT INTO `ret_gb_reference` VALUES ('17', '金属镝', '104020', null, null, null, null, null, '≥98.0%', null, '≥99.0%', null, null, null, null, '1.0%', '1.23%');
+INSERT INTO `ret_gb_reference` VALUES ('18', '氧化镝', '101040', null,null, null, null, null, null, null, null, '≥99.0%', null, null, '≥99.99%', '0.01%', '0.0305%');
+INSERT INTO `ret_gb_reference` VALUES ('19', '氧化镝', '101035', null,null, null, null, null, null, null, null, '≥99.0%', null, null, '≥99.95%', '0.05%', '0.051%');
+INSERT INTO `ret_gb_reference` VALUES ('20', '氧化镝', '101030', null,null, null, null, null, null, null, null, '≥99.0%', null, null, '≥99.9%', '0.1%', '0.072%');
+INSERT INTO `ret_gb_reference` VALUES ('21', '氧化镝', '101025', null,null, null, null, null, null, null, null, '≥99.0%', null, null, '≥99.5%', '0.5%', '0.113%');
+INSERT INTO `ret_gb_reference` VALUES ('22', '氧化镝', '101020', null,null, null, null, null, null, null, null, '≥99.0%', null, null, '≥99.0%', '1.0%', '0.155%');
 
 #文件表
 DROP TABLE IF EXISTS `ret_files`;
