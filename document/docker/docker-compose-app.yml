@@ -1,18 +1,12 @@
 version: '2.2'
 
 services:
-  rare-earth-track-admin:
+  admin:
     image: rare-earth-track/rare-earth-track-admin:${RARE_EARTH_TRACK_ADMIN_VERSION}
-    external_links:
-      - rare-earth-track-mysql-1:mysql
-      - rare-earth-track-redis-1:redis
     ports:
       - ${RARE_EARTH_TRACK_ADMIN_PORT}:8888
 #services:
 #  test:
 #    image: alpine:latest
-#    external_links:
-#          - rare-earth-track-mysql-1:mysql
-#          - rare-earth-track-redis-1:redis
 #    tty: true
 
