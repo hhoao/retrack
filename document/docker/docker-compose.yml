@@ -1,7 +1,11 @@
 version: "2.2"
 services:
+  web-admin:
+    image: ret-web-admin:${RARE_EARTH_TRACK_WEB_ADMIN_VERSION}
+    ports:
+      - ${RARE_EARTH_TRACK_WEB_ADMIN_PORT}:80
   admin:
-    image: rare-earth-track/rare-earth-track-admin:${RARE_EARTH_TRACK_ADMIN_VERSION}
+    image: rare-earth-track-admin:${RARE_EARTH_TRACK_ADMIN_VERSION}
     depends_on:
       redis:
         condition: service_healthy
@@ -12,7 +16,6 @@ services:
 
   mysql:
     image: mysql:${MYSQL_VERSION}
-    restart: always
     command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     environment:
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
@@ -31,7 +34,6 @@ services:
       retries: 10
 
   redis:
-    restart: always
     image: redis:${REDIS_VERSION}
     command: redis-server
     ports:
@@ -168,7 +170,7 @@ services:
     depends_on:
       es01:
         condition: service_healthy
-    image: filebeat:${STACK_VERSION}
+    image: elastic/filebeat:${STACK_VERSION}
     restart: always
     user: root
     volumes:
