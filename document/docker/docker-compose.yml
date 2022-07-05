@@ -1,11 +1,11 @@
 version: "2.2"
 services:
   web-admin:
-    image: ret-web-admin:${RARE_EARTH_TRACK_WEB_ADMIN_VERSION}
+    image: hhoao/ret-web-admin:${RARE_EARTH_TRACK_WEB_ADMIN_VERSION}
     ports:
       - ${RARE_EARTH_TRACK_WEB_ADMIN_PORT}:80
   admin:
-    image: rare-earth-track-admin:${RARE_EARTH_TRACK_ADMIN_VERSION}
+    image: hhoao/rare-earth-track-admin:${RARE_EARTH_TRACK_ADMIN_VERSION}
     depends_on:
       redis:
         condition: service_healthy
