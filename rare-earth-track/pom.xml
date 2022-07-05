@@ -110,7 +110,7 @@
                     <artifactId>docker-maven-plugin</artifactId>
                     <version>${docker.maven.plugin.version}</version>
                     <configuration>
-                        <imageName>${project.artifactId}:${project.version}</imageName>
+                        <imageName>hhoao/${project.artifactId}:${project.version}</imageName>
                         <dockerHost>${docker.host}</dockerHost>
                         <baseImage>openjdk:17</baseImage>
                         <entryPoint>["java", "-jar", "-Dspring.profiles.active=prod","/${project.build.finalName}.jar"]
