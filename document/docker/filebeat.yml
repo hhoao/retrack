@@ -1,0 +1,29 @@
+filebeat.config:
+  modules:
+    path: ${path.config}/modules.d/*.yml
+    reload.enabled: false
+
+filebeat.autodiscover:
+  providers:
+    - type: docker
+      hints.enabled: true
+
+processors:
+- add_cloud_metadata: ~
+#------------------------------------------------------------------------
+# 输出日志到elasticsearch
+
+output.elasticsearch:
+  # Array of hosts to connect to.
+  hosts: ["https://es01:9200"]
+  username: "elastic"
+  password: "a1234567890"
+
+  # Protocol - either `http` (default) or `https`.
+  #protocol: "https"
+  #protocol: https
+  ssl:
+    certificate_authorities: ["config/certs/ca/ca.crt"]
+    certificate: "config/certs/ca/ca.crt"
+    key: "config/certs/ca/ca.key"
+ 
