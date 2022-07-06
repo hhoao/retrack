@@ -133,26 +133,50 @@ public class RetProductServiceImpl implements RetProductService {
         if (product.getBatchId() != null){
             criteria.andBatchIdEqualTo(product.getBatchId());
         }
-        if (product.getDispatchTime() != null){
+        if (product.getFactory() != null) {
+            criteria.andFactoryEqualTo(product.getFactory());
+        }
+        if (product.getDispatchTime() != null) {
             criteria.andDispatchTimeEqualTo(product.getDispatchTime());
         }
-        if (product.getSpecification() != null){
+        if (product.getSpecification() != null) {
             criteria.andSpecificationEqualTo(product.getSpecification());
         }
-        if (product.getPackingType() != null){
+        if (product.getPackingType() != null) {
             criteria.andPackingTypeEqualTo(product.getPackingType());
         }
-        if (product.getPurity() != null){
-            criteria.andPurityEqualTo(product.getPurity());
+        if (product.getNetWeight() != null) {
+            criteria.andNetWeightEqualTo(product.getNetWeight());
         }
-        if (product.getProductionEquipment() != null){
-            criteria.andProductionEquipmentEqualTo(product.getProductionEquipment());
+        if (product.getTransportLog() != null) {
+            criteria.andTransportLogEqualTo(product.getTransportLog());
         }
-        if (product.getMaterialRatio() != null){
-            criteria.andMaterialRatioEqualTo(product.getMaterialRatio());
+        if (product.getPic() != null) {
+            criteria.andPicEqualTo(product.getPic());
         }
-        if (product.getExtractionUnit() != null){
-            criteria.andExtractionUnitEqualTo(product.getExtractionUnit());
+        if (product.getQualityCertificate() != null) {
+            criteria.andQualityCertificateEqualTo(product.getQualityCertificate());
+        }
+        if (product.getStandardNumber() != null) {
+            criteria.andStandardNumberEqualTo(product.getStandardNumber());
+        }
+        if (product.getMiningTechnology() != null) {
+            criteria.andMiningTechnologyEqualTo(product.getMiningTechnology());
+        }
+        if (product.getMine() != null) {
+            criteria.andMineEqualTo(product.getMine());
+        }
+        if (product.getSeparate() != null) {
+            criteria.andSeparateEqualTo(product.getSeparate());
+        }
+        if (product.getOxygenLevels() != null) {
+            criteria.andOxygenLevelsEqualTo(product.getOxygenLevels());
+        }
+        if (product.getPressure() != null) {
+            criteria.andPressureEqualTo(product.getPressure());
+        }
+        if (product.getMagneticField() != null) {
+            criteria.andMagneticFieldEqualTo(product.getMagneticField());
         }
         if (product.getNd() != null) {
             criteria.andNdEqualTo(product.getNd());

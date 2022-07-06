@@ -496,6 +496,7 @@ CREATE TABLE `ret_product`
     `factory_id`           bigint       NOT NULL COMMENT '工厂id',
     `name`                 varchar(100) NOT NULL COMMENT '名称',
     `batch_id`             varchar(100) NOT NULL COMMENT '批次',
+    `factory`              varchar(100) NOT NULL COMMENT '生产厂家',
     `description`          text         DEFAULT NULL COMMENT '描述',
     `dispatch_time`        datetime     DEFAULT NULL COMMENT '出货日期',
     `moisture_proof_logo`  varchar(256) DEFAULT NULL COMMENT '防潮标识',
@@ -506,11 +507,12 @@ CREATE TABLE `ret_product`
     `pic`                  varchar(256) DEFAULT NULL COMMENT '图片',
     `quality_certificate` varchar(256) NULL COMMENT '质量证明书',
     `standard_number` varchar(256) NULL COMMENT '牌号',
-    `purity`               varchar(20)  DEFAULT NULL COMMENT '纯度',
-    `production_equipment` varchar(100) DEFAULT NULL COMMENT '生产设备',
-    `material_ratio`       varchar(50)  DEFAULT NULL COMMENT '物料配比',
-    `extraction_unit`      varchar(50)  DEFAULT NULL COMMENT '提取单位',
-    `album_pics`           varchar(255) DEFAULT NULL COMMENT '画册图片，连产品图片限制为5张，以逗号分割',
+    `mining_technology`    varchar(100)  DEFAULT NULL COMMENT '矿山工艺',
+    `mine` varchar(100) DEFAULT NULL COMMENT '冶炼',
+    `separate`       varchar(100)  DEFAULT NULL COMMENT '分离',
+    `oxygen_levels`      varchar(100)  DEFAULT NULL COMMENT '含氧量',
+    `pressure`           varchar(100) DEFAULT NULL COMMENT '压力',
+    `magnetic_field`           varchar(100) DEFAULT NULL COMMENT '磁场大小',
     `Nd` varchar(255) DEFAULT NULL COMMENT '钕成分',
     `Co` varchar(255) DEFAULT NULL COMMENT '钴成分',
     `B` varchar(255) DEFAULT NULL COMMENT '硼成分',
@@ -530,40 +532,40 @@ CREATE TABLE `ret_product`
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 37
   DEFAULT CHARSET = UTF8MB4 COMMENT ='产品信息';
-INSERT `ret_product`(id, factory_id, name, batch_id)
-VALUES (1, 1, '烧结钕铁硼', 'A-01');
-INSERT `ret_product`(id, factory_id, name, batch_id)
-VALUES (2, 1, '粘结钕铁硼', 'A-02');
-INSERT `ret_product`(id, factory_id, name, batch_id)
-VALUES (3, 1, '注塑钕铁硼', 'A-03');
-INSERT `ret_product`(id, factory_id, name, batch_id)
-VALUES (4, 1, '钐钴5型', 'A-04');
-INSERT `ret_product`(id, factory_id, name, batch_id)
-VALUES (5, 1, '钐钴17型', 'A-05');
-INSERT `ret_product`(id, factory_id, name, batch_id)
-VALUES (6, 1, '烧结铝镍钴', 'A-06');
-INSERT `ret_product`(id, factory_id, name, batch_id)
-VALUES (7, 1, '铸造铝镍钴', 'A-07');
-INSERT `ret_product`(id, factory_id, name, batch_id)
-VALUES (8, 1, '永磁铁氧体', 'A-08');
-INSERT `ret_product`(id, factory_id, name, batch_id)
-VALUES (9, 1, '软磁铁氧体', 'A-09');
-INSERT `ret_product`(id, factory_id, name, batch_id)
-VALUES (10, 1, '旋磁铁氧体', 'A-10');
-INSERT `ret_product`(id, factory_id, name, batch_id)
-VALUES (11, 1, '同性橡胶磁', 'A-11');
-INSERT `ret_product`(id, factory_id, name, batch_id)
-VALUES (12, 1, '异性橡胶磁', 'A-12');
-INSERT `ret_product`(id, factory_id, name, batch_id)
-VALUES (13, 1, '单面磁', 'A-13');
-INSERT `ret_product`(id, factory_id, name, batch_id)
-VALUES (14, 1, '双面磁', 'A-14');
-INSERT `ret_product`(id, factory_id, name, batch_id)
-VALUES (15, 1, '背胶', 'A-15');
-INSERT `ret_product`(id, factory_id, name, batch_id)
-VALUES (16, 1, '不背胶', 'A-16');
+INSERT `ret_product`(id, factory_id, name, batch_id,factory)
+VALUES (1, 1, '烧结钕铁硼', 'A-01', '五矿稀土');
+INSERT `ret_product`(id, factory_id, name, batch_id,factory)
+VALUES (2, 1, '粘结钕铁硼', 'A-02', '五矿稀土');
+INSERT `ret_product`(id, factory_id, name, batch_id,factory)
+VALUES (3, 1, '注塑钕铁硼', 'A-03', '五矿稀土');
+INSERT `ret_product`(id, factory_id, name, batch_id,factory)
+VALUES (4, 1, '钐钴5型', 'A-04', '五矿稀土');
+INSERT `ret_product`(id, factory_id, name, batch_id,factory)
+VALUES (5, 1, '钐钴17型', 'A-05', '五矿稀土');
+INSERT `ret_product`(id, factory_id, name, batch_id,factory)
+VALUES (6, 1, '烧结铝镍钴', 'A-06', '五矿稀土');
+INSERT `ret_product`(id, factory_id, name, batch_id,factory)
+VALUES (7, 1, '铸造铝镍钴', 'A-07', '五矿稀土');
+INSERT `ret_product`(id, factory_id, name, batch_id,factory)
+VALUES (8, 1, '永磁铁氧体', 'A-08', '五矿稀土');
+INSERT `ret_product`(id, factory_id, name, batch_id,factory)
+VALUES (9, 1, '软磁铁氧体', 'A-09', '五矿稀土');
+INSERT `ret_product`(id, factory_id, name, batch_id,factory)
+VALUES (10, 1, '旋磁铁氧体', 'A-10', '五矿稀土');
+INSERT `ret_product`(id, factory_id, name, batch_id,factory)
+VALUES (11, 1, '同性橡胶磁', 'A-11', '五矿稀土');
+INSERT `ret_product`(id, factory_id, name, batch_id,factory)
+VALUES (12, 1, '异性橡胶磁', 'A-12', '五矿稀土');
+INSERT `ret_product`(id, factory_id, name, batch_id,factory)
+VALUES (13, 1, '单面磁', 'A-13', '五矿稀土');
+INSERT `ret_product`(id, factory_id, name, batch_id,factory)
+VALUES (14, 1, '双面磁', 'A-14', '五矿稀土');
+INSERT `ret_product`(id, factory_id, name, batch_id,factory)
+VALUES (15, 1, '背胶', 'A-15', '五矿稀土');
+INSERT `ret_product`(id, factory_id, name, batch_id,factory)
+VALUES (16, 1, '不背胶', 'A-16', '五矿稀土');
 INSERT INTO `ret_product`
-VALUES ('17', '2', '烧结钕铁硼', '012022063001', '描述', '2022-06-30 13:55:49', '干燥', '10KG', '桶装', '8KG', '货车', null, null, 'S-NdFeB', null, null, null, null, null, '30%', '13%', '1%', '14%', '2.5%', null, null, null, null, null, null, null, null, null);
+VALUES ('17', '2', '烧结钕铁硼', '012022063001', '盛和资源', '描述', '2022-06-30 13:55:49', '干燥', '10KG', '桶装', '8KG', '货车', null, null, 'S-NdFeB', '硫酸铵法', '熔盐电解法', '萃取分离', '3%', '12MPa', '18T', '30%', '13%', '1%', '14%', '2.5%', null, null, null, null, null, null, null, null, null);
 
 
 -- 产品文档表

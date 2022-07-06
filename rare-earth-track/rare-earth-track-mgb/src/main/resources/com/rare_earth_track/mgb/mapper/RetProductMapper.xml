@@ -6,6 +6,7 @@
     <result column="factory_id" jdbcType="BIGINT" property="factoryId" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="batch_id" jdbcType="VARCHAR" property="batchId" />
+    <result column="factory" jdbcType="VARCHAR" property="factory" />
     <result column="dispatch_time" jdbcType="TIMESTAMP" property="dispatchTime" />
     <result column="moisture_proof_logo" jdbcType="VARCHAR" property="moistureProofLogo" />
     <result column="specification" jdbcType="VARCHAR" property="specification" />
@@ -15,11 +16,12 @@
     <result column="pic" jdbcType="VARCHAR" property="pic" />
     <result column="quality_certificate" jdbcType="VARCHAR" property="qualityCertificate" />
     <result column="standard_number" jdbcType="VARCHAR" property="standardNumber" />
-    <result column="purity" jdbcType="VARCHAR" property="purity" />
-    <result column="production_equipment" jdbcType="VARCHAR" property="productionEquipment" />
-    <result column="material_ratio" jdbcType="VARCHAR" property="materialRatio" />
-    <result column="extraction_unit" jdbcType="VARCHAR" property="extractionUnit" />
-    <result column="album_pics" jdbcType="VARCHAR" property="albumPics" />
+    <result column="mining_technology" jdbcType="VARCHAR" property="miningTechnology" />
+    <result column="mine" jdbcType="VARCHAR" property="mine" />
+    <result column="separate" jdbcType="VARCHAR" property="separate" />
+    <result column="oxygen_levels" jdbcType="VARCHAR" property="oxygenLevels" />
+    <result column="pressure" jdbcType="VARCHAR" property="pressure" />
+    <result column="magnetic_field" jdbcType="VARCHAR" property="magneticField" />
     <result column="Nd" jdbcType="VARCHAR" property="nd" />
     <result column="Co" jdbcType="VARCHAR" property="co" />
     <result column="B" jdbcType="VARCHAR" property="b" />
@@ -97,9 +99,9 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, factory_id, name, batch_id, dispatch_time, moisture_proof_logo, specification, 
+    id, factory_id, name, batch_id, factory, dispatch_time, moisture_proof_logo, specification, 
     packing_type, net_weight, transport_log, pic, quality_certificate, standard_number, 
-    purity, production_equipment, material_ratio, extraction_unit, album_pics, Nd, Co, 
+    mining_technology, mine, separate, oxygen_levels, pressure, magnetic_field, Nd, Co, 
     B, Dy_Tb_Pr, other, RE, Nd_RE, Dy_RE, REO, Nd2O3_REO, Nd2O3, Dy2O3_REO, RE_impurities, 
     non_RE_impurities
   </sql>
@@ -159,27 +161,27 @@
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into ret_product (factory_id, name, batch_id, 
-      dispatch_time, moisture_proof_logo, specification, 
-      packing_type, net_weight, transport_log, 
-      pic, quality_certificate, standard_number, 
-      purity, production_equipment, material_ratio, 
-      extraction_unit, album_pics, Nd, 
-      Co, B, Dy_Tb_Pr, other, 
-      RE, Nd_RE, Dy_RE, REO, 
-      Nd2O3_REO, Nd2O3, Dy2O3_REO, 
-      RE_impurities, non_RE_impurities, description
-      )
+      factory, dispatch_time, moisture_proof_logo, 
+      specification, packing_type, net_weight, 
+      transport_log, pic, quality_certificate, 
+      standard_number, mining_technology, mine, 
+      separate, oxygen_levels, pressure, 
+      magnetic_field, Nd, Co, 
+      B, Dy_Tb_Pr, other, RE, 
+      Nd_RE, Dy_RE, REO, Nd2O3_REO, 
+      Nd2O3, Dy2O3_REO, RE_impurities, 
+      non_RE_impurities, description)
     values (#{factoryId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{batchId,jdbcType=VARCHAR}, 
-      #{dispatchTime,jdbcType=TIMESTAMP}, #{moistureProofLogo,jdbcType=VARCHAR}, #{specification,jdbcType=VARCHAR}, 
-      #{packingType,jdbcType=VARCHAR}, #{netWeight,jdbcType=VARCHAR}, #{transportLog,jdbcType=VARCHAR}, 
-      #{pic,jdbcType=VARCHAR}, #{qualityCertificate,jdbcType=VARCHAR}, #{standardNumber,jdbcType=VARCHAR}, 
-      #{purity,jdbcType=VARCHAR}, #{productionEquipment,jdbcType=VARCHAR}, #{materialRatio,jdbcType=VARCHAR}, 
-      #{extractionUnit,jdbcType=VARCHAR}, #{albumPics,jdbcType=VARCHAR}, #{nd,jdbcType=VARCHAR}, 
-      #{co,jdbcType=VARCHAR}, #{b,jdbcType=VARCHAR}, #{dyTbPr,jdbcType=VARCHAR}, #{other,jdbcType=VARCHAR}, 
-      #{re,jdbcType=VARCHAR}, #{ndRe,jdbcType=VARCHAR}, #{dyRe,jdbcType=VARCHAR}, #{reo,jdbcType=VARCHAR}, 
-      #{nd2o3Reo,jdbcType=VARCHAR}, #{nd2o3,jdbcType=VARCHAR}, #{dy2o3Reo,jdbcType=VARCHAR}, 
-      #{reImpurities,jdbcType=VARCHAR}, #{nonReImpurities,jdbcType=VARCHAR}, #{description,jdbcType=LONGVARCHAR}
-      )
+      #{factory,jdbcType=VARCHAR}, #{dispatchTime,jdbcType=TIMESTAMP}, #{moistureProofLogo,jdbcType=VARCHAR}, 
+      #{specification,jdbcType=VARCHAR}, #{packingType,jdbcType=VARCHAR}, #{netWeight,jdbcType=VARCHAR}, 
+      #{transportLog,jdbcType=VARCHAR}, #{pic,jdbcType=VARCHAR}, #{qualityCertificate,jdbcType=VARCHAR}, 
+      #{standardNumber,jdbcType=VARCHAR}, #{miningTechnology,jdbcType=VARCHAR}, #{mine,jdbcType=VARCHAR}, 
+      #{separate,jdbcType=VARCHAR}, #{oxygenLevels,jdbcType=VARCHAR}, #{pressure,jdbcType=VARCHAR}, 
+      #{magneticField,jdbcType=VARCHAR}, #{nd,jdbcType=VARCHAR}, #{co,jdbcType=VARCHAR}, 
+      #{b,jdbcType=VARCHAR}, #{dyTbPr,jdbcType=VARCHAR}, #{other,jdbcType=VARCHAR}, #{re,jdbcType=VARCHAR}, 
+      #{ndRe,jdbcType=VARCHAR}, #{dyRe,jdbcType=VARCHAR}, #{reo,jdbcType=VARCHAR}, #{nd2o3Reo,jdbcType=VARCHAR}, 
+      #{nd2o3,jdbcType=VARCHAR}, #{dy2o3Reo,jdbcType=VARCHAR}, #{reImpurities,jdbcType=VARCHAR}, 
+      #{nonReImpurities,jdbcType=VARCHAR}, #{description,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.rare_earth_track.mgb.model.RetProduct">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
@@ -195,6 +197,9 @@
       </if>
       <if test="batchId != null">
         batch_id,
+      </if>
+      <if test="factory != null">
+        factory,
       </if>
       <if test="dispatchTime != null">
         dispatch_time,
@@ -223,20 +228,23 @@
       <if test="standardNumber != null">
         standard_number,
       </if>
-      <if test="purity != null">
-        purity,
+      <if test="miningTechnology != null">
+        mining_technology,
       </if>
-      <if test="productionEquipment != null">
-        production_equipment,
+      <if test="mine != null">
+        mine,
       </if>
-      <if test="materialRatio != null">
-        material_ratio,
+      <if test="separate != null">
+        separate,
       </if>
-      <if test="extractionUnit != null">
-        extraction_unit,
+      <if test="oxygenLevels != null">
+        oxygen_levels,
       </if>
-      <if test="albumPics != null">
-        album_pics,
+      <if test="pressure != null">
+        pressure,
+      </if>
+      <if test="magneticField != null">
+        magnetic_field,
       </if>
       <if test="nd != null">
         Nd,
@@ -294,6 +302,9 @@
       <if test="batchId != null">
         #{batchId,jdbcType=VARCHAR},
       </if>
+      <if test="factory != null">
+        #{factory,jdbcType=VARCHAR},
+      </if>
       <if test="dispatchTime != null">
         #{dispatchTime,jdbcType=TIMESTAMP},
       </if>
@@ -321,20 +332,23 @@
       <if test="standardNumber != null">
         #{standardNumber,jdbcType=VARCHAR},
       </if>
-      <if test="purity != null">
-        #{purity,jdbcType=VARCHAR},
+      <if test="miningTechnology != null">
+        #{miningTechnology,jdbcType=VARCHAR},
       </if>
-      <if test="productionEquipment != null">
-        #{productionEquipment,jdbcType=VARCHAR},
+      <if test="mine != null">
+        #{mine,jdbcType=VARCHAR},
       </if>
-      <if test="materialRatio != null">
-        #{materialRatio,jdbcType=VARCHAR},
+      <if test="separate != null">
+        #{separate,jdbcType=VARCHAR},
       </if>
-      <if test="extractionUnit != null">
-        #{extractionUnit,jdbcType=VARCHAR},
+      <if test="oxygenLevels != null">
+        #{oxygenLevels,jdbcType=VARCHAR},
       </if>
-      <if test="albumPics != null">
-        #{albumPics,jdbcType=VARCHAR},
+      <if test="pressure != null">
+        #{pressure,jdbcType=VARCHAR},
+      </if>
+      <if test="magneticField != null">
+        #{magneticField,jdbcType=VARCHAR},
       </if>
       <if test="nd != null">
         #{nd,jdbcType=VARCHAR},
@@ -404,6 +418,9 @@
       <if test="row.batchId != null">
         batch_id = #{row.batchId,jdbcType=VARCHAR},
       </if>
+      <if test="row.factory != null">
+        factory = #{row.factory,jdbcType=VARCHAR},
+      </if>
       <if test="row.dispatchTime != null">
         dispatch_time = #{row.dispatchTime,jdbcType=TIMESTAMP},
       </if>
@@ -431,20 +448,23 @@
       <if test="row.standardNumber != null">
         standard_number = #{row.standardNumber,jdbcType=VARCHAR},
       </if>
-      <if test="row.purity != null">
-        purity = #{row.purity,jdbcType=VARCHAR},
+      <if test="row.miningTechnology != null">
+        mining_technology = #{row.miningTechnology,jdbcType=VARCHAR},
       </if>
-      <if test="row.productionEquipment != null">
-        production_equipment = #{row.productionEquipment,jdbcType=VARCHAR},
+      <if test="row.mine != null">
+        mine = #{row.mine,jdbcType=VARCHAR},
       </if>
-      <if test="row.materialRatio != null">
-        material_ratio = #{row.materialRatio,jdbcType=VARCHAR},
+      <if test="row.separate != null">
+        separate = #{row.separate,jdbcType=VARCHAR},
       </if>
-      <if test="row.extractionUnit != null">
-        extraction_unit = #{row.extractionUnit,jdbcType=VARCHAR},
+      <if test="row.oxygenLevels != null">
+        oxygen_levels = #{row.oxygenLevels,jdbcType=VARCHAR},
       </if>
-      <if test="row.albumPics != null">
-        album_pics = #{row.albumPics,jdbcType=VARCHAR},
+      <if test="row.pressure != null">
+        pressure = #{row.pressure,jdbcType=VARCHAR},
+      </if>
+      <if test="row.magneticField != null">
+        magnetic_field = #{row.magneticField,jdbcType=VARCHAR},
       </if>
       <if test="row.nd != null">
         Nd = #{row.nd,jdbcType=VARCHAR},
@@ -502,6 +522,7 @@
       factory_id = #{row.factoryId,jdbcType=BIGINT},
       name = #{row.name,jdbcType=VARCHAR},
       batch_id = #{row.batchId,jdbcType=VARCHAR},
+      factory = #{row.factory,jdbcType=VARCHAR},
       dispatch_time = #{row.dispatchTime,jdbcType=TIMESTAMP},
       moisture_proof_logo = #{row.moistureProofLogo,jdbcType=VARCHAR},
       specification = #{row.specification,jdbcType=VARCHAR},
@@ -511,11 +532,12 @@
       pic = #{row.pic,jdbcType=VARCHAR},
       quality_certificate = #{row.qualityCertificate,jdbcType=VARCHAR},
       standard_number = #{row.standardNumber,jdbcType=VARCHAR},
-      purity = #{row.purity,jdbcType=VARCHAR},
-      production_equipment = #{row.productionEquipment,jdbcType=VARCHAR},
-      material_ratio = #{row.materialRatio,jdbcType=VARCHAR},
-      extraction_unit = #{row.extractionUnit,jdbcType=VARCHAR},
-      album_pics = #{row.albumPics,jdbcType=VARCHAR},
+      mining_technology = #{row.miningTechnology,jdbcType=VARCHAR},
+      mine = #{row.mine,jdbcType=VARCHAR},
+      separate = #{row.separate,jdbcType=VARCHAR},
+      oxygen_levels = #{row.oxygenLevels,jdbcType=VARCHAR},
+      pressure = #{row.pressure,jdbcType=VARCHAR},
+      magnetic_field = #{row.magneticField,jdbcType=VARCHAR},
       Nd = #{row.nd,jdbcType=VARCHAR},
       Co = #{row.co,jdbcType=VARCHAR},
       B = #{row.b,jdbcType=VARCHAR},
@@ -541,6 +563,7 @@
       factory_id = #{row.factoryId,jdbcType=BIGINT},
       name = #{row.name,jdbcType=VARCHAR},
       batch_id = #{row.batchId,jdbcType=VARCHAR},
+      factory = #{row.factory,jdbcType=VARCHAR},
       dispatch_time = #{row.dispatchTime,jdbcType=TIMESTAMP},
       moisture_proof_logo = #{row.moistureProofLogo,jdbcType=VARCHAR},
       specification = #{row.specification,jdbcType=VARCHAR},
@@ -550,11 +573,12 @@
       pic = #{row.pic,jdbcType=VARCHAR},
       quality_certificate = #{row.qualityCertificate,jdbcType=VARCHAR},
       standard_number = #{row.standardNumber,jdbcType=VARCHAR},
-      purity = #{row.purity,jdbcType=VARCHAR},
-      production_equipment = #{row.productionEquipment,jdbcType=VARCHAR},
-      material_ratio = #{row.materialRatio,jdbcType=VARCHAR},
-      extraction_unit = #{row.extractionUnit,jdbcType=VARCHAR},
-      album_pics = #{row.albumPics,jdbcType=VARCHAR},
+      mining_technology = #{row.miningTechnology,jdbcType=VARCHAR},
+      mine = #{row.mine,jdbcType=VARCHAR},
+      separate = #{row.separate,jdbcType=VARCHAR},
+      oxygen_levels = #{row.oxygenLevels,jdbcType=VARCHAR},
+      pressure = #{row.pressure,jdbcType=VARCHAR},
+      magnetic_field = #{row.magneticField,jdbcType=VARCHAR},
       Nd = #{row.nd,jdbcType=VARCHAR},
       Co = #{row.co,jdbcType=VARCHAR},
       B = #{row.b,jdbcType=VARCHAR},
@@ -585,6 +609,9 @@
       <if test="batchId != null">
         batch_id = #{batchId,jdbcType=VARCHAR},
       </if>
+      <if test="factory != null">
+        factory = #{factory,jdbcType=VARCHAR},
+      </if>
       <if test="dispatchTime != null">
         dispatch_time = #{dispatchTime,jdbcType=TIMESTAMP},
       </if>
@@ -612,20 +639,23 @@
       <if test="standardNumber != null">
         standard_number = #{standardNumber,jdbcType=VARCHAR},
       </if>
-      <if test="purity != null">
-        purity = #{purity,jdbcType=VARCHAR},
+      <if test="miningTechnology != null">
+        mining_technology = #{miningTechnology,jdbcType=VARCHAR},
       </if>
-      <if test="productionEquipment != null">
-        production_equipment = #{productionEquipment,jdbcType=VARCHAR},
+      <if test="mine != null">
+        mine = #{mine,jdbcType=VARCHAR},
       </if>
-      <if test="materialRatio != null">
-        material_ratio = #{materialRatio,jdbcType=VARCHAR},
+      <if test="separate != null">
+        separate = #{separate,jdbcType=VARCHAR},
       </if>
-      <if test="extractionUnit != null">
-        extraction_unit = #{extractionUnit,jdbcType=VARCHAR},
+      <if test="oxygenLevels != null">
+        oxygen_levels = #{oxygenLevels,jdbcType=VARCHAR},
       </if>
-      <if test="albumPics != null">
-        album_pics = #{albumPics,jdbcType=VARCHAR},
+      <if test="pressure != null">
+        pressure = #{pressure,jdbcType=VARCHAR},
+      </if>
+      <if test="magneticField != null">
+        magnetic_field = #{magneticField,jdbcType=VARCHAR},
       </if>
       <if test="nd != null">
         Nd = #{nd,jdbcType=VARCHAR},
@@ -680,6 +710,7 @@
     set factory_id = #{factoryId,jdbcType=BIGINT},
       name = #{name,jdbcType=VARCHAR},
       batch_id = #{batchId,jdbcType=VARCHAR},
+      factory = #{factory,jdbcType=VARCHAR},
       dispatch_time = #{dispatchTime,jdbcType=TIMESTAMP},
       moisture_proof_logo = #{moistureProofLogo,jdbcType=VARCHAR},
       specification = #{specification,jdbcType=VARCHAR},
@@ -689,11 +720,12 @@
       pic = #{pic,jdbcType=VARCHAR},
       quality_certificate = #{qualityCertificate,jdbcType=VARCHAR},
       standard_number = #{standardNumber,jdbcType=VARCHAR},
-      purity = #{purity,jdbcType=VARCHAR},
-      production_equipment = #{productionEquipment,jdbcType=VARCHAR},
-      material_ratio = #{materialRatio,jdbcType=VARCHAR},
-      extraction_unit = #{extractionUnit,jdbcType=VARCHAR},
-      album_pics = #{albumPics,jdbcType=VARCHAR},
+      mining_technology = #{miningTechnology,jdbcType=VARCHAR},
+      mine = #{mine,jdbcType=VARCHAR},
+      separate = #{separate,jdbcType=VARCHAR},
+      oxygen_levels = #{oxygenLevels,jdbcType=VARCHAR},
+      pressure = #{pressure,jdbcType=VARCHAR},
+      magnetic_field = #{magneticField,jdbcType=VARCHAR},
       Nd = #{nd,jdbcType=VARCHAR},
       Co = #{co,jdbcType=VARCHAR},
       B = #{b,jdbcType=VARCHAR},
@@ -716,6 +748,7 @@
     set factory_id = #{factoryId,jdbcType=BIGINT},
       name = #{name,jdbcType=VARCHAR},
       batch_id = #{batchId,jdbcType=VARCHAR},
+      factory = #{factory,jdbcType=VARCHAR},
       dispatch_time = #{dispatchTime,jdbcType=TIMESTAMP},
       moisture_proof_logo = #{moistureProofLogo,jdbcType=VARCHAR},
       specification = #{specification,jdbcType=VARCHAR},
@@ -725,11 +758,12 @@
       pic = #{pic,jdbcType=VARCHAR},
       quality_certificate = #{qualityCertificate,jdbcType=VARCHAR},
       standard_number = #{standardNumber,jdbcType=VARCHAR},
-      purity = #{purity,jdbcType=VARCHAR},
-      production_equipment = #{productionEquipment,jdbcType=VARCHAR},
-      material_ratio = #{materialRatio,jdbcType=VARCHAR},
-      extraction_unit = #{extractionUnit,jdbcType=VARCHAR},
-      album_pics = #{albumPics,jdbcType=VARCHAR},
+      mining_technology = #{miningTechnology,jdbcType=VARCHAR},
+      mine = #{mine,jdbcType=VARCHAR},
+      separate = #{separate,jdbcType=VARCHAR},
+      oxygen_levels = #{oxygenLevels,jdbcType=VARCHAR},
+      pressure = #{pressure,jdbcType=VARCHAR},
+      magnetic_field = #{magneticField,jdbcType=VARCHAR},
       Nd = #{nd,jdbcType=VARCHAR},
       Co = #{co,jdbcType=VARCHAR},
       B = #{b,jdbcType=VARCHAR},

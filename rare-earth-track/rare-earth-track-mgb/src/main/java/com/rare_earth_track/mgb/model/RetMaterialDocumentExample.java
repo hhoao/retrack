@@ -112,7 +112,7 @@ public class RetMaterialDocumentExample {
 
     /**
      * ret_material_document
-     * @author 匡龙 2022-07-04
+     * @author 匡龙 2022-07-06
      */
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
@@ -354,7 +354,7 @@ public class RetMaterialDocumentExample {
 
     /**
      * ret_material_document
-     * @author 匡龙 2022-07-04
+     * @author 匡龙 2022-07-06
      */
     public static class Criterion {
         private String condition;

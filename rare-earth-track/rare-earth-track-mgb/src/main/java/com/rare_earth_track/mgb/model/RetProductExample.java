@@ -113,7 +113,7 @@ public class RetProductExample {
 
     /**
      * ret_product
-     * @author 匡龙 2022-07-04
+     * @author 匡龙 2022-07-06
      */
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
@@ -413,6 +413,76 @@ public class RetProductExample {
 
         public Criteria andBatchIdNotBetween(String value1, String value2) {
             addCriterion("batch_id not between", value1, value2, "batchId");
+            return (Criteria) this;
+        }
+
+        public Criteria andFactoryIsNull() {
+            addCriterion("factory is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFactoryIsNotNull() {
+            addCriterion("factory is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFactoryEqualTo(String value) {
+            addCriterion("factory =", value, "factory");
+            return (Criteria) this;
+        }
+
+        public Criteria andFactoryNotEqualTo(String value) {
+            addCriterion("factory <>", value, "factory");
+            return (Criteria) this;
+        }
+
+        public Criteria andFactoryGreaterThan(String value) {
+            addCriterion("factory >", value, "factory");
+            return (Criteria) this;
+        }
+
+        public Criteria andFactoryGreaterThanOrEqualTo(String value) {
+            addCriterion("factory >=", value, "factory");
+            return (Criteria) this;
+        }
+
+        public Criteria andFactoryLessThan(String value) {
+            addCriterion("factory <", value, "factory");
+            return (Criteria) this;
+        }
+
+        public Criteria andFactoryLessThanOrEqualTo(String value) {
+            addCriterion("factory <=", value, "factory");
+            return (Criteria) this;
+        }
+
+        public Criteria andFactoryLike(String value) {
+            addCriterion("factory like", value, "factory");
+            return (Criteria) this;
+        }
+
+        public Criteria andFactoryNotLike(String value) {
+            addCriterion("factory not like", value, "factory");
+            return (Criteria) this;
+        }
+
+        public Criteria andFactoryIn(List<String> values) {
+            addCriterion("factory in", values, "factory");
+            return (Criteria) this;
+        }
+
+        public Criteria andFactoryNotIn(List<String> values) {
+            addCriterion("factory not in", values, "factory");
+            return (Criteria) this;
+        }
+
+        public Criteria andFactoryBetween(String value1, String value2) {
+            addCriterion("factory between", value1, value2, "factory");
+            return (Criteria) this;
+        }
+
+        public Criteria andFactoryNotBetween(String value1, String value2) {
+            addCriterion("factory not between", value1, value2, "factory");
             return (Criteria) this;
         }
 
@@ -1036,353 +1106,423 @@ public class RetProductExample {
             return (Criteria) this;
         }
 
-        public Criteria andPurityIsNull() {
-            addCriterion("purity is null");
+        public Criteria andMiningTechnologyIsNull() {
+            addCriterion("mining_technology is null");
             return (Criteria) this;
         }
 
-        public Criteria andPurityIsNotNull() {
-            addCriterion("purity is not null");
+        public Criteria andMiningTechnologyIsNotNull() {
+            addCriterion("mining_technology is not null");
             return (Criteria) this;
         }
 
-        public Criteria andPurityEqualTo(String value) {
-            addCriterion("purity =", value, "purity");
+        public Criteria andMiningTechnologyEqualTo(String value) {
+            addCriterion("mining_technology =", value, "miningTechnology");
             return (Criteria) this;
         }
 
-        public Criteria andPurityNotEqualTo(String value) {
-            addCriterion("purity <>", value, "purity");
+        public Criteria andMiningTechnologyNotEqualTo(String value) {
+            addCriterion("mining_technology <>", value, "miningTechnology");
             return (Criteria) this;
         }
 
-        public Criteria andPurityGreaterThan(String value) {
-            addCriterion("purity >", value, "purity");
+        public Criteria andMiningTechnologyGreaterThan(String value) {
+            addCriterion("mining_technology >", value, "miningTechnology");
             return (Criteria) this;
         }
 
-        public Criteria andPurityGreaterThanOrEqualTo(String value) {
-            addCriterion("purity >=", value, "purity");
+        public Criteria andMiningTechnologyGreaterThanOrEqualTo(String value) {
+            addCriterion("mining_technology >=", value, "miningTechnology");
             return (Criteria) this;
         }
 
-        public Criteria andPurityLessThan(String value) {
-            addCriterion("purity <", value, "purity");
+        public Criteria andMiningTechnologyLessThan(String value) {
+            addCriterion("mining_technology <", value, "miningTechnology");
             return (Criteria) this;
         }
 
-        public Criteria andPurityLessThanOrEqualTo(String value) {
-            addCriterion("purity <=", value, "purity");
+        public Criteria andMiningTechnologyLessThanOrEqualTo(String value) {
+            addCriterion("mining_technology <=", value, "miningTechnology");
             return (Criteria) this;
         }
 
-        public Criteria andPurityLike(String value) {
-            addCriterion("purity like", value, "purity");
+        public Criteria andMiningTechnologyLike(String value) {
+            addCriterion("mining_technology like", value, "miningTechnology");
             return (Criteria) this;
         }
 
-        public Criteria andPurityNotLike(String value) {
-            addCriterion("purity not like", value, "purity");
+        public Criteria andMiningTechnologyNotLike(String value) {
+            addCriterion("mining_technology not like", value, "miningTechnology");
             return (Criteria) this;
         }
 
-        public Criteria andPurityIn(List<String> values) {
-            addCriterion("purity in", values, "purity");
+        public Criteria andMiningTechnologyIn(List<String> values) {
+            addCriterion("mining_technology in", values, "miningTechnology");
             return (Criteria) this;
         }
 
-        public Criteria andPurityNotIn(List<String> values) {
-            addCriterion("purity not in", values, "purity");
+        public Criteria andMiningTechnologyNotIn(List<String> values) {
+            addCriterion("mining_technology not in", values, "miningTechnology");
             return (Criteria) this;
         }
 
-        public Criteria andPurityBetween(String value1, String value2) {
-            addCriterion("purity between", value1, value2, "purity");
+        public Criteria andMiningTechnologyBetween(String value1, String value2) {
+            addCriterion("mining_technology between", value1, value2, "miningTechnology");
             return (Criteria) this;
         }
 
-        public Criteria andPurityNotBetween(String value1, String value2) {
-            addCriterion("purity not between", value1, value2, "purity");
+        public Criteria andMiningTechnologyNotBetween(String value1, String value2) {
+            addCriterion("mining_technology not between", value1, value2, "miningTechnology");
             return (Criteria) this;
         }
 
-        public Criteria andProductionEquipmentIsNull() {
-            addCriterion("production_equipment is null");
+        public Criteria andMineIsNull() {
+            addCriterion("mine is null");
             return (Criteria) this;
         }
 
-        public Criteria andProductionEquipmentIsNotNull() {
-            addCriterion("production_equipment is not null");
+        public Criteria andMineIsNotNull() {
+            addCriterion("mine is not null");
             return (Criteria) this;
         }
 
-        public Criteria andProductionEquipmentEqualTo(String value) {
-            addCriterion("production_equipment =", value, "productionEquipment");
+        public Criteria andMineEqualTo(String value) {
+            addCriterion("mine =", value, "mine");
             return (Criteria) this;
         }
 
-        public Criteria andProductionEquipmentNotEqualTo(String value) {
-            addCriterion("production_equipment <>", value, "productionEquipment");
+        public Criteria andMineNotEqualTo(String value) {
+            addCriterion("mine <>", value, "mine");
             return (Criteria) this;
         }
 
-        public Criteria andProductionEquipmentGreaterThan(String value) {
-            addCriterion("production_equipment >", value, "productionEquipment");
+        public Criteria andMineGreaterThan(String value) {
+            addCriterion("mine >", value, "mine");
             return (Criteria) this;
         }
 
-        public Criteria andProductionEquipmentGreaterThanOrEqualTo(String value) {
-            addCriterion("production_equipment >=", value, "productionEquipment");
+        public Criteria andMineGreaterThanOrEqualTo(String value) {
+            addCriterion("mine >=", value, "mine");
             return (Criteria) this;
         }
 
-        public Criteria andProductionEquipmentLessThan(String value) {
-            addCriterion("production_equipment <", value, "productionEquipment");
+        public Criteria andMineLessThan(String value) {
+            addCriterion("mine <", value, "mine");
             return (Criteria) this;
         }
 
-        public Criteria andProductionEquipmentLessThanOrEqualTo(String value) {
-            addCriterion("production_equipment <=", value, "productionEquipment");
+        public Criteria andMineLessThanOrEqualTo(String value) {
+            addCriterion("mine <=", value, "mine");
             return (Criteria) this;
         }
 
-        public Criteria andProductionEquipmentLike(String value) {
-            addCriterion("production_equipment like", value, "productionEquipment");
+        public Criteria andMineLike(String value) {
+            addCriterion("mine like", value, "mine");
             return (Criteria) this;
         }
 
-        public Criteria andProductionEquipmentNotLike(String value) {
-            addCriterion("production_equipment not like", value, "productionEquipment");
+        public Criteria andMineNotLike(String value) {
+            addCriterion("mine not like", value, "mine");
             return (Criteria) this;
         }
 
-        public Criteria andProductionEquipmentIn(List<String> values) {
-            addCriterion("production_equipment in", values, "productionEquipment");
+        public Criteria andMineIn(List<String> values) {
+            addCriterion("mine in", values, "mine");
             return (Criteria) this;
         }
 
-        public Criteria andProductionEquipmentNotIn(List<String> values) {
-            addCriterion("production_equipment not in", values, "productionEquipment");
+        public Criteria andMineNotIn(List<String> values) {
+            addCriterion("mine not in", values, "mine");
             return (Criteria) this;
         }
 
-        public Criteria andProductionEquipmentBetween(String value1, String value2) {
-            addCriterion("production_equipment between", value1, value2, "productionEquipment");
+        public Criteria andMineBetween(String value1, String value2) {
+            addCriterion("mine between", value1, value2, "mine");
             return (Criteria) this;
         }
 
-        public Criteria andProductionEquipmentNotBetween(String value1, String value2) {
-            addCriterion("production_equipment not between", value1, value2, "productionEquipment");
+        public Criteria andMineNotBetween(String value1, String value2) {
+            addCriterion("mine not between", value1, value2, "mine");
             return (Criteria) this;
         }
 
-        public Criteria andMaterialRatioIsNull() {
-            addCriterion("material_ratio is null");
+        public Criteria andSeparateIsNull() {
+            addCriterion("separate is null");
             return (Criteria) this;
         }
 
-        public Criteria andMaterialRatioIsNotNull() {
-            addCriterion("material_ratio is not null");
+        public Criteria andSeparateIsNotNull() {
+            addCriterion("separate is not null");
             return (Criteria) this;
         }
 
-        public Criteria andMaterialRatioEqualTo(String value) {
-            addCriterion("material_ratio =", value, "materialRatio");
+        public Criteria andSeparateEqualTo(String value) {
+            addCriterion("separate =", value, "separate");
             return (Criteria) this;
         }
 
-        public Criteria andMaterialRatioNotEqualTo(String value) {
-            addCriterion("material_ratio <>", value, "materialRatio");
+        public Criteria andSeparateNotEqualTo(String value) {
+            addCriterion("separate <>", value, "separate");
             return (Criteria) this;
         }
 
-        public Criteria andMaterialRatioGreaterThan(String value) {
-            addCriterion("material_ratio >", value, "materialRatio");
+        public Criteria andSeparateGreaterThan(String value) {
+            addCriterion("separate >", value, "separate");
             return (Criteria) this;
         }
 
-        public Criteria andMaterialRatioGreaterThanOrEqualTo(String value) {
-            addCriterion("material_ratio >=", value, "materialRatio");
+        public Criteria andSeparateGreaterThanOrEqualTo(String value) {
+            addCriterion("separate >=", value, "separate");
             return (Criteria) this;
         }
 
-        public Criteria andMaterialRatioLessThan(String value) {
-            addCriterion("material_ratio <", value, "materialRatio");
+        public Criteria andSeparateLessThan(String value) {
+            addCriterion("separate <", value, "separate");
             return (Criteria) this;
         }
 
-        public Criteria andMaterialRatioLessThanOrEqualTo(String value) {
-            addCriterion("material_ratio <=", value, "materialRatio");
+        public Criteria andSeparateLessThanOrEqualTo(String value) {
+            addCriterion("separate <=", value, "separate");
             return (Criteria) this;
         }
 
-        public Criteria andMaterialRatioLike(String value) {
-            addCriterion("material_ratio like", value, "materialRatio");
+        public Criteria andSeparateLike(String value) {
+            addCriterion("separate like", value, "separate");
             return (Criteria) this;
         }
 
-        public Criteria andMaterialRatioNotLike(String value) {
-            addCriterion("material_ratio not like", value, "materialRatio");
+        public Criteria andSeparateNotLike(String value) {
+            addCriterion("separate not like", value, "separate");
             return (Criteria) this;
         }
 
-        public Criteria andMaterialRatioIn(List<String> values) {
-            addCriterion("material_ratio in", values, "materialRatio");
+        public Criteria andSeparateIn(List<String> values) {
+            addCriterion("separate in", values, "separate");
             return (Criteria) this;
         }
 
-        public Criteria andMaterialRatioNotIn(List<String> values) {
-            addCriterion("material_ratio not in", values, "materialRatio");
+        public Criteria andSeparateNotIn(List<String> values) {
+            addCriterion("separate not in", values, "separate");
             return (Criteria) this;
         }
 
-        public Criteria andMaterialRatioBetween(String value1, String value2) {
-            addCriterion("material_ratio between", value1, value2, "materialRatio");
+        public Criteria andSeparateBetween(String value1, String value2) {
+            addCriterion("separate between", value1, value2, "separate");
             return (Criteria) this;
         }
 
-        public Criteria andMaterialRatioNotBetween(String value1, String value2) {
-            addCriterion("material_ratio not between", value1, value2, "materialRatio");
+        public Criteria andSeparateNotBetween(String value1, String value2) {
+            addCriterion("separate not between", value1, value2, "separate");
             return (Criteria) this;
         }
 
-        public Criteria andExtractionUnitIsNull() {
-            addCriterion("extraction_unit is null");
+        public Criteria andOxygenLevelsIsNull() {
+            addCriterion("oxygen_levels is null");
             return (Criteria) this;
         }
 
-        public Criteria andExtractionUnitIsNotNull() {
-            addCriterion("extraction_unit is not null");
+        public Criteria andOxygenLevelsIsNotNull() {
+            addCriterion("oxygen_levels is not null");
             return (Criteria) this;
         }
 
-        public Criteria andExtractionUnitEqualTo(String value) {
-            addCriterion("extraction_unit =", value, "extractionUnit");
+        public Criteria andOxygenLevelsEqualTo(String value) {
+            addCriterion("oxygen_levels =", value, "oxygenLevels");
             return (Criteria) this;
         }
 
-        public Criteria andExtractionUnitNotEqualTo(String value) {
-            addCriterion("extraction_unit <>", value, "extractionUnit");
+        public Criteria andOxygenLevelsNotEqualTo(String value) {
+            addCriterion("oxygen_levels <>", value, "oxygenLevels");
             return (Criteria) this;
         }
 
-        public Criteria andExtractionUnitGreaterThan(String value) {
-            addCriterion("extraction_unit >", value, "extractionUnit");
+        public Criteria andOxygenLevelsGreaterThan(String value) {
+            addCriterion("oxygen_levels >", value, "oxygenLevels");
             return (Criteria) this;
         }
 
-        public Criteria andExtractionUnitGreaterThanOrEqualTo(String value) {
-            addCriterion("extraction_unit >=", value, "extractionUnit");
+        public Criteria andOxygenLevelsGreaterThanOrEqualTo(String value) {
+            addCriterion("oxygen_levels >=", value, "oxygenLevels");
             return (Criteria) this;
         }
 
-        public Criteria andExtractionUnitLessThan(String value) {
-            addCriterion("extraction_unit <", value, "extractionUnit");
+        public Criteria andOxygenLevelsLessThan(String value) {
+            addCriterion("oxygen_levels <", value, "oxygenLevels");
             return (Criteria) this;
         }
 
-        public Criteria andExtractionUnitLessThanOrEqualTo(String value) {
-            addCriterion("extraction_unit <=", value, "extractionUnit");
+        public Criteria andOxygenLevelsLessThanOrEqualTo(String value) {
+            addCriterion("oxygen_levels <=", value, "oxygenLevels");
             return (Criteria) this;
         }
 
-        public Criteria andExtractionUnitLike(String value) {
-            addCriterion("extraction_unit like", value, "extractionUnit");
+        public Criteria andOxygenLevelsLike(String value) {
+            addCriterion("oxygen_levels like", value, "oxygenLevels");
             return (Criteria) this;
         }
 
-        public Criteria andExtractionUnitNotLike(String value) {
-            addCriterion("extraction_unit not like", value, "extractionUnit");
+        public Criteria andOxygenLevelsNotLike(String value) {
+            addCriterion("oxygen_levels not like", value, "oxygenLevels");
             return (Criteria) this;
         }
 
-        public Criteria andExtractionUnitIn(List<String> values) {
-            addCriterion("extraction_unit in", values, "extractionUnit");
+        public Criteria andOxygenLevelsIn(List<String> values) {
+            addCriterion("oxygen_levels in", values, "oxygenLevels");
             return (Criteria) this;
         }
 
-        public Criteria andExtractionUnitNotIn(List<String> values) {
-            addCriterion("extraction_unit not in", values, "extractionUnit");
+        public Criteria andOxygenLevelsNotIn(List<String> values) {
+            addCriterion("oxygen_levels not in", values, "oxygenLevels");
             return (Criteria) this;
         }
 
-        public Criteria andExtractionUnitBetween(String value1, String value2) {
-            addCriterion("extraction_unit between", value1, value2, "extractionUnit");
+        public Criteria andOxygenLevelsBetween(String value1, String value2) {
+            addCriterion("oxygen_levels between", value1, value2, "oxygenLevels");
             return (Criteria) this;
         }
 
-        public Criteria andExtractionUnitNotBetween(String value1, String value2) {
-            addCriterion("extraction_unit not between", value1, value2, "extractionUnit");
+        public Criteria andOxygenLevelsNotBetween(String value1, String value2) {
+            addCriterion("oxygen_levels not between", value1, value2, "oxygenLevels");
             return (Criteria) this;
         }
 
-        public Criteria andAlbumPicsIsNull() {
-            addCriterion("album_pics is null");
+        public Criteria andPressureIsNull() {
+            addCriterion("pressure is null");
             return (Criteria) this;
         }
 
-        public Criteria andAlbumPicsIsNotNull() {
-            addCriterion("album_pics is not null");
+        public Criteria andPressureIsNotNull() {
+            addCriterion("pressure is not null");
             return (Criteria) this;
         }
 
-        public Criteria andAlbumPicsEqualTo(String value) {
-            addCriterion("album_pics =", value, "albumPics");
+        public Criteria andPressureEqualTo(String value) {
+            addCriterion("pressure =", value, "pressure");
             return (Criteria) this;
         }
 
-        public Criteria andAlbumPicsNotEqualTo(String value) {
-            addCriterion("album_pics <>", value, "albumPics");
+        public Criteria andPressureNotEqualTo(String value) {
+            addCriterion("pressure <>", value, "pressure");
             return (Criteria) this;
         }
 
-        public Criteria andAlbumPicsGreaterThan(String value) {
-            addCriterion("album_pics >", value, "albumPics");
+        public Criteria andPressureGreaterThan(String value) {
+            addCriterion("pressure >", value, "pressure");
             return (Criteria) this;
         }
 
-        public Criteria andAlbumPicsGreaterThanOrEqualTo(String value) {
-            addCriterion("album_pics >=", value, "albumPics");
+        public Criteria andPressureGreaterThanOrEqualTo(String value) {
+            addCriterion("pressure >=", value, "pressure");
             return (Criteria) this;
         }
 
-        public Criteria andAlbumPicsLessThan(String value) {
-            addCriterion("album_pics <", value, "albumPics");
+        public Criteria andPressureLessThan(String value) {
+            addCriterion("pressure <", value, "pressure");
             return (Criteria) this;
         }
 
-        public Criteria andAlbumPicsLessThanOrEqualTo(String value) {
-            addCriterion("album_pics <=", value, "albumPics");
+        public Criteria andPressureLessThanOrEqualTo(String value) {
+            addCriterion("pressure <=", value, "pressure");
             return (Criteria) this;
         }
 
-        public Criteria andAlbumPicsLike(String value) {
-            addCriterion("album_pics like", value, "albumPics");
+        public Criteria andPressureLike(String value) {
+            addCriterion("pressure like", value, "pressure");
             return (Criteria) this;
         }
 
-        public Criteria andAlbumPicsNotLike(String value) {
-            addCriterion("album_pics not like", value, "albumPics");
+        public Criteria andPressureNotLike(String value) {
+            addCriterion("pressure not like", value, "pressure");
             return (Criteria) this;
         }
 
-        public Criteria andAlbumPicsIn(List<String> values) {
-            addCriterion("album_pics in", values, "albumPics");
+        public Criteria andPressureIn(List<String> values) {
+            addCriterion("pressure in", values, "pressure");
             return (Criteria) this;
         }
 
-        public Criteria andAlbumPicsNotIn(List<String> values) {
-            addCriterion("album_pics not in", values, "albumPics");
+        public Criteria andPressureNotIn(List<String> values) {
+            addCriterion("pressure not in", values, "pressure");
             return (Criteria) this;
         }
 
-        public Criteria andAlbumPicsBetween(String value1, String value2) {
-            addCriterion("album_pics between", value1, value2, "albumPics");
+        public Criteria andPressureBetween(String value1, String value2) {
+            addCriterion("pressure between", value1, value2, "pressure");
             return (Criteria) this;
         }
 
-        public Criteria andAlbumPicsNotBetween(String value1, String value2) {
-            addCriterion("album_pics not between", value1, value2, "albumPics");
+        public Criteria andPressureNotBetween(String value1, String value2) {
+            addCriterion("pressure not between", value1, value2, "pressure");
+            return (Criteria) this;
+        }
+
+        public Criteria andMagneticFieldIsNull() {
+            addCriterion("magnetic_field is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMagneticFieldIsNotNull() {
+            addCriterion("magnetic_field is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMagneticFieldEqualTo(String value) {
+            addCriterion("magnetic_field =", value, "magneticField");
+            return (Criteria) this;
+        }
+
+        public Criteria andMagneticFieldNotEqualTo(String value) {
+            addCriterion("magnetic_field <>", value, "magneticField");
+            return (Criteria) this;
+        }
+
+        public Criteria andMagneticFieldGreaterThan(String value) {
+            addCriterion("magnetic_field >", value, "magneticField");
+            return (Criteria) this;
+        }
+
+        public Criteria andMagneticFieldGreaterThanOrEqualTo(String value) {
+            addCriterion("magnetic_field >=", value, "magneticField");
+            return (Criteria) this;
+        }
+
+        public Criteria andMagneticFieldLessThan(String value) {
+            addCriterion("magnetic_field <", value, "magneticField");
+            return (Criteria) this;
+        }
+
+        public Criteria andMagneticFieldLessThanOrEqualTo(String value) {
+            addCriterion("magnetic_field <=", value, "magneticField");
+            return (Criteria) this;
+        }
+
+        public Criteria andMagneticFieldLike(String value) {
+            addCriterion("magnetic_field like", value, "magneticField");
+            return (Criteria) this;
+        }
+
+        public Criteria andMagneticFieldNotLike(String value) {
+            addCriterion("magnetic_field not like", value, "magneticField");
+            return (Criteria) this;
+        }
+
+        public Criteria andMagneticFieldIn(List<String> values) {
+            addCriterion("magnetic_field in", values, "magneticField");
+            return (Criteria) this;
+        }
+
+        public Criteria andMagneticFieldNotIn(List<String> values) {
+            addCriterion("magnetic_field not in", values, "magneticField");
+            return (Criteria) this;
+        }
+
+        public Criteria andMagneticFieldBetween(String value1, String value2) {
+            addCriterion("magnetic_field between", value1, value2, "magneticField");
+            return (Criteria) this;
+        }
+
+        public Criteria andMagneticFieldNotBetween(String value1, String value2) {
+            addCriterion("magnetic_field not between", value1, value2, "magneticField");
             return (Criteria) this;
         }
 
@@ -2375,7 +2515,7 @@ public class RetProductExample {
 
     /**
      * ret_product
-     * @author 匡龙 2022-07-04
+     * @author 匡龙 2022-07-06
      */
     public static class Criterion {
         private String condition;

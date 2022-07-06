@@ -7,7 +7,7 @@ import java.util.Date;
 /**
  * 产品信
  * @author 匡龙 
- * @date 2022-07-04
+ * @date 2022-07-06
  */
 @Schema(description = "产品信")
 public class RetProduct implements Serializable {
@@ -21,6 +21,9 @@ public class RetProduct implements Serializable {
 
     @Schema(description = "批次")
     private String batchId;
+
+    @Schema(description = "生产厂家")
+    private String factory;
 
     @Schema(description = "出货日期")
     private Date dispatchTime;
@@ -49,20 +52,23 @@ public class RetProduct implements Serializable {
     @Schema(description = "牌号")
     private String standardNumber;
 
-    @Schema(description = "纯度")
-    private String purity;
+    @Schema(description = "矿山工艺")
+    private String miningTechnology;
 
-    @Schema(description = "生产设备")
-    private String productionEquipment;
+    @Schema(description = "冶炼")
+    private String mine;
 
-    @Schema(description = "物料配比")
-    private String materialRatio;
+    @Schema(description = "分离")
+    private String separate;
 
-    @Schema(description = "提取单位")
-    private String extractionUnit;
+    @Schema(description = "含氧量")
+    private String oxygenLevels;
 
-    @Schema(description = "画册图片，连产品图片限制为5张，以逗号分割")
-    private String albumPics;
+    @Schema(description = "压力")
+    private String pressure;
+
+    @Schema(description = "磁场大小")
+    private String magneticField;
 
     @Schema(description = "钕成分")
     private String nd;
@@ -173,6 +179,22 @@ public class RetProduct implements Serializable {
      */
     public void setBatchId(String batchId) {
         this.batchId = batchId;
+    }
+
+    /**
+     * 生产厂家
+     * @return factory 生产厂家
+     */
+    public String getFactory() {
+        return factory;
+    }
+
+    /**
+     * 生产厂家
+     * @param factory 生产厂家
+     */
+    public void setFactory(String factory) {
+        this.factory = factory;
     }
 
     /**
@@ -320,83 +342,99 @@ public class RetProduct implements Serializable {
     }
 
     /**
-     * 纯度
-     * @return purity 纯度
+     * 矿山工艺
+     * @return mining_technology 矿山工艺
      */
-    public String getPurity() {
-        return purity;
+    public String getMiningTechnology() {
+        return miningTechnology;
     }
 
     /**
-     * 纯度
-     * @param purity 纯度
+     * 矿山工艺
+     * @param miningTechnology 矿山工艺
      */
-    public void setPurity(String purity) {
-        this.purity = purity;
+    public void setMiningTechnology(String miningTechnology) {
+        this.miningTechnology = miningTechnology;
     }
 
     /**
-     * 生产设备
-     * @return production_equipment 生产设备
+     * 冶炼
+     * @return mine 冶炼
      */
-    public String getProductionEquipment() {
-        return productionEquipment;
+    public String getMine() {
+        return mine;
     }
 
     /**
-     * 生产设备
-     * @param productionEquipment 生产设备
+     * 冶炼
+     * @param mine 冶炼
      */
-    public void setProductionEquipment(String productionEquipment) {
-        this.productionEquipment = productionEquipment;
+    public void setMine(String mine) {
+        this.mine = mine;
     }
 
     /**
-     * 物料配比
-     * @return material_ratio 物料配比
+     * 分离
+     * @return separate 分离
      */
-    public String getMaterialRatio() {
-        return materialRatio;
+    public String getSeparate() {
+        return separate;
     }
 
     /**
-     * 物料配比
-     * @param materialRatio 物料配比
+     * 分离
+     * @param separate 分离
      */
-    public void setMaterialRatio(String materialRatio) {
-        this.materialRatio = materialRatio;
+    public void setSeparate(String separate) {
+        this.separate = separate;
     }
 
     /**
-     * 提取单位
-     * @return extraction_unit 提取单位
+     * 含氧量
+     * @return oxygen_levels 含氧量
      */
-    public String getExtractionUnit() {
-        return extractionUnit;
+    public String getOxygenLevels() {
+        return oxygenLevels;
     }
 
     /**
-     * 提取单位
-     * @param extractionUnit 提取单位
+     * 含氧量
+     * @param oxygenLevels 含氧量
      */
-    public void setExtractionUnit(String extractionUnit) {
-        this.extractionUnit = extractionUnit;
+    public void setOxygenLevels(String oxygenLevels) {
+        this.oxygenLevels = oxygenLevels;
     }
 
     /**
-     * 画册图片，连产品图片限制为5张，以逗号分割
-     * @return album_pics 画册图片，连产品图片限制为5张，以逗号分割
+     * 压力
+     * @return pressure 压力
      */
-    public String getAlbumPics() {
-        return albumPics;
+    public String getPressure() {
+        return pressure;
     }
 
     /**
-     * 画册图片，连产品图片限制为5张，以逗号分割
-     * @param albumPics 画册图片，连产品图片限制为5张，以逗号分割
+     * 压力
+     * @param pressure 压力
      */
-    public void setAlbumPics(String albumPics) {
-        this.albumPics = albumPics;
+    public void setPressure(String pressure) {
+        this.pressure = pressure;
+    }
+
+    /**
+     * 磁场大小
+     * @return magnetic_field 磁场大小
+     */
+    public String getMagneticField() {
+        return magneticField;
+    }
+
+    /**
+     * 磁场大小
+     * @param magneticField 磁场大小
+     */
+    public void setMagneticField(String magneticField) {
+        this.magneticField = magneticField;
     }
 
     /**
@@ -653,6 +691,7 @@ public class RetProduct implements Serializable {
         sb.append(", factoryId=").append(factoryId);
         sb.append(", name=").append(name);
         sb.append(", batchId=").append(batchId);
+        sb.append(", factory=").append(factory);
         sb.append(", dispatchTime=").append(dispatchTime);
         sb.append(", moistureProofLogo=").append(moistureProofLogo);
         sb.append(", specification=").append(specification);
@@ -662,11 +701,12 @@ public class RetProduct implements Serializable {
         sb.append(", pic=").append(pic);
         sb.append(", qualityCertificate=").append(qualityCertificate);
         sb.append(", standardNumber=").append(standardNumber);
-        sb.append(", purity=").append(purity);
-        sb.append(", productionEquipment=").append(productionEquipment);
-        sb.append(", materialRatio=").append(materialRatio);
-        sb.append(", extractionUnit=").append(extractionUnit);
-        sb.append(", albumPics=").append(albumPics);
+        sb.append(", miningTechnology=").append(miningTechnology);
+        sb.append(", mine=").append(mine);
+        sb.append(", separate=").append(separate);
+        sb.append(", oxygenLevels=").append(oxygenLevels);
+        sb.append(", pressure=").append(pressure);
+        sb.append(", magneticField=").append(magneticField);
         sb.append(", nd=").append(nd);
         sb.append(", co=").append(co);
         sb.append(", b=").append(b);

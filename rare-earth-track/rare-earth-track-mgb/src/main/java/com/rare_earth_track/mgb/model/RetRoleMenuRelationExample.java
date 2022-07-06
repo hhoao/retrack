@@ -112,7 +112,7 @@ public class RetRoleMenuRelationExample {
 
     /**
      * ret_role_menu_relation
-     * @author 匡龙 2022-07-04
+     * @author 匡龙 2022-07-06
      */
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
@@ -344,7 +344,7 @@ public class RetRoleMenuRelationExample {
 
     /**
      * ret_role_menu_relation
-     * @author 匡龙 2022-07-04
+     * @author 匡龙 2022-07-06
      */
     public static class Criterion {
         private String condition;

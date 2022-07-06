@@ -6,8 +6,8 @@ import java.util.Date;
 
 /**
  * 厂家入驻申请
- * @author 匡龙
- * @date 2022-07-04
+ * @author 匡龙 
+ * @date 2022-07-06
  */
 @Schema(description = "厂家入驻申请")
 public class RetApplyFactory implements Serializable {
@@ -34,16 +34,16 @@ public class RetApplyFactory implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     *
-     * @return id
+     * 
+     * @return id 
      */
     public Long getId() {
         return id;
     }
 
     /**
-     *
-     * @param id
+     * 
+     * @param id 
      */
     public void setId(Long id) {
         this.id = id;
