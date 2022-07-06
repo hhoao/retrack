@@ -496,7 +496,7 @@ CREATE TABLE `ret_product`
     `factory_id`           bigint       NOT NULL COMMENT '工厂id',
     `name`                 varchar(100) NOT NULL COMMENT '名称',
     `batch_id`             varchar(100) NOT NULL COMMENT '批次',
-    `factory`              varchar(100) NOT NULL COMMENT '生产厂家',
+    `factory`              varchar(100) DEFAULT NULL COMMENT '生产厂家',
     `description`          text         DEFAULT NULL COMMENT '描述',
     `dispatch_time`        datetime     DEFAULT NULL COMMENT '出货日期',
     `moisture_proof_logo`  varchar(256) DEFAULT NULL COMMENT '防潮标识',
@@ -530,7 +530,6 @@ CREATE TABLE `ret_product`
     CONSTRAINT PK_PRODUCT PRIMARY KEY (`id`),
     FOREIGN KEY (`factory_id`) REFERENCES `ret_factory` (`id`)
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 37
   DEFAULT CHARSET = UTF8MB4 COMMENT ='产品信息';
 INSERT `ret_product`(id, factory_id, name, batch_id,factory)
 VALUES (1, 1, '烧结钕铁硼', 'A-01', '五矿稀土');
