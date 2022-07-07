@@ -160,6 +160,9 @@ public class RetProductServiceImpl implements RetProductService {
         if (product.getStandardNumber() != null) {
             criteria.andStandardNumberEqualTo(product.getStandardNumber());
         }
+        if (product.getProductionPhase() != null) {
+            criteria.andProductionPhaseEqualTo(product.getProductionPhase());
+        }
         if (product.getMiningTechnology() != null) {
             criteria.andMiningTechnologyEqualTo(product.getMiningTechnology());
         }

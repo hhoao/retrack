@@ -112,7 +112,7 @@ public class RetMemberJobPermissionRelationExample {
 
     /**
      * ret_member_job_permission_relation
-     * @author 匡龙 2022-07-06
+     * @author 匡龙 2022-07-07
      */
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
@@ -344,7 +344,7 @@ public class RetMemberJobPermissionRelationExample {
 
     /**
      * ret_member_job_permission_relation
-     * @author 匡龙 2022-07-06
+     * @author 匡龙 2022-07-07
      */
     public static class Criterion {
         private String condition;

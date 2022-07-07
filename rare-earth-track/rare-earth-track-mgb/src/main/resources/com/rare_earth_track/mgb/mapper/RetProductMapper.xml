@@ -16,6 +16,7 @@
     <result column="pic" jdbcType="VARCHAR" property="pic" />
     <result column="quality_certificate" jdbcType="VARCHAR" property="qualityCertificate" />
     <result column="standard_number" jdbcType="VARCHAR" property="standardNumber" />
+    <result column="production_phase" jdbcType="VARCHAR" property="productionPhase" />
     <result column="mining_technology" jdbcType="VARCHAR" property="miningTechnology" />
     <result column="mine" jdbcType="VARCHAR" property="mine" />
     <result column="separate" jdbcType="VARCHAR" property="separate" />
@@ -101,8 +102,8 @@
   <sql id="Base_Column_List">
     id, factory_id, name, batch_id, factory, dispatch_time, moisture_proof_logo, specification, 
     packing_type, net_weight, transport_log, pic, quality_certificate, standard_number, 
-    mining_technology, mine, separate, oxygen_levels, pressure, magnetic_field, Nd, Co, 
-    B, Dy_Tb_Pr, other, RE, Nd_RE, Dy_RE, REO, Nd2O3_REO, Nd2O3, Dy2O3_REO, RE_impurities, 
+    production_phase, mining_technology, mine, separate, oxygen_levels, pressure, magnetic_field, 
+    Nd, Co, B, Dy_Tb_Pr, other, RE, Nd_RE, Dy_RE, REO, Nd2O3_REO, Nd2O3, Dy2O3_REO, RE_impurities, 
     non_RE_impurities
   </sql>
   <sql id="Blob_Column_List">
@@ -164,24 +165,26 @@
       factory, dispatch_time, moisture_proof_logo, 
       specification, packing_type, net_weight, 
       transport_log, pic, quality_certificate, 
-      standard_number, mining_technology, mine, 
-      separate, oxygen_levels, pressure, 
-      magnetic_field, Nd, Co, 
-      B, Dy_Tb_Pr, other, RE, 
-      Nd_RE, Dy_RE, REO, Nd2O3_REO, 
-      Nd2O3, Dy2O3_REO, RE_impurities, 
-      non_RE_impurities, description)
+      standard_number, production_phase, mining_technology, 
+      mine, separate, oxygen_levels, 
+      pressure, magnetic_field, Nd, 
+      Co, B, Dy_Tb_Pr, other, 
+      RE, Nd_RE, Dy_RE, REO, 
+      Nd2O3_REO, Nd2O3, Dy2O3_REO, 
+      RE_impurities, non_RE_impurities, description
+      )
     values (#{factoryId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{batchId,jdbcType=VARCHAR}, 
       #{factory,jdbcType=VARCHAR}, #{dispatchTime,jdbcType=TIMESTAMP}, #{moistureProofLogo,jdbcType=VARCHAR}, 
       #{specification,jdbcType=VARCHAR}, #{packingType,jdbcType=VARCHAR}, #{netWeight,jdbcType=VARCHAR}, 
       #{transportLog,jdbcType=VARCHAR}, #{pic,jdbcType=VARCHAR}, #{qualityCertificate,jdbcType=VARCHAR}, 
-      #{standardNumber,jdbcType=VARCHAR}, #{miningTechnology,jdbcType=VARCHAR}, #{mine,jdbcType=VARCHAR}, 
-      #{separate,jdbcType=VARCHAR}, #{oxygenLevels,jdbcType=VARCHAR}, #{pressure,jdbcType=VARCHAR}, 
-      #{magneticField,jdbcType=VARCHAR}, #{nd,jdbcType=VARCHAR}, #{co,jdbcType=VARCHAR}, 
-      #{b,jdbcType=VARCHAR}, #{dyTbPr,jdbcType=VARCHAR}, #{other,jdbcType=VARCHAR}, #{re,jdbcType=VARCHAR}, 
-      #{ndRe,jdbcType=VARCHAR}, #{dyRe,jdbcType=VARCHAR}, #{reo,jdbcType=VARCHAR}, #{nd2o3Reo,jdbcType=VARCHAR}, 
-      #{nd2o3,jdbcType=VARCHAR}, #{dy2o3Reo,jdbcType=VARCHAR}, #{reImpurities,jdbcType=VARCHAR}, 
-      #{nonReImpurities,jdbcType=VARCHAR}, #{description,jdbcType=LONGVARCHAR})
+      #{standardNumber,jdbcType=VARCHAR}, #{productionPhase,jdbcType=VARCHAR}, #{miningTechnology,jdbcType=VARCHAR}, 
+      #{mine,jdbcType=VARCHAR}, #{separate,jdbcType=VARCHAR}, #{oxygenLevels,jdbcType=VARCHAR}, 
+      #{pressure,jdbcType=VARCHAR}, #{magneticField,jdbcType=VARCHAR}, #{nd,jdbcType=VARCHAR}, 
+      #{co,jdbcType=VARCHAR}, #{b,jdbcType=VARCHAR}, #{dyTbPr,jdbcType=VARCHAR}, #{other,jdbcType=VARCHAR}, 
+      #{re,jdbcType=VARCHAR}, #{ndRe,jdbcType=VARCHAR}, #{dyRe,jdbcType=VARCHAR}, #{reo,jdbcType=VARCHAR}, 
+      #{nd2o3Reo,jdbcType=VARCHAR}, #{nd2o3,jdbcType=VARCHAR}, #{dy2o3Reo,jdbcType=VARCHAR}, 
+      #{reImpurities,jdbcType=VARCHAR}, #{nonReImpurities,jdbcType=VARCHAR}, #{description,jdbcType=LONGVARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.rare_earth_track.mgb.model.RetProduct">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
@@ -227,6 +230,9 @@
       </if>
       <if test="standardNumber != null">
         standard_number,
+      </if>
+      <if test="productionPhase != null">
+        production_phase,
       </if>
       <if test="miningTechnology != null">
         mining_technology,
@@ -331,6 +337,9 @@
       </if>
       <if test="standardNumber != null">
         #{standardNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="productionPhase != null">
+        #{productionPhase,jdbcType=VARCHAR},
       </if>
       <if test="miningTechnology != null">
         #{miningTechnology,jdbcType=VARCHAR},
@@ -448,6 +457,9 @@
       <if test="row.standardNumber != null">
         standard_number = #{row.standardNumber,jdbcType=VARCHAR},
       </if>
+      <if test="row.productionPhase != null">
+        production_phase = #{row.productionPhase,jdbcType=VARCHAR},
+      </if>
       <if test="row.miningTechnology != null">
         mining_technology = #{row.miningTechnology,jdbcType=VARCHAR},
       </if>
@@ -532,6 +544,7 @@
       pic = #{row.pic,jdbcType=VARCHAR},
       quality_certificate = #{row.qualityCertificate,jdbcType=VARCHAR},
       standard_number = #{row.standardNumber,jdbcType=VARCHAR},
+      production_phase = #{row.productionPhase,jdbcType=VARCHAR},
       mining_technology = #{row.miningTechnology,jdbcType=VARCHAR},
       mine = #{row.mine,jdbcType=VARCHAR},
       separate = #{row.separate,jdbcType=VARCHAR},
@@ -573,6 +586,7 @@
       pic = #{row.pic,jdbcType=VARCHAR},
       quality_certificate = #{row.qualityCertificate,jdbcType=VARCHAR},
       standard_number = #{row.standardNumber,jdbcType=VARCHAR},
+      production_phase = #{row.productionPhase,jdbcType=VARCHAR},
       mining_technology = #{row.miningTechnology,jdbcType=VARCHAR},
       mine = #{row.mine,jdbcType=VARCHAR},
       separate = #{row.separate,jdbcType=VARCHAR},
@@ -638,6 +652,9 @@
       </if>
       <if test="standardNumber != null">
         standard_number = #{standardNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="productionPhase != null">
+        production_phase = #{productionPhase,jdbcType=VARCHAR},
       </if>
       <if test="miningTechnology != null">
         mining_technology = #{miningTechnology,jdbcType=VARCHAR},
@@ -720,6 +737,7 @@
       pic = #{pic,jdbcType=VARCHAR},
       quality_certificate = #{qualityCertificate,jdbcType=VARCHAR},
       standard_number = #{standardNumber,jdbcType=VARCHAR},
+      production_phase = #{productionPhase,jdbcType=VARCHAR},
       mining_technology = #{miningTechnology,jdbcType=VARCHAR},
       mine = #{mine,jdbcType=VARCHAR},
       separate = #{separate,jdbcType=VARCHAR},
@@ -758,6 +776,7 @@
       pic = #{pic,jdbcType=VARCHAR},
       quality_certificate = #{qualityCertificate,jdbcType=VARCHAR},
       standard_number = #{standardNumber,jdbcType=VARCHAR},
+      production_phase = #{productionPhase,jdbcType=VARCHAR},
       mining_technology = #{miningTechnology,jdbcType=VARCHAR},
       mine = #{mine,jdbcType=VARCHAR},
       separate = #{separate,jdbcType=VARCHAR},

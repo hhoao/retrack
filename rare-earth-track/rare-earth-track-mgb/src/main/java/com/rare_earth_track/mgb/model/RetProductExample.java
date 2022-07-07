@@ -113,7 +113,7 @@ public class RetProductExample {
 
     /**
      * ret_product
-     * @author 匡龙 2022-07-06
+     * @author 匡龙 2022-07-07
      */
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
@@ -1103,6 +1103,76 @@ public class RetProductExample {
 
         public Criteria andStandardNumberNotBetween(String value1, String value2) {
             addCriterion("standard_number not between", value1, value2, "standardNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andProductionPhaseIsNull() {
+            addCriterion("production_phase is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andProductionPhaseIsNotNull() {
+            addCriterion("production_phase is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andProductionPhaseEqualTo(String value) {
+            addCriterion("production_phase =", value, "productionPhase");
+            return (Criteria) this;
+        }
+
+        public Criteria andProductionPhaseNotEqualTo(String value) {
+            addCriterion("production_phase <>", value, "productionPhase");
+            return (Criteria) this;
+        }
+
+        public Criteria andProductionPhaseGreaterThan(String value) {
+            addCriterion("production_phase >", value, "productionPhase");
+            return (Criteria) this;
+        }
+
+        public Criteria andProductionPhaseGreaterThanOrEqualTo(String value) {
+            addCriterion("production_phase >=", value, "productionPhase");
+            return (Criteria) this;
+        }
+
+        public Criteria andProductionPhaseLessThan(String value) {
+            addCriterion("production_phase <", value, "productionPhase");
+            return (Criteria) this;
+        }
+
+        public Criteria andProductionPhaseLessThanOrEqualTo(String value) {
+            addCriterion("production_phase <=", value, "productionPhase");
+            return (Criteria) this;
+        }
+
+        public Criteria andProductionPhaseLike(String value) {
+            addCriterion("production_phase like", value, "productionPhase");
+            return (Criteria) this;
+        }
+
+        public Criteria andProductionPhaseNotLike(String value) {
+            addCriterion("production_phase not like", value, "productionPhase");
+            return (Criteria) this;
+        }
+
+        public Criteria andProductionPhaseIn(List<String> values) {
+            addCriterion("production_phase in", values, "productionPhase");
+            return (Criteria) this;
+        }
+
+        public Criteria andProductionPhaseNotIn(List<String> values) {
+            addCriterion("production_phase not in", values, "productionPhase");
+            return (Criteria) this;
+        }
+
+        public Criteria andProductionPhaseBetween(String value1, String value2) {
+            addCriterion("production_phase between", value1, value2, "productionPhase");
+            return (Criteria) this;
+        }
+
+        public Criteria andProductionPhaseNotBetween(String value1, String value2) {
+            addCriterion("production_phase not between", value1, value2, "productionPhase");
             return (Criteria) this;
         }
 
@@ -2515,7 +2585,7 @@ public class RetProductExample {
 
     /**
      * ret_product
-     * @author 匡龙 2022-07-06
+     * @author 匡龙 2022-07-07
      */
     public static class Criterion {
         private String condition;

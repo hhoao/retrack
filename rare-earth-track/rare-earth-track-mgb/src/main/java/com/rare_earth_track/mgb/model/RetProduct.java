@@ -7,7 +7,7 @@ import java.util.Date;
 /**
  * 产品信
  * @author 匡龙 
- * @date 2022-07-06
+ * @date 2022-07-07
  */
 @Schema(description = "产品信")
 public class RetProduct implements Serializable {
@@ -51,6 +51,9 @@ public class RetProduct implements Serializable {
 
     @Schema(description = "牌号")
     private String standardNumber;
+
+    @Schema(description = "生产阶段")
+    private String productionPhase;
 
     @Schema(description = "矿山工艺")
     private String miningTechnology;
@@ -339,6 +342,22 @@ public class RetProduct implements Serializable {
      */
     public void setStandardNumber(String standardNumber) {
         this.standardNumber = standardNumber;
+    }
+
+    /**
+     * 生产阶段
+     * @return production_phase 生产阶段
+     */
+    public String getProductionPhase() {
+        return productionPhase;
+    }
+
+    /**
+     * 生产阶段
+     * @param productionPhase 生产阶段
+     */
+    public void setProductionPhase(String productionPhase) {
+        this.productionPhase = productionPhase;
     }
 
     /**
@@ -701,6 +720,7 @@ public class RetProduct implements Serializable {
         sb.append(", pic=").append(pic);
         sb.append(", qualityCertificate=").append(qualityCertificate);
         sb.append(", standardNumber=").append(standardNumber);
+        sb.append(", productionPhase=").append(productionPhase);
         sb.append(", miningTechnology=").append(miningTechnology);
         sb.append(", mine=").append(mine);
         sb.append(", separate=").append(separate);

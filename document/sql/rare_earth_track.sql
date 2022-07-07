@@ -507,6 +507,7 @@ CREATE TABLE `ret_product`
     `pic`                  varchar(256) DEFAULT NULL COMMENT '图片',
     `quality_certificate` varchar(256) NULL COMMENT '质量证明书',
     `standard_number` varchar(256) NULL COMMENT '牌号',
+    `production_phase`     varchar(100) DEFAULT NULL COMMENT '生产阶段',
     `mining_technology`    varchar(100)  DEFAULT NULL COMMENT '矿山工艺',
     `mine` varchar(100) DEFAULT NULL COMMENT '冶炼',
     `separate`       varchar(100)  DEFAULT NULL COMMENT '分离',
@@ -564,7 +565,7 @@ VALUES (15, 1, '背胶', 'A-15', '五矿稀土');
 INSERT `ret_product`(id, factory_id, name, batch_id,factory)
 VALUES (16, 1, '不背胶', 'A-16', '五矿稀土');
 INSERT INTO `ret_product`
-VALUES ('17', '2', '烧结钕铁硼', '012022063001', '盛和资源', '描述', '2022-06-30 13:55:49', '干燥', '10KG', '桶装', '8KG', '货车', null, null, 'S-NdFeB', '硫酸铵法', '熔盐电解法', '萃取分离', '3%', '12MPa', '18T', '30%', '13%', '1%', '14%', '2.5%', null, null, null, null, null, null, null, null, null);
+VALUES ('17', '2', '烧结钕铁硼', '012022063001', '盛和资源', '描述', '2022-06-30 13:55:49', '干燥', '10KG', '桶装', '8KG', '货车', null, null, 'S-NdFeB', '分离冶炼', '硫酸铵法', '熔盐电解法', '萃取分离', '3%', '12MPa', '18T', '30%', '13%', '1%', '14%', '2.5%', null, null, null, null, null, null, null, null, null);
 
 
 -- 产品文档表

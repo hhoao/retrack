@@ -6,7 +6,7 @@ import java.io.Serializable;
 /**
  * 工厂成员
  * @author 匡龙 
- * @date 2022-07-06
+ * @date 2022-07-07
  */
 @Schema(description = "工厂成员")
 public class RetMember implements Serializable {

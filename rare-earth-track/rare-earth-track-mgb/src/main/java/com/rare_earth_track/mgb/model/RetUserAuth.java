@@ -6,7 +6,7 @@ import java.io.Serializable;
 /**
  * 用户授权信息
  * @author 匡龙 
- * @date 2022-07-06
+ * @date 2022-07-07
  */
 @Schema(description = "用户授权信息")
 public class RetUserAuth implements Serializable {
