@@ -36,12 +36,3 @@ spring:
 ret:
   mail:
     from: haunghao@foxmail.com
-#文件配置
-file:
-  upload:
-    path: F:\files\  #文件上传目标路径
-    allowTypes:             #文件上传允许的类型
-      - image/jpeg
-      - image/png
-      - image/bmp
-      - application/pdf
