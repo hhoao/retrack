@@ -122,13 +122,13 @@
                         <imageName>hhoao/${project.artifactId}:${project.version}</imageName>
                         <dockerHost>${docker.host}</dockerHost>
                         <baseImage>openjdk:17</baseImage>
-                        <entryPoint>["java", "-jar", "-Dspring.profiles.active=prod","/${project.build.finalName}.jar"]
+                        <entryPoint>["java", "-jar", "-Dspring.profiles.active=prod","/${project.build.finalName}-exec.jar"]
                         </entryPoint>
                         <resources>
                             <resource>
                                 <targetPath>/</targetPath>
                                 <directory>${project.build.directory}</directory>
-                                <include>${project.build.finalName}.jar</include>
+                                <include>${project.build.finalName}-exec.jar</include>
                             </resource>
                         </resources>
                     </configuration>
