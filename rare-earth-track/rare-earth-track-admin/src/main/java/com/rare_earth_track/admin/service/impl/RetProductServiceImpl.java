@@ -74,8 +74,9 @@ public class RetProductServiceImpl implements RetProductService {
 
     @Override
     public int deleteProductByName(String name) {
-        RetProduct productByProductName = getProductByProductName(name);
-        int i = productMapper.deleteByPrimaryKey(productByProductName.getId());
+        RetProductExample productExample = new RetProductExample();
+        productExample.createCriteria().andNameEqualTo(name);
+        int i = productMapper.deleteByExample(productExample);
         if (i == 0){
             Asserts.fail("删除失败");
         }

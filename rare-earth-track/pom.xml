@@ -17,8 +17,8 @@
         <module>rare-earth-track-mgb</module>
         <module>rare-earth-track-security</module>
         <module>rare-earth-track-admin</module>
-        <module>rare-earth-track-portal</module>
         <module>rare-earth-search</module>
+        <module>rare-earth-track-portal</module>
     </modules>
 
     <properties>
@@ -78,13 +78,13 @@
             </dependency>
             <dependency>
                 <groupId>org.demo</groupId>
-                <artifactId>rare-earth-track-security</artifactId>
-                <version>${rare-earth-track-security.version}</version>
+                <artifactId>rare-earth-track-mgb</artifactId>
+                <version>${rare-earth-track-mgb.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.demo</groupId>
-                <artifactId>rare-earth-track-portal</artifactId>
-                <version>${rare-earth-track-portal.version}</version>
+                <artifactId>rare-earth-track-security</artifactId>
+                <version>${rare-earth-track-security.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.demo</groupId>
@@ -93,14 +93,23 @@
             </dependency>
             <dependency>
                 <groupId>org.demo</groupId>
-                <artifactId>rare-earth-track-mgb</artifactId>
-                <version>${rare-earth-track-mgb.version}</version>
+                <artifactId>rare-earth-track-portal</artifactId>
+                <version>${rare-earth-track-portal.version}</version>
+
             </dependency>
         </dependencies>
     </dependencyManagement>
     <build>
         <pluginManagement>
             <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <configuration>
+                        <source>${maven.compiler.source}</source>
+                        <target>${maven.compiler.target}</target>
+                    </configuration>
+                </plugin>
                 <plugin>
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>

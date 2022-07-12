@@ -15,7 +15,7 @@ import org.springframework.transaction.interceptor.DefaultTransactionAttribute;
  * @Date 2022/7/1 15:58
  * @Version V1.0
  */
-@SpringBootTest
+@SpringBootTest(classes = RareEarthTrackPortalApplication.class)
 public class TransactionTest {
     public Long tUserId = 1L;
     public String tRegisterMail = "huanghaohhoa@163.com";

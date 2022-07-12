@@ -12,4 +12,5 @@ public class RareEarthTrackPortalApplication {
     public static void main(String[] args) {
         SpringApplication.run(RareEarthTrackPortalApplication.class, args);
     }
+
 }

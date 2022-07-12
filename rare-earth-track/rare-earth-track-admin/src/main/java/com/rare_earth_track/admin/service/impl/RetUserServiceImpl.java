@@ -80,7 +80,18 @@ public class RetUserServiceImpl implements RetUserService {
     private void clearUserStatus(String userName) {
         tokenCacheService.delKey(userName);
     }
-
+    private RetUserDetails getUserDetailsNoCache(String username){
+        RetUserAuth userAuth = userAuthService.getUserAuth(IdentifyType.username, username);
+        List<RetUserAuth> userAuths = userAuthService.getUserAuth(userAuth.getUserId());
+        RetUser user = userMapper.selectByPrimaryKey(userAuth.getUserId());
+        List<RetResource> userResources = getUserResources(userAuth.getUserId());
+        List<RetFactoryJob> factoryJobsByUserId = memberService.getFactoryJobsByUserId(userAuth.getUserId());
+        return new RetUserDetails(user, userAuths, userResources, factoryJobsByUserId);
+    }
+    private void refreshUserDetailsCache(String username){
+        RetUserDetails userDetailsNoCache = getUserDetailsNoCache(username);
+        tokenCacheService.setKey(username, userDetailsNoCache);
+    }
     @Override
     public RetUserDetails getUserDetails(String username) {
         //使用了缓存
@@ -88,13 +99,8 @@ public class RetUserServiceImpl implements RetUserService {
         if (userDetails != null) {
             return userDetails;
         }
-        RetUserAuth userAuth = userAuthService.getUserAuth(IdentifyType.username, username);
-        List<RetUserAuth> userAuths = userAuthService.getUserAuth(userAuth.getUserId());
-        RetUser user = userMapper.selectByPrimaryKey(userAuth.getUserId());
-        List<RetResource> userResources = getUserResources(userAuth.getUserId());
-        List<RetFactoryJob> factoryJobsByUserId = memberService.getFactoryJobsByUserId(userAuth.getUserId());
-        userDetails = new RetUserDetails(user, userAuths, userResources, factoryJobsByUserId);
-        tokenCacheService.setKey(username, userDetails);
+        userDetails = getUserDetailsNoCache(username);
+        refreshUserDetailsCache(username);
         return userDetails;
     }
 
@@ -181,8 +187,6 @@ public class RetUserServiceImpl implements RetUserService {
             usernameAuth.setCredential(passwordParam.getNewPassword());
             userAuthService.updateCredential(usernameAuth.getUserId(), usernameAuth.getCredential());
         }
-//        RetUserAuth userNameAuth = userAuthService.getUserAuth(usernameAuth.getUserId(), IdentifyType.username);
-//        userAuthService.updateCredential(passwordParam);
         //刷新用户登陆状态
         clearUserStatus(usernameAuth.getIdentifier());
     }
@@ -202,17 +206,16 @@ public class RetUserServiceImpl implements RetUserService {
 
     @Override
     public void updateUser(RetUser newUser) {
-        RetUser user = userMapper.selectByPrimaryKey(newUser.getId());
-        if (newUser.getRoleId() == null) {
-            newUser.setRoleId(user.getRoleId());
-        }
         int i = userMapper.updateByPrimaryKeySelective(newUser);
         if (i == 0) {
             Asserts.fail("用户更新失败");
         }
         RetUserAuth userAuth = userAuthService.getUserAuth(newUser.getId(), IdentifyType.username);
         //刷新用户token，使用户需要重新登陆
-        clearUserStatus(userAuth.getIdentifier());
+        if (newUser.getStatus() != null || newUser.getRoleId() != null) {
+            clearUserStatus(userAuth.getIdentifier());
+        }
+        refreshUserDetailsCache(userAuth.getIdentifier());
     }
 
     @Override
@@ -342,11 +345,8 @@ public class RetUserServiceImpl implements RetUserService {
         String username = jwtTokenService.getSubjectFromAuthorization(authorization);
         RetUserAuth userAuth = userAuthService.getUserAuth(IdentifyType.username, username);
         user.setId(userAuth.getUserId());
-        int i = userMapper.updateByPrimaryKey(user);
-        if (i == 0) {
-            Asserts.fail("更新失败");
-        }
-    }
+        updateUser(user);
+}
 
     @Override
     public void updateUserAuth(Long userId, IdentifyType authType, RetUserAuthParam adminUserAuthParam) {

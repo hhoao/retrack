@@ -7,9 +7,12 @@
         <groupId>org.demo</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <modelVersion>4.0.0</modelVersion>
 
+    <modelVersion>4.0.0</modelVersion>
     <artifactId>rare-earth-track-admin</artifactId>
+    <packaging>jar</packaging>
+    <name>rare-earth-track-admin</name>
+    <description>admin for rare-earth-track</description>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -49,18 +52,24 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <!--       common也是SpringBoot工程，SpringBoot工程打包编译时，会生成两种jar包，
+                            一种是普通的jar，另一种是可执行jar。默认情况下，这两种jar的名称相同，在
+                            不做配置的情况下，普通的jar先生成，可执行jar后生成，造成可执行jar会覆盖
+                            普通的jar。而projectA工程无法依赖common工程的可执行jar，所以编译失败：
+                            程序包xxx不存在。-->
+                <configuration>
+                    <classifier>exec</classifier>
+                </configuration>
             </plugin>
+            <!-- docker 打包插件 -->
             <plugin>
                 <groupId>com.spotify</groupId>
                 <artifactId>docker-maven-plugin</artifactId>
-            </plugin><plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-compiler-plugin</artifactId>
-            <configuration>
-                <source>17</source>
-                <target>17</target>
-            </configuration>
-        </plugin>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+            </plugin>
         </plugins>
     </build>
 </project>
