@@ -20,14 +20,14 @@ spring:
   redis:
     database: 0
     port: 6379
-    password:
-    host: redis
+    password: 1205
+#    host: redis
   # 配置mysql数据库
   datasource:
-    url: jdbc:mysql://mysql:3306/rare_earth_track
+    url: jdbc:mysql://localhost:3306/rare_earth_track
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
-    password: a1234567890
+    password: 1205
   # 配置缓存
   cache:
     redis:
@@ -45,3 +45,29 @@ file:
       - image/png
       - image/bmp
       - application/pdf
+
+# params
+params:
+  imei: 861011046699349
+  obj_id: 3200
+  obj_inst_id: 0
+  mode: 2
+  timeout: 5
+
+# body
+body:
+  res_id: 5750
+
+# header
+header:
+  content-type: application/json
+
+# 这里填写apikey
+machine:
+  apiKey: eKwNk=hCz=UxFx6hENKCIWJTn5w=
+
+mq:
+  userName: MoYU
+  mqTopic: topic-test
+  mqSub: test-sub
+  accessKey: w5qhghBLH31SiichSQlmN416a1xctCs86Kvx6k61wSM=

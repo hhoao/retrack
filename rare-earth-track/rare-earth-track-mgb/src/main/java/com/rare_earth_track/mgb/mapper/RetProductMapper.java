@@ -32,6 +32,13 @@ public interface RetProductMapper {
      * @param row row
      * @return int
      */
+    int insertByBatchId(RetProduct row);
+
+    /**
+     * insert
+     * @param row row
+     * @return int
+     */
     int insert(RetProduct row);
 
     /**

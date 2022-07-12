@@ -157,6 +157,52 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
+  <insert id="insertByBatchId" parameterType="com.rare_earth_track.mgb.model.RetProduct">
+    insert into ret_product (factory_id,name, batch_id, factory, dispatch_time,
+    specification, packing_type, net_weight,
+    standard_number,
+    production_phase
+    <if test="miningTechnology != null">
+      ,mining_technology
+    </if>
+    <if test="mine != null">
+      ,mine
+    </if>
+    <if test="separate != null">
+      ,separate
+    </if>
+    <if test="oxygenLevels != null">
+      ,oxygen_levels
+    </if>
+    <if test="pressure != null">
+      ,pressure
+    </if>
+    <if test="magneticField != null">
+      ,magnetic_field
+    </if>)
+    VALUES ('2',#{name},#{batchId}, #{factory}, #{dispatchTime},
+    #{specification}, #{packingType}, #{netWeight},
+    #{standardNumber},
+    #{productionPhase}
+    <if test="miningTechnology != null">
+      ,#{miningTechnology}
+    </if>
+    <if test="mine != null">
+      ,#{mine}
+    </if>
+    <if test="separate != null">
+      ,#{separate}
+    </if>
+    <if test="oxygenLevels != null">
+      ,#{oxygenLevels}
+    </if>
+    <if test="pressure != null">
+      ,#{pressure}
+    </if>
+    <if test="magneticField != null">
+      ,#{magneticField}
+    </if>)
+  </insert>
   <insert id="insert" parameterType="com.rare_earth_track.mgb.model.RetProduct">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
