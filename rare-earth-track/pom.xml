@@ -35,9 +35,9 @@
         <rare-earth-track-mgb.version>1.0-SNAPSHOT</rare-earth-track-mgb.version>
         <mybatis-spring-boot-starter.version>2.2.2</mybatis-spring-boot-starter.version>
         <aspectjweaver.version>1.9.9</aspectjweaver.version>
-        <springdoc-openapi-webmvc-core.version>1.6.6</springdoc-openapi-webmvc-core.version>
-        <springdoc-openapi-javadoc.version>1.6.6</springdoc-openapi-javadoc.version>
-        <springdoc-openapi-ui.version>1.6.6</springdoc-openapi-ui.version>
+        <springdoc-openapi-webmvc-core.version>1.6.9</springdoc-openapi-webmvc-core.version>
+        <springdoc-openapi-javadoc.version>1.6.9</springdoc-openapi-javadoc.version>
+        <springdoc-openapi-ui.version>1.6.9</springdoc-openapi-ui.version>
         <jwtt.version>0.9.0</jwtt.version>
         <hhutool-all.version>5.7.15</hhutool-all.version>
         <jackson-datatype-jsr310.version>2.13.2</jackson-datatype-jsr310.version>
