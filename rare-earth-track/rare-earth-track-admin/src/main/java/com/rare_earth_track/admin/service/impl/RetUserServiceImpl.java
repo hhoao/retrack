@@ -16,6 +16,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
 import java.util.*;
@@ -341,11 +342,11 @@ public class RetUserServiceImpl implements RetUserService {
     }
 
     @Override
-    public void updateUser(RetUser user, String authorization) {
+    public void updateUser(RetUser newUser, String authorization) {
         String username = jwtTokenService.getSubjectFromAuthorization(authorization);
         RetUserAuth userAuth = userAuthService.getUserAuth(IdentifyType.username, username);
-        user.setId(userAuth.getUserId());
-        updateUser(user);
+        newUser.setId(userAuth.getUserId());
+        updateUser(newUser);
 }
 
     @Override
@@ -360,6 +361,7 @@ public class RetUserServiceImpl implements RetUserService {
         String username = jwtTokenService.getSubjectFromAuthorization(authorization);
         Long userId = userAuthService.getUserIdByUserName(username);
         userAuthService.deleteUserAuth(userId, authType);
+        clearUserStatus(username);
     }
 
     @Override
@@ -428,5 +430,40 @@ public class RetUserServiceImpl implements RetUserService {
         RetUserAuth userAuth = userAuthService.getUserAuth(userId, IdentifyType.username);
         userAuthService.deleteUserAuth(userId, identifyType);
         clearUserStatus(userAuth.getIdentifier());
+    }
+
+    @Override
+    public void bindEmail(String email, String authCode, String authorization) {
+        String username = jwtTokenService.getSubjectFromAuthorization(authorization);
+        if (!mailService.existMessage(email, MailType.BIND_EMAIL)){
+            Asserts.fail("没有该验证码");
+        }
+        RetUserAuth userAuth = userAuthService.getUserAuth(username);
+        userAuthService.bind(userAuth.getUserId(), email, IdentifyType.email);
+    }
+
+    @Override
+    public void bindPhone(String phone, String authCode, String authorization) {
+       //没有实现
+    }
+
+    @Override
+    public void sendBindEmailCode(String email, String authorization) {
+        if (userAuthService.exists(IdentifyType.email, email)){
+            Asserts.fail("该邮箱已被使用");
+        }
+        String username = jwtTokenService.getSubjectFromAuthorization(authorization);
+        RetUserAuth userAuth = userAuthService.getUserAuth(username);
+        if (userAuthService.exists(userAuth.getUserId(), IdentifyType.email)){
+            Asserts.fail("该用户名已绑定邮箱");
+        }
+        mailService.sendBindMail(email);
+    }
+
+    @Override
+    public Map<String, String> getVerifiedUserAuths(String authorization) {
+        String username = jwtTokenService.getSubjectFromAuthorization(authorization);
+        Long userIdByUserName = userAuthService.getUserIdByUserName(username);
+        return getUserAuths(userIdByUserName);
     }
 }

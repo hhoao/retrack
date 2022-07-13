@@ -259,4 +259,38 @@ public interface RetUserService {
      */
     @Transactional
     void deleteUserAuth(Long userId, IdentifyType identifyType);
+
+    /**
+     * Bind email.
+     *
+     * @param email    the email
+     * @param authCode the auth code
+     * @param s        the s
+     */
+    void bindEmail(String email, String authCode, String s);
+
+    /**
+     * Bind phone.
+     *
+     * @param phone    the phone
+     * @param authCode the auth code
+     * @param s        the s
+     */
+    void bindPhone(String phone, String authCode, String s);
+
+    /**
+     * Send bind email code.
+     *
+     * @param email the email
+     * @param s     the s
+     */
+    void sendBindEmailCode(String email, String s);
+
+    /**
+     * Gets verified user auths.
+     *
+     * @param authorization the authorization
+     * @return the verified user auths
+     */
+    Map<String, String> getVerifiedUserAuths(String authorization);
 }

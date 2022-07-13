@@ -111,4 +111,13 @@ public interface RetUserAuthService {
      * @return the user auth
      */
     RetUserAuth getUserAuth(String identifier);
+
+    /**
+     * Exists boolean.
+     *
+     * @param userId the user id
+     * @param email  the email
+     * @return the boolean
+     */
+    boolean exists(Long userId, IdentifyType email);
 }

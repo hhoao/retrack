@@ -33,18 +33,48 @@ public class RetAdminController {
     private RetUserAuthService userAuthService;
     private RetMailService mailService;
 
-    @Operation(summary = "已经认证用户解绑认证方式")
+    @Operation(summary = "已认证解绑认证")
     @DeleteMapping("/user/auths/{authType}")
     public CommonResult<String> unbindUserAuth(@PathVariable("authType") IdentifyType authType,
                                                @RequestHeader Map<String, String> headers){
         userService.unbindUserAuth(authType, headers.get(properties.getTokenHeader().toLowerCase()));
         return CommonResult.success(null);
     }
-    @Operation(summary = "更新已经认证用户的认证方式")
+    @Operation(summary = "已认证更新用户名")
     @PatchMapping("/user/auths/username")
     public CommonResult<String> updateUsername(@RequestHeader Map<String, String> headers,
                                                @RequestParam("newUsername") String newUsername){
         userService.updateUsername(newUsername, headers.get(properties.getTokenHeader().toLowerCase()));
+        return CommonResult.success(null);
+    }
+    @Operation(summary = "已认证发送绑定邮箱验证码")
+    @GetMapping("/authCodes/binding/email")
+    public CommonResult<String> sendBindEmailCode(@RequestHeader Map<String, String> headers,
+                                            @RequestParam("email") String email){
+        userService.sendBindEmailCode(email, headers.get(properties.getTokenHeader().toLowerCase()));
+        return CommonResult.success(null);
+    }
+
+    @Operation(summary = "已认证绑定邮箱")
+    @PatchMapping("/user/auths/email")
+    public CommonResult<String> updateEmail(@RequestHeader Map<String, String> headers,
+                                               @RequestParam("email") String email,
+                                            @RequestParam("authCode") String authCode){
+        userService.bindEmail(email, authCode, headers.get(properties.getTokenHeader().toLowerCase()));
+        return CommonResult.success(null);
+    }
+
+    @Operation(summary = "已认证发送绑定手机验证码", description = "未开通")
+    @GetMapping("/authCodes/binding/phone")
+    public CommonResult<String> sendBindPhoneCode(){
+        return CommonResult.failed("未开通");
+    }
+    @Operation(summary = "已认证绑定电话号码")
+    @PatchMapping("/user/auths/phone")
+    public CommonResult<String> updatePhone(@RequestHeader Map<String, String> headers,
+                                               @RequestParam("phone") String phone,
+                                            @RequestParam("authCode") String authCode){
+        userService.bindPhone(phone, authCode, headers.get(properties.getTokenHeader().toLowerCase()));
         return CommonResult.success(null);
     }
     @Operation(summary = "更改用户密码")
@@ -104,7 +134,7 @@ public class RetAdminController {
     }
 
     @GetMapping(value="/users/auth/code")
-    @Operation(summary = "获取验证码")
+    @Operation(summary = "获取注册验证码")
     public CommonResult<String> generateAuthCode(@Schema(description = "验证类型", required = true, allowableValues = {"phone", "email"})
                                                  @RequestParam("type") IdentifyType type,
                                                  @Schema(description = "手机号码或者email", required = true)

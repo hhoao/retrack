@@ -28,6 +28,14 @@ public interface RetMailService {
     String sendUserRegisterMail(String to);
 
     /**
+     * Send bind mail string.
+     *
+     * @param to the to
+     * @return the string
+     */
+    String sendBindMail(String to);
+
+    /**
      * Send factory invitation.
      *
      * @param to      the to

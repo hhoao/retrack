@@ -31,7 +31,7 @@ public class RetUserController {
     private final JwtSecurityProperties securityProperties;
 
 
-    @Operation(summary = "分页获取已认证用户角色菜单")
+    @Operation(summary = "已认证分页获取用户角色菜单")
     @GetMapping("/user/role/menus")
     public CommonResult<CommonPage<RetMenu>> getUserRoleMenus(@RequestHeader Map<String, String> headers){
         List<RetMenu> menus = userService.getMenusByAuthorization(
@@ -44,7 +44,7 @@ public class RetUserController {
         RetUser userByName = userService.getUserByIdentifier(identifier);
         return CommonResult.success(userByName);
     }
-    @Operation(summary = "获取已认证用户信息")
+    @Operation(summary = "已认证获取用户信息")
     @GetMapping("/user")
     public CommonResult<RetUser> getUser(@RequestHeader Map<String, String> headers){
         String authorization =securityProperties.getTokenHeader().toLowerCase();
@@ -52,6 +52,7 @@ public class RetUserController {
                 headers.get(authorization));
         return CommonResult.success(user);
     }
+
     @Operation(summary = "通过用户参数获取用户信息")
     @GetMapping("/users")
     public CommonResult<CommonPage<RetUser>> getUserByUserParam(RetUserParam user,
@@ -60,7 +61,7 @@ public class RetUserController {
         return CommonResult.success(CommonPage.restPage(users));
     }
 
-    @Operation(summary = "更新当前用户资料")
+    @Operation(summary = "已认证更新用户资料")
     @PatchMapping("/user")
     public CommonResult<String> updateUser(@RequestBody RetUser user,
                                            @RequestHeader Map<String, String> headers){
@@ -87,6 +88,13 @@ public class RetUserController {
     @GetMapping("/users/{userId}/auths")
     public CommonResult<Map<String, String>> getUserAuths(@PathVariable("userId") Long userId){
         Map<String, String> userAuth = userService.getUserAuths(userId);
+        return CommonResult.success(userAuth);
+    }
+    @Operation(summary = "已认证获取用户认证")
+    @GetMapping("/user/auths")
+    public CommonResult<Map<String, String>> getUserAuths(@RequestHeader Map<String, String> headers){
+        String authorization = headers.get(securityProperties.getTokenHeader().toLowerCase());
+        Map<String, String> userAuth = userService.getVerifiedUserAuths(authorization);
         return CommonResult.success(userAuth);
     }
     @Operation(summary = "删除用户认证")

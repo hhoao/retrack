@@ -169,4 +169,13 @@ public class RetUserAuthServiceImpl implements RetUserAuthService {
 
         return retUserAuths.get(0);
     }
+
+    @Override
+    public boolean exists(Long userId, IdentifyType email) {
+        RetUserAuthExample userAuthExample = new RetUserAuthExample();
+        userAuthExample.createCriteria().
+                andUserIdEqualTo(userId).
+                andIdentityTypeEqualTo(email.toString());
+        return userAuthMapper.selectByExample(userAuthExample).size() != 0;
+    }
 }

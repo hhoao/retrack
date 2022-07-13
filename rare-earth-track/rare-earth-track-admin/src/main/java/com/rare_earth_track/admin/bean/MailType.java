@@ -15,7 +15,16 @@ public enum MailType {
     /**
      * 修改密码类型
      */
-    UPDATE_PASSWORD(3);
+    UPDATE_PASSWORD(3),
+    /**
+     * 绑定邮箱类型
+     */
+    BIND_EMAIL(4),
+
+    /**
+     * 绑定电话号码类型
+     */
+    BIND_PHONE(5);
     /**
      * 类型唯一标志
      */
