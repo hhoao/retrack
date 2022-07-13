@@ -13,7 +13,7 @@
     <result column="packing_type" jdbcType="VARCHAR" property="packingType" />
     <result column="net_weight" jdbcType="VARCHAR" property="netWeight" />
     <result column="transport_log" jdbcType="VARCHAR" property="transportLog" />
-    <result column="pic" jdbcType="VARCHAR" property="pic" />
+    <result column="raw_material_batch" jdbcType="VARCHAR" property="rawMaterialBatch" />
     <result column="quality_certificate" jdbcType="VARCHAR" property="qualityCertificate" />
     <result column="standard_number" jdbcType="VARCHAR" property="standardNumber" />
     <result column="production_phase" jdbcType="VARCHAR" property="productionPhase" />
@@ -101,10 +101,10 @@
   </sql>
   <sql id="Base_Column_List">
     id, factory_id, name, batch_id, factory, dispatch_time, moisture_proof_logo, specification, 
-    packing_type, net_weight, transport_log, pic, quality_certificate, standard_number, 
-    production_phase, mining_technology, mine, separate, oxygen_levels, pressure, magnetic_field, 
-    Nd, Co, B, Dy_Tb_Pr, other, RE, Nd_RE, Dy_RE, REO, Nd2O3_REO, Nd2O3, Dy2O3_REO, RE_impurities, 
-    non_RE_impurities
+    packing_type, net_weight, transport_log, raw_material_batch, quality_certificate, 
+    standard_number, production_phase, mining_technology, mine, separate, oxygen_levels, 
+    pressure, magnetic_field, Nd, Co, B, Dy_Tb_Pr, other, RE, Nd_RE, Dy_RE, REO, Nd2O3_REO, 
+    Nd2O3, Dy2O3_REO, RE_impurities, non_RE_impurities
   </sql>
   <sql id="Blob_Column_List">
     description
@@ -210,7 +210,7 @@
     insert into ret_product (factory_id, name, batch_id, 
       factory, dispatch_time, moisture_proof_logo, 
       specification, packing_type, net_weight, 
-      transport_log, pic, quality_certificate, 
+      transport_log, raw_material_batch, quality_certificate, 
       standard_number, production_phase, mining_technology, 
       mine, separate, oxygen_levels, 
       pressure, magnetic_field, Nd, 
@@ -222,7 +222,7 @@
     values (#{factoryId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{batchId,jdbcType=VARCHAR}, 
       #{factory,jdbcType=VARCHAR}, #{dispatchTime,jdbcType=TIMESTAMP}, #{moistureProofLogo,jdbcType=VARCHAR}, 
       #{specification,jdbcType=VARCHAR}, #{packingType,jdbcType=VARCHAR}, #{netWeight,jdbcType=VARCHAR}, 
-      #{transportLog,jdbcType=VARCHAR}, #{pic,jdbcType=VARCHAR}, #{qualityCertificate,jdbcType=VARCHAR}, 
+      #{transportLog,jdbcType=VARCHAR}, #{rawMaterialBatch,jdbcType=VARCHAR}, #{qualityCertificate,jdbcType=VARCHAR}, 
       #{standardNumber,jdbcType=VARCHAR}, #{productionPhase,jdbcType=VARCHAR}, #{miningTechnology,jdbcType=VARCHAR}, 
       #{mine,jdbcType=VARCHAR}, #{separate,jdbcType=VARCHAR}, #{oxygenLevels,jdbcType=VARCHAR}, 
       #{pressure,jdbcType=VARCHAR}, #{magneticField,jdbcType=VARCHAR}, #{nd,jdbcType=VARCHAR}, 
@@ -268,8 +268,8 @@
       <if test="transportLog != null">
         transport_log,
       </if>
-      <if test="pic != null">
-        pic,
+      <if test="rawMaterialBatch != null">
+        raw_material_batch,
       </if>
       <if test="qualityCertificate != null">
         quality_certificate,
@@ -375,8 +375,8 @@
       <if test="transportLog != null">
         #{transportLog,jdbcType=VARCHAR},
       </if>
-      <if test="pic != null">
-        #{pic,jdbcType=VARCHAR},
+      <if test="rawMaterialBatch != null">
+        #{rawMaterialBatch,jdbcType=VARCHAR},
       </if>
       <if test="qualityCertificate != null">
         #{qualityCertificate,jdbcType=VARCHAR},
@@ -494,8 +494,8 @@
       <if test="row.transportLog != null">
         transport_log = #{row.transportLog,jdbcType=VARCHAR},
       </if>
-      <if test="row.pic != null">
-        pic = #{row.pic,jdbcType=VARCHAR},
+      <if test="row.rawMaterialBatch != null">
+        raw_material_batch = #{row.rawMaterialBatch,jdbcType=VARCHAR},
       </if>
       <if test="row.qualityCertificate != null">
         quality_certificate = #{row.qualityCertificate,jdbcType=VARCHAR},
@@ -587,7 +587,7 @@
       packing_type = #{row.packingType,jdbcType=VARCHAR},
       net_weight = #{row.netWeight,jdbcType=VARCHAR},
       transport_log = #{row.transportLog,jdbcType=VARCHAR},
-      pic = #{row.pic,jdbcType=VARCHAR},
+      raw_material_batch = #{row.rawMaterialBatch,jdbcType=VARCHAR},
       quality_certificate = #{row.qualityCertificate,jdbcType=VARCHAR},
       standard_number = #{row.standardNumber,jdbcType=VARCHAR},
       production_phase = #{row.productionPhase,jdbcType=VARCHAR},
@@ -629,7 +629,7 @@
       packing_type = #{row.packingType,jdbcType=VARCHAR},
       net_weight = #{row.netWeight,jdbcType=VARCHAR},
       transport_log = #{row.transportLog,jdbcType=VARCHAR},
-      pic = #{row.pic,jdbcType=VARCHAR},
+      raw_material_batch = #{row.rawMaterialBatch,jdbcType=VARCHAR},
       quality_certificate = #{row.qualityCertificate,jdbcType=VARCHAR},
       standard_number = #{row.standardNumber,jdbcType=VARCHAR},
       production_phase = #{row.productionPhase,jdbcType=VARCHAR},
@@ -690,8 +690,8 @@
       <if test="transportLog != null">
         transport_log = #{transportLog,jdbcType=VARCHAR},
       </if>
-      <if test="pic != null">
-        pic = #{pic,jdbcType=VARCHAR},
+      <if test="rawMaterialBatch != null">
+        raw_material_batch = #{rawMaterialBatch,jdbcType=VARCHAR},
       </if>
       <if test="qualityCertificate != null">
         quality_certificate = #{qualityCertificate,jdbcType=VARCHAR},
@@ -780,7 +780,7 @@
       packing_type = #{packingType,jdbcType=VARCHAR},
       net_weight = #{netWeight,jdbcType=VARCHAR},
       transport_log = #{transportLog,jdbcType=VARCHAR},
-      pic = #{pic,jdbcType=VARCHAR},
+      raw_material_batch = #{rawMaterialBatch,jdbcType=VARCHAR},
       quality_certificate = #{qualityCertificate,jdbcType=VARCHAR},
       standard_number = #{standardNumber,jdbcType=VARCHAR},
       production_phase = #{productionPhase,jdbcType=VARCHAR},
@@ -819,7 +819,7 @@
       packing_type = #{packingType,jdbcType=VARCHAR},
       net_weight = #{netWeight,jdbcType=VARCHAR},
       transport_log = #{transportLog,jdbcType=VARCHAR},
-      pic = #{pic,jdbcType=VARCHAR},
+      raw_material_batch = #{rawMaterialBatch,jdbcType=VARCHAR},
       quality_certificate = #{qualityCertificate,jdbcType=VARCHAR},
       standard_number = #{standardNumber,jdbcType=VARCHAR},
       production_phase = #{productionPhase,jdbcType=VARCHAR},

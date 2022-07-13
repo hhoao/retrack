@@ -113,7 +113,7 @@ public class RetFeedbackExample {
 
     /**
      * ret_feedback
-     * @author 匡龙 2022-07-07
+     * @author 匡龙 2022-07-13
      */
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
@@ -615,7 +615,7 @@ public class RetFeedbackExample {
 
     /**
      * ret_feedback
-     * @author 匡龙 2022-07-07
+     * @author 匡龙 2022-07-13
      */
     public static class Criterion {
         private String condition;

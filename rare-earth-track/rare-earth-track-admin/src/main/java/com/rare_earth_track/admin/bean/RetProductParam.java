@@ -46,23 +46,35 @@ public class RetProductParam {
     @Schema(description = "运输标志", required = true)
     private String transportLog;
 
-    @Schema(description = "图片", required = true)
-    private String pic;
+    @Schema(description = "原料批次", required = true)
+    private String rawMaterialBatch;
 
-    @Schema(description = "纯度", required = true)
-    private String purity;
+    @Schema(description = "质检报告", required = true)
+    private String qualityCertificate;
 
-    @Schema(description = "生产设备", required = true)
-    private String productionEquipment;
+    @Schema(description = "牌号", required = true)
+    private String standardNumber;
 
-    @Schema(description = "物料配比", required = true)
-    private String materialRatio;
+    @Schema(description = "生产阶段", required = true)
+    private String productionPhase;
 
-    @Schema(description = "提取单位", required = true)
-    private String extractionUnit;
+    @Schema(description = "矿山工艺", required = true)
+    private String miningTechnology;
 
-    @Schema(description = "画册图片", required = true)
-    private String albumPics;
+    @Schema(description = "冶炼", required = true)
+    private String mine;
+
+    @Schema(description = "分离", required = true)
+    private String separate;
+
+    @Schema(description = "含氧量", required = true)
+    private String oxygenLevels;
+
+    @Schema(description = "压力", required = true)
+    private String pressure;
+
+    @Schema(description = "磁场大小", required = true)
+    private String magneticField;
 
     @Schema(description = "钕", required = true)
     private String Nd;

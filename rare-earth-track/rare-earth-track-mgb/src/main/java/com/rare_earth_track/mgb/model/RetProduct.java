@@ -7,7 +7,7 @@ import java.util.Date;
 /**
  * 产品信
  * @author 匡龙 
- * @date 2022-07-07
+ * @date 2022-07-13
  */
 @Schema(description = "产品信")
 public class RetProduct implements Serializable {
@@ -43,8 +43,8 @@ public class RetProduct implements Serializable {
     @Schema(description = "运输标志")
     private String transportLog;
 
-    @Schema(description = "图片")
-    private String pic;
+    @Schema(description = "原料批次")
+    private String rawMaterialBatch;
 
     @Schema(description = "质量证明书")
     private String qualityCertificate;
@@ -297,19 +297,19 @@ public class RetProduct implements Serializable {
     }
 
     /**
-     * 图片
-     * @return pic 图片
+     * 原料批次
+     * @return raw_material_batch 原料批次
      */
-    public String getPic() {
-        return pic;
+    public String getRawMaterialBatch() {
+        return rawMaterialBatch;
     }
 
     /**
-     * 图片
-     * @param pic 图片
+     * 原料批次
+     * @param rawMaterialBatch 原料批次
      */
-    public void setPic(String pic) {
-        this.pic = pic;
+    public void setRawMaterialBatch(String rawMaterialBatch) {
+        this.rawMaterialBatch = rawMaterialBatch;
     }
 
     /**
@@ -717,7 +717,7 @@ public class RetProduct implements Serializable {
         sb.append(", packingType=").append(packingType);
         sb.append(", netWeight=").append(netWeight);
         sb.append(", transportLog=").append(transportLog);
-        sb.append(", pic=").append(pic);
+        sb.append(", rawMaterialBatch=").append(rawMaterialBatch);
         sb.append(", qualityCertificate=").append(qualityCertificate);
         sb.append(", standardNumber=").append(standardNumber);
         sb.append(", productionPhase=").append(productionPhase);

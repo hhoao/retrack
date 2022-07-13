@@ -113,7 +113,7 @@ public class RetProductExample {
 
     /**
      * ret_product
-     * @author 匡龙 2022-07-07
+     * @author 匡龙 2022-07-13
      */
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
@@ -896,73 +896,73 @@ public class RetProductExample {
             return (Criteria) this;
         }
 
-        public Criteria andPicIsNull() {
-            addCriterion("pic is null");
+        public Criteria andRawMaterialBatchIsNull() {
+            addCriterion("raw_material_batch is null");
             return (Criteria) this;
         }
 
-        public Criteria andPicIsNotNull() {
-            addCriterion("pic is not null");
+        public Criteria andRawMaterialBatchIsNotNull() {
+            addCriterion("raw_material_batch is not null");
             return (Criteria) this;
         }
 
-        public Criteria andPicEqualTo(String value) {
-            addCriterion("pic =", value, "pic");
+        public Criteria andRawMaterialBatchEqualTo(String value) {
+            addCriterion("raw_material_batch =", value, "rawMaterialBatch");
             return (Criteria) this;
         }
 
-        public Criteria andPicNotEqualTo(String value) {
-            addCriterion("pic <>", value, "pic");
+        public Criteria andRawMaterialBatchNotEqualTo(String value) {
+            addCriterion("raw_material_batch <>", value, "rawMaterialBatch");
             return (Criteria) this;
         }
 
-        public Criteria andPicGreaterThan(String value) {
-            addCriterion("pic >", value, "pic");
+        public Criteria andRawMaterialBatchGreaterThan(String value) {
+            addCriterion("raw_material_batch >", value, "rawMaterialBatch");
             return (Criteria) this;
         }
 
-        public Criteria andPicGreaterThanOrEqualTo(String value) {
-            addCriterion("pic >=", value, "pic");
+        public Criteria andRawMaterialBatchGreaterThanOrEqualTo(String value) {
+            addCriterion("raw_material_batch >=", value, "rawMaterialBatch");
             return (Criteria) this;
         }
 
-        public Criteria andPicLessThan(String value) {
-            addCriterion("pic <", value, "pic");
+        public Criteria andRawMaterialBatchLessThan(String value) {
+            addCriterion("raw_material_batch <", value, "rawMaterialBatch");
             return (Criteria) this;
         }
 
-        public Criteria andPicLessThanOrEqualTo(String value) {
-            addCriterion("pic <=", value, "pic");
+        public Criteria andRawMaterialBatchLessThanOrEqualTo(String value) {
+            addCriterion("raw_material_batch <=", value, "rawMaterialBatch");
             return (Criteria) this;
         }
 
-        public Criteria andPicLike(String value) {
-            addCriterion("pic like", value, "pic");
+        public Criteria andRawMaterialBatchLike(String value) {
+            addCriterion("raw_material_batch like", value, "rawMaterialBatch");
             return (Criteria) this;
         }
 
-        public Criteria andPicNotLike(String value) {
-            addCriterion("pic not like", value, "pic");
+        public Criteria andRawMaterialBatchNotLike(String value) {
+            addCriterion("raw_material_batch not like", value, "rawMaterialBatch");
             return (Criteria) this;
         }
 
-        public Criteria andPicIn(List<String> values) {
-            addCriterion("pic in", values, "pic");
+        public Criteria andRawMaterialBatchIn(List<String> values) {
+            addCriterion("raw_material_batch in", values, "rawMaterialBatch");
             return (Criteria) this;
         }
 
-        public Criteria andPicNotIn(List<String> values) {
-            addCriterion("pic not in", values, "pic");
+        public Criteria andRawMaterialBatchNotIn(List<String> values) {
+            addCriterion("raw_material_batch not in", values, "rawMaterialBatch");
             return (Criteria) this;
         }
 
-        public Criteria andPicBetween(String value1, String value2) {
-            addCriterion("pic between", value1, value2, "pic");
+        public Criteria andRawMaterialBatchBetween(String value1, String value2) {
+            addCriterion("raw_material_batch between", value1, value2, "rawMaterialBatch");
             return (Criteria) this;
         }
 
-        public Criteria andPicNotBetween(String value1, String value2) {
-            addCriterion("pic not between", value1, value2, "pic");
+        public Criteria andRawMaterialBatchNotBetween(String value1, String value2) {
+            addCriterion("raw_material_batch not between", value1, value2, "rawMaterialBatch");
             return (Criteria) this;
         }
 
@@ -2585,7 +2585,7 @@ public class RetProductExample {
 
     /**
      * ret_product
-     * @author 匡龙 2022-07-07
+     * @author 匡龙 2022-07-13
      */
     public static class Criterion {
         private String condition;

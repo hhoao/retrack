@@ -528,7 +528,7 @@ CREATE TABLE `ret_product`
     `packing_type`         varchar(50)  DEFAULT NULL COMMENT '包装类型',
     `net_weight`           varchar(50)  DEFAULT NULL COMMENt '净重',
     `transport_log`        varchar(256) DEFAULT NULL COMMENT '运输标志',
-    `pic`                  varchar(256) DEFAULT NULL COMMENT '图片',
+    `raw_material_batch`   varchar(100) DEFAULT NULL COMMENT '原料批次',
     `quality_certificate` varchar(256) NULL COMMENT '质量证明书',
     `standard_number` varchar(256) NULL COMMENT '牌号',
     `production_phase`     varchar(100) DEFAULT NULL COMMENT '生产阶段',
@@ -589,8 +589,15 @@ VALUES (15, 1, '背胶', 'A-15', '五矿稀土');
 INSERT `ret_product`(id, factory_id, name, batch_id,factory)
 VALUES (16, 1, '不背胶', 'A-16', '五矿稀土');
 INSERT INTO `ret_product`
-VALUES ('17', '2', '烧结钕铁硼', '012022063001', '盛和资源', '描述', '2022-06-30 13:55:49', '干燥', '10KG', '桶装', '8KG', '货车', null, null, 'S-NdFeB', '分离冶炼', '硫酸铵法', '熔盐电解法', '萃取分离', '3%', '12MPa', '18T', '30%', '13%', '1%', '14%', '2.5%', null, null, null, null, null, null, null, null, null);
-
+VALUES (17, 1, '氧化钕', '012022062901', '五矿稀土', '描述', '2022-06-29 12:25:49', '干燥', '5KG', '桶装', '3KG', '货车', null, null, '041045', '分离冶炼', '硫酸铵法', '熔盐电解法', '萃取分离', '3%', '12MPa', '18T', null, null, null, null, null, null, null, null, '99.6%', '99.996%', '余量', null, '0.004%', '0.053%');
+INSERT INTO `ret_product`
+VALUES (18, 1, '金属钕', '022022070102', '五矿稀土', '描述', '2022-07-01 10:35:49', '干燥', '5KG', '桶装', '3KG', '货车', '012022062901', null, '044030', '分离冶炼', '硫酸铵法', '熔盐电解法', '萃取分离', '3%', '12MPa', '18T', null, null, null, null, null, '99.5%', '99.9%', null, null, null, null, null, '0.1%', '0.2%');
+INSERT INTO `ret_product`
+VALUES (19, 1, '氧化镝', '012022063001', '五矿稀土', '描述', '2022-06-30 11:05:49', '干燥', '5KG', '桶装', '3KG', '货车', null, null, '101040', '分离冶炼', '硫酸铵法', '熔盐电解法', '萃取分离', '3%', '12MPa', '18T', null, null, null, null, null, null, null, null, '99.1%', null, null, '99.99%', '0.006%', '0.027%');
+INSERT INTO `ret_product`
+VALUES (20, 1, '金属镝', '022022063002', '五矿稀土', '描述', '2022-06-30 16:25:49', '干燥', '5KG', '桶装', '3KG', '货车', '012022063001', null, '104040', '分离冶炼', '硫酸铵法', '熔盐电解法', '萃取分离', '3%', '12MPa', '18T', null, null, null, null, null, '99.0%', null, '99.99%', null, null, null, null, '0.004%', '0.23%');
+INSERT INTO `ret_product`
+VALUES (21, 1, '烧结钕铁硼', '032022072003', '五矿稀土', '描述', '2022-07-20 13:55:49', '干燥', '10KG', '桶装', '8KG', '货车', '022022070102', null, 'S-NdFeB', '分离冶炼', '硫酸铵法', '熔盐电解法', '萃取分离', '3%', '12MPa', '18T', '30%', '13%', '1%', '14%', '2.5%', null, null, null, null, null, null, null, null, null);
 
 -- 产品文档表
 DROP TABLE IF EXISTS `ret_product_document`;

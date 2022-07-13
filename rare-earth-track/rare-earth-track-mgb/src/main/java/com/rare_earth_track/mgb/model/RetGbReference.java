@@ -6,7 +6,7 @@ import java.io.Serializable;
 /**
  * 国标参考
  * @author 匡龙 
- * @date 2022-07-07
+ * @date 2022-07-13
  */
 @Schema(description = "国标参考")
 public class RetGbReference implements Serializable {

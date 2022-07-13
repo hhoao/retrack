@@ -6,7 +6,7 @@ import java.io.Serializable;
 /**
  * 产品和主题关系
  * @author 匡龙 
- * @date 2022-07-07
+ * @date 2022-07-13
  */
 @Schema(description = "产品和主题关系")
 public class RetProductSubjectRelation implements Serializable {
