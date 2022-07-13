@@ -36,3 +36,38 @@ spring:
 ret:
   mail:
     from: haunghao@foxmail.com
+#文件配置
+file:
+  upload:
+    path: F:\files\  #文件上传目标路径
+    allowTypes:             #文件上传允许的类型
+      - image/jpeg
+      - image/png
+      - image/bmp
+      - application/pdf
+
+# params
+params:
+  imei: 861011046699349
+  obj_id: 3200
+  obj_inst_id: 0
+  mode: 2
+  timeout: 5
+
+# body
+body:
+  res_id: 5750
+
+# header
+header:
+  content-type: application/json
+
+# 这里填写apikey
+machine:
+  apiKey: eKwNk=hCz=UxFx6hENKCIWJTn5w=
+
+mq:
+  userName: MoYU
+  mqTopic: topic-test
+  mqSub: test-sub
+  accessKey: w5qhghBLH31SiichSQlmN416a1xctCs86Kvx6k61wSM=
