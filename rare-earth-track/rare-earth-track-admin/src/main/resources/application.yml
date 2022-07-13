@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: prod #默认为开发环境
+    active: dev #默认为开发环境
   jackson:
     default-property-inclusion: non_null
   mvc:
