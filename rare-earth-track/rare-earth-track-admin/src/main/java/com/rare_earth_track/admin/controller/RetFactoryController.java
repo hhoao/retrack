@@ -6,6 +6,7 @@ import com.rare_earth_track.admin.bean.RetMemberParam;
 import com.rare_earth_track.admin.service.RetFactoryService;
 import com.rare_earth_track.common.api.CommonPage;
 import com.rare_earth_track.common.api.CommonResult;
+import com.rare_earth_track.mgb.model.RetApplyFactory;
 import com.rare_earth_track.mgb.model.RetFactory;
 import com.rare_earth_track.mgb.model.RetMember;
 import com.rare_earth_track.mgb.model.RetProduct;
@@ -113,8 +114,8 @@ public class RetFactoryController {
 
     @Operation(summary = "分页获取申请入驻工厂信息")
     @GetMapping("/factories/applyFactory")
-    public CommonResult<CommonPage<RetFactory>> listApplyFactory(PageInfo pageInfo, RetFactory factory) {
-        List<RetFactory> retFactories = factoryService.listApplyFactory(pageInfo);
+    public CommonResult<CommonPage<RetApplyFactory>> listApplyFactory(PageInfo pageInfo, RetApplyFactory applyFactory) {
+        List<RetApplyFactory> retFactories = factoryService.listApplyFactory(pageInfo, applyFactory);
         return CommonResult.success(CommonPage.restPage(retFactories));
     }
 }

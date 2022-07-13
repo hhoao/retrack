@@ -1,24 +1,24 @@
 package com.rare_earth_track.mgb.mapper;
 
-import com.rare_earth_track.mgb.model.RetApplyFactory;
-import com.rare_earth_track.mgb.model.RetApplyFactoryExample;
+import com.rare_earth_track.mgb.model.RetFile;
+import com.rare_earth_track.mgb.model.RetFileExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
-public interface RetApplyFactoryMapper {
+public interface RetFileMapper {
     /**
      * countByExample
      * @param example example
      * @return long
      */
-    long countByExample(RetApplyFactoryExample example);
+    long countByExample(RetFileExample example);
 
     /**
      * deleteByExample
      * @param example example
      * @return int
      */
-    int deleteByExample(RetApplyFactoryExample example);
+    int deleteByExample(RetFileExample example);
 
     /**
      * deleteByPrimaryKey
@@ -32,28 +32,28 @@ public interface RetApplyFactoryMapper {
      * @param row row
      * @return int
      */
-    int insert(RetApplyFactory row);
+    int insert(RetFile row);
 
     /**
      * insertSelective
      * @param row row
      * @return int
      */
-    int insertSelective(RetApplyFactory row);
+    int insertSelective(RetFile row);
 
     /**
      * selectByExample
      * @param example example
-     * @return java.util.List<com.rare_earth_track.mgb.model.RetApplyFactory>
+     * @return java.util.List<com.rare_earth_track.mgb.model.RetFile>
      */
-    List<RetApplyFactory> selectByExample(RetApplyFactoryExample example);
+    List<RetFile> selectByExample(RetFileExample example);
 
     /**
      * selectByPrimaryKey
      * @param id id
-     * @return com.rare_earth_track.mgb.model.RetApplyFactory
+     * @return com.rare_earth_track.mgb.model.RetFile
      */
-    RetApplyFactory selectByPrimaryKey(Long id);
+    RetFile selectByPrimaryKey(Long id);
 
     /**
      * updateByExampleSelective
@@ -61,7 +61,7 @@ public interface RetApplyFactoryMapper {
      * @param example example
      * @return int
      */
-    int updateByExampleSelective(@Param("row") RetApplyFactory row, @Param("example") RetApplyFactoryExample example);
+    int updateByExampleSelective(@Param("row") RetFile row, @Param("example") RetFileExample example);
 
     /**
      * updateByExample
@@ -69,19 +69,19 @@ public interface RetApplyFactoryMapper {
      * @param example example
      * @return int
      */
-    int updateByExample(@Param("row") RetApplyFactory row, @Param("example") RetApplyFactoryExample example);
+    int updateByExample(@Param("row") RetFile row, @Param("example") RetFileExample example);
 
     /**
      * updateByPrimaryKeySelective
      * @param row row
      * @return int
      */
-    int updateByPrimaryKeySelective(RetApplyFactory row);
+    int updateByPrimaryKeySelective(RetFile row);
 
     /**
      * updateByPrimaryKey
      * @param row row
      * @return int
      */
-    int updateByPrimaryKey(RetApplyFactory row);
+    int updateByPrimaryKey(RetFile row);
 }

@@ -1,13 +1,13 @@
 package com.rare_earth_track.admin.controller;
 
 import com.rare_earth_track.admin.bean.PageInfo;
-import com.rare_earth_track.admin.service.RetFilesService;
+import com.rare_earth_track.admin.service.RetFileService;
+import com.rare_earth_track.common.api.CommonPage;
 import com.rare_earth_track.common.api.CommonResult;
-import com.rare_earth_track.mgb.model.RetFiles;
+import com.rare_earth_track.mgb.model.RetFile;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.media.SchemaProperties;
 import io.swagger.v3.oas.annotations.media.SchemaProperty;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
- * @ClassName RetFilesController
+ * @ClassName RetFileController
  * @Description: 文件管理
  * @Author 匡龙
  * @Date 2022/6/22 15:23
@@ -27,16 +27,16 @@ import java.util.List;
  */
 @RestController
 @RequiredArgsConstructor
-@Tag(name = "文件管理", description = "RetFilesController")
-public class RetFilesController {
+@Tag(name = "文件管理", description = "RetFileController")
+public class RetFileController {
 
-    private final RetFilesService filesService;
+    private final RetFileService filesService;
 
     @Operation(summary = "分页获取文件信息")
     @GetMapping("/files")
-    public CommonResult<CommonResult<List<RetFiles>>> list(PageInfo pageInfo) {
-        CommonResult<List<RetFiles>> filesList = filesService.getFileList(pageInfo);
-        return CommonResult.success(filesList);
+    public CommonResult<CommonPage<RetFile>> list(PageInfo pageInfo, RetFile file) {
+        List<RetFile> filesList = filesService.getFileList(pageInfo, file);
+        return CommonResult.success(CommonPage.restPage(filesList));
     }
 
     @Operation(summary = "上传文件")

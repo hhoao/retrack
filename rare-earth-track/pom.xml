@@ -17,7 +17,6 @@
         <module>rare-earth-track-mgb</module>
         <module>rare-earth-track-security</module>
         <module>rare-earth-track-admin</module>
-        <module>rare-earth-search</module>
         <module>rare-earth-track-portal</module>
     </modules>
 

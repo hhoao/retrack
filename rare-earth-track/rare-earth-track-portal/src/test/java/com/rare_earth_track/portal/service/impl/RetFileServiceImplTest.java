@@ -15,7 +15,7 @@ import java.io.File;
  * @Date 2022/7/4 9:54
  * @Version V1.0
  */
-public class RetFilesServiceImplTest extends TransactionTest {
+public class RetFileServiceImplTest extends TransactionTest {
 
     private final String testPath = new File("${file.upload.path}").getAbsolutePath();
     private final Long testId = 1L;

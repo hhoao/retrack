@@ -52,20 +52,19 @@ INSERT INTO `ret_gb_reference` VALUES ('21', '氧化镝', '101025', null,null, n
 INSERT INTO `ret_gb_reference` VALUES ('22', '氧化镝', '101020', null,null, null, null, null, null, null, null, '≥99.0%', null, null, '≥99.0%', '1.0%', '0.155%');
 
 #文件表
-DROP TABLE IF EXISTS `ret_files`;
-CREATE TABLE `ret_files`  (
-                              `id` int NOT NULL AUTO_INCREMENT COMMENT '文件id',
-                              `files_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '文件名称',
+DROP TABLE IF EXISTS `ret_file`;
+CREATE TABLE `ret_file`  (
+                              `id` bigint NOT NULL AUTO_INCREMENT COMMENT '文件id',
+                              `file_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '文件名称',
                               `type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '文件类型',
                               `size` double(32, 2) NULL DEFAULT NULL COMMENT '文件大小（KB）',
                               `url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '下载链接',
-                              `md5` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '文件md5',
+                              `uuid` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '文件uuid',
                               `enable` tinyint NULL DEFAULT 1 COMMENT '链接是否可用（1：是 0：否）',
-                              `is_delete` tinyint NOT NULL DEFAULT 0 COMMENT '是否删除（1：是 0：否）',
                               `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP  COMMENT '创建时间',
                               `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
                               PRIMARY KEY (`id`) USING BTREE,
-                              INDEX `name`(`files_name`) USING BTREE
+                              INDEX `name`(`file_name`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '文件表' ROW_FORMAT = Dynamic;
 
 #厂家入驻申请表
@@ -522,6 +521,7 @@ CREATE TABLE `ret_product`
     `batch_id`             varchar(100) NOT NULL COMMENT '批次',
     `factory`              varchar(100) DEFAULT NULL COMMENT '生产厂家',
     `description`          text         DEFAULT NULL COMMENT '描述',
+    `pic`                  varchar(256) DEFAULT NULL COMMENT '图片',
     `dispatch_time`        datetime     DEFAULT NULL COMMENT '出货日期',
     `moisture_proof_logo`  varchar(256) DEFAULT NULL COMMENT '防潮标识',
     `specification`        varchar(100) DEFAULT NULL COMMENT '规格',
@@ -589,15 +589,15 @@ VALUES (15, 1, '背胶', 'A-15', '五矿稀土');
 INSERT `ret_product`(id, factory_id, name, batch_id,factory)
 VALUES (16, 1, '不背胶', 'A-16', '五矿稀土');
 INSERT INTO `ret_product`
-VALUES (17, 1, '氧化钕', '012022062901', '五矿稀土', '描述', '2022-06-29 12:25:49', '干燥', '5KG', '桶装', '3KG', '货车', null, null, '041045', '分离冶炼', '硫酸铵法', '熔盐电解法', '萃取分离', '3%', '12MPa', '18T', null, null, null, null, null, null, null, null, '99.6%', '99.996%', '余量', null, '0.004%', '0.053%');
+VALUES (17, 1, '氧化钕', '012022062901', '五矿稀土', '描述', null, '2022-06-29 12:25:49', '干燥', '5KG', '桶装', '3KG', '货车', null, null, '041045', '分离冶炼', '硫酸铵法', '熔盐电解法', '萃取分离', '3%', '12MPa', '18T', null, null, null, null, null, null, null, null, '99.6%', '99.996%', '余量', null, '0.004%', '0.053%');
 INSERT INTO `ret_product`
-VALUES (18, 1, '金属钕', '022022070102', '五矿稀土', '描述', '2022-07-01 10:35:49', '干燥', '5KG', '桶装', '3KG', '货车', '012022062901', null, '044030', '分离冶炼', '硫酸铵法', '熔盐电解法', '萃取分离', '3%', '12MPa', '18T', null, null, null, null, null, '99.5%', '99.9%', null, null, null, null, null, '0.1%', '0.2%');
+VALUES (18, 1, '金属钕', '022022070102', '五矿稀土', '描述', null, '2022-07-01 10:35:49', '干燥', '5KG', '桶装', '3KG', '货车', '012022062901', null, '044030', '分离冶炼', '硫酸铵法', '熔盐电解法', '萃取分离', '3%', '12MPa', '18T', null, null, null, null, null, '99.5%', '99.9%', null, null, null, null, null, '0.1%', '0.2%');
 INSERT INTO `ret_product`
-VALUES (19, 1, '氧化镝', '012022063001', '五矿稀土', '描述', '2022-06-30 11:05:49', '干燥', '5KG', '桶装', '3KG', '货车', null, null, '101040', '分离冶炼', '硫酸铵法', '熔盐电解法', '萃取分离', '3%', '12MPa', '18T', null, null, null, null, null, null, null, null, '99.1%', null, null, '99.99%', '0.006%', '0.027%');
+VALUES (19, 1, '氧化镝', '012022063001', '五矿稀土', '描述', null, '2022-06-30 11:05:49', '干燥', '5KG', '桶装', '3KG', '货车', null, null, '101040', '分离冶炼', '硫酸铵法', '熔盐电解法', '萃取分离', '3%', '12MPa', '18T', null, null, null, null, null, null, null, null, '99.1%', null, null, '99.99%', '0.006%', '0.027%');
 INSERT INTO `ret_product`
-VALUES (20, 1, '金属镝', '022022063002', '五矿稀土', '描述', '2022-06-30 16:25:49', '干燥', '5KG', '桶装', '3KG', '货车', '012022063001', null, '104040', '分离冶炼', '硫酸铵法', '熔盐电解法', '萃取分离', '3%', '12MPa', '18T', null, null, null, null, null, '99.0%', null, '99.99%', null, null, null, null, '0.004%', '0.23%');
+VALUES (20, 1, '金属镝', '022022063002', '五矿稀土', '描述', null, '2022-06-30 16:25:49', '干燥', '5KG', '桶装', '3KG', '货车', '012022063001', null, '104040', '分离冶炼', '硫酸铵法', '熔盐电解法', '萃取分离', '3%', '12MPa', '18T', null, null, null, null, null, '99.0%', null, '99.99%', null, null, null, null, '0.004%', '0.23%');
 INSERT INTO `ret_product`
-VALUES (21, 1, '烧结钕铁硼', '032022072003', '五矿稀土', '描述', '2022-07-20 13:55:49', '干燥', '10KG', '桶装', '8KG', '货车', '022022070102', null, 'S-NdFeB', '分离冶炼', '硫酸铵法', '熔盐电解法', '萃取分离', '3%', '12MPa', '18T', '30%', '13%', '1%', '14%', '2.5%', null, null, null, null, null, null, null, null, null);
+VALUES (21, 1, '烧结钕铁硼', '032022072003', '五矿稀土', '描述', null, '2022-07-20 13:55:49', '干燥', '10KG', '桶装', '8KG', '货车', '022022070102', null, 'S-NdFeB', '分离冶炼', '硫酸铵法', '熔盐电解法', '萃取分离', '3%', '12MPa', '18T', '30%', '13%', '1%', '14%', '2.5%', null, null, null, null, null, null, null, null, null);
 
 -- 产品文档表
 DROP TABLE IF EXISTS `ret_product_document`;

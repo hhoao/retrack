@@ -39,7 +39,7 @@ ret:
 #文件配置
 file:
   upload:
-    path: F:\files\  #文件上传目标路径
+    path: /data/files/  #文件上传目标路径
     allowTypes:             #文件上传允许的类型
       - image/jpeg
       - image/png
@@ -62,6 +62,7 @@ body:
 header:
   content-type: application/json
 
+# OneNet平台对接
 # 这里填写apikey
 machine:
   apiKey: eKwNk=hCz=UxFx6hENKCIWJTn5w=

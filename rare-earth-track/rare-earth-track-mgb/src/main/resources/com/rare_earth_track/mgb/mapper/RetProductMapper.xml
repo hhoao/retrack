@@ -7,6 +7,7 @@
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="batch_id" jdbcType="VARCHAR" property="batchId" />
     <result column="factory" jdbcType="VARCHAR" property="factory" />
+    <result column="pic" jdbcType="VARCHAR" property="pic" />
     <result column="dispatch_time" jdbcType="TIMESTAMP" property="dispatchTime" />
     <result column="moisture_proof_logo" jdbcType="VARCHAR" property="moistureProofLogo" />
     <result column="specification" jdbcType="VARCHAR" property="specification" />
@@ -100,8 +101,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, factory_id, name, batch_id, factory, dispatch_time, moisture_proof_logo, specification, 
-    packing_type, net_weight, transport_log, raw_material_batch, quality_certificate, 
+    id, factory_id, name, batch_id, factory, pic, dispatch_time, moisture_proof_logo, 
+    specification, packing_type, net_weight, transport_log, raw_material_batch, quality_certificate, 
     standard_number, production_phase, mining_technology, mine, separate, oxygen_levels, 
     pressure, magnetic_field, Nd, Co, B, Dy_Tb_Pr, other, RE, Nd_RE, Dy_RE, REO, Nd2O3_REO, 
     Nd2O3, Dy2O3_REO, RE_impurities, non_RE_impurities
@@ -157,80 +158,34 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insertByBatchId" parameterType="com.rare_earth_track.mgb.model.RetProduct">
-    insert into ret_product (factory_id,name, batch_id, factory, dispatch_time,
-    specification, packing_type, net_weight,
-    standard_number,
-    production_phase
-    <if test="miningTechnology != null">
-      ,mining_technology
-    </if>
-    <if test="mine != null">
-      ,mine
-    </if>
-    <if test="separate != null">
-      ,separate
-    </if>
-    <if test="oxygenLevels != null">
-      ,oxygen_levels
-    </if>
-    <if test="pressure != null">
-      ,pressure
-    </if>
-    <if test="magneticField != null">
-      ,magnetic_field
-    </if>)
-    VALUES ('2',#{name},#{batchId}, #{factory}, #{dispatchTime},
-    #{specification}, #{packingType}, #{netWeight},
-    #{standardNumber},
-    #{productionPhase}
-    <if test="miningTechnology != null">
-      ,#{miningTechnology}
-    </if>
-    <if test="mine != null">
-      ,#{mine}
-    </if>
-    <if test="separate != null">
-      ,#{separate}
-    </if>
-    <if test="oxygenLevels != null">
-      ,#{oxygenLevels}
-    </if>
-    <if test="pressure != null">
-      ,#{pressure}
-    </if>
-    <if test="magneticField != null">
-      ,#{magneticField}
-    </if>)
-  </insert>
   <insert id="insert" parameterType="com.rare_earth_track.mgb.model.RetProduct">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into ret_product (factory_id, name, batch_id, 
-      factory, dispatch_time, moisture_proof_logo, 
-      specification, packing_type, net_weight, 
-      transport_log, raw_material_batch, quality_certificate, 
-      standard_number, production_phase, mining_technology, 
-      mine, separate, oxygen_levels, 
-      pressure, magnetic_field, Nd, 
-      Co, B, Dy_Tb_Pr, other, 
-      RE, Nd_RE, Dy_RE, REO, 
-      Nd2O3_REO, Nd2O3, Dy2O3_REO, 
-      RE_impurities, non_RE_impurities, description
-      )
+      factory, pic, dispatch_time, 
+      moisture_proof_logo, specification, packing_type, 
+      net_weight, transport_log, raw_material_batch, 
+      quality_certificate, standard_number, production_phase, 
+      mining_technology, mine, separate, 
+      oxygen_levels, pressure, magnetic_field, 
+      Nd, Co, B, Dy_Tb_Pr, 
+      other, RE, Nd_RE, Dy_RE, 
+      REO, Nd2O3_REO, Nd2O3, 
+      Dy2O3_REO, RE_impurities, non_RE_impurities, 
+      description)
     values (#{factoryId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{batchId,jdbcType=VARCHAR}, 
-      #{factory,jdbcType=VARCHAR}, #{dispatchTime,jdbcType=TIMESTAMP}, #{moistureProofLogo,jdbcType=VARCHAR}, 
-      #{specification,jdbcType=VARCHAR}, #{packingType,jdbcType=VARCHAR}, #{netWeight,jdbcType=VARCHAR}, 
-      #{transportLog,jdbcType=VARCHAR}, #{rawMaterialBatch,jdbcType=VARCHAR}, #{qualityCertificate,jdbcType=VARCHAR}, 
-      #{standardNumber,jdbcType=VARCHAR}, #{productionPhase,jdbcType=VARCHAR}, #{miningTechnology,jdbcType=VARCHAR}, 
-      #{mine,jdbcType=VARCHAR}, #{separate,jdbcType=VARCHAR}, #{oxygenLevels,jdbcType=VARCHAR}, 
-      #{pressure,jdbcType=VARCHAR}, #{magneticField,jdbcType=VARCHAR}, #{nd,jdbcType=VARCHAR}, 
-      #{co,jdbcType=VARCHAR}, #{b,jdbcType=VARCHAR}, #{dyTbPr,jdbcType=VARCHAR}, #{other,jdbcType=VARCHAR}, 
-      #{re,jdbcType=VARCHAR}, #{ndRe,jdbcType=VARCHAR}, #{dyRe,jdbcType=VARCHAR}, #{reo,jdbcType=VARCHAR}, 
-      #{nd2o3Reo,jdbcType=VARCHAR}, #{nd2o3,jdbcType=VARCHAR}, #{dy2o3Reo,jdbcType=VARCHAR}, 
-      #{reImpurities,jdbcType=VARCHAR}, #{nonReImpurities,jdbcType=VARCHAR}, #{description,jdbcType=LONGVARCHAR}
-      )
+      #{factory,jdbcType=VARCHAR}, #{pic,jdbcType=VARCHAR}, #{dispatchTime,jdbcType=TIMESTAMP}, 
+      #{moistureProofLogo,jdbcType=VARCHAR}, #{specification,jdbcType=VARCHAR}, #{packingType,jdbcType=VARCHAR}, 
+      #{netWeight,jdbcType=VARCHAR}, #{transportLog,jdbcType=VARCHAR}, #{rawMaterialBatch,jdbcType=VARCHAR}, 
+      #{qualityCertificate,jdbcType=VARCHAR}, #{standardNumber,jdbcType=VARCHAR}, #{productionPhase,jdbcType=VARCHAR}, 
+      #{miningTechnology,jdbcType=VARCHAR}, #{mine,jdbcType=VARCHAR}, #{separate,jdbcType=VARCHAR}, 
+      #{oxygenLevels,jdbcType=VARCHAR}, #{pressure,jdbcType=VARCHAR}, #{magneticField,jdbcType=VARCHAR}, 
+      #{nd,jdbcType=VARCHAR}, #{co,jdbcType=VARCHAR}, #{b,jdbcType=VARCHAR}, #{dyTbPr,jdbcType=VARCHAR}, 
+      #{other,jdbcType=VARCHAR}, #{re,jdbcType=VARCHAR}, #{ndRe,jdbcType=VARCHAR}, #{dyRe,jdbcType=VARCHAR}, 
+      #{reo,jdbcType=VARCHAR}, #{nd2o3Reo,jdbcType=VARCHAR}, #{nd2o3,jdbcType=VARCHAR}, 
+      #{dy2o3Reo,jdbcType=VARCHAR}, #{reImpurities,jdbcType=VARCHAR}, #{nonReImpurities,jdbcType=VARCHAR}, 
+      #{description,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.rare_earth_track.mgb.model.RetProduct">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
@@ -249,6 +204,9 @@
       </if>
       <if test="factory != null">
         factory,
+      </if>
+      <if test="pic != null">
+        pic,
       </if>
       <if test="dispatchTime != null">
         dispatch_time,
@@ -356,6 +314,9 @@
       </if>
       <if test="factory != null">
         #{factory,jdbcType=VARCHAR},
+      </if>
+      <if test="pic != null">
+        #{pic,jdbcType=VARCHAR},
       </if>
       <if test="dispatchTime != null">
         #{dispatchTime,jdbcType=TIMESTAMP},
@@ -476,6 +437,9 @@
       <if test="row.factory != null">
         factory = #{row.factory,jdbcType=VARCHAR},
       </if>
+      <if test="row.pic != null">
+        pic = #{row.pic,jdbcType=VARCHAR},
+      </if>
       <if test="row.dispatchTime != null">
         dispatch_time = #{row.dispatchTime,jdbcType=TIMESTAMP},
       </if>
@@ -581,6 +545,7 @@
       name = #{row.name,jdbcType=VARCHAR},
       batch_id = #{row.batchId,jdbcType=VARCHAR},
       factory = #{row.factory,jdbcType=VARCHAR},
+      pic = #{row.pic,jdbcType=VARCHAR},
       dispatch_time = #{row.dispatchTime,jdbcType=TIMESTAMP},
       moisture_proof_logo = #{row.moistureProofLogo,jdbcType=VARCHAR},
       specification = #{row.specification,jdbcType=VARCHAR},
@@ -623,6 +588,7 @@
       name = #{row.name,jdbcType=VARCHAR},
       batch_id = #{row.batchId,jdbcType=VARCHAR},
       factory = #{row.factory,jdbcType=VARCHAR},
+      pic = #{row.pic,jdbcType=VARCHAR},
       dispatch_time = #{row.dispatchTime,jdbcType=TIMESTAMP},
       moisture_proof_logo = #{row.moistureProofLogo,jdbcType=VARCHAR},
       specification = #{row.specification,jdbcType=VARCHAR},
@@ -671,6 +637,9 @@
       </if>
       <if test="factory != null">
         factory = #{factory,jdbcType=VARCHAR},
+      </if>
+      <if test="pic != null">
+        pic = #{pic,jdbcType=VARCHAR},
       </if>
       <if test="dispatchTime != null">
         dispatch_time = #{dispatchTime,jdbcType=TIMESTAMP},
@@ -774,6 +743,7 @@
       name = #{name,jdbcType=VARCHAR},
       batch_id = #{batchId,jdbcType=VARCHAR},
       factory = #{factory,jdbcType=VARCHAR},
+      pic = #{pic,jdbcType=VARCHAR},
       dispatch_time = #{dispatchTime,jdbcType=TIMESTAMP},
       moisture_proof_logo = #{moistureProofLogo,jdbcType=VARCHAR},
       specification = #{specification,jdbcType=VARCHAR},
@@ -813,6 +783,7 @@
       name = #{name,jdbcType=VARCHAR},
       batch_id = #{batchId,jdbcType=VARCHAR},
       factory = #{factory,jdbcType=VARCHAR},
+      pic = #{pic,jdbcType=VARCHAR},
       dispatch_time = #{dispatchTime,jdbcType=TIMESTAMP},
       moisture_proof_logo = #{moistureProofLogo,jdbcType=VARCHAR},
       specification = #{specification,jdbcType=VARCHAR},

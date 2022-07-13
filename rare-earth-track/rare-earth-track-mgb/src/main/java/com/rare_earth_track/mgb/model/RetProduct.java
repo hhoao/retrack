@@ -6,7 +6,7 @@ import java.util.Date;
 
 /**
  * 产品信
- * @author 匡龙 
+ * @author hhoa 
  * @date 2022-07-13
  */
 @Schema(description = "产品信")
@@ -24,6 +24,9 @@ public class RetProduct implements Serializable {
 
     @Schema(description = "生产厂家")
     private String factory;
+
+    @Schema(description = "图片")
+    private String pic;
 
     @Schema(description = "出货日期")
     private Date dispatchTime;
@@ -198,6 +201,22 @@ public class RetProduct implements Serializable {
      */
     public void setFactory(String factory) {
         this.factory = factory;
+    }
+
+    /**
+     * 图片
+     * @return pic 图片
+     */
+    public String getPic() {
+        return pic;
+    }
+
+    /**
+     * 图片
+     * @param pic 图片
+     */
+    public void setPic(String pic) {
+        this.pic = pic;
     }
 
     /**
@@ -711,6 +730,7 @@ public class RetProduct implements Serializable {
         sb.append(", name=").append(name);
         sb.append(", batchId=").append(batchId);
         sb.append(", factory=").append(factory);
+        sb.append(", pic=").append(pic);
         sb.append(", dispatchTime=").append(dispatchTime);
         sb.append(", moistureProofLogo=").append(moistureProofLogo);
         sb.append(", specification=").append(specification);

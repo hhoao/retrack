@@ -152,9 +152,6 @@ public class RetProductServiceImpl implements RetProductService {
         if (product.getTransportLog() != null) {
             criteria.andTransportLogEqualTo(product.getTransportLog());
         }
-        if (product.getRawMaterialBatch() != null) {
-            criteria.andRawMaterialBatchEqualTo(product.getRawMaterialBatch());
-        }
         if (product.getQualityCertificate() != null) {
             criteria.andQualityCertificateEqualTo(product.getQualityCertificate());
         }

@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 /**
  * 产品和主题关系
- * @author 匡龙 
+ * @author hhoa 
  * @date 2022-07-13
  */
 @Schema(description = "产品和主题关系")

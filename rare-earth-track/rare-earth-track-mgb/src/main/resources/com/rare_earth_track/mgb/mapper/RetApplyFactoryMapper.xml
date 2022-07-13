@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.rare_earth_track.mgb.mapper.RetApplyFactoryMapper">
-  <resultMap id="BaseResultMap" type="com.rare_earth_track.mgb.model.RetFactory">
+  <resultMap id="BaseResultMap" type="com.rare_earth_track.mgb.model.RetApplyFactory">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="phone" jdbcType="VARCHAR" property="phone" />
     <result column="email" jdbcType="VARCHAR" property="email" />
     <result column="address" jdbcType="VARCHAR" property="address" />
     <result column="description" jdbcType="VARCHAR" property="description" />
-    <result column="apply_time" jdbcType="TIMESTAMP" property="apply_time" />
+    <result column="apply_time" jdbcType="TIMESTAMP" property="applyTime" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -69,9 +69,9 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, name, phone, email, address, description
+    id, name, phone, email, address, description, apply_time
   </sql>
-  <select id="selectByExample" parameterType="com.rare_earth_track.mgb.model.RetFactoryExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.rare_earth_track.mgb.model.RetApplyFactoryExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -86,7 +86,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select
+    select 
     <include refid="Base_Column_List" />
     from ret_apply_factory
     where id = #{id,jdbcType=BIGINT}
@@ -95,22 +95,24 @@
     delete from ret_apply_factory
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.rare_earth_track.mgb.model.RetFactoryExample">
+  <delete id="deleteByExample" parameterType="com.rare_earth_track.mgb.model.RetApplyFactoryExample">
     delete from ret_apply_factory
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.rare_earth_track.mgb.model.RetFactory">
+  <insert id="insert" parameterType="com.rare_earth_track.mgb.model.RetApplyFactory">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into ret_apply_factory (name, phone, email,
-    address, description)
-    values (#{name,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR},
-    #{address,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR})
+    insert into ret_apply_factory (name, phone, email, 
+      address, description, apply_time
+      )
+    values (#{name,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{applyTime,jdbcType=TIMESTAMP}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="com.rare_earth_track.mgb.model.RetFactory">
+  <insert id="insertSelective" parameterType="com.rare_earth_track.mgb.model.RetApplyFactory">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -131,6 +133,9 @@
       <if test="description != null">
         description,
       </if>
+      <if test="applyTime != null">
+        apply_time,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="name != null">
@@ -148,9 +153,12 @@
       <if test="description != null">
         #{description,jdbcType=VARCHAR},
       </if>
+      <if test="applyTime != null">
+        #{applyTime,jdbcType=TIMESTAMP},
+      </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.rare_earth_track.mgb.model.RetFactoryExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.rare_earth_track.mgb.model.RetApplyFactoryExample" resultType="java.lang.Long">
     select count(*) from ret_apply_factory
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -177,6 +185,9 @@
       <if test="row.description != null">
         description = #{row.description,jdbcType=VARCHAR},
       </if>
+      <if test="row.applyTime != null">
+        apply_time = #{row.applyTime,jdbcType=TIMESTAMP},
+      </if>
     </set>
     <if test="example != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -185,16 +196,17 @@
   <update id="updateByExample" parameterType="map">
     update ret_apply_factory
     set id = #{row.id,jdbcType=BIGINT},
-    name = #{row.name,jdbcType=VARCHAR},
-    phone = #{row.phone,jdbcType=VARCHAR},
-    email = #{row.email,jdbcType=VARCHAR},
-    address = #{row.address,jdbcType=VARCHAR},
-    description = #{row.description,jdbcType=VARCHAR}
+      name = #{row.name,jdbcType=VARCHAR},
+      phone = #{row.phone,jdbcType=VARCHAR},
+      email = #{row.email,jdbcType=VARCHAR},
+      address = #{row.address,jdbcType=VARCHAR},
+      description = #{row.description,jdbcType=VARCHAR},
+      apply_time = #{row.applyTime,jdbcType=TIMESTAMP}
     <if test="example != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.rare_earth_track.mgb.model.RetFactory">
+  <update id="updateByPrimaryKeySelective" parameterType="com.rare_earth_track.mgb.model.RetApplyFactory">
     update ret_apply_factory
     <set>
       <if test="name != null">
@@ -212,16 +224,20 @@
       <if test="description != null">
         description = #{description,jdbcType=VARCHAR},
       </if>
+      <if test="applyTime != null">
+        apply_time = #{applyTime,jdbcType=TIMESTAMP},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.rare_earth_track.mgb.model.RetFactory">
+  <update id="updateByPrimaryKey" parameterType="com.rare_earth_track.mgb.model.RetApplyFactory">
     update ret_apply_factory
     set name = #{name,jdbcType=VARCHAR},
-        phone = #{phone,jdbcType=VARCHAR},
-        email = #{email,jdbcType=VARCHAR},
-        address = #{address,jdbcType=VARCHAR},
-        description = #{description,jdbcType=VARCHAR}
+      phone = #{phone,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      apply_time = #{applyTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

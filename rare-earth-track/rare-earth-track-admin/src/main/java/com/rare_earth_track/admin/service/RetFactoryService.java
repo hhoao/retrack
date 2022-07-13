@@ -3,6 +3,7 @@ package com.rare_earth_track.admin.service;
 import com.rare_earth_track.admin.bean.PageInfo;
 import com.rare_earth_track.admin.bean.RetFactoryParam;
 import com.rare_earth_track.admin.bean.RetMemberParam;
+import com.rare_earth_track.mgb.model.RetApplyFactory;
 import com.rare_earth_track.mgb.model.RetFactory;
 import com.rare_earth_track.mgb.model.RetMember;
 import com.rare_earth_track.mgb.model.RetProduct;
@@ -153,8 +154,9 @@ public interface RetFactoryService {
      * 分页获取申请入驻工厂列表
      *
      * @param pageInfo
+     * @param applyFactory
      * @return list
      */
-    List<RetFactory> listApplyFactory(PageInfo pageInfo);
+    List<RetApplyFactory> listApplyFactory(PageInfo pageInfo, RetApplyFactory applyFactory);
 
 }

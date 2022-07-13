@@ -212,10 +212,35 @@ public class RetFactoryServiceImpl implements RetFactoryService {
     }
 
     @Override
-    public List<RetFactory> listApplyFactory(PageInfo pageInfo) {
+    public List<RetApplyFactory> listApplyFactory(PageInfo pageInfo, RetApplyFactory applyFactory) {
         PageHelper.startPage(pageInfo.getPageNum(), pageInfo.getPageSize());
-        return applyFactoryMapper.selectByExample(new RetFactoryExample());
+        RetApplyFactoryExample applyFactoryExample =  getApplyFactoryExample(applyFactory);
+        return applyFactoryMapper.selectByExample(applyFactoryExample);
     }
 
-
+    private RetApplyFactoryExample getApplyFactoryExample(RetApplyFactory applyFactory) {
+        RetApplyFactoryExample applyFactoryExample = new RetApplyFactoryExample();
+        if (applyFactory != null){
+            RetApplyFactoryExample.Criteria criteria = applyFactoryExample.createCriteria();
+            if (applyFactory.getId() != null){
+                criteria.andIdEqualTo(applyFactory.getId());
+            }
+            if (applyFactory.getAddress() != null){
+                criteria.andAddressEqualTo(applyFactory.getAddress());
+            }
+            if (applyFactory.getName() != null){
+                criteria.andNameEqualTo(applyFactory.getName());
+            }
+            if (applyFactory.getEmail() != null){
+                criteria.andEmailEqualTo(applyFactory.getEmail());
+            }
+            if (applyFactory.getPhone() != null){
+                criteria.andPhoneEqualTo(applyFactory.getPhone());
+            }
+            if (applyFactory.getDescription() != null){
+                criteria.andDescriptionLike(applyFactory.getDescription());
+            }
+        }
+        return applyFactoryExample;
+    }
 }

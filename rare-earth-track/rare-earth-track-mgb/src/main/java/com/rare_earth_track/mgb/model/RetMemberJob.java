@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 /**
  * 成员职位
- * @author 匡龙 
+ * @author hhoa 
  * @date 2022-07-13
  */
 @Schema(description = "成员职位")

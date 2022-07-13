@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class RetFilesExample {
+public class RetFileExample {
     protected String orderByClause;
 
     protected boolean distinct;
@@ -12,10 +12,10 @@ public class RetFilesExample {
     protected List<Criteria> oredCriteria;
 
     /**
-     * RetFilesExample
+     * RetFileExample
 
      */
-    public RetFilesExample() {
+    public RetFileExample() {
         oredCriteria = new ArrayList<>();
     }
 
@@ -112,8 +112,8 @@ public class RetFilesExample {
     }
 
     /**
-     * ret_files
-     * @author 匡龙 2022-07-13
+     * ret_file
+     * @author hhoa 2022-07-13
      */
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
@@ -166,123 +166,123 @@ public class RetFilesExample {
             return (Criteria) this;
         }
 
-        public Criteria andIdEqualTo(Integer value) {
+        public Criteria andIdEqualTo(Long value) {
             addCriterion("id =", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotEqualTo(Integer value) {
+        public Criteria andIdNotEqualTo(Long value) {
             addCriterion("id <>", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdGreaterThan(Integer value) {
+        public Criteria andIdGreaterThan(Long value) {
             addCriterion("id >", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdGreaterThanOrEqualTo(Integer value) {
+        public Criteria andIdGreaterThanOrEqualTo(Long value) {
             addCriterion("id >=", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdLessThan(Integer value) {
+        public Criteria andIdLessThan(Long value) {
             addCriterion("id <", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdLessThanOrEqualTo(Integer value) {
+        public Criteria andIdLessThanOrEqualTo(Long value) {
             addCriterion("id <=", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdIn(List<Integer> values) {
+        public Criteria andIdIn(List<Long> values) {
             addCriterion("id in", values, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotIn(List<Integer> values) {
+        public Criteria andIdNotIn(List<Long> values) {
             addCriterion("id not in", values, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdBetween(Integer value1, Integer value2) {
+        public Criteria andIdBetween(Long value1, Long value2) {
             addCriterion("id between", value1, value2, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotBetween(Integer value1, Integer value2) {
+        public Criteria andIdNotBetween(Long value1, Long value2) {
             addCriterion("id not between", value1, value2, "id");
             return (Criteria) this;
         }
 
-        public Criteria andFilesNameIsNull() {
-            addCriterion("files_name is null");
+        public Criteria andFileNameIsNull() {
+            addCriterion("file_name is null");
             return (Criteria) this;
         }
 
-        public Criteria andFilesNameIsNotNull() {
-            addCriterion("files_name is not null");
+        public Criteria andFileNameIsNotNull() {
+            addCriterion("file_name is not null");
             return (Criteria) this;
         }
 
-        public Criteria andFilesNameEqualTo(String value) {
-            addCriterion("files_name =", value, "filesName");
+        public Criteria andFileNameEqualTo(String value) {
+            addCriterion("file_name =", value, "fileName");
             return (Criteria) this;
         }
 
-        public Criteria andFilesNameNotEqualTo(String value) {
-            addCriterion("files_name <>", value, "filesName");
+        public Criteria andFileNameNotEqualTo(String value) {
+            addCriterion("file_name <>", value, "fileName");
             return (Criteria) this;
         }
 
-        public Criteria andFilesNameGreaterThan(String value) {
-            addCriterion("files_name >", value, "filesName");
+        public Criteria andFileNameGreaterThan(String value) {
+            addCriterion("file_name >", value, "fileName");
             return (Criteria) this;
         }
 
-        public Criteria andFilesNameGreaterThanOrEqualTo(String value) {
-            addCriterion("files_name >=", value, "filesName");
+        public Criteria andFileNameGreaterThanOrEqualTo(String value) {
+            addCriterion("file_name >=", value, "fileName");
             return (Criteria) this;
         }
 
-        public Criteria andFilesNameLessThan(String value) {
-            addCriterion("files_name <", value, "filesName");
+        public Criteria andFileNameLessThan(String value) {
+            addCriterion("file_name <", value, "fileName");
             return (Criteria) this;
         }
 
-        public Criteria andFilesNameLessThanOrEqualTo(String value) {
-            addCriterion("files_name <=", value, "filesName");
+        public Criteria andFileNameLessThanOrEqualTo(String value) {
+            addCriterion("file_name <=", value, "fileName");
             return (Criteria) this;
         }
 
-        public Criteria andFilesNameLike(String value) {
-            addCriterion("files_name like", value, "filesName");
+        public Criteria andFileNameLike(String value) {
+            addCriterion("file_name like", value, "fileName");
             return (Criteria) this;
         }
 
-        public Criteria andFilesNameNotLike(String value) {
-            addCriterion("files_name not like", value, "filesName");
+        public Criteria andFileNameNotLike(String value) {
+            addCriterion("file_name not like", value, "fileName");
             return (Criteria) this;
         }
 
-        public Criteria andFilesNameIn(List<String> values) {
-            addCriterion("files_name in", values, "filesName");
+        public Criteria andFileNameIn(List<String> values) {
+            addCriterion("file_name in", values, "fileName");
             return (Criteria) this;
         }
 
-        public Criteria andFilesNameNotIn(List<String> values) {
-            addCriterion("files_name not in", values, "filesName");
+        public Criteria andFileNameNotIn(List<String> values) {
+            addCriterion("file_name not in", values, "fileName");
             return (Criteria) this;
         }
 
-        public Criteria andFilesNameBetween(String value1, String value2) {
-            addCriterion("files_name between", value1, value2, "filesName");
+        public Criteria andFileNameBetween(String value1, String value2) {
+            addCriterion("file_name between", value1, value2, "fileName");
             return (Criteria) this;
         }
 
-        public Criteria andFilesNameNotBetween(String value1, String value2) {
-            addCriterion("files_name not between", value1, value2, "filesName");
+        public Criteria andFileNameNotBetween(String value1, String value2) {
+            addCriterion("file_name not between", value1, value2, "fileName");
             return (Criteria) this;
         }
 
@@ -486,73 +486,73 @@ public class RetFilesExample {
             return (Criteria) this;
         }
 
-        public Criteria andMd5IsNull() {
-            addCriterion("md5 is null");
+        public Criteria andUuidIsNull() {
+            addCriterion("uuid is null");
             return (Criteria) this;
         }
 
-        public Criteria andMd5IsNotNull() {
-            addCriterion("md5 is not null");
+        public Criteria andUuidIsNotNull() {
+            addCriterion("uuid is not null");
             return (Criteria) this;
         }
 
-        public Criteria andMd5EqualTo(String value) {
-            addCriterion("md5 =", value, "md5");
+        public Criteria andUuidEqualTo(String value) {
+            addCriterion("uuid =", value, "uuid");
             return (Criteria) this;
         }
 
-        public Criteria andMd5NotEqualTo(String value) {
-            addCriterion("md5 <>", value, "md5");
+        public Criteria andUuidNotEqualTo(String value) {
+            addCriterion("uuid <>", value, "uuid");
             return (Criteria) this;
         }
 
-        public Criteria andMd5GreaterThan(String value) {
-            addCriterion("md5 >", value, "md5");
+        public Criteria andUuidGreaterThan(String value) {
+            addCriterion("uuid >", value, "uuid");
             return (Criteria) this;
         }
 
-        public Criteria andMd5GreaterThanOrEqualTo(String value) {
-            addCriterion("md5 >=", value, "md5");
+        public Criteria andUuidGreaterThanOrEqualTo(String value) {
+            addCriterion("uuid >=", value, "uuid");
             return (Criteria) this;
         }
 
-        public Criteria andMd5LessThan(String value) {
-            addCriterion("md5 <", value, "md5");
+        public Criteria andUuidLessThan(String value) {
+            addCriterion("uuid <", value, "uuid");
             return (Criteria) this;
         }
 
-        public Criteria andMd5LessThanOrEqualTo(String value) {
-            addCriterion("md5 <=", value, "md5");
+        public Criteria andUuidLessThanOrEqualTo(String value) {
+            addCriterion("uuid <=", value, "uuid");
             return (Criteria) this;
         }
 
-        public Criteria andMd5Like(String value) {
-            addCriterion("md5 like", value, "md5");
+        public Criteria andUuidLike(String value) {
+            addCriterion("uuid like", value, "uuid");
             return (Criteria) this;
         }
 
-        public Criteria andMd5NotLike(String value) {
-            addCriterion("md5 not like", value, "md5");
+        public Criteria andUuidNotLike(String value) {
+            addCriterion("uuid not like", value, "uuid");
             return (Criteria) this;
         }
 
-        public Criteria andMd5In(List<String> values) {
-            addCriterion("md5 in", values, "md5");
+        public Criteria andUuidIn(List<String> values) {
+            addCriterion("uuid in", values, "uuid");
             return (Criteria) this;
         }
 
-        public Criteria andMd5NotIn(List<String> values) {
-            addCriterion("md5 not in", values, "md5");
+        public Criteria andUuidNotIn(List<String> values) {
+            addCriterion("uuid not in", values, "uuid");
             return (Criteria) this;
         }
 
-        public Criteria andMd5Between(String value1, String value2) {
-            addCriterion("md5 between", value1, value2, "md5");
+        public Criteria andUuidBetween(String value1, String value2) {
+            addCriterion("uuid between", value1, value2, "uuid");
             return (Criteria) this;
         }
 
-        public Criteria andMd5NotBetween(String value1, String value2) {
-            addCriterion("md5 not between", value1, value2, "md5");
+        public Criteria andUuidNotBetween(String value1, String value2) {
+            addCriterion("uuid not between", value1, value2, "uuid");
             return (Criteria) this;
         }
 
@@ -613,66 +613,6 @@ public class RetFilesExample {
 
         public Criteria andEnableNotBetween(Byte value1, Byte value2) {
             addCriterion("enable not between", value1, value2, "enable");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsDeleteIsNull() {
-            addCriterion("is_delete is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsDeleteIsNotNull() {
-            addCriterion("is_delete is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsDeleteEqualTo(Byte value) {
-            addCriterion("is_delete =", value, "isDelete");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsDeleteNotEqualTo(Byte value) {
-            addCriterion("is_delete <>", value, "isDelete");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsDeleteGreaterThan(Byte value) {
-            addCriterion("is_delete >", value, "isDelete");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsDeleteGreaterThanOrEqualTo(Byte value) {
-            addCriterion("is_delete >=", value, "isDelete");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsDeleteLessThan(Byte value) {
-            addCriterion("is_delete <", value, "isDelete");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsDeleteLessThanOrEqualTo(Byte value) {
-            addCriterion("is_delete <=", value, "isDelete");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsDeleteIn(List<Byte> values) {
-            addCriterion("is_delete in", values, "isDelete");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsDeleteNotIn(List<Byte> values) {
-            addCriterion("is_delete not in", values, "isDelete");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsDeleteBetween(Byte value1, Byte value2) {
-            addCriterion("is_delete between", value1, value2, "isDelete");
-            return (Criteria) this;
-        }
-
-        public Criteria andIsDeleteNotBetween(Byte value1, Byte value2) {
-            addCriterion("is_delete not between", value1, value2, "isDelete");
             return (Criteria) this;
         }
 
@@ -804,8 +744,8 @@ public class RetFilesExample {
     }
 
     /**
-     * ret_files
-     * @author 匡龙 2022-07-13
+     * ret_file
+     * @author hhoa 2022-07-13
      */
     public static class Criterion {
         private String condition;

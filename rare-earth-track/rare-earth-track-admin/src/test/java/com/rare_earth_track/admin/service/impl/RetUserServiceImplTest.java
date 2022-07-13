@@ -118,6 +118,7 @@ class RetUserServiceImplTest extends TransactionTest {
     void updateUser() {
         RetUser user = new RetUser();
         user.setId(1L);
+        user.setNickname("xiaozhang");
         userService.updateUser(user);
     }
 

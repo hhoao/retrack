@@ -112,7 +112,7 @@ public class RetFactoryExample {
 
     /**
      * ret_factory
-     * @author 匡龙 2022-07-13
+     * @author hhoa 2022-07-13
      */
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
@@ -574,7 +574,7 @@ public class RetFactoryExample {
 
     /**
      * ret_factory
-     * @author 匡龙 2022-07-13
+     * @author hhoa 2022-07-13
      */
     public static class Criterion {
         private String condition;

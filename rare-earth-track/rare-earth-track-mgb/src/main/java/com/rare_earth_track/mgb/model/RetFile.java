@@ -6,16 +6,16 @@ import java.util.Date;
 
 /**
  * 文件
- * @author 匡龙 
+ * @author hhoa 
  * @date 2022-07-13
  */
 @Schema(description = "文件")
-public class RetFiles implements Serializable {
+public class RetFile implements Serializable {
     @Schema(description = "文件id")
-    private Integer id;
+    private Long id;
 
     @Schema(description = "文件名称")
-    private String filesName;
+    private String fileName;
 
     @Schema(description = "文件类型")
     private String type;
@@ -26,14 +26,11 @@ public class RetFiles implements Serializable {
     @Schema(description = "下载链接")
     private String url;
 
-    @Schema(description = "文件md5")
-    private String md5;
+    @Schema(description = "文件uuid")
+    private String uuid;
 
     @Schema(description = "链接是否可用（1：是 0：否）")
     private Byte enable;
-
-    @Schema(description = "是否删除（1：是 0：否）")
-    private Byte isDelete;
 
     @Schema(description = "创建时间")
     private Date createTime;
@@ -47,7 +44,7 @@ public class RetFiles implements Serializable {
      * 文件id
      * @return id 文件id
      */
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
@@ -55,24 +52,24 @@ public class RetFiles implements Serializable {
      * 文件id
      * @param id 文件id
      */
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
     /**
      * 文件名称
-     * @return files_name 文件名称
+     * @return file_name 文件名称
      */
-    public String getFilesName() {
-        return filesName;
+    public String getFileName() {
+        return fileName;
     }
 
     /**
      * 文件名称
-     * @param filesName 文件名称
+     * @param fileName 文件名称
      */
-    public void setFilesName(String filesName) {
-        this.filesName = filesName;
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 
     /**
@@ -124,19 +121,19 @@ public class RetFiles implements Serializable {
     }
 
     /**
-     * 文件md5
-     * @return md5 文件md5
+     * 文件uuid
+     * @return uuid 文件uuid
      */
-    public String getMd5() {
-        return md5;
+    public String getUuid() {
+        return uuid;
     }
 
     /**
-     * 文件md5
-     * @param md5 文件md5
+     * 文件uuid
+     * @param uuid 文件uuid
      */
-    public void setMd5(String md5) {
-        this.md5 = md5;
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 
     /**
@@ -153,22 +150,6 @@ public class RetFiles implements Serializable {
      */
     public void setEnable(Byte enable) {
         this.enable = enable;
-    }
-
-    /**
-     * 是否删除（1：是 0：否）
-     * @return is_delete 是否删除（1：是 0：否）
-     */
-    public Byte getIsDelete() {
-        return isDelete;
-    }
-
-    /**
-     * 是否删除（1：是 0：否）
-     * @param isDelete 是否删除（1：是 0：否）
-     */
-    public void setIsDelete(Byte isDelete) {
-        this.isDelete = isDelete;
     }
 
     /**
@@ -214,13 +195,12 @@ public class RetFiles implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
-        sb.append(", filesName=").append(filesName);
+        sb.append(", fileName=").append(fileName);
         sb.append(", type=").append(type);
         sb.append(", size=").append(size);
         sb.append(", url=").append(url);
-        sb.append(", md5=").append(md5);
+        sb.append(", uuid=").append(uuid);
         sb.append(", enable=").append(enable);
-        sb.append(", isDelete=").append(isDelete);
         sb.append(", createTime=").append(createTime);
         sb.append(", updateTime=").append(updateTime);
         sb.append(", serialVersionUID=").append(serialVersionUID);

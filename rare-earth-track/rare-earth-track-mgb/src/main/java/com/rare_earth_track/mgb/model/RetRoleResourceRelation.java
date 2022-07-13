@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 /**
  * 资源角色关系
- * @author 匡龙 
+ * @author hhoa 
  * @date 2022-07-13
  */
 @Schema(description = "资源角色关系")

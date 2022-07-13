@@ -1,7 +1,7 @@
 package com.rare_earth_track.admin.mq.util;
 
 import com.alibaba.fastjson.JSONObject;
-import com.rare_earth_track.mgb.model.RetDataReleased;
+import com.rare_earth_track.admin.bean.RetDataReleased;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.*;
 import org.springframework.beans.factory.annotation.Autowired;

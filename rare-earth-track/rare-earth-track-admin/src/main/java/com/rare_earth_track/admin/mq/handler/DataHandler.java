@@ -139,7 +139,8 @@ public class DataHandler {
             retProduct.setMagneticField(magneticField);
         }
         log.info("ret:{}",retProduct);
-        retProductMapper.insertByBatchId(retProduct);
+//        retProductMapper.insertByBatchId(retProduct);
+        retProductMapper.insertSelective(retProduct);
         //判断产品是否存在
 //        long batch_id = Long.parseLong("batch_id");
 //        QueryWrapper<RetProduct> retProductQueryWrapper = new QueryWrapper<>();

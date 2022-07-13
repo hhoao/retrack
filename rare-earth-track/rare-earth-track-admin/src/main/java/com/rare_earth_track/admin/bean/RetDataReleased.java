@@ -1,4 +1,4 @@
-package com.rare_earth_track.mgb.model;
+package com.rare_earth_track.admin.bean;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

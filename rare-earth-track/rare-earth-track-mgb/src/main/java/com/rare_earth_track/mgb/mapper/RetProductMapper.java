@@ -4,9 +4,7 @@ import com.rare_earth_track.mgb.model.RetProduct;
 import com.rare_earth_track.mgb.model.RetProductExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
 
-@Repository
 public interface RetProductMapper {
     /**
      * countByExample
@@ -28,13 +26,6 @@ public interface RetProductMapper {
      * @return int
      */
     int deleteByPrimaryKey(Long id);
-
-    /**
-     * insert
-     * @param row row
-     * @return int
-     */
-    int insertByBatchId(RetProduct row);
 
     /**
      * insert
