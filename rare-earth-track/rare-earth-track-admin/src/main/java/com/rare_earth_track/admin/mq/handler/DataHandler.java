@@ -44,13 +44,15 @@ public class DataHandler {
         String[] array = body.split(",");
         log.info("接收到数据:" + Arrays.toString(array));
         OkHttpUtil bean = SpringContext.getBean(OkHttpUtil.class);
-        if ("01".equals(array[1])) {
-            bean.postData("A2,01,012022070506,NFXT,Nd2O3,50g,Tong,20220706,012454,rydjf,99.0%,99.995%,YL,0.006%,0.0665%");
-        } else if ("02".equals(array[1])) {
-//            bean.postData("A2,02,022022070506,NFXT,Nd,50g,Tong,20220706,012454,rydjf,fbf,99.0%,99.5%,0.5%,0.68%");
-            bean.postData("A2,02,022022071105");
-        } else if ("03".equals(array[1])) {
-            bean.postData("A2,03,032022070506,NFXT,NdFeB,50g,Tong,20220706,012454,30%,25MPa,3T,25%,15%,1.3%,15%,2%");
+        if ("A2".equals(array[0])){
+            if ("01".equals(array[1])) {
+                bean.postData("A2,01,012022071301,NFXT,Nd2O3,50KG,Tong,20220713,041025,lsaf,99.0%,99.995%,YL,0.006%,0.0665%");
+            } else if ("02".equals(array[1])) {
+                bean.postData("A2,02,022022071302,NFXT-GZ,Nd,40KG,Dai,20220713,041035,zkhyf,lzjhf,99.0%,99.5%,0.5%,0.68%");
+//            bean.postData("A2,02,022022071105");
+            } else if ("03".equals(array[1])) {
+                bean.postData("A2,03,032022071303,BFXT,NdFeB,60KG,Dai,20220713,B-NdFeB,1.20,23MPa,3T,25%,15%,1.3%,15%,2%");
+            }
         }
     }
 
