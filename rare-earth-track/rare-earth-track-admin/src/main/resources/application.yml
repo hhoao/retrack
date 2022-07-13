@@ -55,10 +55,6 @@ jwt:
       - /users/auth/token
       - /users
       - /files/*
-logging:
-  level:
-    root: info
-    com.rare_earth_track.: debug
 #文件配置
 file:
   upload:
