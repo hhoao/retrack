@@ -53,7 +53,7 @@ jwt:
       - /**/*.css
       - /**/*.png
       - /**/*.ico
-      - /users/auth/token
+      - /administrators/auth/token
 #文件配置
 file:
   upload:
