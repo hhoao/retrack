@@ -1,16 +1,16 @@
 package com.rare_earth_track.portal.controller;
 
-import com.rare_earth_track.admin.bean.PageInfo;
-import com.rare_earth_track.admin.bean.RetFactoryParam;
-import com.rare_earth_track.portal.service.RetProductService;
-import com.rare_earth_track.mgb.model.RetProduct;
-import com.rare_earth_track.portal.service.RetFactoryService;
 import com.rare_earth_track.common.api.CommonResult;
 import com.rare_earth_track.mgb.model.RetFactory;
+import com.rare_earth_track.mgb.model.RetFactoryApplication;
+import com.rare_earth_track.mgb.model.RetProduct;
+import com.rare_earth_track.portal.bean.PageInfo;
+import com.rare_earth_track.portal.service.RetFactoryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 /**
@@ -24,14 +24,12 @@ import java.util.List;
 @RequiredArgsConstructor
 @Tag(name = "公司管理")
 public class RetCompanyController {
-
     private final RetFactoryService factoryService;
-    private final RetProductService productService;
 
     @Operation(summary = "分页获取工厂")
     @GetMapping("/factories")
-    public CommonResult<List<RetFactory>> list(PageInfo pageInfo){
-        List<RetFactory> list = factoryService.list(pageInfo);
+    public CommonResult<List<RetFactory>> list(RetFactory factoryParam, PageInfo pageInfo){
+        List<RetFactory> list = factoryService.list(pageInfo, factoryParam);
         return CommonResult.success(list);
     }
 
@@ -44,16 +42,15 @@ public class RetCompanyController {
 
     @Operation(summary = "申请厂家入驻")
     @PostMapping("/factories")
-    public CommonResult<String> applySettledFactory(@RequestBody RetFactoryParam factoryParam) {
-        factoryService.applySettledFactory(factoryParam);
+    public CommonResult<String> applySettledFactory(@RequestBody RetFactoryApplication factoryApplicationParam) {
+        factoryService.applySettledFactory(factoryApplicationParam);
         return CommonResult.success(null);
     }
 
     @Operation(summary = "分页获取某工厂的产品")
     @GetMapping("/factories/{factoryName}/products")
-    public CommonResult<List<RetProduct>> listProductByFactory(@PathVariable("factoryName") String factoryName, PageInfo pageInfo) {
-        List<RetProduct> products = productService.listProductByFactory(factoryName, pageInfo);
+    public CommonResult<List<RetProduct>> listProductByFactory(@PathVariable("factoryName") String factoryName, PageInfo pageInfo, RetProduct productParam) {
+        List<RetProduct> products = factoryService.listProducts(factoryName, productParam, pageInfo);
         return CommonResult.success(products);
     }
-
 }

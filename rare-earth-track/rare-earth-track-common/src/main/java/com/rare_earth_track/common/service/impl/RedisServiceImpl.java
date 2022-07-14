@@ -2,7 +2,9 @@ package com.rare_earth_track.common.service.impl;
 
 import com.rare_earth_track.common.service.RedisService;
 import lombok.AllArgsConstructor;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
@@ -17,7 +19,6 @@ import java.util.concurrent.TimeUnit;
 @AllArgsConstructor
 public class RedisServiceImpl implements RedisService {
     private RedisTemplate<String, Object> redisTemplate;
-
 
     @Override
     public void set(String key, Object value, long time) {

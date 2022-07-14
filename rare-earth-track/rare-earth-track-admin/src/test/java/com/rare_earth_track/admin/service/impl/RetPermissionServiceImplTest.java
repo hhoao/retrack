@@ -77,8 +77,6 @@ class RetPermissionServiceImplTest extends TransactionTest {
         permissionParam.setUrl("/test");
         Long aLong = permissionService.addPermission(permissionParam);
         assertNotNull(permissionService.getPermission(aLong));
-        assertNotNull(getDataSource().get(new AntPathRequestMatcher("/test", "GET")));
-
     }
 
     @Test
@@ -87,7 +85,6 @@ class RetPermissionServiceImplTest extends TransactionTest {
         permissionParam.setName("test");
         permissionService.updatePermission("获取工厂所有成员", permissionParam);
         assertNotNull(permissionService.getPermission("test"));
-        assertNotNull(getDataSource().get(new AntPathRequestMatcher("/factories/**/members", "GET")));
     }
 
     @Test

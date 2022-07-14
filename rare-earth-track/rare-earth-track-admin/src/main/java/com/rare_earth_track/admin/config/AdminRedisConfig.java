@@ -7,12 +7,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.core.RedisTemplate;
 
 /**
- * Redis配置
  * @author hhoa
  * @date 2022/5/10
  **/
 @Configuration
-public class AdminRedisConfig{
+public class AdminRedisConfig {
     @Bean
     public RedisService redisService(RedisTemplate<String, Object> redisTemplate){
         return new RedisServiceImpl(redisTemplate);

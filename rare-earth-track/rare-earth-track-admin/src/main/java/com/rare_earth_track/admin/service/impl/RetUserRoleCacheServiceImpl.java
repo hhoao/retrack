@@ -4,7 +4,9 @@ import com.rare_earth_track.admin.bean.RetUserDetails;
 import com.rare_earth_track.admin.service.RetUserRoleCacheService;
 import com.rare_earth_track.common.service.RedisService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 /**
@@ -12,15 +14,22 @@ import org.springframework.stereotype.Service;
  * @date 2022/5/18
  **/
 @Service
-@RequiredArgsConstructor
 public class RetUserRoleCacheServiceImpl implements RetUserRoleCacheService {
     @Value("${ret.redis.database}")
     private String redisDatabase;
     @Value("${ret.redis.expire.common}")
     private Long redisExpire;
+
     @Value("${ret.redis.key.user-role}")
     private String redisKeyRole;
-    private final RedisService redisService;
+    private RedisService redisService;
+
+    @Lazy
+    @Autowired
+    public void setRedisService(RedisService redisService) {
+        this.redisService = redisService;
+    }
+
 
     public String getUserNameKey(String username){
         return redisDatabase + ":" + redisKeyRole + ":" + username;

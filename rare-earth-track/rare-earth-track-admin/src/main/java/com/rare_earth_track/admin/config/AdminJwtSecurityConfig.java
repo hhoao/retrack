@@ -3,9 +3,10 @@ package com.rare_earth_track.admin.config;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.jwt.JWT;
-import com.rare_earth_track.admin.service.*;
-import com.rare_earth_track.mgb.model.RetMemberJob;
-import com.rare_earth_track.mgb.model.RetPermission;
+import com.rare_earth_track.admin.service.RetAdministratorService;
+import com.rare_earth_track.admin.service.RetResourceService;
+import com.rare_earth_track.admin.service.RetUserCacheService;
+import com.rare_earth_track.admin.service.RetUserService;
 import com.rare_earth_track.mgb.model.RetResource;
 import com.rare_earth_track.security.component.DynamicSecurityService;
 import com.rare_earth_track.security.config.JwtSecurityProperties;
@@ -28,14 +29,10 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import org.springframework.util.StringUtils;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * 安全配置
@@ -50,54 +47,8 @@ public class AdminJwtSecurityConfig {
      * @return userDetailsService
      */
     @Bean
-    public static UserDetailsService userDetailsService(RetUserService userService) {
-        return userService::getUserDetails;
-    }
-
-    /**
-     * Job权限访问投票者, 用于认证职位认证请求
-     * @return 选举者
-     */
-    @Bean
-    public AccessDecisionVoter<FilterInvocation> permissionAccessDecisionVoter(){
-        return new AccessDecisionVoter<>() {
-            @Override
-            public boolean supports(ConfigAttribute attribute) {
-                return true;
-            }
-
-            @Override
-            public boolean supports(Class clazz) {
-                return true;
-            }
-
-            @Override
-            public int vote(Authentication authentication, FilterInvocation invocation, Collection collection) {
-                String requestUrl = invocation.getRequestUrl();
-                for (Object configAttribute : collection) {
-                    String[] jobs = ((ConfigAttribute) configAttribute).getAttribute().split(";");
-                    //将需要的jobId和表达式模式提取出来
-                    String reg = "factories/(.*)/(.*)";
-                    //建立正则表达式, 用来匹配请求的url, 例如/factories/(.*)/(.*)匹配/factories/factoryName/member并获取其中的factoryName。
-                    Pattern pattern = Pattern.compile(reg);
-                    Matcher matcher = pattern.matcher(requestUrl);
-                    //请求url匹配访问所需要的url, 匹配成功则判断用户是否有该权限
-                    if (matcher.find()) {
-                        String factoryName = matcher.group(1);
-                        for (String jobName : jobs) {
-                            //访问公司需要"factoryName:jobName"权限
-                            String needAuthority = factoryName + ":" + jobName;
-                            for (GrantedAuthority grantedAuthority : authentication.getAuthorities()) {
-                                if (needAuthority.trim().equals(grantedAuthority.getAuthority())) {
-                                    return AccessDecisionVoter.ACCESS_GRANTED;
-                                }
-                            }
-                        }
-                    }
-                }
-                return ACCESS_DENIED;
-            }
-        };
+    public static UserDetailsService userDetailsService(RetAdministratorService administratorService) {
+        return administratorService::getAdministratorDetails;
     }
 
     /**
@@ -147,8 +98,6 @@ public class AdminJwtSecurityConfig {
     @RequiredArgsConstructor
     public static class AdminDynamicSecurityServiceConfig{
         private final RetResourceService resourceService;
-        private final RetPermissionService permissionService;
-        private final RetMemberJobPermissionRelationService memberJobPermissionRelationService;
         private Map<AntPathRequestMatcher, ConfigAttribute> dataSource;
 
         public Map<AntPathRequestMatcher, ConfigAttribute> getDataSource() {
@@ -161,10 +110,7 @@ public class AdminJwtSecurityConfig {
          */
         @Pointcut("execution(* com.rare_earth_track.admin.service.impl.RetResourceServiceImpl.delete*(..)) ||" +
                 "execution(* com.rare_earth_track.admin.service.impl.RetResourceServiceImpl.update*(..)) ||" +
-                "execution(* com.rare_earth_track.admin.service.impl.RetResourceServiceImpl.add*(..)) ||" +
-                "execution(* com.rare_earth_track.admin.service.impl.RetPermissionServiceImpl.delete*(..)) ||" +
-                "execution(* com.rare_earth_track.admin.service.impl.RetPermissionServiceImpl.add*(..)) ||" +
-                "execution(* com.rare_earth_track.admin.service.impl.RetPermissionServiceImpl.update*(..))")
+                "execution(* com.rare_earth_track.admin.service.impl.RetResourceServiceImpl.add*(..))")
         public void alterDataSource(){
         }
 
@@ -178,7 +124,6 @@ public class AdminJwtSecurityConfig {
             }
             this.dataSource.clear();
             refreshResourcesDataSource();
-            refreshPermissionsDataSource();
         }
 
         /**
@@ -191,26 +136,6 @@ public class AdminJwtSecurityConfig {
                 //url:method 需要resourceId:resourceName 权限
                 this.dataSource.put(new AntPathRequestMatcher(retResource.getUrl(), retResource.getMethod()),
                         new SecurityConfig(retResource.getId() + ":" + retResource.getName()));
-            }
-        }
-
-        /**
-         * 刷新公司员工权限
-         */
-        private void refreshPermissionsDataSource() {
-            List<RetPermission> permissions = permissionService.getAllPermissions();
-
-            for (RetPermission permission : permissions){
-                List<RetMemberJob> jobs = memberJobPermissionRelationService.getJobs(permission.getId());
-                StringBuilder jobsStr = new StringBuilder();
-                for (RetMemberJob memberJob : jobs) {
-                    jobsStr.append(memberJob.getName()).append(";");
-                }
-                if (!StringUtils.hasLength(jobsStr)){
-                    jobsStr.append("NIL");
-                }
-                this.dataSource.put(new AntPathRequestMatcher(permission.getUrl(), permission.getMethod()),
-                        new SecurityConfig(jobsStr.toString()));
             }
         }
 
@@ -236,7 +161,7 @@ public class AdminJwtSecurityConfig {
      * @return jwtToken服务
      */
     @Bean
-    public static JwtTokenService jwtTokenService(RetTokenCacheService tokenCacheService,
+    public static JwtTokenService jwtTokenService(RetUserCacheService tokenCacheService,
                                                   JwtSecurityProperties jwtSecurityProperties){
         DefaultJwtTokenServiceImpl defaultJwtTokenService = new DefaultJwtTokenServiceImpl() {
             @Override

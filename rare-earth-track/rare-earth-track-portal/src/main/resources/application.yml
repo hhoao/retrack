@@ -26,8 +26,8 @@ ret:
       token: token
       role: role
       resource-role: resource-role
-      user-role: user-role
-      factory-invitation: factory-invitation
+
+
     auth-code:
       mail: ret-mail
       phone: ret-phone
@@ -52,15 +52,21 @@ jwt:
       - /**/*.css
       - /**/*.png
       - /**/*.ico
-      - /users/auth/token
-      - /users
+      - /users/**
+      - /factories
+      - /factories/**/
+      - /factories/**/products
+      - /products
+      - /products/**/
+      - /gbReferences/
+      - /gbReference
 logging:
   level:
     root: info
     com.rare_earth_track.: debug
 file:
   upload:
-    path: /data/files  #文件上传目标路径
+    #文件上传目标路径
     allowTypes:             #文件上传允许的类型
       - image/jpeg
       - image/png

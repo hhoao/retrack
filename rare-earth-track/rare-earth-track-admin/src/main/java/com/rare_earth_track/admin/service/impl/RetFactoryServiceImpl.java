@@ -8,7 +8,6 @@ import com.rare_earth_track.admin.bean.RetFactoryParam;
 import com.rare_earth_track.admin.bean.RetMemberParam;
 import com.rare_earth_track.admin.service.*;
 import com.rare_earth_track.common.exception.Asserts;
-import com.rare_earth_track.mgb.mapper.RetApplyFactoryMapper;
 import com.rare_earth_track.mgb.mapper.RetFactoryMapper;
 import com.rare_earth_track.mgb.model.*;
 import com.rare_earth_track.security.util.JwtTokenService;
@@ -25,19 +24,19 @@ import java.util.List;
 @RequiredArgsConstructor
 public class RetFactoryServiceImpl implements RetFactoryService {
     private final RetFactoryMapper factoryMapper;
-    private final RetApplyFactoryMapper applyFactoryMapper;
+    private final RetFactoryApplicationService factoryApplicationService;
     private final JwtTokenService tokenService;
     private final RetMailService mailService;
-    private final RetTokenCacheService tokenCacheService;
+    private final RetUserCacheService tokenCacheService;
     private final RetMemberService memberService;
 
     private final RetProductService productService;
     private final RetFactoryUserRelationService factoryUserRelationService;
 
     @Override
-    public List<RetFactory> list(PageInfo pageInfo) {
+    public List<RetFactory> list(PageInfo pageInfo, RetFactory factory) {
         PageHelper.startPage(pageInfo.getPageNum(), pageInfo.getPageSize());
-        return factoryMapper.selectByExample(new RetFactoryExample());
+        return getFactories(factory);
     }
 
     @Override
@@ -197,8 +196,7 @@ public class RetFactoryServiceImpl implements RetFactoryService {
     }
 
     @Override
-    public List<RetFactory> getFactory(PageInfo pageInfo, RetFactory factory) {
-        PageHelper.startPage(pageInfo.getPageNum(), pageInfo.getPageSize());
+    public List<RetFactory> getFactories(RetFactory factory) {
         RetFactoryExample factoryExample = getFactoryExample(factory);
         return factoryMapper.selectByExample(factoryExample);
     }
@@ -209,38 +207,5 @@ public class RetFactoryServiceImpl implements RetFactoryService {
         product.setFactoryId(factory.getId());
         List<RetProduct> products = productService.getProducts(product, pageInfo);
         return products;
-    }
-
-    @Override
-    public List<RetApplyFactory> listApplyFactory(PageInfo pageInfo, RetApplyFactory applyFactory) {
-        PageHelper.startPage(pageInfo.getPageNum(), pageInfo.getPageSize());
-        RetApplyFactoryExample applyFactoryExample =  getApplyFactoryExample(applyFactory);
-        return applyFactoryMapper.selectByExample(applyFactoryExample);
-    }
-
-    private RetApplyFactoryExample getApplyFactoryExample(RetApplyFactory applyFactory) {
-        RetApplyFactoryExample applyFactoryExample = new RetApplyFactoryExample();
-        if (applyFactory != null){
-            RetApplyFactoryExample.Criteria criteria = applyFactoryExample.createCriteria();
-            if (applyFactory.getId() != null){
-                criteria.andIdEqualTo(applyFactory.getId());
-            }
-            if (applyFactory.getAddress() != null){
-                criteria.andAddressEqualTo(applyFactory.getAddress());
-            }
-            if (applyFactory.getName() != null){
-                criteria.andNameEqualTo(applyFactory.getName());
-            }
-            if (applyFactory.getEmail() != null){
-                criteria.andEmailEqualTo(applyFactory.getEmail());
-            }
-            if (applyFactory.getPhone() != null){
-                criteria.andPhoneEqualTo(applyFactory.getPhone());
-            }
-            if (applyFactory.getDescription() != null){
-                criteria.andDescriptionLike(applyFactory.getDescription());
-            }
-        }
-        return applyFactoryExample;
     }
 }

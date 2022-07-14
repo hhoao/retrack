@@ -18,7 +18,7 @@ spring:
                   SSLSocketFactory:
   # 配置redis
   redis:
-    database: 0
+    database: 1
     port: 6379
     password:
     host: redis
@@ -27,7 +27,7 @@ spring:
     url: jdbc:mysql://mysql:3306/rare_earth_track
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
-    password: 1234
+    password: a1234567890
   # 配置缓存
   cache:
     redis:
@@ -36,3 +36,7 @@ spring:
 ret:
   mail:
     from: haunghao@foxmail.com
+#文件配置
+file:
+  upload:
+    path: /data/files/  #文件上传目标路径

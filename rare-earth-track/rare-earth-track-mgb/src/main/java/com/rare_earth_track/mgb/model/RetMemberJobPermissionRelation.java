@@ -6,7 +6,7 @@ import java.io.Serializable;
 /**
  * 职位权限关系
  * @author hhoa 
- * @date 2022-07-13
+ * @date 2022-07-14
  */
 @Schema(description = "职位权限关系")
 public class RetMemberJobPermissionRelation implements Serializable {

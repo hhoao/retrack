@@ -3,11 +3,12 @@ package com.rare_earth_track.admin.controller;
 import com.rare_earth_track.admin.bean.PageInfo;
 import com.rare_earth_track.admin.bean.RetFactoryParam;
 import com.rare_earth_track.admin.bean.RetMemberParam;
+import com.rare_earth_track.admin.service.RetFactoryApplicationService;
 import com.rare_earth_track.admin.service.RetFactoryService;
 import com.rare_earth_track.common.api.CommonPage;
 import com.rare_earth_track.common.api.CommonResult;
-import com.rare_earth_track.mgb.model.RetApplyFactory;
 import com.rare_earth_track.mgb.model.RetFactory;
+import com.rare_earth_track.mgb.model.RetFactoryApplication;
 import com.rare_earth_track.mgb.model.RetMember;
 import com.rare_earth_track.mgb.model.RetProduct;
 import io.swagger.v3.oas.annotations.Operation;
@@ -26,6 +27,7 @@ import java.util.List;
 @Tag(name = "工厂管理", description = "RetFactoryController")
 public class RetFactoryController {
     private final RetFactoryService factoryService;
+    private final RetFactoryApplicationService factoryApplicationService;
 
     @Operation(summary = "创建工厂")
     @PostMapping("/factories")
@@ -62,13 +64,14 @@ public class RetFactoryController {
     @Operation(summary = "根据条件查询工厂信息")
     @GetMapping("/factories")
     public CommonResult<CommonPage<RetFactory>> getFactory(PageInfo pageInfo, RetFactory factory){
-        List<RetFactory> factories = factoryService.getFactory(pageInfo, factory);
+        List<RetFactory> factories = factoryService.list(pageInfo, factory);
         return CommonResult.success(CommonPage.restPage(factories));
     }
     @Operation(summary = "分页获取工厂所有成员")
     @GetMapping("/factories/{factoryName}/members")
     public CommonResult<CommonPage<RetMember>> listMembers(PageInfo pageInfo,
-                                                     @PathVariable(value="factoryName") String factoryName){
+                                                     @PathVariable(value="factoryName") String factoryName,
+                                                           RetMember memberParam){
         List<RetMember> members = factoryService.listFactoryMembers(pageInfo, factoryName);
         return CommonResult.success(CommonPage.restPage(members));
     }
@@ -113,9 +116,9 @@ public class RetFactoryController {
     }
 
     @Operation(summary = "分页获取申请入驻工厂信息")
-    @GetMapping("/factories/applyFactory")
-    public CommonResult<CommonPage<RetApplyFactory>> listApplyFactory(PageInfo pageInfo, RetApplyFactory applyFactory) {
-        List<RetApplyFactory> retFactories = factoryService.listApplyFactory(pageInfo, applyFactory);
+    @GetMapping("/factories/application")
+    public CommonResult<CommonPage<RetFactoryApplication>> listApplyFactory(PageInfo pageInfo, RetFactoryApplication factoryApplication) {
+        List<RetFactoryApplication> retFactories = factoryApplicationService.listFactoryApplications(pageInfo, factoryApplication);
         return CommonResult.success(CommonPage.restPage(retFactories));
     }
 }

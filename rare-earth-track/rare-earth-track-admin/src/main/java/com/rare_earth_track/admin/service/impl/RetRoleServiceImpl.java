@@ -28,7 +28,7 @@ public class RetRoleServiceImpl implements RetRoleService, ApplicationRunner {
     private final RetRoleMapper roleMapper;
     private RetRoleResourceRelationService roleResourceRelationService;
     private RetRoleResourceCacheService resourceCacheService;
-    private RetUserService userService;
+    private RetAdministratorService administratorService;
     private RetRoleMenuRelationService roleMenuRelationService;
 
     @Lazy
@@ -44,8 +44,8 @@ public class RetRoleServiceImpl implements RetRoleService, ApplicationRunner {
 
     @Autowired
     @Lazy
-    public void setUserService(RetUserService userService) {
-        this.userService = userService;
+    public void setAdministratorService(RetAdministratorService administratorService) {
+        this.administratorService = administratorService;
     }
 
     @Autowired
@@ -160,9 +160,9 @@ public class RetRoleServiceImpl implements RetRoleService, ApplicationRunner {
      * @param roleId 角色id
      */
     private void deleteReference(Long roleId){
-        RetUser user = new RetUser();
-        user.setRoleId(roleId);
-        userService.deleteUsers(user);
+        RetAdministrator administrator = new RetAdministrator();
+        administrator.setRoleId(roleId);
+        administratorService.deleteAdministrators(administrator);
     }
 
     @Override
@@ -171,6 +171,7 @@ public class RetRoleServiceImpl implements RetRoleService, ApplicationRunner {
         roleMenuRelationService.deleteRoleMenus(role.getId());
         roleResourceRelationService.deleteRoleResources(role.getId());
         deleteReference(role.getId());
+
 
         int i = roleMapper.deleteByPrimaryKey(role.getId());
         if (i == 0){

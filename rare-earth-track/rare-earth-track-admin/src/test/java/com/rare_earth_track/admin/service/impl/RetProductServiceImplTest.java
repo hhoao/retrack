@@ -23,9 +23,6 @@ public class RetProductServiceImplTest extends TransactionTest {
     @Autowired
     RetProductService productService;
 
-    private final String testName = "铀矿";
-    private final Long testId = 1L;
-
     @Test
     void addProduct() {
         RetProductParam productParam = new RetProductParam();
@@ -50,7 +47,7 @@ public class RetProductServiceImplTest extends TransactionTest {
     @Test
     void list() {
         PageInfo pageInfo = new PageInfo(1, 5);
-        List<RetProduct> list = productService.list(pageInfo);
+        List<RetProduct> list = productService.list(new RetProduct(), pageInfo);
         System.out.println(list.size());
     }
 }

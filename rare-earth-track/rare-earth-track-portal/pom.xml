@@ -22,10 +22,6 @@
             <version>${mail}</version>
         </dependency>
         <dependency>
-            <groupId>org.demo</groupId>
-            <artifactId>rare-earth-track-admin</artifactId>
-        </dependency>
-        <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
@@ -53,14 +49,23 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <!--       common也是SpringBoot工程，SpringBoot工程打包编译时，会生成两种jar包，
+                            一种是普通的jar，另一种是可执行jar。默认情况下，这两种jar的名称相同，在
+                            不做配置的情况下，普通的jar先生成，可执行jar后生成，造成可执行jar会覆盖
+                            普通的jar。而projectA工程无法依赖common工程的可执行jar，所以编译失败：
+                            程序包xxx不存在。-->
+                <configuration>
+                    <classifier>exec</classifier>
+                </configuration>
+            </plugin>
+            <!-- docker 打包插件 -->
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>16</source>
-                    <target>16</target>
-                </configuration>
             </plugin>
         </plugins>
     </build>

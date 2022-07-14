@@ -1,47 +1,54 @@
 package com.rare_earth_track.admin.service;
 
-
-import com.rare_earth_track.mgb.model.RetUser;
+import com.rare_earth_track.admin.bean.RetUserDetails;
 
 /**
  * @author hhoa
- * @date 2022/5/8
+ * @date 2022/5/13
  **/
 public interface RetUserCacheService {
     /**
-     * 设置过期时间
-     * @param username 用户名
-     * @param expiration 时间
-     */
-    void expire(String username, Long expiration);
-    /**
-     * 设置过期时间
+     * 延长时间
+     *
      * @param username 用户名
      */
     void expire(String username);
     /**
-     * 获取用户
-     * @return 用户
+     * 延长时间
+     *
+     * @param username   用户名
+     * @param expiration 时间
+     */
+    void expire(String username, Long expiration);
+    /**
+     * 通过角色名和资源设置token
+     *
+     * @param username    用户名
+     * @param userDetails 角色名
+     */
+    void setKey(String username, RetUserDetails userDetails);
+
+    /**
+     * 判断是否有该key
+     *
      * @param username username
+     * @return 是否存在
      */
-    RetUser getUserByName(String username);
+    boolean hasKey(String username);
 
     /**
-     * 设置短信验证码
-     * @param phone 手机号
-     * @param authCode 验证码
+     * 获取
+     *
+     * @param username 用户名
+     * @return 角色
      */
-    void setPhoneAuthCode(String phone, String authCode);
-    /**
-     * 获取手机验证码
-     * @param phone 手机号
-     * @return 验证码
-     */
-    String getPhoneAuthCode(String phone);
+    RetUserDetails getKey(String username);
 
     /**
-     * 通过用户名删除用户
-     * @param name name
+     * 删除key
+     *
+     * @param username 用户名
      */
-    void deleteUserByName(String name);
+    void delKey(String username);
+
 }

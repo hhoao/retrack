@@ -11,6 +11,8 @@ services:
         condition: service_healthy
       mysql:
         condition: service_healthy
+    volumes:
+      - files:/data/files
     ports:
       - ${RARE_EARTH_TRACK_ADMIN_PORT}:8888
 
@@ -54,4 +56,6 @@ volumes:
   mysql-files:
     driver: local
   mysql-config:
+    driver: local
+  files:
     driver: local

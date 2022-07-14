@@ -1,62 +1,57 @@
 package com.rare_earth_track.portal.service.impl;
 
 import com.rare_earth_track.common.service.RedisService;
-import com.rare_earth_track.mgb.model.RetUser;
+import com.rare_earth_track.portal.bean.RetUserDetails;
 import com.rare_earth_track.portal.service.RetUserCacheService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 /**
+ * token缓存
  * @author hhoa
- * @date 2022/5/8
+ * @date 2022/5/14
  **/
 @Service
 @RequiredArgsConstructor
 public class RetUserCacheServiceImpl implements RetUserCacheService {
-    private final RedisService redisService;
-
     @Value("${ret.redis.database}")
     private String redisDatabase;
-    @Value("${ret.redis.expire.common}")
+    @Value("${ret.redis.expire.token}")
     private Long redisExpire;
     @Value("${ret.redis.key.user}")
-    private String redisKeyUser;
-    @Value("${ret.redis.auth-code.phone}")
-    private String redisKeyPhoneAuthCode;
-
-    private String getUsernameKey(String user){
-        return redisDatabase + ":" + redisKeyUser + ":" + user;
+    private String redisKeyRole;
+    private final RedisService redisService;
+    private String getUserNameKey(String username){
+        return redisDatabase + ":" + redisKeyRole + ":" + username;
     }
-    @Override
-    public void expire(String username, Long expiration) {
-        redisService.expire(getUsernameKey(username), expiration);
-    }
-
     @Override
     public void expire(String username) {
-        redisService.expire(getUsernameKey(username), redisExpire);
+        redisService.expire(getUserNameKey(username), redisExpire);
     }
 
     @Override
-    public RetUser getUserByName(String username) {
-        return (RetUser)redisService.get(getUsernameKey(username));
+    public void expire(String username, Long expiration) {
+        redisService.expire(getUserNameKey(username), expiration);
     }
 
     @Override
-    public void setPhoneAuthCode(String phone, String authCode) {
-        String key = redisDatabase+ ":" + redisKeyPhoneAuthCode + ":" + phone;
-        redisService.set(key, authCode, redisExpire);
+    public void setKey(String username, RetUserDetails userDetails) {
+        redisService.set(getUserNameKey(username), userDetails, redisExpire);
     }
 
     @Override
-    public String getPhoneAuthCode(String phone) {
-        String key = redisDatabase+ ":" + redisKeyPhoneAuthCode + ":" + phone;
-        return (String)redisService.get(key);
+    public boolean hasKey(String username){
+        return redisService.hasKey(getUserNameKey(username));
     }
 
     @Override
-    public void deleteUserByName(String username) {
-        redisService.del(getUsernameKey(username));
+    public RetUserDetails getKey(String username) {
+        return (RetUserDetails) redisService.get(getUserNameKey(username));
+    }
+
+    @Override
+    public void delKey(String username){
+        redisService.del(getUserNameKey(username));
     }
 }

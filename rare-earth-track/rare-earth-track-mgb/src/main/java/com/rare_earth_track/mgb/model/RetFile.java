@@ -7,7 +7,7 @@ import java.util.Date;
 /**
  * 文件
  * @author hhoa 
- * @date 2022-07-13
+ * @date 2022-07-14
  */
 @Schema(description = "文件")
 public class RetFile implements Serializable {

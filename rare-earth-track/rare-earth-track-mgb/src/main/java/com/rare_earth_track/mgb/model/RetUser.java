@@ -7,7 +7,7 @@ import java.util.Date;
 /**
  * 用户
  * @author hhoa 
- * @date 2022-07-13
+ * @date 2022-07-14
  */
 @Schema(description = "用户")
 public class RetUser implements Serializable {
@@ -45,9 +45,6 @@ public class RetUser implements Serializable {
 
     @Schema(description = "个性签名")
     private String personalizedSignature;
-
-    @Schema(description = "角色id")
-    private Long roleId;
 
     private static final long serialVersionUID = 1L;
 
@@ -244,22 +241,6 @@ public class RetUser implements Serializable {
     }
 
     /**
-     * 角色id
-     * @return role_id 角色id
-     */
-    public Long getRoleId() {
-        return roleId;
-    }
-
-    /**
-     * 角色id
-     * @param roleId 角色id
-     */
-    public void setRoleId(Long roleId) {
-        this.roleId = roleId;
-    }
-
-    /**
      * toString
      * @return java.lang.String
      */
@@ -281,7 +262,6 @@ public class RetUser implements Serializable {
         sb.append(", icon=").append(icon);
         sb.append(", job=").append(job);
         sb.append(", personalizedSignature=").append(personalizedSignature);
-        sb.append(", roleId=").append(roleId);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

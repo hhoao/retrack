@@ -1,7 +1,7 @@
 package com.rare_earth_track.portal.service;
 
-import com.rare_earth_track.admin.bean.MailType;
 import com.rare_earth_track.mgb.model.RetFactory;
+import com.rare_earth_track.portal.bean.MailType;
 
 /**
  * The interface Ret mail service.
@@ -26,6 +26,14 @@ public interface RetMailService {
      * @return string authcode
      */
     String sendUserRegisterMail(String to);
+
+    /**
+     * Send bind mail string.
+     *
+     * @param to the to
+     * @return the string
+     */
+    String sendBindMail(String to);
 
     /**
      * Send factory invitation.

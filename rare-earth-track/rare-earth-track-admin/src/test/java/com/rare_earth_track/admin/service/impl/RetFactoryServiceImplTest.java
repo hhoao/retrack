@@ -41,7 +41,7 @@ class RetFactoryServiceImplTest extends TransactionTest {
 
     @Test
     void list() {
-        List<RetFactory> list = factoryService.list(new PageInfo(1, 5));
+        List<RetFactory> list = factoryService.list(new PageInfo(1, 5), new RetFactory());
         Assertions.assertTrue(list.size() <= 5);
     }
 
@@ -114,14 +114,14 @@ class RetFactoryServiceImplTest extends TransactionTest {
 
     @Test
     void listFactoryMembers() {
-        List<RetMember> members = factoryService.listFactoryMembers(new PageInfo(1, 5), testName);
+        factoryService.listFactoryMembers(new PageInfo(1, 5), testName);
     }
 
     @Test
     void getFactory() {
         RetFactory factory1 = new RetFactory();
         factory1.setName("五矿%");
-        List<RetFactory> factory2 = factoryService.getFactory(new PageInfo(1, 5), factory1);
+        List<RetFactory> factory2 = factoryService.getFactories(factory1);
         Assertions.assertEquals(factory2.size(), 1);
         Assertions.assertEquals(factory2.get(0).getName(), "五矿稀土");
     }

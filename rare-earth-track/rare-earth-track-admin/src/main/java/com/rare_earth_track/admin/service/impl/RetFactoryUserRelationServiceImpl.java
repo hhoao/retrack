@@ -1,5 +1,6 @@
 package com.rare_earth_track.admin.service.impl;
 
+import com.rare_earth_track.admin.bean.IdentifyType;
 import com.rare_earth_track.admin.service.RetFactoryUserRelationService;
 import com.rare_earth_track.admin.service.RetUserService;
 import com.rare_earth_track.mgb.model.RetUser;
@@ -18,7 +19,8 @@ public class RetFactoryUserRelationServiceImpl implements RetFactoryUserRelation
     private final RetUserService userService;
     @Override
     public RetUserAuth getUserEmailByUsername(String username) {
-        return userService.getUserEmailByUsername(username);
+        RetUser userByUsername = userService.getUserByUsername(username);
+        return userService.getUserAuth(userByUsername.getId(), IdentifyType.email);
     }
 
     @Override

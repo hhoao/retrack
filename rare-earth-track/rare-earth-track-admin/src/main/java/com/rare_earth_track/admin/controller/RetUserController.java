@@ -1,9 +1,7 @@
 package com.rare_earth_track.admin.controller;
 
 
-import com.rare_earth_track.admin.bean.IdentifyType;
-import com.rare_earth_track.admin.bean.PageInfo;
-import com.rare_earth_track.admin.bean.RetUserParam;
+import com.rare_earth_track.admin.bean.*;
 import com.rare_earth_track.admin.service.RetUserService;
 import com.rare_earth_track.common.api.CommonPage;
 import com.rare_earth_track.common.api.CommonResult;
@@ -28,46 +26,30 @@ import java.util.Map;
 @Tags({@Tag(name="用户管理", description = "RetUserController")})
 public class RetUserController {
     private final RetUserService userService;
-    private final JwtSecurityProperties securityProperties;
 
-
-    @Operation(summary = "已认证分页获取用户角色菜单")
-    @GetMapping("/user/role/menus")
-    public CommonResult<CommonPage<RetMenu>> getUserRoleMenus(@RequestHeader Map<String, String> headers){
-        List<RetMenu> menus = userService.getMenusByAuthorization(
-                headers.get(securityProperties.getTokenHeader().toLowerCase()));
-        return CommonResult.success(CommonPage.restPage(menus));
-    }
     @Operation(summary = "通过认证标识获取用户")
     @GetMapping("/users/{identifier}")
     public CommonResult<RetUser> getUser(@PathVariable("identifier") String identifier){
         RetUser userByName = userService.getUserByIdentifier(identifier);
         return CommonResult.success(userByName);
     }
-    @Operation(summary = "已认证获取用户信息")
-    @GetMapping("/user")
-    public CommonResult<RetUser> getUser(@RequestHeader Map<String, String> headers){
-        String authorization =securityProperties.getTokenHeader().toLowerCase();
-        RetUser user =  userService.getUserByAuthorization(
-                headers.get(authorization));
-        return CommonResult.success(user);
+
+    @Operation(summary = "更新用户认证凭证")
+    @PatchMapping("/users/{userId}/auths/{authType}")
+    @ResponseBody
+    public CommonResult<String> updateUserAuth(@PathVariable("userId") Long userId,
+                                               @PathVariable("authType") IdentifyType authType,
+                                               @RequestBody RetUserAuthParam userAuth) {
+        userService.updateUserAuth(userId, authType, userAuth);
+        return CommonResult.success(null);
     }
 
     @Operation(summary = "通过用户参数获取用户信息")
     @GetMapping("/users")
-    public CommonResult<CommonPage<RetUser>> getUserByUserParam(RetUserParam user,
+    public CommonResult<CommonPage<RetUser>> getUserByUserParam(RetUser user,
                                                                 PageInfo pageInfo){
-        List<RetUser> users = userService.queryUsers(user, pageInfo);
+        List<RetUser> users = userService.list(user, pageInfo);
         return CommonResult.success(CommonPage.restPage(users));
-    }
-
-    @Operation(summary = "已认证更新用户资料")
-    @PatchMapping("/user")
-    public CommonResult<String> updateUser(@RequestBody RetUser user,
-                                           @RequestHeader Map<String, String> headers){
-        String authorization = headers.get(securityProperties.getTokenHeader().toLowerCase());
-        userService.updateUser(user, authorization);
-        return CommonResult.success(null);
     }
 
     @Operation(summary = "更新用户资料")
@@ -76,25 +58,11 @@ public class RetUserController {
         userService.updateUser(newUser);
         return CommonResult.success(null);
     }
-    @Operation(summary = "更改用户角色")
-    @PatchMapping("/users/{userId}/role")
-    public CommonResult<RetUser> updateUserRole(@PathVariable("userId") Long userId,
-                                                @RequestParam("roleId") Long roleId){
-        userService.updateUserRole(userId, roleId);
-        return CommonResult.success(null);
-    }
 
     @Operation(summary = "获取用户认证")
     @GetMapping("/users/{userId}/auths")
     public CommonResult<Map<String, String>> getUserAuths(@PathVariable("userId") Long userId){
         Map<String, String> userAuth = userService.getUserAuths(userId);
-        return CommonResult.success(userAuth);
-    }
-    @Operation(summary = "已认证获取用户认证")
-    @GetMapping("/user/auths")
-    public CommonResult<Map<String, String>> getUserAuths(@RequestHeader Map<String, String> headers){
-        String authorization = headers.get(securityProperties.getTokenHeader().toLowerCase());
-        Map<String, String> userAuth = userService.getVerifiedUserAuths(authorization);
         return CommonResult.success(userAuth);
     }
     @Operation(summary = "删除用户认证")

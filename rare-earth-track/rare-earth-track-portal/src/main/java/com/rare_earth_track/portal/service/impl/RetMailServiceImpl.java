@@ -1,8 +1,8 @@
 package com.rare_earth_track.portal.service.impl;
 
-import com.rare_earth_track.admin.bean.MailType;
 import com.rare_earth_track.common.exception.Asserts;
 import com.rare_earth_track.mgb.model.RetFactory;
+import com.rare_earth_track.portal.bean.MailType;
 import com.rare_earth_track.portal.service.RetMailCacheService;
 import com.rare_earth_track.portal.service.RetMailService;
 import lombok.Data;
@@ -71,6 +71,18 @@ public class RetMailServiceImpl implements RetMailService {
         sendTerminableMessage( to, subject, body, authCode, MailType.USER_REGISTER.toString());
         return authCode;
     }
+    @Override
+    public String sendBindMail(String to){
+        if (existMessage(to, MailType.BIND_EMAIL)){
+            Asserts.fail("短时间内不能再验证码");
+        }
+        String authCode = generateAuthCode();
+        String subject = "邮箱验证码";
+        String body = "您的验证码为" + "\n" + authCode;
+        sendTerminableMessage( to, subject, body, authCode, MailType.BIND_EMAIL.toString());
+        return authCode;
+    }
+
     @Override
     public void sendFactoryInvitation(String to, RetFactory factory){
         if (existMessage(to, MailType.FACTORY_INVITATION)){

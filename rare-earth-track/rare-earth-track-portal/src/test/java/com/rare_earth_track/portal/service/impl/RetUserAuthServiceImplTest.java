@@ -1,9 +1,10 @@
 package com.rare_earth_track.portal.service.impl;
 
 import com.rare_earth_track.mgb.model.RetUserAuth;
-import com.rare_earth_track.admin.bean.IdentifyType;
-import com.rare_earth_track.admin.bean.RetUserAuthParam;
+
 import com.rare_earth_track.portal.TransactionTest;
+import com.rare_earth_track.portal.bean.IdentifyType;
+import com.rare_earth_track.portal.bean.RetUserAuthParam;
 import com.rare_earth_track.portal.service.RetUserAuthService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

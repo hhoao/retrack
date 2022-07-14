@@ -114,7 +114,7 @@ public class RetUserExample {
 
     /**
      * ret_user
-     * @author hhoa 2022-07-13
+     * @author hhoa 2022-07-14
      */
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
@@ -952,66 +952,6 @@ public class RetUserExample {
             addCriterion("personalized_signature not between", value1, value2, "personalizedSignature");
             return (Criteria) this;
         }
-
-        public Criteria andRoleIdIsNull() {
-            addCriterion("role_id is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoleIdIsNotNull() {
-            addCriterion("role_id is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoleIdEqualTo(Long value) {
-            addCriterion("role_id =", value, "roleId");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoleIdNotEqualTo(Long value) {
-            addCriterion("role_id <>", value, "roleId");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoleIdGreaterThan(Long value) {
-            addCriterion("role_id >", value, "roleId");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoleIdGreaterThanOrEqualTo(Long value) {
-            addCriterion("role_id >=", value, "roleId");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoleIdLessThan(Long value) {
-            addCriterion("role_id <", value, "roleId");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoleIdLessThanOrEqualTo(Long value) {
-            addCriterion("role_id <=", value, "roleId");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoleIdIn(List<Long> values) {
-            addCriterion("role_id in", values, "roleId");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoleIdNotIn(List<Long> values) {
-            addCriterion("role_id not in", values, "roleId");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoleIdBetween(Long value1, Long value2) {
-            addCriterion("role_id between", value1, value2, "roleId");
-            return (Criteria) this;
-        }
-
-        public Criteria andRoleIdNotBetween(Long value1, Long value2) {
-            addCriterion("role_id not between", value1, value2, "roleId");
-            return (Criteria) this;
-        }
     }
 
     public static class Criteria extends GeneratedCriteria {
@@ -1022,7 +962,7 @@ public class RetUserExample {
 
     /**
      * ret_user
-     * @author hhoa 2022-07-13
+     * @author hhoa 2022-07-14
      */
     public static class Criterion {
         private String condition;

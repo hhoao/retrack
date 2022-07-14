@@ -24,7 +24,6 @@ import java.util.List;
 public class RetProductController {
     private final RetProductService productService;
 
-
     @Operation(summary = "增加产品")
     @PostMapping("/products")
     public CommonResult<String> addProduct(@RequestBody RetProductParam productParam) {
@@ -58,22 +57,7 @@ public class RetProductController {
     @Operation(summary = "根据条件查询产品信息")
     @GetMapping("/products")
     public CommonResult<CommonPage<RetProduct>> getProduct(PageInfo pageInfo, RetProduct product) {
-        List<RetProduct> products = productService.getProducts(product, pageInfo);
+        List<RetProduct> products = productService.list(product, pageInfo);
         return CommonResult.success(CommonPage.restPage(products));
     }
-
-    @Operation(summary = "分页获取国标参考信息")
-    @GetMapping("/gbReference")
-    public CommonResult<CommonPage<RetGbReference>> list(PageInfo pageInfo) {
-        List<RetGbReference> gbReferences = productService.listGbReference(pageInfo);
-        return CommonResult.success(CommonPage.restPage(gbReferences));
-    }
-
-    @Operation(summary = "根据牌号查询国标参考信息")
-    @GetMapping("/gbReference/{standardNumber}")
-    public CommonResult<RetGbReference> getGbReference(@PathVariable("standardNumber") String standardNumber) {
-        RetGbReference gbReferenceByStandardNumber = productService.getGbReferenceByStandardNumber(standardNumber);
-        return CommonResult.success(gbReferenceByStandardNumber);
-    }
-
 }

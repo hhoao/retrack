@@ -3,10 +3,7 @@ package com.rare_earth_track.admin.service;
 import com.rare_earth_track.admin.bean.PageInfo;
 import com.rare_earth_track.admin.bean.RetFactoryParam;
 import com.rare_earth_track.admin.bean.RetMemberParam;
-import com.rare_earth_track.mgb.model.RetApplyFactory;
-import com.rare_earth_track.mgb.model.RetFactory;
-import com.rare_earth_track.mgb.model.RetMember;
-import com.rare_earth_track.mgb.model.RetProduct;
+import com.rare_earth_track.mgb.model.*;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -21,9 +18,10 @@ public interface RetFactoryService {
     /**
      * 分页获取工厂列表
      *
-     * @param pageInfo@return 分页角色 list
+     * @param pageInfo @return 分页角色 list
+     * @param factory
      */
-    List<RetFactory> list(PageInfo pageInfo);
+    List<RetFactory> list(PageInfo pageInfo, RetFactory factory);
 
     /**
      * 增加工厂
@@ -134,11 +132,10 @@ public interface RetFactoryService {
     /**
      * Gets factory.
      *
-     * @param pageInfo
-     * @param factory  the factory param
+     * @param factory the factory param
      * @return the factory
      */
-    List<RetFactory> getFactory(PageInfo pageInfo, RetFactory factory);
+    List<RetFactory> getFactories(RetFactory factory);
 
     /**
      * List products list.
@@ -149,14 +146,4 @@ public interface RetFactoryService {
      * @return the list
      */
     List<RetProduct> listProducts(String factoryName, RetProduct product, PageInfo pageInfo);
-
-    /**
-     * 分页获取申请入驻工厂列表
-     *
-     * @param pageInfo
-     * @param applyFactory
-     * @return list
-     */
-    List<RetApplyFactory> listApplyFactory(PageInfo pageInfo, RetApplyFactory applyFactory);
-
 }

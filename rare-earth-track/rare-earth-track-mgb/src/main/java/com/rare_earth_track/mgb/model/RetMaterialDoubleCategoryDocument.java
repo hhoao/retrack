@@ -6,7 +6,7 @@ import java.io.Serializable;
 /**
  * 材料二次分类文档
  * @author hhoa 
- * @date 2022-07-13
+ * @date 2022-07-14
  */
 @Schema(description = "材料二次分类文档")
 public class RetMaterialDoubleCategoryDocument implements Serializable {

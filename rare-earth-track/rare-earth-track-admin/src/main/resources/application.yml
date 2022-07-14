@@ -23,6 +23,7 @@ ret:
     database: ret
     key:
       user: user
+      administrator: administrator
       token: token
       role: role
       resource-role: resource-role

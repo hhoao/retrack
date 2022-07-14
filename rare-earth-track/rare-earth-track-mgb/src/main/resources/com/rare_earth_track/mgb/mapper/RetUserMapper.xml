@@ -14,7 +14,6 @@
     <result column="icon" jdbcType="VARCHAR" property="icon" />
     <result column="job" jdbcType="VARCHAR" property="job" />
     <result column="personalized_signature" jdbcType="VARCHAR" property="personalizedSignature" />
-    <result column="role_id" jdbcType="BIGINT" property="roleId" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -76,7 +75,7 @@
   </sql>
   <sql id="Base_Column_List">
     id, nickname, age, sex, birthday, address, status, create_time, latest_time, icon, 
-    job, personalized_signature, role_id
+    job, personalized_signature
   </sql>
   <select id="selectByExample" parameterType="com.rare_earth_track.mgb.model.RetUserExample" resultMap="BaseResultMap">
     select
@@ -115,13 +114,11 @@
     insert into ret_user (nickname, age, sex, 
       birthday, address, status, 
       create_time, latest_time, icon, 
-      job, personalized_signature, role_id
-      )
+      job, personalized_signature)
     values (#{nickname,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER}, #{sex,jdbcType=INTEGER}, 
       #{birthday,jdbcType=DATE}, #{address,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
       #{createTime,jdbcType=TIMESTAMP}, #{latestTime,jdbcType=TIMESTAMP}, #{icon,jdbcType=VARCHAR}, 
-      #{job,jdbcType=VARCHAR}, #{personalizedSignature,jdbcType=VARCHAR}, #{roleId,jdbcType=BIGINT}
-      )
+      #{job,jdbcType=VARCHAR}, #{personalizedSignature,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.rare_earth_track.mgb.model.RetUser">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
@@ -162,9 +159,6 @@
       <if test="personalizedSignature != null">
         personalized_signature,
       </if>
-      <if test="roleId != null">
-        role_id,
-      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="nickname != null">
@@ -199,9 +193,6 @@
       </if>
       <if test="personalizedSignature != null">
         #{personalizedSignature,jdbcType=VARCHAR},
-      </if>
-      <if test="roleId != null">
-        #{roleId,jdbcType=BIGINT},
       </if>
     </trim>
   </insert>
@@ -250,9 +241,6 @@
       <if test="row.personalizedSignature != null">
         personalized_signature = #{row.personalizedSignature,jdbcType=VARCHAR},
       </if>
-      <if test="row.roleId != null">
-        role_id = #{row.roleId,jdbcType=BIGINT},
-      </if>
     </set>
     <if test="example != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -271,8 +259,7 @@
       latest_time = #{row.latestTime,jdbcType=TIMESTAMP},
       icon = #{row.icon,jdbcType=VARCHAR},
       job = #{row.job,jdbcType=VARCHAR},
-      personalized_signature = #{row.personalizedSignature,jdbcType=VARCHAR},
-      role_id = #{row.roleId,jdbcType=BIGINT}
+      personalized_signature = #{row.personalizedSignature,jdbcType=VARCHAR}
     <if test="example != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -313,9 +300,6 @@
       <if test="personalizedSignature != null">
         personalized_signature = #{personalizedSignature,jdbcType=VARCHAR},
       </if>
-      <if test="roleId != null">
-        role_id = #{roleId,jdbcType=BIGINT},
-      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -331,8 +315,7 @@
       latest_time = #{latestTime,jdbcType=TIMESTAMP},
       icon = #{icon,jdbcType=VARCHAR},
       job = #{job,jdbcType=VARCHAR},
-      personalized_signature = #{personalizedSignature,jdbcType=VARCHAR},
-      role_id = #{roleId,jdbcType=BIGINT}
+      personalized_signature = #{personalizedSignature,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

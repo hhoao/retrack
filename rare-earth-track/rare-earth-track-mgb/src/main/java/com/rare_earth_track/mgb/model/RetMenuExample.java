@@ -113,7 +113,7 @@ public class RetMenuExample {
 
     /**
      * ret_menu
-     * @author hhoa 2022-07-13
+     * @author hhoa 2022-07-14
      */
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
@@ -735,7 +735,7 @@ public class RetMenuExample {
 
     /**
      * ret_menu
-     * @author hhoa 2022-07-13
+     * @author hhoa 2022-07-14
      */
     public static class Criterion {
         private String condition;

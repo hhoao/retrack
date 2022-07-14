@@ -13,15 +13,11 @@ import org.springframework.transaction.interceptor.DefaultTransactionAttribute;
  * @date 2022/5/31
  **/
 
-@SpringBootTest
+@SpringBootTest(classes = RareEarthTrackAdminApplication.class)
 public abstract class TransactionTest {
     public Long tUserId = 1L;
     public String tRegisterMail = "huanghaohhoa@163.com";
-    public String tPassword = "123456";
     public String tUsername = "test";
-    public String tEmail = "haunghao@foxmail.com";
-    public String tErrorPassword = "error";
-    public String tErrorIdentifier = "error";
     @Autowired
     PlatformTransactionManager transactionManager;
     TransactionStatus transactionStatus;

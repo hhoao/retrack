@@ -1,11 +1,13 @@
 package com.rare_earth_track.portal.config;
 
 
-import cn.hutool.core.collection.CollUtil;
 import cn.hutool.jwt.JWT;
-import com.rare_earth_track.portal.service.*;
 import com.rare_earth_track.mgb.model.RetMemberJob;
 import com.rare_earth_track.mgb.model.RetPermission;
+import com.rare_earth_track.portal.service.RetMemberJobPermissionRelationService;
+import com.rare_earth_track.portal.service.RetPermissionService;
+import com.rare_earth_track.portal.service.RetUserCacheService;
+import com.rare_earth_track.portal.service.RetUserService;
 import com.rare_earth_track.security.component.DynamicSecurityService;
 import com.rare_earth_track.security.config.JwtSecurityProperties;
 import com.rare_earth_track.security.util.DefaultJwtTokenServiceImpl;
@@ -13,9 +15,7 @@ import com.rare_earth_track.security.util.JwtTokenService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
-import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.beans.BeanUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -30,6 +30,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.util.StringUtils;
+
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Matcher;
@@ -97,46 +98,6 @@ public class PortalJwtSecurityConfig {
             }
         };
     }
-
-    /**
-     * 资源认证选举者, 用于认证资源访问请求
-     * @return 选举者
-     */
-    @Bean
-    @SuppressWarnings("all")
-    public AccessDecisionVoter resourceAccessDecisionVoter(){
-        return new AccessDecisionVoter() {
-            @Override
-            public boolean supports(ConfigAttribute attribute) {
-                return true;
-            }
-
-            @Override
-            public boolean supports(Class clazz) {
-                return true;
-            }
-
-            @Override
-            @SuppressWarnings("unchecked")
-            public int vote(Authentication authentication, Object object, Collection collection) {
-                // 当接口未被配置资源时直接放行
-                if (CollUtil.isEmpty(collection)) {
-                    return AccessDecisionVoter.ACCESS_ABSTAIN;
-                }
-                for (ConfigAttribute configAttribute : (Collection<ConfigAttribute>) collection) {
-                    //将访问所需资源或用户拥有资源进行比对
-                    String needAuthority = configAttribute.getAttribute();
-                    for (GrantedAuthority grantedAuthority : authentication.getAuthorities()) {
-                        if (needAuthority.trim().equals(grantedAuthority.getAuthority())) {
-                            return AccessDecisionVoter.ACCESS_GRANTED;
-                        }
-                    }
-                }
-                return AccessDecisionVoter.ACCESS_DENIED;
-            }
-        };
-    }
-
     /**
      * 动态权限服务配置
      */
@@ -144,7 +105,6 @@ public class PortalJwtSecurityConfig {
     @Aspect
     @RequiredArgsConstructor
     public static class AdminDynamicSecurityServiceConfig{
-        private final RetResourceService resourceService;
         private final RetPermissionService permissionService;
         private final RetMemberJobPermissionRelationService memberJobPermissionRelationService;
         private Map<AntPathRequestMatcher, ConfigAttribute> dataSource;
@@ -155,21 +115,19 @@ public class PortalJwtSecurityConfig {
         }
 
         /**
+         * 目前无法做到动态刷新权限, 必须得重新启动
          * 资源权限变动动态刷新DataSource
          */
-        @Pointcut("execution(* com.rare_earth_track.admin.service.impl.RetResourceServiceImpl.delete*(..)) ||" +
-                "execution(* com.rare_earth_track.admin.service.impl.RetResourceServiceImpl.update*(..)) ||" +
-                "execution(* com.rare_earth_track.admin.service.impl.RetResourceServiceImpl.add*(..)) ||" +
-                "execution(* com.rare_earth_track.admin.service.impl.RetPermissionServiceImpl.delete*(..)) ||" +
-                "execution(* com.rare_earth_track.admin.service.impl.RetPermissionServiceImpl.add*(..)) ||" +
-                "execution(* com.rare_earth_track.admin.service.impl.RetPermissionServiceImpl.update*(..))")
-        public void alterDataSource(){
-        }
-
-        /**
-         * 刷新DataSource
-         */
-        @AfterReturning("alterDataSource()")
+//        @Pointcut("execution(* com.rare_earth_track.portal.service.impl.RetPermissionServiceImpl.delete*(..)) ||" +
+//                "execution(* com.rare_earth_track.portal.service.impl.RetPermissionServiceImpl.add*(..)) ||" +
+//                "execution(* com.rare_earth_track.portal.service.impl.RetPermissionServiceImpl.update*(..))")
+//        public void alterDataSource(){
+//        }
+//
+//        /**
+//         * 刷新DataSource
+//         */
+//        @AfterReturning("alterDataSource()")
         public void refreshDataSource(){
             if (this.dataSource == null) {
                 this.dataSource = new ConcurrentHashMap<>();
@@ -216,12 +174,12 @@ public class PortalJwtSecurityConfig {
 
     /**
      * token服务
-     * @param tokenCacheService token缓存服务
+     * @param userCacheService token缓存服务
      * @param jwtSecurityProperties jwt安全配置属性
      * @return jwtToken服务
      */
     @Bean
-    public static JwtTokenService jwtTokenService(RetTokenCacheService tokenCacheService,
+    public static JwtTokenService jwtTokenService(RetUserCacheService userCacheService,
                                                   JwtSecurityProperties jwtSecurityProperties){
         DefaultJwtTokenServiceImpl defaultJwtTokenService = new DefaultJwtTokenServiceImpl() {
             @Override
@@ -239,7 +197,7 @@ public class PortalJwtSecurityConfig {
             @Override
             public boolean isTokenExpired(String token) {
                 String username = getSubjectFromToken(token);
-                return tokenCacheService.hasKey(username);
+                return userCacheService.hasKey(username);
             }
 
             @Override
@@ -253,7 +211,7 @@ public class PortalJwtSecurityConfig {
                     return oldToken;
                 }
                 String username = getSubjectFromToken(oldToken);
-                tokenCacheService.expire(username);
+                userCacheService.expire(username);
                 return oldToken;
             }
         };

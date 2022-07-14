@@ -1,11 +1,11 @@
 package com.rare_earth_track.portal.service.impl;
 
-import com.rare_earth_track.admin.bean.IdentifyType;
-import com.rare_earth_track.admin.bean.RetUserAuthParam;
 import com.rare_earth_track.common.exception.Asserts;
 import com.rare_earth_track.mgb.mapper.RetUserAuthMapper;
 import com.rare_earth_track.mgb.model.RetUserAuth;
 import com.rare_earth_track.mgb.model.RetUserAuthExample;
+import com.rare_earth_track.portal.bean.IdentifyType;
+import com.rare_earth_track.portal.bean.RetUserAuthParam;
 import com.rare_earth_track.portal.service.RetUserAuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
@@ -29,11 +29,7 @@ public class RetUserAuthServiceImpl implements RetUserAuthService {
         RetUserAuthExample userAuthExample = new RetUserAuthExample();
         userAuthExample.createCriteria().
                 andUserIdEqualTo(userId);
-        List<RetUserAuth> retUserAuths = userAuthMapper.selectByExample(userAuthExample);
-        if (retUserAuths == null || retUserAuths.size() == 0){
-            Asserts.fail("没有该验证方式");
-        }
-        return retUserAuths;
+        return userAuthMapper.selectByExample(userAuthExample);
     }
     @Override
     public RetUserAuth getUserAuth(Long userId, IdentifyType identifyType) {
@@ -172,5 +168,14 @@ public class RetUserAuthServiceImpl implements RetUserAuthService {
         }
 
         return retUserAuths.get(0);
+    }
+
+    @Override
+    public boolean exists(Long userId, IdentifyType email) {
+        RetUserAuthExample userAuthExample = new RetUserAuthExample();
+        userAuthExample.createCriteria().
+                andUserIdEqualTo(userId).
+                andIdentityTypeEqualTo(email.toString());
+        return userAuthMapper.selectByExample(userAuthExample).size() != 0;
     }
 }
