@@ -54,8 +54,6 @@ jwt:
       - /**/*.png
       - /**/*.ico
       - /users/auth/token
-      - /users
-      - /files/*
 #文件配置
 file:
   upload:
