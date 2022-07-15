@@ -1,5 +1,6 @@
 package com.rare_earth_track.portal.service;
 
+import com.rare_earth_track.mgb.model.RetMember;
 import com.rare_earth_track.portal.bean.RetFactoryJob;
 
 import java.util.List;
@@ -18,4 +19,12 @@ public interface RetMemberService {
      * @return the factory jobs by user id
      */
     List<RetFactoryJob> getFactoryJobsByUserId(Long userId);
+
+    /**
+     * Add member long.
+     *
+     * @param member the member
+     * @return the long
+     */
+    Long addMember(RetMember member);
 }

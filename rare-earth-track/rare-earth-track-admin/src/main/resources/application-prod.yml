@@ -39,12 +39,8 @@ ret:
 #文件配置
 file:
   upload:
-    path: /data/files/  #文件上传目标路径
-    allowTypes:             #文件上传允许的类型
-      - image/jpeg
-      - image/png
-      - image/bmp
-      - application/pdf
+    path: /data/uploads/  #文件上传目标路径
+    baseUrl: http://localhost/uploads/
 
 # params
 params:

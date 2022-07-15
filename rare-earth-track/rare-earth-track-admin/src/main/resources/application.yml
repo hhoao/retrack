@@ -27,7 +27,7 @@ ret:
       token: token
       role: role
       resource-role: resource-role
-      user-role: user-role
+
       factory-invitation: factory-invitation
     auth-code:
       mail: ret-mail

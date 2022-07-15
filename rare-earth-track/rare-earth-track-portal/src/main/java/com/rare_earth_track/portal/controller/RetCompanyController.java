@@ -39,13 +39,32 @@ public class RetCompanyController {
         RetFactory factory = factoryService.getFactoryByFactoryName(factoryName);
         return CommonResult.success(factory);
     }
-
     @Operation(summary = "申请厂家入驻")
     @PostMapping("/factories")
     public CommonResult<String> applySettledFactory(@RequestBody RetFactoryApplication factoryApplicationParam) {
         factoryService.applySettledFactory(factoryApplicationParam);
         return CommonResult.success(null);
     }
+    @Operation(summary = "邀请用户成员")
+    @PostMapping("/factories/{factoryName}/member")
+    public CommonResult<String> inviteUser(@RequestParam(value = "type", defaultValue = "email") String type,
+                                           @RequestParam("emailOrPhone") String emailOrPhone,
+                                           @PathVariable("factoryName") String factoryName){
+        if ("email".equals(type)){
+            factoryService.inviteUserByEmail(factoryName, emailOrPhone);
+        } else{
+            factoryService.inviteUserByPhone(factoryName, emailOrPhone);
+        }
+        return CommonResult.success(null);
+    }
+    @Operation(summary = "处理邀请")
+    @GetMapping("/factories/{factoryName}/invitations")
+    public CommonResult<String> handleInvitation(@PathVariable(value= "factoryName") String factoryName,
+                                                 @CookieValue(value="Authorization") String authorization){
+        factoryService.handleInvitation(factoryName, authorization);
+        return CommonResult.success(null);
+    }
+
 
     @Operation(summary = "分页获取某工厂的产品")
     @GetMapping("/factories/{factoryName}/products")

@@ -24,10 +24,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class RetFactoryServiceImpl implements RetFactoryService {
     private final RetFactoryMapper factoryMapper;
-    private final RetFactoryApplicationService factoryApplicationService;
-    private final JwtTokenService tokenService;
-    private final RetMailService mailService;
-    private final RetUserCacheService tokenCacheService;
     private final RetMemberService memberService;
 
     private final RetProductService productService;
@@ -86,13 +82,10 @@ public class RetFactoryServiceImpl implements RetFactoryService {
         RetFactoryExample factoryExample = new RetFactoryExample();
         factoryExample.createCriteria().andNameEqualTo(name);
         List<RetFactory> retFactories = factoryMapper.selectByExample(factoryExample);
-        if (retFactories != null && retFactories.size() > 0){
-            return retFactories.get(0);
-        }
-        if (retFactories.size() == 0) {
+        if (retFactories == null || retFactories.size() == 0) {
             Asserts.fail("没有该工厂");
         }
-        return null;
+        return retFactories.get(0);
     }
 
     @Override
@@ -102,20 +95,6 @@ public class RetFactoryServiceImpl implements RetFactoryService {
             Asserts.fail("没有该工厂");
         }
         return retFactory;
-    }
-
-    @Override
-    public void inviteUserByEmail(String factoryName, String email) {
-        RetFactory factory = getFactoryByFactoryName(factoryName);
-        if (factory == null){
-            Asserts.fail("没有该工厂");
-        }
-        mailService.sendFactoryInvitation(email, factory);
-    }
-
-    @Override
-    public void inviteUserByPhone(String factoryName, String emailOrPhone) {
-
     }
 
     @Override
@@ -135,24 +114,6 @@ public class RetFactoryServiceImpl implements RetFactoryService {
         member.setUserId(userId);
         return memberService.addMember(member);
     }
-    @Override
-    public void handleInvitation(String factoryName, String authorization) {
-        //获取邮箱
-        String username = tokenService.getSubjectFromAuthorization(authorization);
-        boolean hasLogin = tokenCacheService.hasKey(username);
-        if (!hasLogin){
-            Asserts.fail("没有登陆");
-        }
-        RetUserAuth emailAuth = factoryUserRelationService.getUserEmailByUsername(username);
-        //验证邮箱
-        boolean b = mailService.existMessage(emailAuth.getIdentifier(), MailType.FACTORY_INVITATION);
-        if (!b){
-            Asserts.fail("没有该邮箱");
-        }
-        RetFactory factoryByFactoryName = getFactoryByFactoryName(factoryName);
-        addFactoryMember(factoryByFactoryName.getId(), emailAuth.getUserId());
-    }
-
     @Override
     public void updateFactoryMember(String factoryName, String username, RetMemberParam memberParam) {
         RetFactory factoryByFactoryName = getFactoryByFactoryName(factoryName);
@@ -205,7 +166,6 @@ public class RetFactoryServiceImpl implements RetFactoryService {
     public List<RetProduct> listProducts(String factoryName, RetProduct product, PageInfo pageInfo) {
         RetFactory factory = getFactoryByFactoryName(factoryName);
         product.setFactoryId(factory.getId());
-        List<RetProduct> products = productService.getProducts(product, pageInfo);
-        return products;
+        return productService.getProducts(product, pageInfo);
     }
 }

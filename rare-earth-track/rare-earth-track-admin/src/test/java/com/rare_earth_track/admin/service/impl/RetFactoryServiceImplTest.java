@@ -6,7 +6,6 @@ import com.rare_earth_track.admin.bean.PageInfo;
 import com.rare_earth_track.admin.bean.RetFactoryParam;
 import com.rare_earth_track.admin.bean.RetMemberParam;
 import com.rare_earth_track.admin.service.RetFactoryService;
-import com.rare_earth_track.admin.service.RetMailService;
 import com.rare_earth_track.admin.service.RetMemberService;
 import com.rare_earth_track.common.exception.ApiException;
 import com.rare_earth_track.mgb.model.RetFactory;
@@ -27,9 +26,6 @@ class RetFactoryServiceImplTest extends TransactionTest {
     RetFactoryService factoryService;
     @Autowired
     RetMemberService memberService;
-    @Autowired
-    RetMailService mailService;
-
     private final String testName = "五矿稀土";
     private final Long testId = 1L;
 
@@ -76,13 +72,6 @@ class RetFactoryServiceImplTest extends TransactionTest {
     void getFactoryByFactoryId() {
         RetFactory factoryByFactoryId = factoryService.getFactoryByFactoryId(testId);
         Assertions.assertNotNull(factoryByFactoryId);
-    }
-
-    @Test
-    void inviteUserByEmail() {
-        factoryService.inviteUserByEmail(testName, tRegisterMail);
-        boolean b = mailService.existMessage(tRegisterMail, MailType.FACTORY_INVITATION);
-        Assertions.assertTrue(b);
     }
 
     @Test

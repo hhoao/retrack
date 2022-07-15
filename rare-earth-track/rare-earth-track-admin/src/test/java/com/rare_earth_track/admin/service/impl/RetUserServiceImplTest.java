@@ -2,7 +2,6 @@ package com.rare_earth_track.admin.service.impl;
 
 import com.rare_earth_track.admin.TransactionTest;
 import com.rare_earth_track.admin.bean.*;
-import com.rare_earth_track.admin.service.RetMailService;
 import com.rare_earth_track.admin.service.RetUserAuthService;
 import com.rare_earth_track.admin.service.RetUserService;
 import com.rare_earth_track.mgb.model.RetUser;
@@ -27,8 +26,6 @@ import java.util.Map;
 class RetUserServiceImplTest extends TransactionTest {
     @Autowired
     RetUserService userService;
-    @Autowired
-    RetMailService mailService;
     @Autowired
     RetUserAuthService userAuthService;
     @Autowired

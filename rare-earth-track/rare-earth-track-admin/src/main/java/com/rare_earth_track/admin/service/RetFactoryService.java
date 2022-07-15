@@ -66,22 +66,6 @@ public interface RetFactoryService {
      */
     RetFactory getFactoryByFactoryId(Long id);
 
-    /**
-     * Invite user by email.
-     *
-     * @param factoryName  工厂id
-     * @param emailOrPhone the email or phone
-     */
-    void inviteUserByEmail(String factoryName, String emailOrPhone);
-
-    /**
-     * Invite user by phone.
-     *
-     * @param factoryName  the factory id
-     * @param emailOrPhone the email or phone
-     */
-    void inviteUserByPhone(String factoryName, String emailOrPhone);
-
 
     /**
      * Delete factory member by member id.
@@ -101,14 +85,6 @@ public interface RetFactoryService {
      */
     @Transactional
     Long addFactoryMember(Long factoryId, Long userId);
-
-    /**
-     * 处理
-     *
-     * @param factoryName   the factory id
-     * @param authorization the token
-     */
-    void handleInvitation(String factoryName, String authorization);
 
     /**
      * Update factory member job.

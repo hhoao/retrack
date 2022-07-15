@@ -15,6 +15,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.ServletContext;
+import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
@@ -40,7 +42,7 @@ public class RetFileController {
     }
 
     @Operation(summary = "上传文件")
-    @PostMapping("/files/upload")
+    @PostMapping("/files")
     @RequestBody(content = {
             @Content(
                     mediaType = "multipart/form-data",
@@ -61,7 +63,7 @@ public class RetFileController {
     }
 
     @Operation(summary = "下载文件")
-    @GetMapping("/files/{filesUUID}")
+    @GetMapping("/file/{filesUUID}")
     public HttpServletResponse download(@PathVariable String filesUUID, HttpServletResponse response) {
         filesService.download(filesUUID, response);
         return null;

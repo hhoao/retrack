@@ -3,10 +3,7 @@ package com.rare_earth_track.admin.config;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.jwt.JWT;
-import com.rare_earth_track.admin.service.RetAdministratorService;
-import com.rare_earth_track.admin.service.RetResourceService;
-import com.rare_earth_track.admin.service.RetUserCacheService;
-import com.rare_earth_track.admin.service.RetUserService;
+import com.rare_earth_track.admin.service.*;
 import com.rare_earth_track.mgb.model.RetResource;
 import com.rare_earth_track.security.component.DynamicSecurityService;
 import com.rare_earth_track.security.config.JwtSecurityProperties;
@@ -156,12 +153,12 @@ public class AdminJwtSecurityConfig {
 
     /**
      * token服务
-     * @param tokenCacheService token缓存服务
+     * @param administratorCacheService token缓存服务
      * @param jwtSecurityProperties jwt安全配置属性
      * @return jwtToken服务
      */
     @Bean
-    public static JwtTokenService jwtTokenService(RetUserCacheService tokenCacheService,
+    public static JwtTokenService jwtTokenService(RetAdministratorCacheService administratorCacheService,
                                                   JwtSecurityProperties jwtSecurityProperties){
         DefaultJwtTokenServiceImpl defaultJwtTokenService = new DefaultJwtTokenServiceImpl() {
             @Override
@@ -179,7 +176,7 @@ public class AdminJwtSecurityConfig {
             @Override
             public boolean isTokenExpired(String token) {
                 String username = getSubjectFromToken(token);
-                return tokenCacheService.hasKey(username);
+                return administratorCacheService.hasKey(username);
             }
 
             @Override
@@ -193,7 +190,7 @@ public class AdminJwtSecurityConfig {
                     return oldToken;
                 }
                 String username = getSubjectFromToken(oldToken);
-                tokenCacheService.expire(username);
+                administratorCacheService.expire(username);
                 return oldToken;
             }
         };

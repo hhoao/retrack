@@ -192,6 +192,10 @@ INSERT INTO `ret_menu`
 VALUES ('18', 14, '2020-02-07 16:31:13', '职位列表', '1', '0', 'job', 'fms-job', '0');
 INSERT INTO `ret_menu`
 VALUES ('19', 2, '2020-02-07 16:31:13', '材料列表', '1', '0', 'material', 'pms-material', '0');
+INSERT INTO `ret_menu`
+VALUES ('20', 0, '2020-02-07 16:31:13', '其他', '1', '0', 'oms', 'oms', '0');
+INSERT INTO `ret_menu`
+VALUES ('21', 20, '2020-02-07 16:31:13', '文件列表', '1', '0', 'file', 'file', '0');
 
 
 -- 资源表
@@ -300,6 +304,10 @@ INSERT INTO ret_role_menu_relation(role_id, menu_id)
 VALUES ('1', '18');
 INSERT INTO ret_role_menu_relation(role_id, menu_id)
 VALUES ('1', '19');
+INSERT INTO ret_role_menu_relation(role_id, menu_id)
+VALUES ('1', '20');
+INSERT INTO ret_role_menu_relation(role_id, menu_id)
+VALUES ('1', '21');
 
 -- 资源角色关系表
 DROP TABLE IF EXISTS ret_role_resource_relation;

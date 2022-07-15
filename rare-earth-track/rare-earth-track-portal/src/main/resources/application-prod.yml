@@ -39,4 +39,5 @@ ret:
 #文件配置
 file:
   upload:
-    path: /data/files/  #文件上传目标路径
+    path: /data/uploads/  #文件上传目标路径
+    baseUrl: http://localhost/uploads/

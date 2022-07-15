@@ -17,7 +17,7 @@ public class AdminSwaggerConfig extends BaseSwaggerConfig {
                 .apiBasePackage("com.demo.rare_earth_track.portal.controller")
                 .title("RETrack后台系统")
                 .description("任何值得到达的地方，都没有捷径!")
-                .contactName("赣劲十足")
+                .contactName("hhoao")
                 .contactUrl("")
                 .contactEmail("huanghaohhoa@163.com")
                 .version("1.0")

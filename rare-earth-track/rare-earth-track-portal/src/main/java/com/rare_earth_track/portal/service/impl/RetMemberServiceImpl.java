@@ -1,5 +1,6 @@
 package com.rare_earth_track.portal.service.impl;
 
+import com.rare_earth_track.common.exception.Asserts;
 import com.rare_earth_track.mgb.mapper.RetMemberMapper;
 import com.rare_earth_track.mgb.model.RetFactory;
 import com.rare_earth_track.mgb.model.RetMember;
@@ -41,5 +42,14 @@ public class RetMemberServiceImpl implements RetMemberService {
             factoryJobs.add(factoryJob);
         }
         return factoryJobs;
+    }
+
+    @Override
+    public Long addMember(RetMember member) {
+        int insert = memberMapper.insertSelective(member);
+        if (insert == 0){
+            Asserts.fail("插入失败");
+        }
+        return member.getId();
     }
 }

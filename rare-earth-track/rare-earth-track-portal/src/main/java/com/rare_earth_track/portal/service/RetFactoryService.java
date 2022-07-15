@@ -40,6 +40,21 @@ public interface RetFactoryService {
     RetFactory getFactoryByFactoryId(Long id);
 
     /**
+     * Invite user by email.
+     *
+     * @param factoryName  工厂id
+     * @param emailOrPhone the email or phone
+     */
+    void inviteUserByEmail(String factoryName, String emailOrPhone);
+
+    /**
+     * Invite user by phone.
+     *
+     * @param factoryName  the factory id
+     * @param emailOrPhone the email or phone
+     */
+    void inviteUserByPhone(String factoryName, String emailOrPhone);
+    /**
      * List products list.
      *
      * @param factoryName the factory name
@@ -63,4 +78,12 @@ public interface RetFactoryService {
      * @param factoryApplication the factory param
      */
     void applySettledFactory(RetFactoryApplication factoryApplication);
+
+    /**
+     * Handle invitation.
+     *
+     * @param factoryName   the factory name
+     * @param authorization the authorization
+     */
+    void handleInvitation(String factoryName, String authorization);
 }

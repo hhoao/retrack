@@ -48,18 +48,7 @@ public class RetFactoryController {
         factoryService.updateFactory(factoryName, factoryParam);
         return CommonResult.success(null);
     }
-    @Operation(summary = "邀请用户成员")
-    @PostMapping("/factories/{factoryName}/member")
-    public CommonResult<String> inviteUser(@RequestParam(value = "type", defaultValue = "email") String type,
-                                          @RequestParam("emailOrPhone") String emailOrPhone,
-                                          @PathVariable("factoryName") String factoryName){
-        if ("email".equals(type)){
-            factoryService.inviteUserByEmail(factoryName, emailOrPhone);
-        } else{
-            factoryService.inviteUserByPhone(factoryName, emailOrPhone);
-        }
-        return CommonResult.success(null);
-    }
+
 
     @Operation(summary = "根据条件查询工厂信息")
     @GetMapping("/factories")
@@ -89,13 +78,6 @@ public class RetFactoryController {
                                                 @PathVariable(value = "username") String username,
                                                 @RequestBody RetMemberParam memberParam){
         factoryService.updateFactoryMember(factoryName, username, memberParam);
-        return CommonResult.success(null);
-    }
-    @Operation(summary = "处理邀请")
-    @GetMapping("/factories/{factoryName}/invitations")
-    public CommonResult<String> handleInvitation(@PathVariable(value= "factoryName") String factoryName,
-                                                 @CookieValue(value="Authorization") String authorization){
-        factoryService.handleInvitation(factoryName, authorization);
         return CommonResult.success(null);
     }
 

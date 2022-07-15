@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -39,6 +40,8 @@ public class RetFileServiceImpl implements RetFileService {
 
     @Value("${file.upload.path}")
     private String filesUploadPath;//获取文件路径
+    @Value("${file.upload.baseUrl}")
+    private String baseUrl;
 
 
 
@@ -102,14 +105,14 @@ public class RetFileServiceImpl implements RetFileService {
 
         try {
             String url;
-            //获取文件的md5,通过对比文件md5，防止上传相同内容的文件
-            //通过MD5来查询文件
+            //获取文件的UUID,通过对比文件md5，防止上传相同内容的文件
+            //通过UUID来查询文件
             RetFile dbRetFile = this.getFileByUUid(uuid);
             if (dbRetFile != null) {//如果数据库存在相同文件，直接获取url
                 url = dbRetFile.getUrl();
             } else {//如果数据库不存在相同文件，先存储到本地磁盘，再设置文件url
                 file.transferTo(uploadFile);//把获取到的文件存储带磁盘目录
-                url = "http://localhost:8080/files/" + fileUuid;//设置文件url
+                url = baseUrl + fileUuid;//设置文件url
             }
 
             //将文件存储到数据库

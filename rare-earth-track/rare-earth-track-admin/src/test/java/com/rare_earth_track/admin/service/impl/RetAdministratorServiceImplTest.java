@@ -5,7 +5,6 @@ import com.rare_earth_track.admin.bean.PageInfo;
 import com.rare_earth_track.admin.bean.RetAdministratorDetails;
 import com.rare_earth_track.admin.bean.RetLoginParam;
 import com.rare_earth_track.admin.service.RetAdministratorService;
-import com.rare_earth_track.admin.service.RetMailService;
 import com.rare_earth_track.common.exception.ApiException;
 import com.rare_earth_track.mgb.model.RetAdministrator;
 import com.rare_earth_track.mgb.model.RetResource;
@@ -25,8 +24,6 @@ import java.util.List;
 class RetAdministratorServiceImplTest extends TransactionTest {
     @Autowired
     RetAdministratorService administratorService;
-    @Autowired
-    RetMailService mailService;
     @Autowired
     JwtTokenService jwtTokenService;
     String testPassword = "123456";
