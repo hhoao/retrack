@@ -7,7 +7,7 @@ import java.util.Date;
 /**
  * 厂家入驻申请
  * @author hhoa 
- * @date 2022-07-14
+ * @date 2022-07-15
  */
 @Schema(description = "厂家入驻申请")
 public class RetFactoryApplication implements Serializable {

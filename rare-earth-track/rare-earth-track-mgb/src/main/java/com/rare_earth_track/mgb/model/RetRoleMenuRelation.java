@@ -6,7 +6,7 @@ import java.io.Serializable;
 /**
  * 资源角色关系
  * @author hhoa 
- * @date 2022-07-14
+ * @date 2022-07-15
  */
 @Schema(description = "资源角色关系")
 public class RetRoleMenuRelation implements Serializable {

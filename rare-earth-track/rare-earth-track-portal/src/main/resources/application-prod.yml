@@ -40,4 +40,4 @@ ret:
 file:
   upload:
     path: /data/uploads/  #文件上传目标路径
-    baseUrl: http://localhost/uploads/
+    baseUrl: http://120.48.118.129/uploads/

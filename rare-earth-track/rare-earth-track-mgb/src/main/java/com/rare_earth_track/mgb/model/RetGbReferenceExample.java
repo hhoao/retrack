@@ -112,7 +112,7 @@ public class RetGbReferenceExample {
 
     /**
      * ret_gb_reference
-     * @author hhoa 2022-07-14
+     * @author hhoa 2022-07-15
      */
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
@@ -1344,7 +1344,7 @@ public class RetGbReferenceExample {
 
     /**
      * ret_gb_reference
-     * @author hhoa 2022-07-14
+     * @author hhoa 2022-07-15
      */
     public static class Criterion {
         private String condition;

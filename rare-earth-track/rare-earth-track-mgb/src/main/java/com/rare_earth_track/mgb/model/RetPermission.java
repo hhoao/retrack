@@ -7,7 +7,7 @@ import java.util.Date;
 /**
  * 职位权限
  * @author hhoa 
- * @date 2022-07-14
+ * @date 2022-07-15
  */
 @Schema(description = "职位权限")
 public class RetPermission implements Serializable {
