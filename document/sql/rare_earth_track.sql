@@ -169,7 +169,7 @@ VALUES ('6', 2, '2020-02-02 14:54:51', '商品类型', '1', '0', 'productAttr', 
 INSERT INTO `ret_menu`
 VALUES ('7', 0, '2020-02-07 16:29:13', '权限', '0', '0', 'ums', 'ums', '0');
 INSERT INTO `ret_menu`
-VALUES ('8', 7, '2020-02-07 16:29:51', '用户列表', '1', '0', 'admin', 'ums-admin', '0');
+VALUES ('8', 7, '2020-02-07 16:29:51', '用户列表', '1', '0', 'user', 'ums-user', '0');
 INSERT INTO `ret_menu`
 VALUES ('9', 7, '2020-02-07 16:30:13', '角色列表', '1', '0', 'role', 'ums-role', '0');
 INSERT INTO `ret_menu`
@@ -196,6 +196,8 @@ INSERT INTO `ret_menu`
 VALUES ('20', 0, '2020-02-07 16:31:13', '其他', '1', '0', 'oms', 'oms', '0');
 INSERT INTO `ret_menu`
 VALUES ('21', 20, '2020-02-07 16:31:13', '文件列表', '1', '0', 'file', 'file', '0');
+INSERT INTO `ret_menu`
+VALUES ('22', 7, '2020-02-07 16:29:51', '管理员列表', '1', '0', 'admin', 'ums-admin', '0');
 
 
 -- 资源表
@@ -308,6 +310,8 @@ INSERT INTO ret_role_menu_relation(role_id, menu_id)
 VALUES ('1', '20');
 INSERT INTO ret_role_menu_relation(role_id, menu_id)
 VALUES ('1', '21');
+INSERT INTO ret_role_menu_relation(role_id, menu_id)
+VALUES ('1', '22');
 
 -- 资源角色关系表
 DROP TABLE IF EXISTS ret_role_resource_relation;

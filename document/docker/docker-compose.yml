@@ -1,9 +1,17 @@
 version: "2.2"
 services:
+  web-portal:
+    image: hhoao/ret-web-portal:${RARE_EARTH_TRACK_WEB_PORTAL_VERSION}
+    ports:
+      - ${RARE_EARTH_TRACK_WEB_PORTAL_PORT}:80
+    volumes:
+      - /data:/data
   web-admin:
     image: hhoao/ret-web-admin:${RARE_EARTH_TRACK_WEB_ADMIN_VERSION}
     ports:
       - ${RARE_EARTH_TRACK_WEB_ADMIN_PORT}:80
+    volumes:
+      - /data:/data
   portal:
     image: hhoao/rare-earth-track-portal:${RARE_EARTH_TRACK_PORTAL_VERSION}
     depends_on:
@@ -12,7 +20,7 @@ services:
       mysql:
         condition: service_healthy
     volumes:
-      - /data:/data
+      - /data/uploads:/data/uploads
     ports:
       - ${RARE_EARTH_TRACK_PORTAL_PORT}:8889
 
@@ -24,7 +32,7 @@ services:
       mysql:
         condition: service_healthy
     volumes:
-      - /data:/data
+      - /data/uploads:/data/uploads
     ports:
       - ${RARE_EARTH_TRACK_ADMIN_PORT}:8888
 

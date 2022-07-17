@@ -47,6 +47,12 @@ public class RetAdministratorController {
                 headers.get(authorization));
         return CommonResult.success(administrator);
     }
+    @Operation(summary = "添加管理员")
+    @PostMapping("/administrators")
+    public CommonResult<String> addAdministrator(@RequestBody RetAdministrator administrator){
+        administratorService.addAdministrator(administrator);
+        return CommonResult.success(null);
+    }
     @Operation(summary = "管理员登录")
     @PostMapping("/administrators/auth/token")
     public CommonResult<Map<String, String>> login(@RequestBody RetLoginParam loginParam){

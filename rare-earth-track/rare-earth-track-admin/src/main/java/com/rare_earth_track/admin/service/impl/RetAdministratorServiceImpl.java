@@ -231,4 +231,20 @@ public class RetAdministratorServiceImpl implements RetAdministratorService {
         RetAdministrator administratorByName = this.getAdministratorByAdministratorName(administratorName);
         return roleService.getMenus(administratorByName.getRoleId());
     }
+
+    @Override
+    public void addAdministrator(RetAdministrator administrator) {
+        if (!StringUtils.hasLength(administrator.getUsername()) || !StringUtils.hasLength(administrator.getPassword())){
+            Asserts.fail("请您输入用户名和密码");
+        }
+        if (administrator.getRoleId() == null){
+            Asserts.fail("请您输入角色");
+        }
+        String encode = passwordEncoder.encode(administrator.getPassword());
+        administrator.setPassword(encode);
+        int i = administratorMapper.insertSelective(administrator);
+        if (i == 0){
+            Asserts.fail("插入失败");
+        }
+    }
 }

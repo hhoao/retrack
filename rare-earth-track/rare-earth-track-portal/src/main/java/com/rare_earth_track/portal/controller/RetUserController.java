@@ -5,6 +5,7 @@ import com.rare_earth_track.common.api.CommonResult;
 import com.rare_earth_track.mgb.model.RetUser;
 import com.rare_earth_track.portal.bean.IdentifyType;
 import com.rare_earth_track.portal.bean.RetLoginParam;
+import com.rare_earth_track.portal.bean.RetUpdateUserPasswordParam;
 import com.rare_earth_track.portal.bean.RetUserRegisterParam;
 import com.rare_earth_track.portal.service.RetUserService;
 import com.rare_earth_track.security.config.JwtSecurityProperties;
@@ -45,6 +46,13 @@ public class RetUserController {
         RetUser user =  userService.getUserByAuthorization(
                 headers.get(authorization));
         return CommonResult.success(user);
+    }
+
+    @Operation(summary = "更新用户密码")
+    @PatchMapping
+    public CommonResult<String> updateUserPassword(RetUpdateUserPasswordParam passwordParam){
+        userService.updateUserPassword(passwordParam);
+        return CommonResult.success(null);
     }
     @Operation(summary = "用户登录")
     @PostMapping("/users/auth/token")

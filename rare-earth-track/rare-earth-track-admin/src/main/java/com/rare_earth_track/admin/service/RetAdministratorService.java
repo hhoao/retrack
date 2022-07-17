@@ -46,7 +46,7 @@ public interface RetAdministratorService {
      * 获取部分用户
      *
      * @param pageInfo      @return 部分用户 list
-     * @param administrator
+     * @param administrator the administrator
      * @return the list
      */
     List<RetAdministrator> list(PageInfo pageInfo, RetAdministrator administrator);
@@ -128,4 +128,11 @@ public interface RetAdministratorService {
      * @return the menus by authorization
      */
     List<RetMenu> getMenusByAuthorization(String authorization);
+
+    /**
+     * Add administrator.
+     *
+     * @param administrator the administrator
+     */
+    void addAdministrator(RetAdministrator administrator);
 }
