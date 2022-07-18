@@ -1,43 +1,19 @@
 version: "2.2"
 services:
   web:
-    depends_on:
-      - admin
-      - portal
-    image: nginx:1.21.6
+    volumes:
+  web-portal:
+    image: hhoao/ret-web-portal:${RARE_EARTH_TRACK_WEB_PORTAL_VERSION}
     ports:
-      - ${RARE_EARTH_TRACK_WEB}:80
+      - ${RARE_EARTH_TRACK_WEB_PORTAL_PORT}:80
     volumes:
-      - web-data:/usr/share/nginx/html/release
-      - ./default.conf:/etc/nginx/conf.d/default.conf
-  web-portal-setup:
-    depends_on:
-      - web
-    image: hhoao/ret-web-portal-setup:${RARE_EARTH_TRACK_WEB_PORTAL_VERSION}
-    tty: true
-    command: >
-      sh -c "
-        if [ -d /usr/share/nginx/html/release/portal ]; then
-          rm -rf /usr/share/nginx/html/release/portal;
-        fi;
-        mkdir /usr/share/nginx/html/release/portal;
-        cp -r /data/* /usr/share/nginx/html/release/portal"
+      - /data:/data
+  web-admin:
+    image: hhoao/ret-web-admin:${RARE_EARTH_TRACK_WEB_ADMIN_VERSION}
+    ports:
+      - ${RARE_EARTH_TRACK_WEB_ADMIN_PORT}:80
     volumes:
-      - web-data:/usr/share/nginx/html/release
-  web-admin-setup:
-    image: hhoao/ret-web-admin-setup:${RARE_EARTH_TRACK_WEB_ADMIN_VERSION}
-    depends_on:
-      - web
-    command: >
-      sh -c "
-        if [ -d /usr/share/nginx/html/release/admin ]; then
-          rm -rf /usr/share/nginx/html/release/admin;
-          echo portal existed;
-        fi;
-        mkdir /usr/share/nginx/html/release/admin;
-        cp -r /data/* /usr/share/nginx/html/release/admin"
-    volumes:
-      - web-data:/usr/share/nginx/html/release
+      - /data:/data
   portal:
     image: hhoao/rare-earth-track-portal:${RARE_EARTH_TRACK_PORTAL_VERSION}
     depends_on:
@@ -47,8 +23,8 @@ services:
         condition: service_healthy
     volumes:
       - /data/uploads:/data/uploads
-#    ports:
-#      - ${RARE_EARTH_TRACK_PORTAL_PORT}:8889
+    ports:
+      - ${RARE_EARTH_TRACK_PORTAL_PORT}:8889
 
   admin:
     image: hhoao/rare-earth-track-admin:${RARE_EARTH_TRACK_ADMIN_VERSION}
@@ -59,8 +35,8 @@ services:
         condition: service_healthy
     volumes:
       - /data/uploads:/data/uploads
-#    ports:
-#      - ${RARE_EARTH_TRACK_ADMIN_PORT}:8888
+    ports:
+      - ${RARE_EARTH_TRACK_ADMIN_PORT}:8888
 
   mysql:
     image: mysql:${MYSQL_VERSION}
