@@ -8,6 +8,7 @@ services:
     ports:
       - ${RARE_EARTH_TRACK_WEB}:80
     volumes:
+      - /data/uploads:/data/uploads
       - web-data:/usr/share/nginx/html/release
       - ./default.conf:/etc/nginx/conf.d/default.conf
   web-portal-setup:
