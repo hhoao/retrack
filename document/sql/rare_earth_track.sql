@@ -23,7 +23,8 @@ CREATE TABLE `ret_gb_reference`
     `Dy2O3_REO`         varchar(255) DEFAULT NULL COMMENT '氧化镝稀土混合成分',
     `RE_impurities`     varchar(255) DEFAULT NULL COMMENT '稀土杂质',
     `non_RE_impurities` varchar(255) DEFAULT NULL COMMENT '非稀土杂质',
-    PRIMARY KEY (`id`)
+    PRIMARY KEY (`id`),
+    INDEX (`name`)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 23
   DEFAULT CHARSET = utf8mb4
@@ -131,7 +132,8 @@ CREATE TABLE `ret_factory_application`
     `address`     varchar(100) NULL COMMENT '地址',
     `description` varchar(50)  NULL COMMENT '描述',
     `apply_time`  timestamp    NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '申请时间',
-    PRIMARY KEY (`id`)
+    PRIMARY KEY (`id`),
+    INDEX (`name`)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 1
   DEFAULT CHARSET = utf8 COMMENT ='厂家入驻申请表';
@@ -149,7 +151,8 @@ CREATE TABLE `ret_menu`
     `name`        varchar(100) DEFAULT NULL COMMENT '前端名称',
     `icon`        varchar(200) DEFAULT NULL COMMENT '前端图标',
     `hidden`      int(1)       DEFAULT NULL COMMENT '前端隐藏',
-    PRIMARY KEY (`id`)
+    PRIMARY KEY (`id`),
+    INDEX (`name`)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 1
   DEFAULT CHARSET = utf8 COMMENT ='后台菜单表';
@@ -211,7 +214,8 @@ CREATE TABLE IF NOT EXISTS ret_resource
     `url`         varchar(50) COMMENT '请求路径',
     `description` varchar(50) COMMENT '描述',
     UNIQUE (`method`, `url`),
-    CONSTRAINT PK_RESOURCE PRIMARY KEY (`id`)
+    CONSTRAINT PK_RESOURCE PRIMARY KEY (`id`),
+    INDEX (`name`)
 ) ENGINE = Innodb
   DEFAULT CHARSET = UTF8MB4 COMMENT '资源表';
 SELECT *
@@ -243,7 +247,8 @@ CREATE TABLE `ret_role`
     `name`        varchar(100) DEFAULT NULL COMMENT '名称',
     `description` varchar(500) DEFAULT NULL COMMENT '描述',
     `create_time` datetime     DEFAULT NULL COMMENT '创建时间',
-    PRIMARY KEY (`id`)
+    PRIMARY KEY (`id`),
+    INDEX (`name`)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 8
   DEFAULT CHARSET = UTF8MB4 COMMENT ='角色表';
@@ -500,7 +505,8 @@ CREATE TABLE ret_factory
     `email`       varchar(100) NULL COMMENT '邮箱',
     `address`     varchar(100) NULL COMMENT '地址',
     `description` varchar(50)  NULL COMMENT '描述',
-    PRIMARY KEY (`id`)
+    PRIMARY KEY (`id`),
+    INDEX (`name`)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 37
   DEFAULT CHARSET = UTF8MB4 COMMENT ='工厂表';;
@@ -521,7 +527,8 @@ CREATE TABLE `ret_member_job`
     `id`          bigint      NOT NULL AUTO_INCREMENT,
     `name`        varchar(20) NOT NULL COMMENT '名称',
     `description` varchar(100) DEFAULT NULL COMMENT '描述',
-    CONSTRAINT PK_MEMBER_CATEGORY PRIMARY KEY (`id`)
+    CONSTRAINT PK_MEMBER_CATEGORY PRIMARY KEY (`id`),
+    INDEX (`name`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = UTF8MB4 COMMENT ='成员职位表';
 INSERT INTO `ret_member_job`(id, name, description)
@@ -585,8 +592,8 @@ CREATE TABLE `ret_permission`
     `url`         varchar(50) COMMENT '请求路径',
     `description` varchar(50) COMMENT '描述',
     UNIQUE (`method`, `url`),
-    PRIMARY KEY (`id`)
-
+    PRIMARY KEY (`id`),
+    INDEX (`name`)
 ) COMMENT = '职位权限表';
 INSERT INTO `ret_permission`(id, create_time, name, method, url, description)
 VALUES (1, NOW(), '邀请用户成员', 'POST', '/factories/**/member', '邀请用户成员');
@@ -652,6 +659,7 @@ CREATE TABLE `ret_product`
     `RE_impurities`       varchar(255) DEFAULT NULL COMMENT '稀土杂质',
     `non_RE_impurities`   varchar(255) DEFAULT NULL COMMENT '非稀土杂质',
     CONSTRAINT PK_PRODUCT PRIMARY KEY (`id`),
+    INDEX (`name`),
     FOREIGN KEY (`factory_id`) REFERENCES `ret_factory` (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = UTF8MB4 COMMENT ='产品信息';
@@ -730,7 +738,8 @@ CREATE TABLE `ret_material_category`
     `id`          bigint       NOT NULL AUTO_INCREMENT,
     `name`        varchar(100) NULL NULL COMMENT '名称',
     `description` text DEFAULT NULL COMMENt '描述',
-    CONSTRAINT PK_MATERIAL_CATEGORY PRIMARY KEY (`id`)
+    CONSTRAINT PK_MATERIAL_CATEGORY PRIMARY KEY (`id`),
+    INDEX (`name`)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 7
   DEFAULT CHARSET = UTF8MB4 COMMENT ='材料分类表';

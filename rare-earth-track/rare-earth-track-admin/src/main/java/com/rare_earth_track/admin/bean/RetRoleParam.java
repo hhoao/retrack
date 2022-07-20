@@ -15,4 +15,7 @@ public class RetRoleParam {
 
     @Schema(description = "描述")
     private String description;
+
+    @Schema(description = "启用状态：0->禁用；1->启用", allowableValues = {"0", "1"})
+    private Integer status;
 }

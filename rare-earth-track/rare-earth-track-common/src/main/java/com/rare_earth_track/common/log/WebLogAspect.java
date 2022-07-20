@@ -27,10 +27,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * 简单统一日志处理切面
- * Created by macro on 2018/4/26.
- */
 @Aspect
 @Component
 @Order(1)

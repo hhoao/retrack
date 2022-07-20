@@ -86,6 +86,9 @@ public class RetAdministratorController {
     public CommonResult<CommonPage<RetAdministrator>> getAdministratorByAdministratorParam(RetAdministrator administrator,
                                                                 PageInfo pageInfo){
         List<RetAdministrator> administrators = administratorService.list(pageInfo, administrator);
+        for (RetAdministrator subAdministrator : administrators){
+            subAdministrator.setPassword(null);
+        }
         return CommonResult.success(CommonPage.restPage(administrators));
     }
 
