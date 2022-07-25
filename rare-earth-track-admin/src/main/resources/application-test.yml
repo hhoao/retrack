@@ -1,0 +1,55 @@
+server:
+  port: 8890
+spring:
+  # 配置邮箱
+  mail:
+    host: smtp.qq.com
+    port: 587
+    username: haunghao@foxmail.com
+    # 授权码
+    password: dkebgphvnbbpfjfd
+    properties:
+      mail:
+        smtp:
+          socketFactory:
+            class=javax:
+              net:
+                ssl:
+                  SSLSocketFactory:
+  # 配置redis
+  redis:
+    database: 0
+    port: 6379
+    password:
+  # 配置mysql数据库
+  datasource:
+    url: jdbc:mysql://localhost:3306/rare_earth_track
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: a1234567890
+  # 配置缓存
+  cache:
+    redis:
+      time-to-live: 1d
+# 项目配置
+ret:
+  mail:
+    from: haunghao@foxmail.com
+#logging:
+#  level:
+#    root: info
+#    com.rare_earth_track.: debug
+file:
+  upload:
+    path: /data/uploads/  #文件上传目标路径
+    baseUrl: http://localhost/uploads/
+# OneNet平台对接
+# 这里填写apikey
+machine:
+  apiKey: eKwNk=hCz=UxFx6hENKCIWJTn5w=
+
+mq:
+  userName: MoYU
+  mqTopic: topic-test
+  mqSub: test-sub
+  accessKey: w5qhghBLH31SiichSQlmN416a1xctCs86Kvx6k61wSM=

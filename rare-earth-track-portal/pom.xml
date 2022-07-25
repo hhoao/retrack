@@ -19,7 +19,6 @@
         <dependency>
             <groupId>javax.mail</groupId>
             <artifactId>mail</artifactId>
-            <version>${mail}</version>
         </dependency>
         <dependency>
             <groupId>mysql</groupId>

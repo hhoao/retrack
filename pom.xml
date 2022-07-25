@@ -26,6 +26,9 @@
         <hutool-all.version>5.8.2</hutool-all.version>
         <docker.host>http://localhost:2375</docker.host>
         <docker.maven.plugin.version>1.2.2</docker.maven.plugin.version>
+        <spring-boot-start-web.version>2.6.4</spring-boot-start-web.version>
+        <spring-data-commons.version>2.6.4</spring-data-commons.version>
+        <spring-boot-maven-plugin.version>2.6.4</spring-boot-maven-plugin.version>
         <pagehelper-spring-boot-starter.version>1.4.2</pagehelper-spring-boot-starter.version>
         <rare-earth-track-common.version>1.0-SNAPSHOT</rare-earth-track-common.version>
         <rare-earth-track-portal.version>1.0-SNAPSHOT</rare-earth-track-portal.version>
@@ -40,36 +43,148 @@
         <jwtt.version>0.9.0</jwtt.version>
         <hhutool-all.version>5.7.15</hhutool-all.version>
         <jackson-datatype-jsr310.version>2.13.2</jackson-datatype-jsr310.version>
-        <mail>1.4.7</mail>
+        <protobuf-java.version>3.8.0</protobuf-java.version>
+        <org.eclipse.paho.client.mqttv3.version>1.2.0</org.eclipse.paho.client.mqttv3.version>
+        <bcprov-jdk15.version>140</bcprov-jdk15.version>
+        <fastjson.version>1.2.78</fastjson.version>
+        <commons-httpclient.versoin>3.1</commons-httpclient.versoin>
+        <json-lib.version>2.2.3</json-lib.version>
+        <mybatis-spring-boot-starter.version>2.2.2</mybatis-spring-boot-starter.version>
+        <mybatis-plus-core.version>3.5.1</mybatis-plus-core.version>
+        <okhttp.version>3.14.0</okhttp.version>
+        <jasypt-spring-boot-starter.version>2.1.0</jasypt-spring-boot-starter.version>
+        <aspectjweaver.version>1.9.9</aspectjweaver.version>
+        <mail.version>1.4.7</mail.version>
+        <mybatis-generator-core.version>1.4.1</mybatis-generator-core.version>
+        <mybatis-plus-boot-starter.version>3.5.1</mybatis-plus-boot-starter.version>
     </properties>
+
     <dependencies>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.github.pagehelper</groupId>
-            <artifactId>pagehelper-spring-boot-starter</artifactId>
-            <version>${pagehelper-spring-boot-starter.version}</version>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
         </dependency>
         <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
             <version>${hutool-all.version}</version>
         </dependency>
-
-
-        <dependency>
-            <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-commons</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-        </dependency>
     </dependencies>
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus-boot-starter.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-ui</artifactId>
+                <version>${springdoc-openapi-ui.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-javadoc</artifactId>
+                <version>${springdoc-openapi-javadoc.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-webmvc-core</artifactId>
+                <version>${springdoc-openapi-webmvc-core.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.aspectj</groupId>
+                <artifactId>aspectjweaver</artifactId>
+                <version>${aspectjweaver.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.protobuf</groupId>
+                <artifactId>protobuf-java</artifactId>
+                <version>${protobuf-java.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.eclipse.paho</groupId>
+                <artifactId>org.eclipse.paho.client.mqttv3</artifactId>
+                <version>${org.eclipse.paho.client.mqttv3.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>bouncycastle</groupId>
+                <artifactId>bcprov-jdk15</artifactId>
+                <version>${bcprov-jdk15.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-httpclient</groupId>
+                <artifactId>commons-httpclient</artifactId>
+                <version>${commons-httpclient.versoin}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.sf.json-lib</groupId>
+                <artifactId>json-lib</artifactId>
+                <classifier>jdk15</classifier>
+                <version>${json-lib.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.squareup.okhttp3</groupId>
+                <artifactId>okhttp</artifactId>
+                <version>${okhttp.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-core</artifactId>
+                <version>${mybatis-plus-core.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.datatype</groupId>
+                <artifactId>jackson-datatype-jsr310</artifactId>
+                <version>${jackson-datatype-jsr310.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mybatis.generator</groupId>
+                <artifactId>mybatis-generator-core</artifactId>
+                <version>${mybatis-generator-core.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt</artifactId>
+                <version>${jwtt.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>javax.mail</groupId>
+                <artifactId>mail</artifactId>
+                <version>${mail.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot-starter</artifactId>
+                <version>${mybatis-spring-boot-starter.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-web</artifactId>
+                <version>${spring-boot-start-web.version}</version>
+            </dependency>
+            <!-- 配置文件项加密 -->
+            <dependency>
+                <groupId>com.github.ulisesbocchio</groupId>
+                <artifactId>jasypt-spring-boot-starter</artifactId>
+                <version>${jasypt-spring-boot-starter.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.pagehelper</groupId>
+                <artifactId>pagehelper-spring-boot-starter</artifactId>
+                <version>${pagehelper-spring-boot-starter.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.data</groupId>
+                <artifactId>spring-data-commons</artifactId>
+                <version>${spring-data-commons.version}</version>
+            </dependency>
             <dependency>
                 <groupId>org.demo</groupId>
                 <artifactId>rare-earth-track-common</artifactId>
@@ -94,7 +209,6 @@
                 <groupId>org.demo</groupId>
                 <artifactId>rare-earth-track-portal</artifactId>
                 <version>${rare-earth-track-portal.version}</version>
-
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -104,6 +218,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${maven-compiler-plugin.version}</version>
                     <configuration>
                         <source>${maven.compiler.source}</source>
                         <target>${maven.compiler.target}</target>
@@ -112,6 +227,15 @@
                 <plugin>
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
+                    <!--       common也是SpringBoot工程，SpringBoot工程打包编译时，会生成两种jar包，
+                            一种是普通的jar，另一种是可执行jar。默认情况下，这两种jar的名称相同，在
+                            不做配置的情况下，普通的jar先生成，可执行jar后生成，造成可执行jar会覆盖
+                            普通的jar。而projectA工程无法依赖common工程的可执行jar，所以编译失败：
+                            程序包xxx不存在。-->
+                    <configuration>
+                        <classifier>exec</classifier>
+                    </configuration>
+                    <version>${spring-boot-maven-plugin.version}</version>
                 </plugin>
                 <plugin>
                     <groupId>com.spotify</groupId>
@@ -121,7 +245,8 @@
                         <imageName>hhoao/${project.artifactId}:${project.version}</imageName>
                         <dockerHost>${docker.host}</dockerHost>
                         <baseImage>openjdk:17</baseImage>
-                        <entryPoint>["java", "-jar", "-Dspring.profiles.active=prod","/${project.build.finalName}-exec.jar"]
+                        <entryPoint>["java", "-jar",
+                            "-Dspring.profiles.active=prod","/${project.build.finalName}-exec.jar"]
                         </entryPoint>
                         <resources>
                             <resource>

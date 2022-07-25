@@ -1,47 +1,42 @@
 version: 2.1
-executors:
-    build-and-test:
-      docker:
-            - image: mysql:8.0.28
-              command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD
-            - image: redis:6.2.6
-            - image: maven:3.8.6-sapmachine-17
 
 jobs:
   build-and-test:
-    executor: build-and-test
+    docker:
+      - image: cimg/mysql:8.0.28
+        environment:
+          MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
+      - image: cimg/redis:6.2.6
+        command: redis-server
+      - image: cimg/maven:3.8.6-sapmachine-17
     steps:
       - checkout
-      - run: mvn compile
-      - run: mvn test
-#    deploy:
-#        machine:
-#            image: ubuntu-2004:current
-#        steps:
-#            - checkout
-#            - run: echo '部署开始'
-#            - run: sudo apt-get update && sudo apt-get install rsync
-#            - add_ssh_keys:
-#                  fingerprints:
-#                      - "bd:dd:23:90:d7:86:80:d8:92:31:1b:41:09:09:27:87"
-#            - run: echo $REMOTE_HOSTKEY >> ~/.ssh/known_hosts
-#            - deploy:
-#                  name: deploy
-#                  command: |
-#                      if [ "${CIRCLE_BRANCH}" = "master" ]; then
-#                        rsync -avce ssh build $SSH_USER@$SSH_IP:/data/corki-ui-web/
-#                      else
-#                        echo "Not master branch, dry run only"
-#                      fi
-#            - run: echo '部署完毕'
+      - run: pwd
+      - run:
+        - name: Wait for database service on the tcp protocol
+        - command: dockerize -wait tcp://localhost:3306 -timeout 1m
+      - run: mysql -h 127.0.0.1 -u root -e "create database rare-earth-track"
+      - run: $MYSQL_ROOT_PASSWORD
+      - run: create database rare_earth-track
+      - run: use rare-earth-track
+      - run: source ./document/sql
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "pom.xml" }}
+            - v1-dependencies-
+      - run: mvn dependency:go-offline
+
+      - save_cache:
+          paths:
+            - ~/.m2
+          key: v1-dependencies-{{ checksum "pom.xml" }}
+      - run: mvn integration-test
 
 workflows:
     version: 2
     build-and-test:
         jobs:
            - build-and-test
-#           - deploy:
-#                 requires:
-#                     - test
+
 
 

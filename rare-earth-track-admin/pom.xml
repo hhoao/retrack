@@ -18,7 +18,12 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
     </properties>
+
     <dependencies>
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper-spring-boot-starter</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.demo</groupId>
             <artifactId>rare-earth-track-security</artifactId>
@@ -26,7 +31,6 @@
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
-            <version>2.2.2</version>
         </dependency>
         <dependency>
             <groupId>org.demo</groupId>
@@ -44,52 +48,42 @@
         <dependency>
             <groupId>javax.mail</groupId>
             <artifactId>mail</artifactId>
-            <version>${mail}</version>
         </dependency>
 
         <!--    onenet    -->
         <dependency>
             <groupId>com.google.protobuf</groupId>
             <artifactId>protobuf-java</artifactId>
-            <version>3.8.0</version>
         </dependency>
         <dependency>
             <groupId>org.eclipse.paho</groupId>
             <artifactId>org.eclipse.paho.client.mqttv3</artifactId>
-            <version>1.2.0</version>
         </dependency>
         <dependency>
             <groupId>bouncycastle</groupId>
             <artifactId>bcprov-jdk15</artifactId>
-            <version>140</version>
         </dependency>
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
-            <version>1.2.78</version>
         </dependency>
         <dependency>
             <groupId>commons-httpclient</groupId>
             <artifactId>commons-httpclient</artifactId>
-            <version>3.1</version>
         </dependency>
         <dependency>
             <groupId>net.sf.json-lib</groupId>
             <artifactId>json-lib</artifactId>
             <classifier>jdk15</classifier>
-            <version>2.2.3</version>
         </dependency>
-
         <!--下发指令-->
         <dependency>
             <groupId>com.squareup.okhttp3</groupId>
             <artifactId>okhttp</artifactId>
-            <version>3.14.0</version>
         </dependency>
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-core</artifactId>
-            <version>3.5.1</version>
         </dependency>
     </dependencies>
     <build>
@@ -97,14 +91,6 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <!--       common也是SpringBoot工程，SpringBoot工程打包编译时，会生成两种jar包，
-                            一种是普通的jar，另一种是可执行jar。默认情况下，这两种jar的名称相同，在
-                            不做配置的情况下，普通的jar先生成，可执行jar后生成，造成可执行jar会覆盖
-                            普通的jar。而projectA工程无法依赖common工程的可执行jar，所以编译失败：
-                            程序包xxx不存在。-->
-                <configuration>
-                    <classifier>exec</classifier>
-                </configuration>
             </plugin>
             <!-- docker 打包插件 -->
             <plugin>
