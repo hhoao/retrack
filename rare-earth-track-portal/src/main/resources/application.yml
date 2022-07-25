@@ -37,7 +37,7 @@ ret:
       mail: 60
 # 配置security
 jwt:
-  secret: ret-security
+  secret: ENC(12TJmQ4Reu4FXZhHZnfxgfpDTXSwx9K5)
   expiration: 604800
   token-Header: Authorization
   token-head: 'Bearer'
@@ -72,3 +72,7 @@ file:
       - image/png
       - image/bmp
       - application/pdf
+#加密相关配置
+jasypt:
+  encryptor:
+    password: ${JASYPT_PASSWORD}

@@ -7,7 +7,7 @@ spring:
     port: 587
     username: haunghao@foxmail.com
     # 授权码
-    password: dkebgphvnbbpfjfd
+    password: ENC=(ps6g7c9mJXVEUlzg1OPgiQ7veHDothDpTmy4Z28CbTE=)
     properties:
       mail:
         smtp:
@@ -26,7 +26,7 @@ spring:
     url: jdbc:mysql://localhost:3306/rare_earth_track
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
-    password: a1234567890
+    password: ENC(F6BQrplI6kVqMA724mqn7U95rnYc7TOL)
   # 配置缓存
   cache:
     redis:

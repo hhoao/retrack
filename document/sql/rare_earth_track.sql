@@ -370,7 +370,6 @@ create table IF NOT EXISTS ret_administrator
 
 INSERT INTO ret_administrator(`id`, password, username, sex, age, birthday, address, status, role_id)
 VALUES ('1', '$2a$10$xDpwrinpPCImweyjDMl.0.xIo9hbOXYu1xOOenyERJndMzWnmonqG', 'test', '1', '19', now(), 'beijing', 1, 1);
-# 123456
 INSERT INTO ret_administrator(`id`, password, username, sex, age, birthday, address, status, role_id)
 VALUES ('2', '$2a$10$xDpwrinpPCImweyjDMl.0.xIo9hbOXYu1xOOenyERJndMzWnmonqG', 'admin', '0', '18', now(), 'shanghai', 1, 2);
 
@@ -399,46 +398,32 @@ create table IF NOT EXISTS ret_user
     CHECK (`sex` in ('0', '1', '2'))
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 10 COMMENT '用户表';
-# 123456
 INSERT INTO ret_user(`id`, sex, age, birthday, address, status)
 VALUES ('1', '1', '19', now(), 'beijing', 1);
-# 123456
 INSERT INTO ret_user(`id`, sex, age, birthday, address, status)
 VALUES ('2', '0', '18', now(), 'shanghai', 1);
-# 123456
 INSERT INTO ret_user(`id`, sex, age, birthday, address, status)
 VALUES ('3', '1', '17', now(), '江西', 1);
-# 123456
 INSERT INTO ret_user(`id`, sex, age, birthday, address, status)
 VALUES ('4', '0', '16', now(), '广州', 1);
-# 123456
 INSERT INTO ret_user(`id`, sex, age, birthday, address, status)
 VALUES ('5', '1', '15', now(), '山东', 1);
-# 123456
 INSERT INTO ret_user(`id`, sex, age, birthday, address, status)
 VALUES ('6', '2', '14', now(), '江苏', 1);
-# 123456
 INSERT INTO ret_user(`id`, sex, age, birthday, address, status)
 VALUES ('7', '2', '20', now(), '湖北', 1);
-# 123456
 INSERT INTO ret_user(`id`, sex, age, birthday, address, status)
 VALUES ('8', '1', '21', now(), '湖南', 1);
-# 123456
 INSERT INTO ret_user(`id`, sex, age, birthday, address, status)
 VALUES ('9', '0', '31', now(), '福建', 1);
-# 123456
 INSERT INTO ret_user(`id`, sex, age, birthday, address, status)
 VALUES ('10', '2', '21', now(), '安徽', 1);
-# 123456
 INSERT INTO ret_user(`id`, sex, age, birthday, address, status)
 VALUES ('11', '1', '22', now(), '浙江', 1);
-# 123456
 INSERT INTO ret_user(`id`, sex, age, birthday, address, status)
 VALUES ('12', '0', '23', now(), '贵州', 1);
-# 123456
 INSERT INTO ret_user(`id`, sex, age, birthday, address, status)
 VALUES ('13', '2', '24', now(), '广西', 1);
-# 123456
 INSERT INTO ret_user(`id`, sex, age, birthday, address, status)
 VALUES ('14', '2', '25', now(), '山西', 1);
 INSERT INTO ret_user(`id`, sex, age, birthday, address, status)
@@ -459,7 +444,6 @@ CREATE TABLE `ret_user_auth`
     PRIMARY KEY (`id`),
     FOREIGN KEY (`user_id`) REFERENCES `ret_user` (`id`)
 ) COMMENT '用户授权信息表';
-# 密码为123456 密码经BCrypt加密
 INSERT INTO `ret_user_auth`(user_id, identity_type, identifier, credential)
 VALUES (1, 'username', 'test', '$2a$10$xDpwrinpPCImweyjDMl.0.xIo9hbOXYu1xOOenyERJndMzWnmonqG');
 INSERT INTO `ret_user_auth`(user_id, identity_type, identifier, credential)

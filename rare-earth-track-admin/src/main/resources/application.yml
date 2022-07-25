@@ -12,6 +12,7 @@ spring:
       #设置日期格式
       date: iso
       date-time: yyyy-MM-dd HH:mm:ss
+
 # 配置mybatis
 mybatis:
   mapper-locations:
@@ -38,7 +39,7 @@ ret:
       mail: 60
 # 配置security
 jwt:
-  secret: ret-security
+  secret: ENC(12TJmQ4Reu4FXZhHZnfxgfpDTXSwx9K5)
   expiration: 604800
   token-Header: Authorization
   token-head: 'Bearer'
@@ -64,3 +65,8 @@ file:
       - application/pdf
 pagehelper:
   pageSizeZero: true
+
+#加密相关配置
+jasypt:
+  encryptor:
+    password: ${JASYPT_PASSWORD}

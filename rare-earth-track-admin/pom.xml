@@ -33,6 +33,10 @@
             <artifactId>mybatis-spring-boot-starter</artifactId>
         </dependency>
         <dependency>
+            <groupId>com.github.ulisesbocchio</groupId>
+            <artifactId>jasypt-spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.demo</groupId>
             <artifactId>rare-earth-track-mgb</artifactId>
         </dependency>
