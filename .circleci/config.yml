@@ -3,34 +3,10 @@ version: 2.1
 jobs:
   build-and-test:
     docker:
-      - image: cimg/mysql:8.0.28
-        environment:
-          MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
-      - image: cimg/redis:6.2.6
-        command: redis-server
-      - image: cimg/maven:3.8.6-sapmachine-17
+      - image: cimg/maven:3.8.6
     steps:
       - checkout
-      - run: pwd
-      - run:
-        - name: Wait for database service on the tcp protocol
-        - command: dockerize -wait tcp://localhost:3306 -timeout 1m
-      - run: mysql -h 127.0.0.1 -u root -e "create database rare-earth-track"
-      - run: $MYSQL_ROOT_PASSWORD
-      - run: create database rare_earth-track
-      - run: use rare-earth-track
-      - run: source ./document/sql
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "pom.xml" }}
-            - v1-dependencies-
-      - run: mvn dependency:go-offline
-
-      - save_cache:
-          paths:
-            - ~/.m2
-          key: v1-dependencies-{{ checksum "pom.xml" }}
-      - run: mvn integration-test
+      - run: mvn -Dspring.profiles.active=test test
 
 workflows:
     version: 2
