@@ -1,0 +1,50 @@
+version: 2.1
+executors:
+    build-and-test:
+      machine: true
+      docker:
+            - image: mysql:8.0.28
+              environment:
+                - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+              command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+            - image: redis:6.2.6
+            - image: maven:3.8.6-sapmachine-17
+
+jobs:
+  build-and-test:
+    executor: build-and-test
+    steps:
+      - checkout
+      - run: mvn compile
+      - run: mvn test
+#    deploy:
+#        machine:
+#            image: ubuntu-2004:current
+#        steps:
+#            - checkout
+#            - run: echo '部署开始'
+#            - run: sudo apt-get update && sudo apt-get install rsync
+#            - add_ssh_keys:
+#                  fingerprints:
+#                      - "bd:dd:23:90:d7:86:80:d8:92:31:1b:41:09:09:27:87"
+#            - run: echo $REMOTE_HOSTKEY >> ~/.ssh/known_hosts
+#            - deploy:
+#                  name: deploy
+#                  command: |
+#                      if [ "${CIRCLE_BRANCH}" = "master" ]; then
+#                        rsync -avce ssh build $SSH_USER@$SSH_IP:/data/corki-ui-web/
+#                      else
+#                        echo "Not master branch, dry run only"
+#                      fi
+#            - run: echo '部署完毕'
+
+workflows:
+    version: 2
+    build-and-test:
+        jobs:
+           - build-and-test
+#           - deploy:
+#                 requires:
+#                     - test
+
+
