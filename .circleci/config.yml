@@ -26,7 +26,7 @@ jobs:
           command: mvn package 'rare-earth-track-admin, rare-earth-track-portal' package
       - run:
           command:  |
-            cat > ~/.docker/config.json << EOF
+            cat > ~/.docker/config.json \<< EOF
             {
               'auths': {
                   'https://index.docker.io/v1/': {
