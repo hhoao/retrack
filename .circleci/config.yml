@@ -2,7 +2,6 @@ version: 2.1
 
 jobs:
   build-and-test:
-    parallelism: 10
     docker:
       - image: cimg/openjdk:17.0.1
       - image: cimg/redis:6.2.6

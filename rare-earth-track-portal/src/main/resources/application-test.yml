@@ -23,7 +23,7 @@ spring:
     password:
   # 配置mysql数据库
   datasource:
-    url: jdbc:mysql://120.48.118.129:3306/rare_earth_track_test
+    url: jdbc:mysql://120.48.118.129:3306/rare_earth_track_test?serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: ENC(F6BQrplI6kVqMA724mqn7U95rnYc7TOL)
