@@ -5,9 +5,7 @@ import com.rare_earth_track.admin.bean.*;
 import com.rare_earth_track.admin.service.RetUserService;
 import com.rare_earth_track.common.api.CommonPage;
 import com.rare_earth_track.common.api.CommonResult;
-import com.rare_earth_track.mgb.model.RetMenu;
 import com.rare_earth_track.mgb.model.RetUser;
-import com.rare_earth_track.security.config.JwtSecurityProperties;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.tags.Tags;
@@ -46,9 +44,9 @@ public class RetUserController {
 
     @Operation(summary = "通过用户参数获取用户信息")
     @GetMapping("/users")
-    public CommonResult<CommonPage<RetUser>> getUserByUserParam(RetUser user,
-                                                                PageInfo pageInfo){
-        List<RetUser> users = userService.list(user, pageInfo);
+    public CommonResult<CommonPage<RetUserParam>> getUserByUserParam(RetUserParam user,
+                                                                     PageInfo pageInfo){
+        List<RetUserParam> users = userService.list(user, pageInfo);
         return CommonResult.success(CommonPage.restPage(users));
     }
 

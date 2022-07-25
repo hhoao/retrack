@@ -210,7 +210,7 @@ CREATE TABLE IF NOT EXISTS ret_resource
     `id`          bigint AUTO_INCREMENT NOT NULL,
     `create_time` datetime DEFAULT NOW() COMMENT '创建时间',
     `name`        varchar(50) UNIQUE COMMENT '资源名称',
-    `method`      varchar(10) COMMENT '请求方法',
+    `method`      varchar(20) COMMENT '请求方法',
     `url`         varchar(50) COMMENT '请求路径',
     `description` varchar(50) COMMENT '描述',
     UNIQUE (`method`, `url`),
@@ -234,9 +234,8 @@ INSERT INTO ret_resource(id, create_time, name, url, method, description)
 VALUES (6, NOW(), '获取所有用户', '/users', 'GET', '获取所有用户');
 INSERT INTO ret_resource(id, create_time, name, url, method, description)
 VALUES (7, NOW(), '插入资源', '/resource', 'POST', '插入资源');
-SELECT *
-FROM ret_resource;
-
+INSERT INTO ret_resource(id, create_time, name, url, method, description)
+VALUES (8, NOW(), '管理员退出登陆', '/administrator', 'DELETE', '退出登陆');
 
 -- 角色表
 DROP TABLE IF EXISTS `ret_role`;

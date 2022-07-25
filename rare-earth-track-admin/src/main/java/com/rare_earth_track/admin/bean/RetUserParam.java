@@ -64,5 +64,5 @@ public class RetUserParam {
     private String phone;
 
     @Schema(description = "启用状态 1->启用, 0->禁用")
-    private String status;
+    private Integer status;
 }

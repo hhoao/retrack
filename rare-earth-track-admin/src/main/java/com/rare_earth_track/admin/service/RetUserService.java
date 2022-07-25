@@ -98,7 +98,7 @@ public interface RetUserService {
      * @param pageInfo  the page info
      * @return the list
      */
-    List<RetUser> list(RetUser userParam, PageInfo pageInfo);
+    List<RetUserParam> list(RetUserParam userParam, PageInfo pageInfo);
 
     /**
      * Gets user auths.

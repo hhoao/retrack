@@ -4,6 +4,7 @@ import com.rare_earth_track.admin.TransactionTest;
 import com.rare_earth_track.admin.bean.*;
 import com.rare_earth_track.admin.service.RetUserAuthService;
 import com.rare_earth_track.admin.service.RetUserService;
+import com.rare_earth_track.common.exception.ApiException;
 import com.rare_earth_track.mgb.model.RetUser;
 import com.rare_earth_track.mgb.model.RetUserAuth;
 import com.rare_earth_track.security.util.JwtTokenService;
@@ -65,9 +66,20 @@ class RetUserServiceImplTest extends TransactionTest {
         }
     }
 
-    @Test
-    void list() {
-        List<RetUser> list = userService.list(new RetUser(), new PageInfo(1, 5));
+    static List<Object[]> listParams(){
+        List<Object[]> objects = new ArrayList<>();
+        RetUserParam userParam = new RetUserParam();
+        userParam.setName("test");
+        objects.add(new Object[]{userParam, new PageInfo(1, 5)});
+        userParam = new RetUserParam();
+        userParam.setStatus(1);
+        objects.add(new Object[]{userParam, new PageInfo(1, 5)});
+        return objects;
+    }
+    @ParameterizedTest
+    @MethodSource("listParams")
+    void list(RetUserParam userParam, PageInfo pageInfo) {
+        List<RetUserParam> list = userService.list(userParam, pageInfo);
         Assertions.assertTrue(list.size()<= 5);
         list = userService.list(null, new PageInfo(1, 5));
         Assertions.assertTrue(list.size()<= 5);
@@ -86,7 +98,6 @@ class RetUserServiceImplTest extends TransactionTest {
         String testPassword = "oooooo";
         userAuthParam.setCredential(testPassword);
         userService.updateUserAuth(1L, IdentifyType.email, userAuthParam);
-
         RetLoginParam loginParam = new RetLoginParam();
         RetUserAuth userAuth = userService.getUserAuth(1L, IdentifyType.username);
         Assertions.assertTrue(passwordEncoder.matches(testPassword, userAuth.getCredential()));
@@ -107,30 +118,40 @@ class RetUserServiceImplTest extends TransactionTest {
         Assertions.assertNotNull(userAuths);
     }
 
-    static List<Object[]> queryUsersParamsProvider(){
-        PageInfo pageInfo = new PageInfo(1, 5);
-        //1
-       RetUser userParam = new RetUser();
-       userParam.setSex(1);
-       List<Object[]> oL = new ArrayList<>();
-       oL.add(new Object[]{userParam, pageInfo});
-       //2
-        userParam = new RetUser();
-        userParam.setStatus(1);
-        oL.add(new Object[]{userParam, pageInfo});
-        //3
-        userParam = new RetUser();
-        userParam.setId(1L);
-        oL.add(new Object[]{userParam, pageInfo});
-        //4
-        userParam = new RetUser();
-        oL.add(new Object[]{userParam, pageInfo});
-       return oL;
+    static List<String> getUserByIdentifierParams(){
+        List<String> params = new ArrayList<>();
+        params.add("test");
+        return params;
     }
     @ParameterizedTest
-    @MethodSource("queryUsersParamsProvider")
-    void queryUsers(RetUser userParam, PageInfo pageInfo) {
-        List<RetUser> users = userService.list(userParam, pageInfo);
-        Assertions.assertTrue(users.size()>0);
+    @MethodSource("getUserByIdentifierParams")
+    void getUserByIdentifier(String identifier) {
+        RetUser test = userService.getUserByIdentifier(identifier);
+        Assertions.assertNotNull(test);
+    }
+
+    @Test
+    void getUserByUsername() {
+        RetUser test = userService.getUserByUsername("test");
+        Assertions.assertNotNull(test);
+    }
+
+    @Test
+    void getUsers() {
+        List<RetUser> users = userService.getUsers(new RetUser());
+        Assertions.assertNotNull(users);
+    }
+
+    @Test
+    void deleteUserAuth() {
+        userService.deleteUserAuth(1L, IdentifyType.username);
+        Assertions.assertThrows(ApiException.class, ()-> userService.getUserAuth(1L, IdentifyType.username));
+    }
+
+    @Test
+    void getUserAuth() {
+        Assertions.assertNotNull(userService.getUserAuth(1L, IdentifyType.username));
+        userService.deleteUserAuth(1L, IdentifyType.username);
+        Assertions.assertThrows(ApiException.class, ()-> userService.getUserAuth(1L, IdentifyType.username));
     }
 }

@@ -1,5 +1,6 @@
 package com.rare_earth_track.admin.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.github.pagehelper.PageHelper;
 import com.rare_earth_track.admin.bean.*;
 import com.rare_earth_track.admin.service.*;
@@ -13,9 +14,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import javax.validation.constraints.NotNull;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * The type Ret user service.
@@ -135,10 +137,51 @@ public class RetUserServiceImpl implements RetUserService {
     }
 
     @Override
-    public List<RetUser> list(RetUser userParam, PageInfo pageInfo) {
+    public List<RetUserParam> list(RetUserParam userDetailParam, @NotNull PageInfo pageInfo) {
         PageHelper.startPage(pageInfo.getPageNum(), pageInfo.getPageSize());
-        RetUserExample userExample = getUserExample(userParam);
-        return userMapper.selectByExample(userExample);
+        RetUser userParam = new RetUser();
+        List<RetUserParam> userParams = new ArrayList<>();
+        if (userDetailParam != null) {
+            BeanUtil.copyProperties(userDetailParam, userParam);
+            RetUserExample userExample = getUserExample(userParam);
+            List<RetUser> users = userMapper.selectByExample(userExample);
+            RetUserAuth userAuthResult = null;
+            if (StringUtils.hasLength(userDetailParam.getPhone())) {
+                userAuthResult = userAuthService.getUserAuth(userDetailParam.getPhone());
+            }
+            if (StringUtils.hasLength(userDetailParam.getName()) && userAuthResult == null) {
+                userAuthResult = userAuthService.getUserAuth(userDetailParam.getName());
+            }
+            if (StringUtils.hasLength(userDetailParam.getEmail()) && userAuthResult == null) {
+                userAuthResult = userAuthService.getUserAuth(userDetailParam.getEmail());
+            }
+            RetUserAuth finalUserAuthResult = userAuthResult;
+            Stream<RetUser> retUserStream = users.stream().filter(user -> finalUserAuthResult == null || Objects.equals(user.getId(), finalUserAuthResult.getUserId()));
+            for (RetUser user : retUserStream.toList()) {
+                RetUserParam userParamResult = new RetUserParam();
+                BeanUtil.copyProperties(user, userParamResult);
+                for (RetUserAuth userAuth1 : userAuthService.getUserAuth(user.getId())) {
+                    if (userAuth1.getIdentityType().equals(IdentifyType.username.name())) {
+                        userParamResult.setName(userAuth1.getIdentifier());
+                    } else if (userAuth1.getIdentityType().equals(IdentifyType.email.name())) {
+                        userParamResult.setEmail(userAuth1.getIdentifier());
+                    } else if (userAuth1.getIdentityType().equals(IdentifyType.phone.name())) {
+                        userParamResult.setPhone(userAuth1.getIdentifier());
+                    }
+                }
+                userParams.add(userParamResult);
+            }
+        }else {
+            RetUserExample userExample = new RetUserExample();
+            List<RetUser> users = userMapper.selectByExample(userExample);
+            for (RetUser user : users){
+                RetUserParam  userParam1 = new RetUserParam();
+                BeanUtil.copyProperties(user, userParam1);
+                userParams.add(userParam1);
+            }
+        }
+        return userParams;
+
     }
 
     @Override
