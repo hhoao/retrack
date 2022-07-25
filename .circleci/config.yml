@@ -25,7 +25,7 @@ jobs:
           name: Package
           command: mvn package 'rare-earth-track-admin, rare-earth-track-portal' package
       - run:
-          command:  "|
+          command:  |
           cat > ~/.docker/config.json << EOF
           {
             'auths': {
@@ -34,7 +34,7 @@ jobs:
               }
             }
           }
-          EOF"
+          EOF
       - run:
           name: Docker build
           command: mvn -pl 'rare-earth-track-admin, rare-earth-track-portal' docker:build
