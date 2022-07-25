@@ -2,12 +2,18 @@ version: 2.1
 
 jobs:
   build-and-test:
+    parallelism: 2
     docker:
-      - image: cimg/redis:6.2.6
       - image: cimg/openjdk:17.0.1
+      - image: cimg/redis:6.2.6
     steps:
       - checkout
-      - run: ./mvnw -Dspring.profiles.active=test -Djasypt.encryptor.password=$JASYPT_PASSWORD test
+      - run:
+          name: Build
+          command: mvn -B -DskipTests clean package
+      - run:
+          name: Test
+          command: mvn -Dspring.profiles.active=test -Djasypt.encryptor.password=$JASYPT_PASSWORD test
 
 workflows:
     version: 2
