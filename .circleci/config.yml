@@ -10,20 +10,28 @@ jobs:
       - checkout
       - run:
           name: Build
-          command: mvn -B -DskipTests clean package
+          command: mvn -B -DskipTests compile
       - run:
           name: Test
           command: mvn -Dspring.profiles.active=test -Djasypt.encryptor.password=$JASYPT_PASSWORD test
+      - save_cache:
+          paths:
+            - ~/.m2
+          key: v1-dependencies-{{ checksum "pom.xml" }}
   deploy:
     docker:
       - image: cimg/openjdk:17.0.1
     steps:
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "pom.xml" }}
+            - v1-dependencies-
       - run:
           name: Install
-          command: mvn -pl '!rare-earth-track-admin, !rare-earth-track-portal' install
+          command: mvn -pl -DskipTests '!rare-earth-track-admin, !rare-earth-track-portal' install
       - run:
           name: Package
-          command: mvn package 'rare-earth-track-admin, rare-earth-track-portal' package
+          command: mvn package -DskipTests 'rare-earth-track-admin, rare-earth-track-portal' package
       - run:
           command:  |
             cat > ~/.docker/config.json \<< EOF
