@@ -7,7 +7,7 @@ jobs:
       - image: cimg/openjdk:17.0.1
     steps:
       - checkout
-      - run: mvn -Dspring.profiles.active=test -Djasypt.encryptor.password=$JASYPT_PASSWORD test
+      - run: ./mvnw -Dspring.profiles.active=test -Djasypt.encryptor.password=$JASYPT_PASSWORD test
 
 workflows:
     version: 2
