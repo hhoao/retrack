@@ -2,7 +2,7 @@ version: 2.1
 
 jobs:
   build-and-test:
-    parallelism: 2
+    parallelism: 10
     docker:
       - image: cimg/openjdk:17.0.1
       - image: cimg/redis:6.2.6
@@ -14,12 +14,31 @@ jobs:
       - run:
           name: Test
           command: mvn -Dspring.profiles.active=test -Djasypt.encryptor.password=$JASYPT_PASSWORD test
+  deploy:
+    docker:
+      - image: cimg/openjdk:17.0.1
+    steps:
+      - run:
+          name: Install
+          command: mvn -pl '!rare-earth-track-admin, !rare-earth-track-portal' install
+      - run:
+          name: Package
+          command: mvn package 'rare-earth-track-admin, rare-earth-track-portal' package
+      - run:
+          name: Docker build
+          command: mvn -pl 'rare-earth-track-admin, rare-earth-track-portal' docker:build
+      - run:
+          name: Docker Push
+          command: mvn -pl 'rare-earth-track-admin, rare-earth-track-portal' docker:push
 
 workflows:
     version: 2
-    build-and-test:
+    build-and-test-and-deploy:
         jobs:
            - build-and-test
+           - deploy:
+               requires:
+                 - build-and-test
 
 
 
