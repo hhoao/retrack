@@ -1,12 +1,9 @@
 version: 2.1
 executors:
     build-and-test:
-      machine: true
       docker:
             - image: mysql:8.0.28
-              environment:
-                - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
-              command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+              command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD
             - image: redis:6.2.6
             - image: maven:3.8.6-sapmachine-17
 
