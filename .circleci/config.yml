@@ -2,7 +2,7 @@ version: 2.1
 
 jobs:
   build-and-test:
-    parallelism: 5
+    parallelism: 10
     docker:
       - image: cimg/openjdk:17.0.1
       - image: cimg/redis:6.2.6
@@ -14,6 +14,8 @@ jobs:
       - run:
           name: Test
           command: mvn -Dspring.profiles.active=test -Djasypt.encryptor.password=$JASYPT_PASSWORD test
+      - store_test_results:
+          path: target/surefire-reports
       - save_cache:
           paths:
             - ~/.m2
@@ -25,7 +27,6 @@ jobs:
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "pom.xml" }}
-            - v1-dependencies-
       - run:
           name: Install
           command: mvn -pl -DskipTests '!rare-earth-track-admin, !rare-earth-track-portal' install
@@ -57,6 +58,11 @@ workflows:
            - deploy:
                requires:
                  - build-and-test
+               filters:
+                 branches:
+                   ignore:
+                     - dev
+
 
 
 
