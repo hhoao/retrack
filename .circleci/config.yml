@@ -15,7 +15,11 @@ jobs:
           name: Test
           command: mvn -Dspring.profiles.active=test -Djasypt.encryptor.password=$JASYPT_PASSWORD test
       - store_test_results:
-          path: target/surefire-reports
+          name: Admin test report
+          path: rare-earth-track-admin/target/surefire-reports
+      - store_test_results:
+          name: Portal test report
+          path: rare-earth-track-portal/target/surefire-reports
       - save_cache:
           paths:
             - ~/.m2
