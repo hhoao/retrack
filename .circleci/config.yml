@@ -3,10 +3,10 @@ version: 2.1
 jobs:
   build-and-test:
     docker:
-      - image: cimg/maven:3.8.6
+      - image: cimg/openjdk:17.0.1
     steps:
       - checkout
-      - run: mvn -Dspring.profiles.active=test test
+      - run: mvn -Dspring.profiles.active=test -Djasypt.encryptor.password=$JASYPT_PASSWORD test
 
 workflows:
     version: 2
