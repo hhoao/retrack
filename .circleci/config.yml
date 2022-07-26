@@ -59,7 +59,7 @@ jobs:
             EOF
       - run:
           name: Docker build
-          command: mvn -pl '!rare-earth-track-admin, !rare-earth-track-portal' docker:build
+          command: mvn -pl 'rare-earth-track-admin, rare-earth-track-portal' docker:build
       - run:
           name: Docker Push
           command: mvn -pl 'rare-earth-track-admin, rare-earth-track-portal' docker:push
