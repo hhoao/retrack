@@ -21,10 +21,10 @@ jobs:
 #          path: rare-earth-track-portal/target/surefire-reports
       - run:
           name: Install
-          command: mvn -pl -DskipTests '!rare-earth-track-admin, !rare-earth-track-portal' install
+          command: mvn -DskipTests -pl  '!rare-earth-track-admin, !rare-earth-track-portal' install
       - run:
           name: Package
-          command: mvn -pl -DskipTests 'rare-earth-track-admin, rare-earth-track-portal' package
+          command: mvn -DskipTests -pl  'rare-earth-track-admin, rare-earth-track-portal' package
       - save_cache:
           paths:
             - ~/.m2
