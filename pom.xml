@@ -46,7 +46,7 @@
         <protobuf-java.version>3.8.0</protobuf-java.version>
         <org.eclipse.paho.client.mqttv3.version>1.2.0</org.eclipse.paho.client.mqttv3.version>
         <bcprov-jdk15.version>140</bcprov-jdk15.version>
-        <fastjson.version>1.2.78</fastjson.version>
+        <fastjson.version>1.2.83</fastjson.version>
         <commons-httpclient.versoin>3.1</commons-httpclient.versoin>
         <json-lib.version>2.2.3</json-lib.version>
         <mybatis-spring-boot-starter.version>2.2.2</mybatis-spring-boot-starter.version>
