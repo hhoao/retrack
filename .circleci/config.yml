@@ -35,8 +35,8 @@ jobs:
             - rare-earth-track-portal/target
             - rare-earth-track-admin/target
   deploy:
-    docker:
-      - image: cimg/openjdk:17.0.1
+    machine:
+      image: ubuntu-2004:current
     steps:
       - checkout
       - attach_workspace:
