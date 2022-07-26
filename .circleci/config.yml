@@ -57,11 +57,17 @@ jobs:
             }
             EOF
       - run:
-          name: Docker build
+          name: Docker build admin image
           command: docker build -t hhoao/rare-earth-track-admin:1.0-SNAPSHOT rare-earth-track-admin/
       - run:
-          name: Docker Push
+          name: Docker build portal image
           command: docker build -t hhoao/rare-earth-track-portal:1.0-SNAPSHOT rare-earth-track-portal/
+      - run:
+          name: Docker push admin image
+          command: docker push hhoao/rare-earth-track-admin:1.0-SNAPSHOT
+      - run:
+          name: Docker push portal image
+          command: docker push hhoao/rare-earth-track-portal:1.0-SNAPSHOT
 workflows:
     version: 2
     build-and-test-and-deploy:
