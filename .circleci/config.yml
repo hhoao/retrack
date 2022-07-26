@@ -10,15 +10,15 @@ jobs:
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "pom.xml" }}
-#      - run:
-#          name: Test
-#          command: mvn -Dspring.profiles.active=test -Djasypt.encryptor.password=$JASYPT_PASSWORD test
-#      - store_test_results:
-#          name: Admin test report
-#          path: rare-earth-track-admin/target/surefire-reports
-#      - store_test_results:
-#          name: Portal test report
-#          path: rare-earth-track-portal/target/surefire-reports
+      - run:
+          name: Test
+          command: mvn -Dspring.profiles.active=test -Djasypt.encryptor.password=$JASYPT_PASSWORD test
+      - store_test_results:
+          name: Admin test report
+          path: rare-earth-track-admin/target/surefire-reports
+      - store_test_results:
+          name: Portal test report
+          path: rare-earth-track-portal/target/surefire-reports
       - run:
           name: Install
           command: mvn -DskipTests -pl  '!rare-earth-track-admin, !rare-earth-track-portal' install
@@ -41,7 +41,6 @@ jobs:
       - checkout
       - attach_workspace:
           at: .
-      - run: ls|xargs -i bash -c 'if [ -d {} ]; then ls {}; fi'
       - run:
           command:  |
             if [ ! -d ~/.docker ];
@@ -73,8 +72,8 @@ workflows:
                  - build-and-test
                filters:
                  branches:
-                   ignore:
-                     - dev
+                   only:
+                     - master
 
 
 
