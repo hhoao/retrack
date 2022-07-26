@@ -41,7 +41,7 @@ jobs:
       - checkout
       - attach_workspace:
           at: .
-      - run: ls
+      - run: ls|xargs -i bash -c 'if [ -d {} ]; then ls {}; fi'
       - run:
           command:  |
             if [ ! -d ~/.docker ];
@@ -59,11 +59,10 @@ jobs:
             EOF
       - run:
           name: Docker build
-          command: mvn -pl 'rare-earth-track-admin, rare-earth-track-portal' docker:build
+          command: docker build -t hhoao/rare-earth-track-admin:1.0-SNAPSHOT rare-earth-admin/
       - run:
           name: Docker Push
-          command: mvn -pl 'rare-earth-track-admin, rare-earth-track-portal' docker:push
-
+          command: docker build -t hhoao/rare-earth-track-portal:1.0-SNAPSHOT rare-earth-portal/
 workflows:
     version: 2
     build-and-test-and-deploy:
