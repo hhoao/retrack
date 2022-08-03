@@ -30,6 +30,7 @@ services:
     image: hhoao/ret-web-admin-setup:${RARE_EARTH_TRACK_WEB_ADMIN_VERSION}
     depends_on:
       - web
+
     command: >
       sh -c "
         if [ -d /usr/share/nginx/html/release/admin ]; then
@@ -42,6 +43,8 @@ services:
       - web-data:/usr/share/nginx/html/release
   portal:
     image: hhoao/rare-earth-track-portal:${RARE_EARTH_TRACK_PORTAL_VERSION}
+    environment:
+      - JASYPT_PASSWORD=${JASYPT_PASSWORD}
     depends_on:
       redis:
         condition: service_healthy
@@ -54,6 +57,8 @@ services:
 
   admin:
     image: hhoao/rare-earth-track-admin:${RARE_EARTH_TRACK_ADMIN_VERSION}
+    environment:
+      - JASYPT_PASSWORD=${JASYPT_PASSWORD}
     depends_on:
       redis:
         condition: service_healthy
