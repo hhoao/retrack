@@ -1,4 +1,4 @@
-version: "2.2"
+version: "3.9"
 
 services:
   web:
@@ -30,7 +30,6 @@ services:
     image: hhoao/ret-web-admin-setup:${RARE_EARTH_TRACK_WEB_ADMIN_VERSION}
     depends_on:
       - web
-
     command: >
       sh -c "
         if [ -d /usr/share/nginx/html/release/admin ]; then
@@ -45,70 +44,50 @@ services:
     image: hhoao/rare-earth-track-portal:${RARE_EARTH_TRACK_PORTAL_VERSION}
     environment:
       - JASYPT_PASSWORD=${JASYPT_PASSWORD}
-    depends_on:
-      redis:
-        condition: service_healthy
-      mysql:
-        condition: service_healthy
     volumes:
       - /data/uploads:/data/uploads
-#    ports:
-#      - ${RARE_EARTH_TRACK_PORTAL_PORT}:8889
+    ports:
+      - ${RARE_EARTH_TRACK_PORTAL_PORT}:8889
 
   admin:
     image: hhoao/rare-earth-track-admin:${RARE_EARTH_TRACK_ADMIN_VERSION}
     environment:
       - JASYPT_PASSWORD=${JASYPT_PASSWORD}
-    depends_on:
-      redis:
-        condition: service_healthy
-      mysql:
-        condition: service_healthy
     volumes:
       - /data/uploads:/data/uploads
-#    ports:
-#      - ${RARE_EARTH_TRACK_ADMIN_PORT}:8888
+    ports:
+      - ${RARE_EARTH_TRACK_ADMIN_PORT}:8888
 
-  mysql:
-    image: mysql:${MYSQL_VERSION}
-    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+  filebeat:
+    image: ${FILEBEAT_IMAGE_NAME}:${FILEBEAT_IMAGE_VERSION}
+    user: "0"
+    environment:
+      - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
+    volumes:
+      - type: volume
+        source: es-certs
+        target: /usr/share/filebeat/config/certs
+      - type: bind
+        source: /var/lib/docker/containers
+        target: /var/lib/docker/containers
+      - type: bind
+        source: /var/run/docker.sock
+        target: /var/run/docker.sock
+      - type: bind
+        source: filebeat.yml
+        target: /usr/share/filebeat/filebeat.yml
+  logstash:
+    image: ${LOGSTASH_IMAGE_NAME}:${LOGSTASH_IMAGE_VERSION}
     environment:
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
-    mem_limit: ${MEM_LIMIT}
-    ports:
-      - ${MYSQL_PORT}:3306
+      - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
+      - MYSQL_HOSTS=mysql:3306
+      - ES_HOSTS=https://es01:9200
     volumes:
-      - mysql:/var/lib/mysql
-      - mysql-files:/var/lib/mysql-files
-      - mysql-config:/etc/mysql
-    security_opt:
-      - seccomp:unconfined
-    healthcheck:
-      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
-      timeout: 20s
-      retries: 10
-
-  redis:
-    image: redis:${REDIS_VERSION}
-    command: redis-server
-    ports:
-      - ${REDIS_PORT}:6379
-    volumes:
-      - redis:/data
-    healthcheck:
-      test: [ "CMD", "redis-cli", "ping" ]
-      interval: 1s
-      timeout: 3s
-      retries: 30
+      - es-certs:/data/elastic
 
 volumes:
+  es-certs:
+    driver: local
   web-data:
-    driver: local
-  redis:
-    driver: local
-  mysql:
-    driver: local
-  mysql-files:
-    driver: local
-  mysql-config:
     driver: local

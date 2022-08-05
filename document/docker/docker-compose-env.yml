@@ -1,9 +1,41 @@
-version: "2.2"
+version: "3.9"
+
 services:
-  setup:
-    image: ${ES_IMAGE_NAME}:${STACK_VERSION}
+  mysql:
+    image: mysql:${MYSQL_VERSION}
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+    mem_limit: ${MEM_LIMIT}
+    ports:
+      - ${MYSQL_PORT}:3306
     volumes:
-      - certs:/usr/share/elasticsearch/config/certs
+      - mysql-data:/var/lib/mysql
+      - mysql-config:/etc/mysql
+      - mysql-logs:/var/log/mysql #日志文件挂载
+    security_opt:
+      - seccomp:unconfined
+    healthcheck:
+      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
+      timeout: 20s
+      retries: 10
+
+  redis:
+    image: redis:${REDIS_VERSION}
+    command: redis-server
+    ports:
+      - ${REDIS_PORT}:6379
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      interval: 1s
+      timeout: 3s
+      retries: 30
+  setup:
+    image: ${ES_IMAGE_NAME}:${ES_IMAGE_VERSION}
+    volumes:
+      - es-certs:/usr/share/elasticsearch/config/certs
     user: "0"
     command: >
       bash -c '
@@ -45,22 +77,22 @@ services:
         echo "All done!";
       '
     healthcheck:
-      test: ["CMD-SHELL", "[ -f config/certs/es01/es01.crt ]"]
+      test: [ "CMD-SHELL", "[ -f config/certs/es01/es01.crt ]" ]
       interval: 1s
       timeout: 5s
       retries: 120
-
   es01:
     depends_on:
       setup:
         condition: service_healthy
-    image: ${ES_IMAGE_NAME}:${STACK_VERSION}
+    image: ${ES_IMAGE_NAME}:${ES_IMAGE_VERSION}
     volumes:
-      - certs:/usr/share/elasticsearch/config/certs
-      - esdata01:/usr/share/elasticsearch/data
-      - eslogs01:/usr/share/elasticsearch/logs
+      - es-certs:/usr/share/elasticsearch/config/certs
+      - es01-data:/usr/share/elasticsearch/data
+      - es01-logs:/usr/share/elasticsearch/logs
     ports:
       - ${ES_PORT}:9200
+    user: "0"
     environment:
       - node.name=es01
       - cluster.name=${CLUSTER_NAME}
@@ -94,15 +126,13 @@ services:
       interval: 10s
       timeout: 10s
       retries: 120
-
   kibana:
     depends_on:
       es01:
         condition: service_healthy
-    image: ${KIB_IMAGE_NAME}:${STACK_VERSION}
+    image: ${KIBANA_IMAGE_NAME}:${KIBANA_IMAGE_VERSION}
     volumes:
-      - certs:/usr/share/kibana/config/certs
-      - kibanadata:/usr/share/kibana/data
+      - es-certs:/usr/share/kibana/config/certs
     ports:
       - ${KIBANA_PORT}:5601
     environment:
@@ -121,32 +151,19 @@ services:
       interval: 10s
       timeout: 10s
       retries: 120
-  filebeat:
-    depends_on:
-      es01:
-        condition: service_healthy
-    image: elastic/filebeat:${STACK_VERSION}
-    user: root
-    volumes:
-      - type: volume
-        source: certs
-        target: /usr/share/filebeat/config/certs
-      - type: bind
-        source: /var/lib/docker/containers
-        target: /var/lib/docker/containers
-      - type: bind
-        source: /var/run/docker.sock
-        target: /var/run/docker.sock
-      - type: bind
-        source: filebeat.yml
-        target: /usr/share/filebeat/filebeat.yml
-
 volumes:
-  certs:
+  es-certs:
     driver: local
-  esdata01:
+  es01-data:
     driver: local
-  kibanadata:
+  es01-logs:
     driver: local
-  eslogs01:
+  redis-data:
+    driver: local
+    name: redis
+  mysql-data:
+    driver: local
+  mysql-config:
+    driver: local
+  mysql-logs:
     driver: local

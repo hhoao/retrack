@@ -2,6 +2,7 @@ package com.rare_earth_track.common.service.impl;
 
 import com.rare_earth_track.common.service.RedisService;
 import lombok.AllArgsConstructor;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
