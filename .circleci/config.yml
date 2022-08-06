@@ -94,15 +94,15 @@ workflows:
                changed: rare-earth-track-admin\/src
            - build-and-test:
                changed: rare-earth-track-portal\/src
-           - deploy:
+           - docker-build:
                changed: rare-earth-track-admin\/src
                module-name: rare-earth-track-admin
                requires:
                  - build-and-test
-                 filters:
-                   branches:
-                     only:
-                       - master
+               filters:
+                 branches:
+                   only:
+                     - master
            - deploy:
                changed: rare-earth-track-admin\/src
                module-name: rare-earth-track-admin
