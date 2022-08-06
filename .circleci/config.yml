@@ -1,44 +1,69 @@
-version: 2
+version: 2.1
+
+commands:
+  diff-detect:
+    parameters:
+      changed:
+        type: string
+        default: "/"
+        description: "改变的文件,可以使用正则表达式"
+    steps:
+      - run: |
+          info=$(git diff --summary HEAD^ | sed -n  '/<< parameters.changed >>/p')
+          if [ "${info}" ];
+            circleci-agent step halt
+          fi
+    description: "判断git文件是否修改"
 
 jobs:
   build-and-test:
+    parameters:
+      module-name:
+        type: enum
+        default: "rare-earth-track-admin"
+        enum: [ "rare-earth-track-admin", "rare-earth-track-portal", "rare-earth-track-search" ]
     docker:
       - image: cimg/openjdk:17.0.1
       - image: cimg/redis:6.2.6
     steps:
       - checkout
+      - diff-detect:
+          - changed: << parameters.module-name >>
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "pom.xml" }}
+            - v1-admin-dependencies-{{ checksum "<< parameters.module-name >>/pom.xml" }}
+      - package
       - run:
-          name: Test
-          command: mvn -Dspring.profiles.active=test -Djasypt.encryptor.password=$JASYPT_PASSWORD test
+          name: Admin package
+          command: mvn -Dspring.profiles.active=test -Djasypt.encryptor.password=$JASYPT_PASSWORD \
+            -pl '<< parameters.module-name >>, rare-earth-track-common, rare-earth-track-mgb, rare-earth-track-security' package
       - store_test_results:
-          name: Admin test report
-          path: rare-earth-track-admin/target/surefire-reports
-      - store_test_results:
-          name: Portal test report
-          path: rare-earth-track-portal/target/surefire-reports
-      - run:
-          name: Install
-          command: mvn -DskipTests -pl  '!rare-earth-track-admin, !rare-earth-track-portal' install
-      - run:
-          name: Package
-          command: mvn -DskipTests -pl  'rare-earth-track-admin, rare-earth-track-portal' package
+          name: Admin store test report
+          path: << parameters.module-name >>/target/surefire-reports
       - save_cache:
           paths:
             - ~/.m2
-          key: v1-dependencies-{{ checksum "pom.xml" }}
+          key: v1-admin-dependencies-{{ checksum "<< parameters.module-name >>/pom.xml" }}
       - persist_to_workspace:
           root: .
           paths:
-            - rare-earth-track-portal/target
-            - rare-earth-track-admin/target
-  deploy:
+            - << parameters.module-name >>/target
+  docker-build:
+    parameters:
+      module-name:
+        type: enum
+        default: "rare-earth-track-admin"
+        enum: [ "rare-earth-track-admin", "rare-earth-track-portal", "rare-earth-track-search" ]
+      image:
+        type: enum
+        default: "hhoao/rare-earth-track-admin:1.0-SNAPSHOT"
+        enum: [ "hhoao/rare-earth-track-admin:1.0-SNAPSHOT", "hhoao/rare-earth-track-portal:1.0-SNAPSHOT"]
     machine:
       image: ubuntu-2004:current
     steps:
       - checkout
+      - diff-detect:
+          - changed: << parameters.module-name >>
       - attach_workspace:
           at: .
       - run:
@@ -58,22 +83,29 @@ jobs:
             EOF
       - run:
           name: Docker build admin image
-          command: docker build -t hhoao/rare-earth-track-admin:1.0-SNAPSHOT rare-earth-track-admin/
-      - run:
-          name: Docker build portal image
-          command: docker build -t hhoao/rare-earth-track-portal:1.0-SNAPSHOT rare-earth-track-portal/
+          command: docker build -t << parameters.image >> << parameters.module-name >>
       - run:
           name: Docker push admin image
-          command: docker push hhoao/rare-earth-track-admin:1.0-SNAPSHOT
-      - run:
-          name: Docker push portal image
-          command: docker push hhoao/rare-earth-track-portal:1.0-SNAPSHOT
+          command: docker push << parameters.image >>
 workflows:
-    version: 2
     build-and-test-and-deploy:
         jobs:
-           - build-and-test
+           - build-and-test:
+               changed: rare-earth-track-admin\/src
+           - build-and-test:
+               changed: rare-earth-track-portal\/src
            - deploy:
+               changed: rare-earth-track-admin\/src
+               module-name: rare-earth-track-admin
+               requires:
+                 - build-and-test
+                 filters:
+                   branches:
+                     only:
+                       - master
+           - deploy:
+               changed: rare-earth-track-admin\/src
+               module-name: rare-earth-track-admin
                requires:
                  - build-and-test
                filters:
