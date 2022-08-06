@@ -1,5 +1,6 @@
 package com.rare_earth_track.search.controller;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,6 +19,7 @@ class EsMaterialControllerTest {
     @Autowired
     TestRestTemplate testRestTemplate;
 
+    @Disabled
     @Test
     void search() {
         String forObject = testRestTemplate.getForObject("/materials", String.class, Map.of("queryInfo", "金属"));

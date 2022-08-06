@@ -3,6 +3,7 @@ target/
 **/**/resources/**-dev.yml
 **/target
 **/**.iml
+!document/docker/build
 
 
 

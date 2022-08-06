@@ -8,6 +8,9 @@ commands:
         default: "/"
         description: "改变的文件,可以使用正则表达式"
     steps:
+      - attach_workspace:
+          name: git-pre-version
+          at: .
       - run: |
           info=$(git diff --summary HEAD^ | sed -n  '/<< parameters.changed >>/p')
           if [ ! "${info}" ];
@@ -95,6 +98,25 @@ jobs:
       - run:
           name: Docker push admin image
           command: docker push << parameters.image >>
+  deploy:
+    machine:
+      image: ubuntu-2004:current
+    steps:
+      - checkout
+      - run: |
+          ssh root@${SERVER_HOSTS} 
+          ${SERVER_PASSWORD}
+          cd /root/rare-earth-track/document/docker
+          git pull github dev:dev
+          docker compose -f rare-earth-track-env.yml up
+          docker compose -f up
+      - run: |
+          echo $(git rev-parse HEAD) > git-pre-version
+      - persist_to_workspace:
+          name: git-pre-version
+          root: .
+          paths:
+            - git-pre-version
 workflows:
     build-and-test-and-deploy:
         jobs:
@@ -106,7 +128,12 @@ workflows:
                name: build-and-test-portal
                changed: 'rare-earth-track-portal\/src'
                module-name: "rare-earth-track-portal"
+           - build-and-search:
+               name: build-and-test-search
+               changed: 'rare-earth-track-search\/src'
+               module-name: "rare-earth-track-search"
            - docker-build:
+               name: docker-build-admin
                changed: rare-earth-track-admin\/src
                module-name: rare-earth-track-admin
                requires:
@@ -116,14 +143,28 @@ workflows:
                    only:
                      - master
            - docker-build:
-               changed: rare-earth-track-admin\/src
-               module-name: rare-earth-track-admin
+               name: docker-build-portal
+               changed: rare-earth-track-portal\/src
+               module-name: rare-earth-track-portal
                requires:
                  - build-and-test-portal
                filters:
                  branches:
                    only:
                      - master
+           - docker-build:
+               name: docker-build-search
+               changed: rare-earth-track-search\/src
+               module-name: rare-earth-track-search
+               requires:
+                 - build-and-test-search
+               filters:
+                 branches:
+                   only:
+                     - master
+           - deploy:
+               requires:
+                 - /.*/
 
 
 

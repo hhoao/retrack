@@ -2,6 +2,7 @@ package com.rare_earth_track.search.service.impl;
 
 import com.rare_earth_track.search.bean.EsMaterial;
 import com.rare_earth_track.search.service.EsMaterialService;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,6 +23,8 @@ import static org.junit.jupiter.api.Assertions.*;
 class EsMaterialServiceImlTest {
     @Autowired
     EsMaterialService materialServiceIml;
+
+    @Disabled
     @Test
     void search() {
         Page<EsMaterial> ret = materialServiceIml.search("金属", PageRequest.of(0, 5));
