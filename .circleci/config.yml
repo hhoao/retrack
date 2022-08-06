@@ -11,6 +11,7 @@ commands:
       - run: |
           info=$(git diff --summary HEAD^ | sed -n  '/<< parameters.changed >>/p')
           if [ "${info}" ];
+          then
             circleci-agent step halt
           fi
     description: "判断git文件是否修改"
