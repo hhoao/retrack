@@ -10,7 +10,7 @@ commands:
     steps:
       - run: |
           info=$(git diff --summary HEAD^ | sed -n  '/<< parameters.changed >>/p')
-          if [ "${info}" ];
+          if [ ! "${info}" ];
           then
             circleci-agent step halt
           fi
@@ -39,7 +39,7 @@ jobs:
             - v1-admin-dependencies-{{ checksum "<< parameters.module-name >>/pom.xml" }}
       - run:
           name: Admin package
-          command: mvn -Dspring.profiles.active=test -Djasypt.encryptor.password=$JASYPT_PASSWORD \
+          command: mvn -Dspring.profiles.active=test -Djasypt.encryptor.password=$JASYPT_PASSWORD
             -pl '<< parameters.module-name >>, rare-earth-track-common, rare-earth-track-mgb, rare-earth-track-security' package
       - store_test_results:
           name: Admin store test report
