@@ -128,7 +128,7 @@ workflows:
                name: build-and-test-portal
                changed: 'rare-earth-track-portal\/src'
                module-name: "rare-earth-track-portal"
-           - build-and-search:
+           - build-and-test:
                name: build-and-test-search
                changed: 'rare-earth-track-search\/src'
                module-name: "rare-earth-track-search"
