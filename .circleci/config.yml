@@ -12,7 +12,12 @@ commands:
           name: git-pre-version
           at: .
       - run: |
-          info=$(git diff --summary HEAD^ | sed -n  '/<< parameters.changed >>/p')
+          if [ -f git-pre-version ];
+          then
+            info=$(git diff --summary $(cat git-pre-version)))
+          else
+            info=$(git diff --summary HEAD^ | sed -n  '/<< parameters.changed >>/p')
+          fi
           if [ ! "${info}" ];
           then
             circleci-agent step halt
