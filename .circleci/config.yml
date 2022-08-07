@@ -14,7 +14,7 @@ commands:
       - run: |
           if [ -f git-pre-version ];
           then
-            info=$(git diff --summary $(cat git-pre-version)))
+            info=$(git diff --summary $(cat git-pre-version))
           else
             info=$(git diff --summary HEAD^ | sed -n  '/<< parameters.changed >>/p')
           fi
