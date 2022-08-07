@@ -164,7 +164,9 @@ workflows:
                      - master
            - deploy:
                requires:
-                 - /.*/
+                 - docker-build-portal
+                 - docker-build-admin
+                 - docker-build-search
 
 
 
